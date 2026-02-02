@@ -4,7 +4,7 @@ package com.parser.sql;
  * Démonstration du parser SQL ANTLR.
  *
  * Cette classe montre comment utiliser le parser SQL pour:
- * - Valider des requêtes SQL
+ * - Valider des requêtes SQL SELECT
  * - Analyser et extraire des informations des requêtes
  * - Gérer les erreurs de parsing
  */
@@ -49,64 +49,74 @@ public class SQLParserDemo {
             """
         );
 
-        // Exemple 4: INSERT
+        // Exemple 4: SELECT avec DISTINCT
         demonstrateQuery(parserUtil, analyzer,
-            "INSERT",
-            "INSERT INTO users (name, email, created_at) VALUES ('John Doe', 'john@example.com', '2024-01-15')"
+            "SELECT DISTINCT",
+            "SELECT DISTINCT category FROM products ORDER BY category"
         );
 
-        // Exemple 5: UPDATE
+        // Exemple 5: SELECT avec plusieurs JOIN
         demonstrateQuery(parserUtil, analyzer,
-            "UPDATE",
-            "UPDATE products SET price = 29.99, updated_at = '2024-01-15' WHERE id = 123"
-        );
-
-        // Exemple 6: DELETE
-        demonstrateQuery(parserUtil, analyzer,
-            "DELETE",
-            "DELETE FROM logs WHERE created_at < '2023-01-01'"
-        );
-
-        // Exemple 7: CREATE TABLE
-        demonstrateQuery(parserUtil, analyzer,
-            "CREATE TABLE",
+            "SELECT avec plusieurs JOIN",
             """
-            CREATE TABLE IF NOT EXISTS orders (
-                id INT PRIMARY KEY AUTO_INCREMENT,
-                user_id INT NOT NULL,
-                total DECIMAL(10, 2) DEFAULT 0.00,
-                status VARCHAR(50) DEFAULT 'pending',
-                created_at TIMESTAMP,
-                FOREIGN KEY (user_id) REFERENCES users(id)
-            )
+            SELECT u.name, o.order_date, p.product_name, p.price
+            FROM users u
+            INNER JOIN orders o ON u.id = o.user_id
+            LEFT JOIN products p ON o.product_id = p.id
+            WHERE u.active = true AND o.total > 50
+            ORDER BY o.order_date DESC
             """
         );
 
-        // Exemple 8: DROP TABLE
-        demonstrateQuery(parserUtil, analyzer,
-            "DROP TABLE",
-            "DROP TABLE IF EXISTS temp_data"
-        );
-
-        // Exemple 9: Requête invalide
-        System.out.println("\n" + "─".repeat(60));
-        System.out.println("📛 Test de requête invalide:");
-        System.out.println("─".repeat(60));
-        String invalidQuery = "SELEC * FORM users";
-        System.out.println("SQL: " + invalidQuery);
-        SQLParserUtil.ParseResult result = parserUtil.parse(invalidQuery);
-        if (!result.isSuccess()) {
-            System.out.println("❌ Erreurs détectées:");
-            result.getErrors().forEach(e -> System.out.println("   • " + e));
-        }
-
-        // Exemple 10: Sous-requête IN
+        // Exemple 6: SELECT avec sous-requête IN
         demonstrateQuery(parserUtil, analyzer,
             "SELECT avec sous-requête IN",
             """
             SELECT * FROM products
             WHERE category_id IN (SELECT id FROM categories WHERE active = true)
             """
+        );
+
+        // Exemple 7: SELECT avec fonctions
+        demonstrateQuery(parserUtil, analyzer,
+            "SELECT avec fonctions",
+            """
+            SELECT
+                UPPER(name) as upper_name,
+                LOWER(email) as lower_email,
+                COALESCE(nickname, name) as display_name
+            FROM users
+            WHERE LENGTH(name) > 3
+            """
+        );
+
+        // Exemple 8: SELECT avec BETWEEN et LIKE
+        demonstrateQuery(parserUtil, analyzer,
+            "SELECT avec BETWEEN et LIKE",
+            """
+            SELECT * FROM products
+            WHERE price BETWEEN 10 AND 100
+            AND name LIKE '%phone%'
+            AND description IS NOT NULL
+            """
+        );
+
+        // Exemple 9: Requête invalide
+        System.out.println("\n" + "─".repeat(60));
+        System.out.println("Test de requête invalide:");
+        System.out.println("─".repeat(60));
+        String invalidQuery = "SELEC * FORM users";
+        System.out.println("SQL: " + invalidQuery);
+        SQLParserUtil.ParseResult result = parserUtil.parse(invalidQuery);
+        if (!result.isSuccess()) {
+            System.out.println("Erreurs détectées:");
+            result.getErrors().forEach(e -> System.out.println("   - " + e));
+        }
+
+        // Exemple 10: Multiple SELECT
+        demonstrateQuery(parserUtil, analyzer,
+            "Multiple SELECT",
+            "SELECT * FROM users; SELECT * FROM products"
         );
 
         System.out.println("\n" + "═".repeat(60));
@@ -118,7 +128,7 @@ public class SQLParserDemo {
                                           String title,
                                           String sql) {
         System.out.println("\n" + "─".repeat(60));
-        System.out.println("📋 " + title + ":");
+        System.out.println(title + ":");
         System.out.println("─".repeat(60));
 
         // Afficher la requête formatée
@@ -131,7 +141,7 @@ public class SQLParserDemo {
 
         // Valider
         boolean isValid = parserUtil.isValid(sql);
-        System.out.println("Valide: " + (isValid ? "✅ Oui" : "❌ Non"));
+        System.out.println("Valide: " + (isValid ? "Oui" : "Non"));
 
         if (isValid) {
             // Analyser

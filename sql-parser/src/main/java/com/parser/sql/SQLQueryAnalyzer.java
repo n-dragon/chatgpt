@@ -39,36 +39,6 @@ public class SQLQueryAnalyzer extends SQLBaseVisitor<Void> {
     }
 
     @Override
-    public Void visitInsertStatement(SQLParser.InsertStatementContext ctx) {
-        queryInfo.setStatementType(StatementType.INSERT);
-        return visitChildren(ctx);
-    }
-
-    @Override
-    public Void visitUpdateStatement(SQLParser.UpdateStatementContext ctx) {
-        queryInfo.setStatementType(StatementType.UPDATE);
-        return visitChildren(ctx);
-    }
-
-    @Override
-    public Void visitDeleteStatement(SQLParser.DeleteStatementContext ctx) {
-        queryInfo.setStatementType(StatementType.DELETE);
-        return visitChildren(ctx);
-    }
-
-    @Override
-    public Void visitCreateTableStatement(SQLParser.CreateTableStatementContext ctx) {
-        queryInfo.setStatementType(StatementType.CREATE_TABLE);
-        return visitChildren(ctx);
-    }
-
-    @Override
-    public Void visitDropTableStatement(SQLParser.DropTableStatementContext ctx) {
-        queryInfo.setStatementType(StatementType.DROP_TABLE);
-        return visitChildren(ctx);
-    }
-
-    @Override
     public Void visitTableName(SQLParser.TableNameContext ctx) {
         String tableName = ctx.getText();
         queryInfo.addTable(tableName);
@@ -144,7 +114,7 @@ public class SQLQueryAnalyzer extends SQLBaseVisitor<Void> {
      * Types de statements SQL supportés.
      */
     public enum StatementType {
-        SELECT, INSERT, UPDATE, DELETE, CREATE_TABLE, DROP_TABLE, UNKNOWN
+        SELECT, UNKNOWN
     }
 
     /**

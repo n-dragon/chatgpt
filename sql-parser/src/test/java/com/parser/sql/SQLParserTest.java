@@ -85,60 +85,12 @@ class SQLParserTest {
         assertTrue(parser.isValid("SELECT u.id, u.name FROM users AS u"));
     }
 
-    // ========== Tests INSERT ==========
-
     @Test
-    @DisplayName("INSERT est valide")
-    void testInsert() {
-        assertTrue(parser.isValid("INSERT INTO users VALUES (1, 'John', 'john@test.com')"));
-        assertTrue(parser.isValid("INSERT INTO users (name, email) VALUES ('John', 'john@test.com')"));
+    @DisplayName("SELECT avec sous-requête est valide")
+    void testSelectWithSubquery() {
         assertTrue(parser.isValid(
-            "INSERT INTO users (name) VALUES ('John'), ('Jane'), ('Bob')"
+            "SELECT * FROM products WHERE category_id IN (SELECT id FROM categories WHERE active = true)"
         ));
-    }
-
-    // ========== Tests UPDATE ==========
-
-    @Test
-    @DisplayName("UPDATE est valide")
-    void testUpdate() {
-        assertTrue(parser.isValid("UPDATE users SET name = 'John'"));
-        assertTrue(parser.isValid("UPDATE users SET name = 'John', email = 'john@test.com'"));
-        assertTrue(parser.isValid("UPDATE users SET name = 'John' WHERE id = 1"));
-    }
-
-    // ========== Tests DELETE ==========
-
-    @Test
-    @DisplayName("DELETE est valide")
-    void testDelete() {
-        assertTrue(parser.isValid("DELETE FROM users"));
-        assertTrue(parser.isValid("DELETE FROM users WHERE id = 1"));
-        assertTrue(parser.isValid("DELETE FROM users WHERE active = false AND created_at < '2020-01-01'"));
-    }
-
-    // ========== Tests CREATE TABLE ==========
-
-    @Test
-    @DisplayName("CREATE TABLE est valide")
-    void testCreateTable() {
-        assertTrue(parser.isValid("CREATE TABLE users (id INT, name VARCHAR(100))"));
-        assertTrue(parser.isValid("CREATE TABLE IF NOT EXISTS users (id INT PRIMARY KEY)"));
-        assertTrue(parser.isValid(
-            "CREATE TABLE users (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(100) NOT NULL)"
-        ));
-        assertTrue(parser.isValid(
-            "CREATE TABLE orders (id INT, user_id INT, FOREIGN KEY (user_id) REFERENCES users(id))"
-        ));
-    }
-
-    // ========== Tests DROP TABLE ==========
-
-    @Test
-    @DisplayName("DROP TABLE est valide")
-    void testDropTable() {
-        assertTrue(parser.isValid("DROP TABLE users"));
-        assertTrue(parser.isValid("DROP TABLE IF EXISTS users"));
     }
 
     // ========== Tests d'erreur ==========
@@ -149,7 +101,6 @@ class SQLParserTest {
         assertFalse(parser.isValid("SELEC * FROM users"));
         assertFalse(parser.isValid("SELECT * FORM users"));
         assertFalse(parser.isValid("SELECT FROM users"));
-        assertFalse(parser.isValid("INSERT users VALUES (1)"));
     }
 
     @Test
@@ -178,12 +129,6 @@ class SQLParserTest {
 
         assertEquals(SQLQueryAnalyzer.StatementType.SELECT,
             analyzer.analyze("SELECT * FROM users").getStatementType());
-        assertEquals(SQLQueryAnalyzer.StatementType.INSERT,
-            new SQLQueryAnalyzer().analyze("INSERT INTO users (name) VALUES ('test')").getStatementType());
-        assertEquals(SQLQueryAnalyzer.StatementType.UPDATE,
-            new SQLQueryAnalyzer().analyze("UPDATE users SET name = 'test'").getStatementType());
-        assertEquals(SQLQueryAnalyzer.StatementType.DELETE,
-            new SQLQueryAnalyzer().analyze("DELETE FROM users").getStatementType());
     }
 
     @Test
@@ -235,9 +180,8 @@ class SQLParserTest {
     // ========== Tests de multiples statements ==========
 
     @Test
-    @DisplayName("Multiple statements sont valides")
+    @DisplayName("Multiple SELECT statements sont valides")
     void testMultipleStatements() {
         assertTrue(parser.isValid("SELECT * FROM users; SELECT * FROM orders"));
-        assertTrue(parser.isValid("INSERT INTO logs (msg) VALUES ('test'); DELETE FROM logs WHERE id = 1"));
     }
 }

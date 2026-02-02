@@ -1,6 +1,6 @@
 /**
  * Grammaire ANTLR4 pour parser SQL
- * Supporte SELECT, INSERT, UPDATE, DELETE, CREATE TABLE, DROP TABLE
+ * Supporte SELECT uniquement
  */
 grammar SQL;
 
@@ -13,11 +13,6 @@ sql
 
 statement
     : selectStatement
-    | insertStatement
-    | updateStatement
-    | deleteStatement
-    | createTableStatement
-    | dropTableStatement
     ;
 
 // SELECT statement
@@ -83,92 +78,6 @@ orderByElement
 
 limitClause
     : LIMIT INTEGER (OFFSET INTEGER)?
-    ;
-
-// INSERT statement
-insertStatement
-    : INSERT INTO tableName columnList? VALUES valueList (COMMA valueList)*
-    ;
-
-columnList
-    : LPAREN columnName (COMMA columnName)* RPAREN
-    ;
-
-valueList
-    : LPAREN expression (COMMA expression)* RPAREN
-    ;
-
-// UPDATE statement
-updateStatement
-    : UPDATE tableName SET setClause (COMMA setClause)* whereClause?
-    ;
-
-setClause
-    : columnName EQUALS expression
-    ;
-
-// DELETE statement
-deleteStatement
-    : DELETE FROM tableName whereClause?
-    ;
-
-// CREATE TABLE statement
-createTableStatement
-    : CREATE TABLE ifNotExists? tableName LPAREN columnDefinition (COMMA columnDefinition)* (COMMA tableConstraint)* RPAREN
-    ;
-
-ifNotExists
-    : IF NOT EXISTS
-    ;
-
-columnDefinition
-    : columnName dataType columnConstraint*
-    ;
-
-dataType
-    : INT
-    | INTEGER
-    | BIGINT
-    | SMALLINT
-    | TINYINT
-    | FLOAT
-    | DOUBLE
-    | DECIMAL (LPAREN INTEGER (COMMA INTEGER)? RPAREN)?
-    | NUMERIC (LPAREN INTEGER (COMMA INTEGER)? RPAREN)?
-    | CHAR (LPAREN INTEGER RPAREN)?
-    | VARCHAR (LPAREN INTEGER RPAREN)?
-    | TEXT
-    | BLOB
-    | DATE
-    | TIME
-    | DATETIME
-    | TIMESTAMP
-    | BOOLEAN
-    ;
-
-columnConstraint
-    : PRIMARY KEY
-    | NOT NULL
-    | NULL
-    | UNIQUE
-    | DEFAULT expression
-    | AUTO_INCREMENT
-    | REFERENCES tableName (LPAREN columnName RPAREN)?
-    ;
-
-tableConstraint
-    : PRIMARY KEY LPAREN columnName (COMMA columnName)* RPAREN
-    | UNIQUE LPAREN columnName (COMMA columnName)* RPAREN
-    | FOREIGN KEY LPAREN columnName RPAREN REFERENCES tableName LPAREN columnName RPAREN
-    ;
-
-// DROP TABLE statement
-dropTableStatement
-    : DROP TABLE ifExists? tableName
-    ;
-
-ifExists
-    : IF EXISTS
     ;
 
 // Expressions
@@ -271,45 +180,7 @@ ASC         : A S C ;
 DESC        : D E S C ;
 LIMIT       : L I M I T ;
 OFFSET      : O F F S E T ;
-INSERT      : I N S E R T ;
-INTO        : I N T O ;
-VALUES      : V A L U E S ;
-UPDATE      : U P D A T E ;
-SET         : S E T ;
-DELETE      : D E L E T E ;
-CREATE      : C R E A T E ;
-TABLE       : T A B L E ;
-DROP        : D R O P ;
-IF          : I F ;
-EXISTS      : E X I S T S ;
-PRIMARY     : P R I M A R Y ;
-KEY         : K E Y ;
-FOREIGN     : F O R E I G N ;
-REFERENCES  : R E F E R E N C E S ;
-UNIQUE      : U N I Q U E ;
-DEFAULT     : D E F A U L T ;
-AUTO_INCREMENT : A U T O '_' I N C R E M E N T ;
 DISTINCT    : D I S T I N C T ;
-
-// Types de données
-INT         : I N T ;
-INTEGER     : I N T E G E R ;
-BIGINT      : B I G I N T ;
-SMALLINT    : S M A L L I N T ;
-TINYINT     : T I N Y I N T ;
-FLOAT       : F L O A T ;
-DOUBLE      : D O U B L E ;
-DECIMAL     : D E C I M A L ;
-NUMERIC     : N U M E R I C ;
-CHAR        : C H A R ;
-VARCHAR     : V A R C H A R ;
-TEXT        : T E X T ;
-BLOB        : B L O B ;
-DATE        : D A T E ;
-TIME        : T I M E ;
-DATETIME    : D A T E T I M E ;
-TIMESTAMP   : T I M E S T A M P ;
-BOOLEAN     : B O O L E A N ;
 
 // Fonctions
 COUNT       : C O U N T ;

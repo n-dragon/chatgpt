@@ -1,17 +1,12 @@
 # SQL Parser avec ANTLR4
 
-Un parser SQL complet généré avec ANTLR4 en Java. Ce projet permet de parser, valider et analyser des requêtes SQL.
+Un parser SQL généré avec ANTLR4 en Java. Ce projet permet de parser, valider et analyser des requêtes SQL SELECT.
 
 ## Fonctionnalités
 
 ### Requêtes supportées
 
 - **SELECT** : avec JOIN, WHERE, GROUP BY, HAVING, ORDER BY, LIMIT, sous-requêtes
-- **INSERT** : insertion simple et multiple
-- **UPDATE** : avec clause WHERE
-- **DELETE** : avec clause WHERE
-- **CREATE TABLE** : avec contraintes (PRIMARY KEY, FOREIGN KEY, NOT NULL, UNIQUE, etc.)
-- **DROP TABLE** : avec IF EXISTS
 
 ### Fonctions SQL supportées
 
@@ -172,6 +167,9 @@ mvn package
 ## Exemples de requêtes supportées
 
 ```sql
+-- SELECT simple
+SELECT * FROM users WHERE active = true;
+
 -- SELECT avec jointures
 SELECT u.name, o.order_date, p.product_name
 FROM users u
@@ -181,26 +179,23 @@ WHERE u.active = true AND o.total > 100
 ORDER BY o.order_date DESC
 LIMIT 50;
 
--- INSERT multiple
-INSERT INTO products (name, price, category)
-VALUES ('Product A', 29.99, 'Electronics'),
-       ('Product B', 49.99, 'Electronics');
-
--- CREATE TABLE avec contraintes
-CREATE TABLE IF NOT EXISTS orders (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT NOT NULL,
-    total DECIMAL(10, 2) DEFAULT 0.00,
-    status VARCHAR(50),
-    created_at TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id)
-);
+-- SELECT avec agrégation
+SELECT category, COUNT(*) as count, AVG(price) as avg_price
+FROM products
+GROUP BY category
+HAVING COUNT(*) > 5
+ORDER BY avg_price DESC;
 
 -- Sous-requête
 SELECT * FROM products
 WHERE category_id IN (
     SELECT id FROM categories WHERE active = true
 );
+
+-- SELECT avec fonctions
+SELECT UPPER(name), LOWER(email), COALESCE(nickname, name)
+FROM users
+WHERE LENGTH(name) > 3;
 ```
 
 ## Licence
