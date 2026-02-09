@@ -1,0 +1,21 @@
+timestamp,tables_utilisees,duree
+2026-01-01 01h01m12s,"users,orders",120
+2026-01-01 01h05m30s,"users,orders,payments",340
+2026-01-01 02h12m00s,"products,categories",45
+2026-01-01 02h14m22s,"products,categories,inventory",88
+2026-01-01 03h00m00s,"users,sessions",60
+2026-01-01 03h30m15s,"users,sessions,logs",150
+2026-01-01 04h10m00s,"orders,payments,invoices",500
+2026-01-01 04h22m33s,"orders,payments",210
+2026-01-01 05h00m00s,"products,inventory",55
+2026-01-01 05h15m10s,"products,categories,inventory",92
+2026-01-01 06h00m00s,"users,orders,payments,invoices",620
+2026-01-01 06h30m00s,"logs,sessions",30
+2026-01-01 07h00m00s,"users,sessions,logs",140
+2026-01-01 07h45m00s,"categories,products",50
+2026-01-01 08h00m00s,"orders,invoices",180
+2026-01-01 08h30m00s,"users,orders",115
+2026-01-01 09h00m00s,"payments,invoices",200
+2026-01-01 09h15m00s,"products,categories,inventory",95
+2026-01-01 10h00m00s,"users,sessions",65
+2026-01-01 10h30m00s,"orders,payments,invoices",480
