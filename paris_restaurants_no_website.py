@@ -20,7 +20,33 @@ API_KEY = os.environ.get("GOOGLE_MAPS_API_KEY")
 PLACES_SEARCH_URL = "https://maps.googleapis.com/maps/api/place/textsearch/json"
 PLACES_DETAIL_URL = "https://maps.googleapis.com/maps/api/place/details/json"
 
-DETAIL_FIELDS = "name,formatted_address,formatted_phone_number,website,url,rating,user_ratings_total,opening_hours"
+DETAIL_FIELDS = (
+    "name,"
+    "formatted_address,"
+    "formatted_phone_number,"
+    "website,"
+    "url,"
+    "rating,"
+    "user_ratings_total,"
+    "price_level,"
+    "types,"
+    "editorial_summary,"
+    "reviews,"
+    "opening_hours,"
+    "business_status,"
+    "serves_breakfast,"
+    "serves_brunch,"
+    "serves_lunch,"
+    "serves_dinner,"
+    "serves_beer,"
+    "serves_wine,"
+    "serves_vegetarian_food,"
+    "dine_in,"
+    "takeout,"
+    "delivery,"
+    "reservable,"
+    "wheelchair_accessible_entrance"
+)
 
 PARIS_ZONES = [
     "restaurants Paris 1er arrondissement",
@@ -110,14 +136,64 @@ def collect_restaurants(max_per_zone: int = 60) -> list[dict]:
                 if detail.get("website"):
                     continue  # a un site → on ignore
 
+                price_map = {0: "gratuit", 1: "€", 2: "€€", 3: "€€€", 4: "€€€€"}
+                price_level = detail.get("price_level")
+
+                # Avis clients : on garde le texte des 5 premiers avis
+                raw_reviews = detail.get("reviews") or []
+                customer_reviews = [
+                    {
+                        "author": r.get("author_name", ""),
+                        "rating": r.get("rating", ""),
+                        "text": r.get("text", ""),
+                        "time": r.get("relative_time_description", ""),
+                    }
+                    for r in raw_reviews
+                ]
+
+                # Résumé éditorial Google (disponible sur certains lieux)
+                editorial = detail.get("editorial_summary", {})
+
+                # Types Google → catégories lisibles
+                types = detail.get("types") or []
+                readable_types = [t.replace("_", " ") for t in types if t not in ("point_of_interest", "establishment", "food")]
+
+                # Horaires : liste des jours
+                opening = detail.get("opening_hours", {})
+                hours = opening.get("weekday_text", [])
+
                 restaurant = {
+                    # Identité
+                    "place_id": place_id,
                     "name": detail.get("name", place.get("name", "")),
                     "address": detail.get("formatted_address", place.get("formatted_address", "")),
                     "phone": detail.get("formatted_phone_number", ""),
                     "google_maps_url": detail.get("url", ""),
+                    "business_status": detail.get("business_status", ""),
+                    # Activité
+                    "categories": ", ".join(readable_types),
+                    "price_level": price_map.get(price_level, "") if price_level is not None else "",
+                    "description": editorial.get("overview", ""),
+                    # Services proposés
+                    "dine_in": detail.get("dine_in", ""),
+                    "takeout": detail.get("takeout", ""),
+                    "delivery": detail.get("delivery", ""),
+                    "reservable": detail.get("reservable", ""),
+                    "serves_breakfast": detail.get("serves_breakfast", ""),
+                    "serves_brunch": detail.get("serves_brunch", ""),
+                    "serves_lunch": detail.get("serves_lunch", ""),
+                    "serves_dinner": detail.get("serves_dinner", ""),
+                    "serves_beer": detail.get("serves_beer", ""),
+                    "serves_wine": detail.get("serves_wine", ""),
+                    "serves_vegetarian_food": detail.get("serves_vegetarian_food", ""),
+                    "wheelchair_accessible": detail.get("wheelchair_accessible_entrance", ""),
+                    # Note & avis
                     "rating": detail.get("rating", ""),
-                    "reviews": detail.get("user_ratings_total", ""),
-                    "place_id": place_id,
+                    "total_reviews": detail.get("user_ratings_total", ""),
+                    "customer_reviews": json.dumps(customer_reviews, ensure_ascii=False),
+                    # Horaires
+                    "opening_hours": " | ".join(hours),
+                    "open_now": opening.get("open_now", ""),
                 }
                 results.append(restaurant)
                 print(f"  [SANS SITE] {restaurant['name']} — {restaurant['address']}")
