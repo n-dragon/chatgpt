@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Vega — Brasserie Art Déco · Paris 12e</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Poiret+One&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --noir:#0e0e10;
+    --or:#c9a96a;
+    --or-clair:#e8d5a8;
+    --creme:#f3ecdf;
+    --bordeaux:#5a1a25;
+    --vert:#1f3a32;
+  }
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Montserrat',sans-serif;
+    background:var(--creme);
+    color:var(--noir);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:500;letter-spacing:.02em}
+  .deco-font{font-family:'Poiret One',sans-serif;letter-spacing:.3em}
+
+  /* ============ NAV ============ */
+  nav{
+    position:fixed;top:0;left:0;width:100%;z-index:100;
+    background:rgba(14,14,16,.92);backdrop-filter:blur(10px);
+    padding:1rem 2rem;border-bottom:1px solid var(--or);
+  }
+  nav ul{display:flex;justify-content:center;gap:2.5rem;list-style:none;flex-wrap:wrap}
+  nav a{
+    color:var(--or-clair);text-decoration:none;font-size:.78rem;
+    letter-spacing:.25em;text-transform:uppercase;font-weight:400;
+    transition:color .3s;
+  }
+  nav a:hover{color:var(--or)}
+
+  /* ============ HERO ============ */
+  .hero{
+    min-height:100vh;
+    background:
+      radial-gradient(ellipse at center, rgba(201,169,106,.08) 0%, transparent 60%),
+      linear-gradient(135deg,#0a0a0c 0%,#1a1a1f 50%,#0a0a0c 100%);
+    display:flex;align-items:center;justify-content:center;
+    position:relative;overflow:hidden;
+    padding:6rem 2rem 4rem;
+  }
+  .hero::before,.hero::after{
+    content:"";position:absolute;
+    width:60%;height:60%;
+    border:1px solid var(--or);
+    opacity:.25;
+    pointer-events:none;
+  }
+  .hero::before{top:4rem;left:3rem;border-right:none;border-bottom:none;max-width:400px;max-height:400px}
+  .hero::after{bottom:4rem;right:3rem;border-left:none;border-top:none;max-width:400px;max-height:400px}
+
+  .hero-content{
+    text-align:center;position:relative;z-index:2;
+    animation:fadeUp 1.4s ease-out;
+  }
+  .hero-eyebrow{
+    color:var(--or);font-size:.75rem;
+    margin-bottom:2rem;
+  }
+  .hero h1{
+    font-family:'Poiret One',sans-serif;
+    font-size:clamp(3.5rem,12vw,9rem);
+    color:var(--creme);
+    letter-spacing:.15em;
+    line-height:1;
+    margin-bottom:1.5rem;
+  }
+  .hero h1 span{color:var(--or)}
+  .hero-divider{
+    display:flex;align-items:center;justify-content:center;gap:1rem;
+    margin:2rem auto;
+  }
+  .hero-divider .line{width:80px;height:1px;background:var(--or)}
+  .hero-divider .diamond{
+    width:10px;height:10px;background:var(--or);
+    transform:rotate(45deg);
+  }
+  .hero p.subtitle{
+    color:var(--or-clair);
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(1.2rem,2.5vw,1.8rem);
+    font-style:italic;
+    margin-bottom:2.5rem;
+    max-width:600px;
+    margin-left:auto;margin-right:auto;
+  }
+  .hero-meta{
+    display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;
+    color:var(--or-clair);font-size:.8rem;letter-spacing:.2em;
+    text-transform:uppercase;margin-top:2rem;
+  }
+  .hero-meta span{padding:0 1rem;border-left:1px solid var(--or)}
+  .hero-meta span:first-child{border-left:none}
+
+  .btn{
+    display:inline-block;
+    padding:1rem 2.5rem;
+    border:1px solid var(--or);
+    color:var(--or);
+    text-decoration:none;
+    font-size:.8rem;
+    letter-spacing:.3em;
+    text-transform:uppercase;
+    background:transparent;
+    transition:all .4s ease;
+    cursor:pointer;
+    margin-top:1rem;
+  }
+  .btn:hover{background:var(--or);color:var(--noir)}
+  .btn-dark{border-color:var(--noir);color:var(--noir)}
+  .btn-dark:hover{background:var(--noir);color:var(--or)}
+
+  @keyframes fadeUp{
+    from{opacity:0;transform:translateY(30px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+
+  /* ============ SECTIONS ============ */
+  section{padding:6rem 2rem;position:relative}
+  .container{max-width:1200px;margin:0 auto}
+  .section-title{
+    text-align:center;margin-bottom:4rem;
+  }
+  .section-title .eyebrow{
+    color:var(--or);font-size:.75rem;letter-spacing:.4em;
+    text-transform:uppercase;margin-bottom:1rem;display:block;
+  }
+  .section-title h2{
+    font-size:clamp(2.5rem,5vw,4rem);
+    color:var(--noir);
+  }
+  .section-title .ornament{
+    display:flex;align-items:center;justify-content:center;gap:.8rem;
+    margin-top:1rem;
+  }
+  .section-title .ornament .line{width:60px;height:1px;background:var(--or)}
+  .section-title .ornament .diamond{width:8px;height:8px;background:var(--or);transform:rotate(45deg)}
+
+  /* ============ ABOUT ============ */
+  .about{background:var(--creme)}
+  .about-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;
+  }
+  .about-text p{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.25rem;margin-bottom:1.5rem;color:#2a2a2e;
+  }
+  .about-text p:first-of-type::first-letter{
+    font-size:4rem;float:left;line-height:.9;
+    color:var(--or);margin-right:.5rem;font-weight:600;
+  }
+  .about-visual{
+    background:linear-gradient(135deg,var(--noir) 0%,#1f1f24 100%);
+    aspect-ratio:4/5;
+    position:relative;
+    display:flex;align-items:center;justify-content:center;
+    border:1px solid var(--or);
+    padding:3rem;
+  }
+  .about-visual::before{
+    content:"";position:absolute;inset:15px;
+    border:1px solid rgba(201,169,106,.4);
+    pointer-events:none;
+  }
+  .about-visual-inner{text-align:center;color:var(--or-clair)}
+  .about-visual-inner .rating{
+    font-family:'Poiret One',sans-serif;
+    font-size:5rem;color:var(--or);line-height:1;
+  }
+  .about-visual-inner .stars{color:var(--or);font-size:1.4rem;letter-spacing:.3em;margin:.5rem 0}
+  .about-visual-inner small{font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;color:var(--or-clair)}
+  .about-visual-inner h3{
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-size:1.6rem;margin-top:2rem;color:var(--creme);
+  }
+
+  .services{
+    display:flex;flex-wrap:wrap;gap:1rem;margin-top:2rem;justify-content:center;
+  }
+  .services span{
+    padding:.5rem 1.2rem;border:1px solid var(--or);
+    font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--bordeaux);
+  }
+
+  /* ============ MENU ============ */
+  .menu{
+    background:linear-gradient(180deg,var(--noir) 0%,#15151a 100%);
+    color:var(--creme);
+    position:relative;
+  }
+  .menu .section-title h2{color:var(--creme)}
+  .menu-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:3rem;
+  }
+  .menu-cat{
+    background:rgba(201,169,106,.04);
+    border:1px solid rgba(201,169,106,.3);
+    padding:2.5rem 2rem;
+    position:relative;
+  }
+  .menu-cat::before{
+    content:"";position:absolute;top:-1px;left:30%;right:30%;
+    height:1px;background:var(--noir);
+  }
+  .menu-cat-header{text-align:center;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px dashed rgba(201,169,106,.3)}
+  .menu-cat-header .num{
+    font-family:'Poiret One',sans-serif;color:var(--or);
+    font-size:.75rem;letter-spacing:.3em;
+  }
+  .menu-cat-header h3{
+    font-family:'Cormorant Garamond',serif;
+    font-size:2rem;color:var(--creme);margin-top:.5rem;
+  }
+  .menu-item{margin-bottom:1.8rem}
+  .menu-item:last-child{margin-bottom:0}
+  .menu-item-top{
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin-bottom:.3rem;
+  }
+  .menu-item-name{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.25rem;color:var(--or-clair);font-weight:500;
+  }
+  .menu-item-dots{flex:1;border-bottom:1px dotted rgba(201,169,106,.4);margin:0 .3rem;transform:translateY(-4px)}
+  .menu-item-price{color:var(--or);font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;white-space:nowrap}
+  .menu-item-desc{
+    font-size:.8rem;color:#a8a89e;font-style:italic;
+    line-height:1.5;
+  }
+
+  /* ============ HORAIRES ============ */
+  .hours{background:var(--creme)}
+  .hours-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;
+    max-width:1000px;margin:0 auto;
+  }
+  .hours-list{list-style:none}
+  .hours-list li{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:1.2rem 0;
+    border-bottom:1px solid rgba(14,14,16,.1);
+    font-family:'Cormorant Garamond',serif;font-size:1.2rem;
+  }
+  .hours-list li.closed{opacity:.5}
+  .hours-list .day{text-transform:uppercase;letter-spacing:.2em;font-size:.75rem;font-family:'Montserrat',sans-serif;color:var(--bordeaux);font-weight:500}
+  .hours-list .time{color:var(--noir)}
+  .hours-visual{
+    text-align:center;padding:3rem;
+    border:1px solid var(--or);
+    background:rgba(255,255,255,.4);
+    position:relative;
+  }
+  .hours-visual::before{content:"";position:absolute;inset:10px;border:1px solid rgba(201,169,106,.4)}
+  .hours-visual-inner{position:relative;z-index:1}
+  .hours-visual h3{
+    font-family:'Poiret One',sans-serif;letter-spacing:.2em;
+    font-size:1rem;color:var(--bordeaux);margin-bottom:1rem;
+  }
+  .hours-visual p{
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-size:1.3rem;color:var(--noir);
+  }
+  .hours-visual .big{
+    font-family:'Poiret One',sans-serif;
+    font-size:3rem;color:var(--or);margin:1rem 0;letter-spacing:.05em;
+  }
+
+  /* ============ CONTACT ============ */
+  .contact{
+    background:linear-gradient(180deg,#15151a 0%,var(--noir) 100%);
+    color:var(--creme);
+    text-align:center;
+  }
+  .contact .section-title h2{color:var(--creme)}
+  .contact-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:3rem;
+    margin-bottom:3rem;
+  }
+  .contact-card{
+    padding:2rem 1rem;
+    border:1px solid rgba(201,169,106,.3);
+    transition:all .4s;
+  }
+  .contact-card:hover{border-color:var(--or);background:rgba(201,169,106,.04)}
+  .contact-card .icon{
+    font-family:'Poiret One',sans-serif;
+    font-size:2rem;color:var(--or);margin-bottom:1rem;
+    letter-spacing:.1em;
+  }
+  .contact-card h4{
+    font-size:.75rem;letter-spacing:.3em;text-transform:uppercase;
+    color:var(--or);margin-bottom:1rem;
+  }
+  .contact-card p,.contact-card a{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.2rem;color:var(--creme);
+    text-decoration:none;line-height:1.4;
+  }
+  .contact-card a:hover{color:var(--or)}
+
+  footer{
+    padding:2rem;text-align:center;
+    background:var(--noir);
+    border-top:1px solid var(--or);
+    color:var(--or-clair);
+    font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;
+  }
+  footer .deco-font{color:var(--or);margin-bottom:.5rem;display:block;font-size:1.2rem}
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width:768px){
+    nav ul{gap:1.2rem}
+    nav a{font-size:.65rem;letter-spacing:.15em}
+    .hero::before,.hero::after{display:none}
+    .about-grid,.menu-grid,.hours-grid,.contact-grid{grid-template-columns:1fr;gap:2.5rem}
+    section{padding:4rem 1.2rem}
+    .hero-meta span{border-left:none;padding:.3rem 0;width:100%;text-align:center}
+    .menu-cat{padding:2rem 1.5rem}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <ul>
+    <li><a href="#about">La Maison</a></li>
+    <li><a href="#menu">Carte</a></li>
+    <li><a href="#hours">Horaires</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow deco-font">— Brasserie · Paris 12 ᵉ —</div>
+    <h1>LA <span>VEGA</span></h1>
+    <div class="hero-divider">
+      <span class="line"></span>
+      <span class="diamond"></span>
+      <span class="line"></span>
+    </div>
+    <p class="subtitle">L'élégance des Années Folles, la générosité d'une cuisine de cœur.</p>
+    <div class="hero-meta">
+      <span>★ 4,8 / 5</span>
+      <span>Depuis Paris</span>
+      <span>Art Déco</span>
+    </div>
+    <div>
+      <a href="#menu" class="btn">Découvrir la carte</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">— La Maison —</span>
+      <h2>Une parenthèse dorée</h2>
+      <div class="ornament"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>Au cœur du 12ᵉ arrondissement, La Vega vous accueille dans un écrin chaleureux où les lignes graphiques de l'Art Déco rappellent l'âge d'or des grandes brasseries parisiennes. Velours profonds, dorures discrètes et lumières tamisées : un décor qui invite à s'attabler longtemps.</p>
+        <p>Notre cuisine, généreuse et savoureuse, célèbre les classiques réconfortants du répertoire français avec une touche de modernité. Une carte variée, des produits soigneusement choisis, et un service convivial qui fait toute la différence : à La Vega, on se sent comme à la maison.</p>
+        <div class="services">
+          <span>Sur place</span>
+          <span>À emporter</span>
+          <span>Réservation</span>
+          <span>Déjeuner & Dîner</span>
+          <span>Bière & Vin</span>
+          <span>Plats végétariens</span>
+        </div>
+      </div>
+      <div class="about-visual">
+        <div class="about-visual-inner">
+          <div class="rating">4,8</div>
+          <div class="stars">★ ★ ★ ★ ★</div>
+          <small>179 avis vérifiés</small>
+          <h3>« Un vrai coup de cœur »</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu" id="menu">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">— Notre Carte —</span>
+      <h2>Suggestions du Chef</h2>
+      <div class="ornament"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+    </div>
+    <div class="menu-grid">
+
+      <div class="menu-cat">
+        <div class="menu-cat-header">
+          <span class="num deco-font">— I —</span>
+          <h3>Entrées</h3>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="menu-item-name">Œuf parfait</span>
+            <span class="menu-item-dots"></span>
+            <span class="menu-item-price">14 €</span>
+          </div>
+          <div class="menu-item-desc">Crème de champignons, lard fumé, mouillettes</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="menu-item-name">Foie gras maison</span>
+            <span class="menu-item-dots"></span>
+            <span class="menu-item-price">18 €</span>
+          </div>
+          <div class="menu-item-desc">Chutney de figues, brioche toastée</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="menu-item-name">Tartare de bœuf</span>
+            <span class="menu-item-dots"></span>
+            <span class="menu-item-price">16 €</span>
+          </div>
+          <div class="menu-item-desc">Coupé au couteau, condiments, frites maison</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="menu-item-name">Velouté de potimarron</span>
+            <span class="menu-item-dots"></span>
+            <span class="menu-item-price">12 €</span>
+          </div>
+          <div class="menu-item-desc">Châtaignes grillées, huile de noisette</div>
+        </div>
+      </div>
+
+      <div class="menu-cat">
+        <div class="menu-cat-header">
+          <span class="num deco-font">— II —</span>
+          <h3>Plats</h3>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="menu-item-name">Entrecôte Black Angus</span>
+            <span class="menu-item-dots"></span>
+            <span class="menu-item-price">29 €</span>
+          </div>
+          <div class="menu-item-desc">Beurre maître d'hôtel, frites fraîches</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="menu-item-name">Suprême de volaille</span>
+            <span class="menu-item-dots"></span>
+            <span class="menu-item-price">24 €</span>
+          </div>
+          <div class="menu-item-desc">Jus corsé, écrasé de pommes de terre à l'huile de truffe</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="menu-item-name">Filet de cabillaud</span>
+            <span class="menu-item-dots"></span>
+            <span class="menu-item-price">26 €</span>
+          </div>
+          <div class="menu-item-desc">Risotto crémeux, émulsion citronnée</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="menu-item-name">Risotto végétarien</span>
+            <span class="menu-item-dots"></span>
+            <span class="menu-item-price">22 €</span>
+          </div>
+          <div class="menu-item-desc">Champignons de saison, parmesan affiné 24 mois</div>
+        </div>
+      </div>
+
+      <div class="menu-cat">
+        <div class="menu-cat-header">
+          <span class="num deco-font">— III —</span>
+          <h3>Desserts</h3>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="menu-item-name">Soufflé au Grand Marnier</span>
+            <span class="menu-item-dots"></span>
+            <span class="menu-item-price">12 €</span>
+          </div>
+          <div class="menu-item-desc">Servi tiède, à la commande</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="menu-item-name">Tarte Tatin</span>
+            <span class="menu-item-dots"></span>
+            <span class="menu-item-price">10 €</span>
+          </div>
+          <div class="menu-item-desc">Crème fraîche d'Isigny</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="menu-item-name">Profiteroles</span>
+            <span class="menu-item-dots"></span>
+            <span class="menu-item-price">11 €</span>
+          </div>
+          <div class="menu-item-desc">Glace vanille, chocolat chaud Valrhona</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="menu-item-name">Crème brûlée</span>
+            <span class="menu-item-dots"></span>
+            <span class="menu-item-price">9 €</span>
+          </div>
+          <div class="menu-item-desc">Vanille bourbon de Madagascar</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HORAIRES -->
+<section class="hours" id="hours">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">— À votre service —</span>
+      <h2>Horaires d'ouverture</h2>
+      <div class="ornament"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+    </div>
+    <div class="hours-grid">
+      <ul class="hours-list">
+        <li class="closed"><span class="day">Lundi</span><span class="time">Fermé</span></li>
+        <li><span class="day">Mardi</span><span class="time">12h00 – 14h30 · 19h00 – 22h30</span></li>
+        <li><span class="day">Mercredi</span><span class="time">12h00 – 14h30 · 19h00 – 22h30</span></li>
+        <li><span class="day">Jeudi</span><span class="time">12h00 – 14h30 · 19h00 – 22h30</span></li>
+        <li><span class="day">Vendredi</span><span class="time">12h00 – 14h30 · 19h00 – 22h30</span></li>
+        <li><span class="day">Samedi</span><span class="time">12h00 – 14h30 · 19h00 – 22h30</span></li>
+        <li class="closed"><span class="day">Dimanche</span><span class="time">Fermé</span></li>
+      </ul>
+      <div class="hours-visual">
+        <div class="hours-visual-inner">
+          <h3>Réservez votre table</h3>
+          <div class="big deco-font">5/7</div>
+          <p>Du mardi au samedi<br>Midi & Soir</p>
+          <a href="tel:+33186040300" class="btn btn-dark">01 86 04 03 00</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">— Nous trouver —</span>
+      <h2>Venez nous voir</h2>
+      <div class="ornament"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="icon deco-font">✦</div>
+        <h4>Adresse</h4>
+        <p>12 Rue Rottembourg<br>75012 Paris</p>
+      </div>
+      <div class="contact-card">
+        <div class="icon deco-font">✆</div>
+        <h4>Téléphone</h4>
+        <a href="tel:+33186040300">01 86 04 03 00</a>
+      </div>
+      <div class="contact-card">
+        <div class="icon deco-font">✉</div>
+        <h4>Métro</h4>
+        <p>Porte de Vincennes<br>Michel Bizot</p>
+      </div>
+    </div>
+    <a href="https://maps.google.com/?cid=11516939451136161998" target="_blank" rel="noopener" class="btn">Itinéraire ➝</a>
+  </div>
+</section>
+
+<footer>
+  <span class="deco-font">LA VEGA</span>
+  Brasserie Parisienne · Paris 12 ᵉ · © 2025
+</footer>
+
+</body>
+</html>

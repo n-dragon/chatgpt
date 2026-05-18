@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Riviera Fuga — Restaurant & Bar sur la Seine, Paris</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&family=Italianno&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bleu-seine: #1c3a52;
+    --bleu-nuit: #0d2032;
+    --or: #c9a961;
+    --or-clair: #e6cf91;
+    --ivoire: #f5efe4;
+    --sable: #e8dec7;
+    --texte: #2a2a2a;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--texte);
+    background: var(--ivoire);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+  h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 400; letter-spacing: 0.02em; }
+  .script { font-family: 'Italianno', cursive; color: var(--or); }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    background:
+      linear-gradient(180deg, rgba(13,32,50,0.55) 0%, rgba(13,32,50,0.75) 100%),
+      radial-gradient(ellipse at 30% 40%, #2b5475 0%, #0d2032 60%),
+      linear-gradient(135deg, #1c3a52, #0d2032);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ivoire);
+    overflow: hidden;
+    text-align: center;
+    padding: 2rem;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(transparent 95%, rgba(201,169,97,0.1) 95%),
+      linear-gradient(90deg, transparent 95%, rgba(201,169,97,0.08) 95%);
+    background-size: 60px 60px;
+    opacity: 0.4;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 200px;
+    background: linear-gradient(180deg, transparent, rgba(245,239,228,0.95));
+    pointer-events: none;
+    z-index: 1;
+  }
+  .wave {
+    position: absolute;
+    bottom: 0; left: 0; width: 200%;
+    height: 80px;
+    opacity: 0.15;
+    z-index: 0;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    animation: fadeUp 1.4s ease-out;
+  }
+  .hero-tag {
+    font-size: 0.85rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--or-clair);
+    margin-bottom: 2rem;
+    font-weight: 400;
+  }
+  .hero-tag::before, .hero-tag::after {
+    content: '—';
+    margin: 0 1rem;
+    color: var(--or);
+  }
+  .hero h1 {
+    font-size: clamp(3.5rem, 9vw, 7rem);
+    line-height: 1;
+    font-weight: 300;
+    margin-bottom: 1rem;
+    letter-spacing: 0.04em;
+  }
+  .hero .sub-script {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 2rem;
+    line-height: 1;
+  }
+  .hero p.lead {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+    font-style: italic;
+    color: var(--ivoire);
+    margin-bottom: 3rem;
+    font-weight: 300;
+  }
+  .rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.7rem 1.5rem;
+    border: 1px solid rgba(201,169,97,0.5);
+    border-radius: 50px;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    color: var(--or-clair);
+  }
+  .stars { color: var(--or); letter-spacing: 0.2em; }
+  .cta-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2.5rem;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    transition: all 0.4s ease;
+    border: 1px solid var(--or);
+    font-weight: 500;
+  }
+  .btn-primary {
+    background: var(--or);
+    color: var(--bleu-nuit);
+  }
+  .btn-primary:hover { background: transparent; color: var(--or); }
+  .btn-outline {
+    background: transparent;
+    color: var(--ivoire);
+    border-color: var(--ivoire);
+  }
+  .btn-outline:hover { background: var(--ivoire); color: var(--bleu-nuit); }
+
+  /* SECTIONS */
+  section { padding: 7rem 2rem; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .section-header { text-align: center; margin-bottom: 5rem; }
+  .section-header .script { font-size: 3rem; line-height: 0.8; display: block; margin-bottom: 0.5rem; }
+  .section-header h2 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: var(--bleu-nuit);
+    letter-spacing: 0.05em;
+  }
+  .section-header .ornament {
+    display: inline-block;
+    margin: 1.5rem 0;
+    color: var(--or);
+    letter-spacing: 0.5em;
+  }
+  .section-header p {
+    max-width: 600px;
+    margin: 0 auto;
+    color: #555;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-style: italic;
+  }
+
+  /* A PROPOS */
+  .apropos { background: var(--ivoire); position: relative; }
+  .apropos-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+  .apropos-text p {
+    margin-bottom: 1.5rem;
+    font-size: 1.05rem;
+    color: #444;
+  }
+  .apropos-text .lead-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-style: italic;
+    color: var(--bleu-seine);
+    line-height: 1.5;
+  }
+  .apropos-visual {
+    position: relative;
+    aspect-ratio: 4/5;
+    background:
+      linear-gradient(135deg, rgba(13,32,50,0.4), rgba(28,58,82,0.7)),
+      radial-gradient(circle at 70% 30%, #c9a961 0%, #1c3a52 50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ivoire);
+    overflow: hidden;
+  }
+  .apropos-visual::before {
+    content: '';
+    position: absolute;
+    inset: 20px;
+    border: 1px solid rgba(245,239,228,0.3);
+  }
+  .visual-content {
+    text-align: center;
+    z-index: 2;
+    padding: 2rem;
+  }
+  .visual-content .big-script {
+    font-family: 'Italianno', cursive;
+    font-size: clamp(4rem, 8vw, 7rem);
+    color: var(--or-clair);
+    line-height: 0.9;
+  }
+  .visual-content p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-top: 1rem;
+  }
+
+  .services {
+    margin-top: 4rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    text-align: center;
+  }
+  .service-item {
+    padding: 2rem 1rem;
+    border-top: 1px solid rgba(201,169,97,0.4);
+  }
+  .service-item .icon {
+    font-size: 1.8rem;
+    color: var(--or);
+    margin-bottom: 0.8rem;
+  }
+  .service-item h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    color: var(--bleu-nuit);
+    margin-bottom: 0.3rem;
+  }
+  .service-item p {
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #777;
+  }
+
+  /* MENU */
+  .menu {
+    background: var(--bleu-nuit);
+    color: var(--ivoire);
+    position: relative;
+  }
+  .menu .section-header h2 { color: var(--ivoire); }
+  .menu .section-header p { color: var(--sable); }
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4rem;
+  }
+  .menu-category {
+    position: relative;
+  }
+  .menu-category h3 {
+    font-size: 2.2rem;
+    color: var(--or-clair);
+    text-align: center;
+    margin-bottom: 0.3rem;
+  }
+  .menu-category .cat-sub {
+    text-align: center;
+    font-family: 'Italianno', cursive;
+    font-size: 1.8rem;
+    color: var(--or);
+    margin-bottom: 2.5rem;
+  }
+  .menu-item {
+    padding: 1.5rem 0;
+    border-bottom: 1px dashed rgba(201,169,97,0.25);
+  }
+  .menu-item:last-child { border-bottom: none; }
+  .menu-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 0.4rem;
+  }
+  .menu-item-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    color: var(--ivoire);
+    font-weight: 500;
+  }
+  .menu-item-price {
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--or);
+    font-size: 1.2rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .menu-item-desc {
+    font-size: 0.85rem;
+    color: var(--sable);
+    line-height: 1.5;
+    font-style: italic;
+    opacity: 0.85;
+  }
+  .menu-note {
+    text-align: center;
+    margin-top: 5rem;
+    padding-top: 3rem;
+    border-top: 1px solid rgba(201,169,97,0.2);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--sable);
+    font-size: 1.1rem;
+  }
+
+  /* HORAIRES */
+  .horaires { background: var(--ivoire); }
+  .horaires-wrapper {
+    max-width: 700px;
+    margin: 0 auto;
+    background: white;
+    padding: 4rem 3rem;
+    box-shadow: 0 20px 60px rgba(13,32,50,0.08);
+    border: 1px solid rgba(201,169,97,0.3);
+    position: relative;
+  }
+  .horaires-wrapper::before, .horaires-wrapper::after {
+    content: '';
+    position: absolute;
+    width: 30px; height: 30px;
+    border: 1px solid var(--or);
+  }
+  .horaires-wrapper::before { top: 15px; left: 15px; border-right: none; border-bottom: none; }
+  .horaires-wrapper::after { bottom: 15px; right: 15px; border-left: none; border-top: none; }
+  .horaires-list { list-style: none; }
+  .horaires-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.1rem 0;
+    border-bottom: 1px dotted rgba(28,58,82,0.2);
+    font-size: 1.05rem;
+  }
+  .horaires-list li:last-child { border-bottom: none; }
+  .horaires-list .jour {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    color: var(--bleu-nuit);
+    text-transform: capitalize;
+  }
+  .horaires-list .heures {
+    color: var(--or);
+    font-weight: 500;
+    letter-spacing: 0.1em;
+  }
+  .open-badge {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 0.5rem 1.5rem;
+    background: rgba(201,169,97,0.15);
+    color: var(--bleu-nuit);
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border-left: 2px solid var(--or);
+  }
+
+  /* CONTACT */
+  .contact {
+    background: linear-gradient(135deg, var(--bleu-seine), var(--bleu-nuit));
+    color: var(--ivoire);
+  }
+  .contact .section-header h2 { color: var(--ivoire); }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+    text-align: center;
+  }
+  .contact-card {
+    padding: 2.5rem 1.5rem;
+    border: 1px solid rgba(201,169,97,0.3);
+    transition: all 0.4s ease;
+  }
+  .contact-card:hover {
+    background: rgba(201,169,97,0.08);
+    transform: translateY(-5px);
+  }
+  .contact-card .icon-circle {
+    width: 60px; height: 60px;
+    border: 1px solid var(--or);
+    border-radius: 50%;
+    margin: 0 auto 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: var(--or);
+  }
+  .contact-card h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    color: var(--or-clair);
+    margin-bottom: 1rem;
+    letter-spacing: 0.1em;
+  }
+  .contact-card p, .contact-card a {
+    color: var(--ivoire);
+    text-decoration: none;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+  .contact-card a:hover { color: var(--or); }
+  .contact-cta {
+    text-align: center;
+    margin-top: 4rem;
+  }
+
+  /* FOOTER */
+  footer {
+    background: #050f1a;
+    color: var(--sable);
+    text-align: center;
+    padding: 3rem 2rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+  }
+  footer .script { font-size: 2.2rem; line-height: 1; display: block; margin-bottom: 0.5rem; }
+  footer p { margin: 0.3rem 0; opacity: 0.7; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes wave {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  @media (max-width: 768px) {
+    section { padding: 5rem 1.5rem; }
+    .apropos-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .services { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .menu-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .contact-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .horaires-wrapper { padding: 2.5rem 1.5rem; }
+    .horaires-list .jour { font-size: 1.15rem; }
+    .horaires-list .heures { font-size: 0.9rem; }
+    .hero-tag::before, .hero-tag::after { margin: 0 0.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <svg class="wave" viewBox="0 0 1200 80" preserveAspectRatio="none">
+    <path d="M0,40 C150,80 300,0 600,40 C900,80 1050,0 1200,40 L1200,80 L0,80 Z" fill="#c9a961"/>
+  </svg>
+  <div class="hero-content">
+    <div class="hero-tag">Paris · Sur la Seine</div>
+    <h1>Riviera Fuga</h1>
+    <div class="sub-script script">une évasion sur l'eau</div>
+    <p class="lead">Une péniche d'exception au pied du Grand Palais.<br>Cuisine entre Italie et Japon, vue imprenable sur Paris.</p>
+    <div class="rating">
+      <span class="stars">★★★★★</span>
+      <span>4.8 / 5 — 9 660 AVIS</span>
+    </div>
+    <div class="cta-group">
+      <a href="#contact" class="btn btn-primary">Réserver une table</a>
+      <a href="#menu" class="btn btn-outline">Découvrir la carte</a>
+    </div>
+  </div>
+</section>
+
+<!-- A PROPOS -->
+<section class="apropos" id="apropos">
+  <div class="container">
+    <div class="section-header">
+      <span class="script">Notre Histoire</span>
+      <h2>L'Art de Vivre Parisien</h2>
+      <div class="ornament">✦ ✦ ✦</div>
+      <p>Une adresse confidentielle où la Seine devient salle à manger</p>
+    </div>
+
+    <div class="apropos-grid">
+      <div class="apropos-text">
+        <p class="lead-text">« Riviera Fuga est une véritable pépite. Dès l'arrivée, on est transporté par ce cadre idyllique sur l'eau qui offre une vue imprenable sur Paris. »</p>
+        <p>Amarrée au Port des Invalides, notre péniche vous invite à une parenthèse hors du temps, bercée par les reflets du fleuve et la silhouette majestueuse du Grand Palais. Le décor est planté pour une expérience gastronomique singulière.</p>
+        <p>Notre cuisine, audacieuse et raffinée, tisse un dialogue subtil entre la <em>dolce vita</em> italienne et la précision japonaise. Des produits d'exception, une carte des vins ciselée, un service attentif : tout est pensé pour faire de votre venue un instant suspendu.</p>
+        <p>Du déjeuner d'affaires au dîner romantique, du brunch dominical au verre tardif au bar, Riviera Fuga est une invitation permanente au voyage.</p>
+      </div>
+      <div class="apropos-visual">
+        <div class="visual-content">
+          <div class="big-script">Riviera</div>
+          <p>Sur la Seine</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="services">
+      <div class="service-item">
+        <div class="icon">⚓</div>
+        <h4>Sur la Seine</h4>
+        <p>Péniche d'exception</p>
+      </div>
+      <div class="service-item">
+        <div class="icon">🍷</div>
+        <h4>Cave & Bar</h4>
+        <p>Vins, bières, cocktails</p>
+      </div>
+      <div class="service-item">
+        <div class="icon">€€€</div>
+        <h4>Gastronomique</h4>
+        <p>Cuisine raffinée</p>
+      </div>
+      <div class="service-item">
+        <div class="icon">✦</div>
+        <h4>Sur Réservation</h4>
+        <p>Midi, soir & tard</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu" id="menu">
+  <div class="container">
+    <div class="section-header">
+      <span class="script">À la Carte</span>
+      <h2>Menu Suggéré</h2>
+      <div class="ornament">✦ ✦ ✦</div>
+      <p>Une rencontre entre la Méditerranée et l'archipel japonais, servie au fil de l'eau</p>
+    </div>
+
+    <div class="menu-grid">
+      <!-- ENTRÉES -->
+      <div class="menu-category">
+        <h3>Antipasti</h3>
+        <div class="cat-sub">les commencements</div>
+
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <span class="menu-item-name">Carpaccio de daurade</span>
+            <span class="menu-item-price">24 €</span>
+          </div>
+          <p class="menu-item-desc">Yuzu, huile d'olive de Sicile, fleur de sel de Camargue</p>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <span class="menu-item-name">Burrata des Pouilles & Tataki</span>
+            <span class="menu-item-price">22 €</span>
+          </div>
+          <p class="menu-item-desc">Thon rouge mi-cuit, tomates anciennes, basilic frais</p>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <span class="menu-item-name">Tartare de saumon nikkei</span>
+            <span class="menu-item-price">26 €</span>
+          </div>
+          <p class="menu-item-desc">Avocat, sésame noir, vinaigrette ponzu-citron vert</p>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <span class="menu-item-name">Gyozas truffe & ricotta</span>
+            <span class="menu-item-price">19 €</span>
+          </div>
+          <p class="menu-item-desc">Raviolis croustillants, bouillon dashi parfumé</p>
+        </div>
+      </div>
+
+      <!-- PLATS -->
+      <div class="menu-category">
+        <h3>Piatti</h3>
+        <div class="cat-sub">la signature</div>
+
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <span class="menu-item-name">Risotto au safran & langoustines</span>
+            <span class="menu-item-price">38 €</span>
+          </div>
+          <p class="menu-item-desc">Riz Carnaroli, bisque crémeuse, zeste de yuzu</p>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <span class="menu-item-name">Black cod miso</span>
+            <span class="menu-item-price">42 €</span>
+          </div>
+          <p class="menu-item-desc">Cabillaud noir laqué, pak choï, riz vinaigré</p>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <span class="menu-item-name">Tagliatelles fraîches au homard</span>
+            <span class="menu-item-price">45 €</span>
+          </div>
+          <p class="menu-item-desc">Beurre de yuzu, basilic thaï, tomate confite</p>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <span class="menu-item-name">Fondue Riviera signature</span>
+            <span class="menu-item-price">36 €</span>
+          </div>
+          <p class="menu-item-desc">Fromages affinés, truffe noire, pain de campagne grillé</p>
+        </div>
+      </div>
+
+      <!-- DESSERTS -->
+      <div class="menu-category">
+        <h3>Dolci</h3>
+        <div class="cat-sub">l'épilogue</div>
+
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <span class="menu-item-name">Tiramisu matcha</span>
+            <span class="menu-item-price">14 €</span>
+          </div>
+          <p class="menu-item-desc">Mascarpone vanille, biscuit imbibé au thé vert cérémoniel</p>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <span class="menu-item-name">Mochi glacé yuzu-framboise</span>
+            <span class="menu-item-price">12 €</span>
+          </div>
+          <p class="menu-item-desc">Pâte de riz soyeuse, sorbet maison</p>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <span class="menu-item-name">Panna cotta sésame noir</span>
+            <span class="menu-item-price">13 €</span>
+          </div>
+          <p class="menu-item-desc">Coulis de fruits rouges, tuile croustillante</p>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <span class="menu-item-name">Plateau de fromages affinés</span>
+            <span class="menu-item-price">18 €</span>
+          </div>
+          <p class="menu-item-desc">Sélection italo-française, confiture de figues, noix</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-note">
+      « Menu déjeuner à 35 € — un excellent rapport qualité-prix dans le quartier »
+    </div>
+  </div>
+</section>
+
+<!-- HORAIRES -->
+<section class="horaires" id="horaires">
+  <div class="container">
+    <div class="section-header">
+      <span class="script">Nos Horaires</span>
+      <h2>Quand Nous Rejoindre</h2>
+      <div class="ornament">✦ ✦ ✦</div>
+      <p>Ouverts sept jours sur sept, du déjeuner aux dernières heures de la nuit</p>
+    </div>
+
+    <div class="horaires-wrapper">
+      <ul class="horaires-list">
+        <li><span class="jour">Lundi</span><span class="heures">12:00 — 01:00</span></li>
+        <li><span class="jour">Mardi</span><span class="heures">12:00 — 01:00</span></li>
+        <li><span class="jour">Mercredi</span><span class="heures">12:00 — 01:00</span></li>
+        <li><span class="jour">Jeudi</span><span class="heures">12:00 — 01:00</span></li>
+        <li><span class="jour">Vendredi</span><span class="heures">12:00 — 01:00</span></li>
+        <li><span class="jour">Samedi</span><span class="heures">12:00 — 01:00</span></li>
+        <li><span class="jour">Dimanche</span><span class="heures">12:00 — 01:00</span></li>
+      </ul>
+      <div style="text-align:center;">
+        <div class="open-badge">Service : déjeuner · dîner · bar tardif</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="section-header">
+      <span class="script">Nous Trouver</span>
+      <h2>Réservation & Contact</h2>
+      <div class="ornament">✦ ✦ ✦</div>
+      <p>Une réservation est vivement recommandée pour profiter pleinement de l'expérience</p>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="icon-circle">📍</div>
+        <h4>Adresse</h4>
+        <p>10 Port des Invalides<br>75007 Paris, France</p>
+      </div>
+      <div class="contact-card">
+        <div class="icon-circle">☎</div>
+        <h4>Téléphone</h4>
+        <p><a href="tel:+33661058780">06 61 05 87 80</a></p>
+      </div>
+      <div class="contact-card">
+        <div class="icon-circle">✦</div>
+        <h4>Sur place</h4>
+        <p>Péniche amarrée<br>Face au Grand Palais</p>
+      </div>
+    </div>
+
+    <div class="contact-cta">
+      <a href="https://maps.google.com/?cid=11659637650404375573" target="_blank" rel="noopener" class="btn btn-primary">Obtenir l'itinéraire</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="script">Riviera Fuga</span>
+  <p>10 Port des Invalides · 75007 Paris · 06 61 05 87 80</p>
+  <p>© 2024 Riviera Fuga — Une évasion sur la Seine. Tous droits réservés.</p>
+</footer>
+
+</body>
+</html>

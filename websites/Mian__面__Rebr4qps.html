@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mian 面 — Nouilles & Raviolis · Paris 9e</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Inter:wght@300;400;500;700&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --rouge: #c8102e;
+    --rouge-fonce: #8b0000;
+    --noir: #1a1a1a;
+    --creme: #f8f3e8;
+    --or: #d4a437;
+    --encre: #2b2b2b;
+  }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--creme);
+    color: var(--encre);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  h1, h2, h3 { font-family: 'Noto Serif SC', serif; }
+  .cn { font-family: 'ZCOOL QingKe HuangYou', cursive; }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(212,164,55,0.15), transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(200,16,46,0.2), transparent 50%),
+      linear-gradient(135deg, #1a1a1a 0%, #2b1010 60%, #8b0000 100%);
+    color: var(--creme);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "面";
+    position: absolute;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 70vw;
+    color: rgba(200,16,46,0.08);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 900;
+    z-index: 0;
+    line-height: 1;
+  }
+  .steam {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0; left: 0;
+    background: radial-gradient(ellipse at 50% 100%, rgba(248,243,232,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-content { position: relative; z-index: 2; padding: 40px 20px; }
+  .hero .stamp {
+    display: inline-block;
+    border: 2px solid var(--or);
+    color: var(--or);
+    padding: 6px 18px;
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
+  .hero h1 {
+    font-size: clamp(4rem, 14vw, 11rem);
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -2px;
+    color: var(--creme);
+  }
+  .hero h1 .red { color: var(--rouge); }
+  .hero .chinese {
+    font-size: clamp(2rem, 6vw, 4rem);
+    color: var(--or);
+    margin-top: 10px;
+    letter-spacing: 20px;
+    padding-left: 20px;
+  }
+  .hero p.subtitle {
+    font-size: clamp(1rem, 1.8vw, 1.3rem);
+    margin: 30px auto;
+    max-width: 600px;
+    font-weight: 300;
+    color: #e8dfc8;
+  }
+  .hero .rating {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    margin-top: 40px;
+    flex-wrap: wrap;
+  }
+  .rating div { font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; color: #c8a87a; }
+  .rating strong { display: block; font-size: 1.8rem; color: var(--or); font-family: 'Noto Serif SC'; }
+  .scroll-hint {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--or);
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    animation: bounce 2s infinite;
+  }
+  @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0);} 50%{transform:translateX(-50%) translateY(10px);} }
+
+  /* SECTIONS */
+  section { padding: 100px 8%; position: relative; }
+  .section-title {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  .section-title .cn {
+    font-size: 3rem;
+    color: var(--rouge);
+    display: block;
+    line-height: 1;
+  }
+  .section-title h2 {
+    font-size: 2.5rem;
+    color: var(--noir);
+    margin-top: 10px;
+    letter-spacing: 2px;
+  }
+  .section-title .bar {
+    width: 60px;
+    height: 3px;
+    background: var(--or);
+    margin: 20px auto;
+  }
+
+  /* À PROPOS */
+  .about { background: var(--creme); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .about-text p { margin-bottom: 18px; font-size: 1.05rem; color: #444; }
+  .about-text .lead { font-size: 1.3rem; color: var(--rouge-fonce); font-family: 'Noto Serif SC'; font-weight: 700; }
+  .about-visual {
+    aspect-ratio: 1;
+    background:
+      radial-gradient(circle at 30% 30%, var(--rouge) 0%, var(--rouge-fonce) 70%);
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 20px 60px rgba(139,0,0,0.3);
+  }
+  .about-visual::before {
+    content: "";
+    position: absolute;
+    inset: 15px;
+    border: 2px dashed rgba(212,164,55,0.5);
+    border-radius: 50%;
+    animation: spin 40s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .about-visual span {
+    font-family: 'Noto Serif SC';
+    font-size: 12rem;
+    color: var(--or);
+    font-weight: 900;
+    text-shadow: 0 5px 30px rgba(0,0,0,0.3);
+  }
+  .services {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 30px;
+  }
+  .services span {
+    padding: 8px 16px;
+    background: white;
+    border: 1px solid var(--rouge);
+    color: var(--rouge);
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  /* MENU */
+  .menu {
+    background: var(--noir);
+    color: var(--creme);
+    position: relative;
+  }
+  .menu::before {
+    content: "菜单";
+    position: absolute;
+    top: 40px;
+    right: 8%;
+    font-family: 'Noto Serif SC';
+    font-size: 8rem;
+    color: rgba(200,16,46,0.1);
+    font-weight: 900;
+  }
+  .menu .section-title h2 { color: var(--creme); }
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 50px;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+  .menu-cat h3 {
+    font-size: 1.5rem;
+    color: var(--or);
+    border-bottom: 1px solid rgba(212,164,55,0.3);
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .menu-cat h3 .cn { font-size: 1.6rem; color: var(--rouge); }
+  .menu-item {
+    margin-bottom: 22px;
+    padding-bottom: 22px;
+    border-bottom: 1px dotted rgba(255,255,255,0.1);
+  }
+  .menu-item:last-child { border-bottom: none; }
+  .menu-item .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+  .menu-item .name {
+    font-family: 'Noto Serif SC';
+    font-size: 1.1rem;
+    color: var(--creme);
+    font-weight: 700;
+  }
+  .menu-item .price {
+    color: var(--or);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .menu-item .desc {
+    font-size: 0.88rem;
+    color: #aaa;
+    font-weight: 300;
+  }
+
+  /* HORAIRES */
+  .hours { background: var(--creme); }
+  .hours-list {
+    max-width: 600px;
+    margin: 0 auto;
+    background: white;
+    padding: 40px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    border-top: 4px solid var(--rouge);
+  }
+  .hours-list .row {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 1rem;
+  }
+  .hours-list .row:last-child { border-bottom: none; }
+  .hours-list .day { font-weight: 700; color: var(--noir); text-transform: capitalize; }
+  .hours-list .time { color: #555; font-family: 'Inter'; }
+  .hours-list .row.closed .time { color: var(--rouge); font-style: italic; }
+
+  /* CONTACT */
+  .contact {
+    background: linear-gradient(135deg, #8b0000 0%, #1a1a1a 100%);
+    color: var(--creme);
+    text-align: center;
+  }
+  .contact .section-title h2 { color: var(--creme); }
+  .contact-info {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .contact-info p { font-size: 1.1rem; margin: 15px 0; }
+  .contact-info .phone {
+    font-family: 'Noto Serif SC';
+    font-size: 2rem;
+    color: var(--or);
+    margin: 25px 0;
+    font-weight: 700;
+  }
+  .btn-map {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 18px 50px;
+    background: var(--or);
+    color: var(--noir);
+    text-decoration: none;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+    border: 2px solid var(--or);
+  }
+  .btn-map:hover {
+    background: transparent;
+    color: var(--or);
+    transform: translateY(-3px);
+  }
+
+  /* FOOTER */
+  footer {
+    background: #0a0a0a;
+    color: #666;
+    text-align: center;
+    padding: 30px;
+    font-size: 0.85rem;
+  }
+  footer .cn { color: var(--rouge); font-size: 1.5rem; margin-bottom: 10px; display: block; }
+
+  @media (max-width: 768px) {
+    section { padding: 60px 6%; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .about-visual span { font-size: 7rem; }
+    .menu-grid { grid-template-columns: 1fr; gap: 40px; }
+    .hero .chinese { letter-spacing: 10px; padding-left: 10px; }
+    .hours-list { padding: 25px; }
+    .hero .rating { gap: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="steam"></div>
+  <div class="hero-content">
+    <div class="stamp">Paris · 9ème</div>
+    <h1>Mi<span class="red">a</span>n</h1>
+    <div class="chinese">面 屋</div>
+    <p class="subtitle">Nouilles fraîches, raviolis maison & saveurs du Sichuan au cœur de Notre-Dame-de-Lorette.</p>
+    <div class="rating">
+      <div>Note Google<strong>4.9 ★</strong></div>
+      <div>Avis<strong>357</strong></div>
+      <div>Depuis<strong>面</strong></div>
+    </div>
+  </div>
+  <div class="scroll-hint">↓ DÉCOUVRIR</div>
+</section>
+
+<!-- À PROPOS -->
+<section class="about">
+  <div class="section-title">
+    <span class="cn">关于我们</span>
+    <h2>L'ESPRIT MIAN</h2>
+    <div class="bar"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p class="lead">面 — « miàn » — c'est la nouille. Et chez nous, c'est une religion.</p>
+      <p>Niché rue Notre-Dame-de-Lorette, Mian est une cantine chinoise chaleureuse où l'on vient pour la générosité des bouillons, le craquant des raviolis poêlés et la chaleur d'un thé gingembre-miel qui réchauffe l'âme.</p>
+      <p>Cuisine sincère, accueil souriant, parfums du Sichuan : on s'assoit pour une soupe, on repart conquis. Sur place, à emporter ou en livraison — l'authenticité voyage bien.</p>
+      <div class="services">
+        <span>Sur place</span>
+        <span>À emporter</span>
+        <span>Livraison</span>
+        <span>Réservation</span>
+        <span>Déjeuner & Dîner</span>
+        <span>Bière · Vin</span>
+      </div>
+    </div>
+    <div class="about-visual">
+      <span>面</span>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu">
+  <div class="section-title">
+    <span class="cn">菜单</span>
+    <h2>LA CARTE</h2>
+    <div class="bar"></div>
+  </div>
+  <div class="menu-grid">
+
+    <div class="menu-cat">
+      <h3>Entrées <span class="cn">前菜</span></h3>
+      <div class="menu-item">
+        <div class="top"><span class="name">Raviolis sauce Sichuanaise</span><span class="price">8,50 €</span></div>
+        <div class="desc">Six raviolis vapeur, huile pimentée, vinaigre noir, sésame</div>
+      </div>
+      <div class="menu-item">
+        <div class="top"><span class="name">Gyozas poêlés au porc</span><span class="price">7,90 €</span></div>
+        <div class="desc">Six pièces croustillantes, sauce soja-gingembre</div>
+      </div>
+      <div class="menu-item">
+        <div class="top"><span class="name">Bao bun au porc laqué</span><span class="price">6,50 €</span></div>
+        <div class="desc">Pain vapeur moelleux, porc braisé, concombre, cébette</div>
+      </div>
+      <div class="menu-item">
+        <div class="top"><span class="name">Nems croustillants (4)</span><span class="price">6,90 €</span></div>
+        <div class="desc">Porc, vermicelles, champignons noirs, menthe fraîche</div>
+      </div>
+    </div>
+
+    <div class="menu-cat">
+      <h3>Soupes & Plats <span class="cn">面汤</span></h3>
+      <div class="menu-item">
+        <div class="top"><span class="name">Soupe de nouilles au bœuf braisé</span><span class="price">15,90 €</span></div>
+        <div class="desc">Bouillon longuement mijoté, bœuf fondant, pak choï</div>
+      </div>
+      <div class="menu-item">
+        <div class="top"><span class="name">Nouilles au porc haché épicé</span><span class="price">13,90 €</span></div>
+        <div class="desc">Style Dan Dan, cacahuètes concassées, huile au Sichuan</div>
+      </div>
+      <div class="menu-item">
+        <div class="top"><span class="name">Soupe poulet pané croustillant</span><span class="price">14,50 €</span></div>
+        <div class="desc">Poulet doré, bouillon clair parfumé, nouilles fraîches</div>
+      </div>
+      <div class="menu-item">
+        <div class="top"><span class="name">Nouilles sautées aux légumes</span><span class="price">12,50 €</span></div>
+        <div class="desc">Wok de saison, sauce maison, graines de sésame</div>
+      </div>
+    </div>
+
+    <div class="menu-cat">
+      <h3>Desserts & Thés <span class="cn">甜点</span></h3>
+      <div class="menu-item">
+        <div class="top"><span class="name">Perles de coco</span><span class="price">5,50 €</span></div>
+        <div class="desc">Boules de riz gluant fourrées à la pâte de haricot rouge</div>
+      </div>
+      <div class="menu-item">
+        <div class="top"><span class="name">Mochi glacé (3 pièces)</span><span class="price">6,00 €</span></div>
+        <div class="desc">Thé matcha, mangue, sésame noir</div>
+      </div>
+      <div class="menu-item">
+        <div class="top"><span class="name">Thé gingembre & miel ★</span><span class="price">4,50 €</span></div>
+        <div class="desc">Le must-try maison, infusion fraîche et apaisante</div>
+      </div>
+      <div class="menu-item">
+        <div class="top"><span class="name">Thé jasmin / Oolong</span><span class="price">3,80 €</span></div>
+        <div class="desc">Théière en fonte, à partager</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- HORAIRES -->
+<section class="hours">
+  <div class="section-title">
+    <span class="cn">营业时间</span>
+    <h2>HORAIRES</h2>
+    <div class="bar"></div>
+  </div>
+  <div class="hours-list">
+    <div class="row"><span class="day">Lundi</span><span class="time">12:00–15:00 · 19:00–22:30</span></div>
+    <div class="row"><span class="day">Mardi</span><span class="time">12:00–15:00 · 19:00–22:30</span></div>
+    <div class="row"><span class="day">Mercredi</span><span class="time">12:00–15:00 · 19:00–22:30</span></div>
+    <div class="row"><span class="day">Jeudi</span><span class="time">12:00–15:00 · 19:00–22:30</span></div>
+    <div class="row"><span class="day">Vendredi</span><span class="time">12:00–15:00 · 19:00–22:30</span></div>
+    <div class="row"><span class="day">Samedi</span><span class="time">12:00–15:00 · 19:00–22:30</span></div>
+    <div class="row closed"><span class="day">Dimanche</span><span class="time">Fermé</span></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact">
+  <div class="section-title">
+    <span class="cn">联系我们</span>
+    <h2>NOUS TROUVER</h2>
+    <div class="bar"></div>
+  </div>
+  <div class="contact-info">
+    <p>15 Rue Notre Dame de Lorette</p>
+    <p>75009 Paris — France</p>
+    <p class="phone">01 73 77 86 94</p>
+    <a href="https://maps.google.com/?cid=11217051301710989141" target="_blank" rel="noopener" class="btn-map">Itinéraire →</a>
+  </div>
+</section>
+
+<footer>
+  <span class="cn">面</span>
+  Mian · 15 Rue Notre Dame de Lorette, 75009 Paris<br>
+  © 2025 — Tous droits réservés
+</footer>
+
+</body>
+</html>

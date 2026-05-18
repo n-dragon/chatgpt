@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le Petit Pontoise — Bistrot parisien dans le 5e</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bordeaux:#5a1a1a;
+    --bordeaux-dark:#3a0f0f;
+    --cream:#f5ecd9;
+    --paper:#faf4e6;
+    --gold:#b8884a;
+    --ink:#2a1810;
+    --olive:#5b6042;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Cormorant Garamond', serif;
+    background:var(--paper);
+    color:var(--ink);
+    font-size:18px;
+    line-height:1.6;
+  }
+  h1,h2,h3{font-family:'Playfair Display', serif;font-weight:700}
+  
+  /* HERO */
+  .hero{
+    min-height:100vh;
+    background:
+      radial-gradient(ellipse at center, rgba(0,0,0,.2) 0%, rgba(0,0,0,.7) 100%),
+      repeating-linear-gradient(45deg, #2a0e0e 0 2px, #3a1414 2px 4px),
+      linear-gradient(135deg,#3a0f0f,#5a1a1a);
+    color:var(--cream);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:4rem 1.5rem;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    inset:30px;
+    border:1px solid rgba(184,136,74,.4);
+    pointer-events:none;
+  }
+  .hero::after{
+    content:"";
+    position:absolute;
+    inset:40px;
+    border:1px solid rgba(184,136,74,.2);
+    pointer-events:none;
+  }
+  .hero .eyebrow{
+    font-family:'Special Elite', cursive;
+    letter-spacing:.4em;
+    font-size:.85rem;
+    color:var(--gold);
+    margin-bottom:1.5rem;
+    text-transform:uppercase;
+  }
+  .hero h1{
+    font-size:clamp(3rem, 9vw, 7rem);
+    font-style:italic;
+    line-height:1;
+    margin-bottom:1.5rem;
+    text-shadow:2px 4px 0 rgba(0,0,0,.4);
+    animation:fadeUp 1.2s ease both;
+  }
+  .hero .tagline{
+    font-size:clamp(1.1rem,2vw,1.4rem);
+    max-width:600px;
+    font-style:italic;
+    color:#e8d9b8;
+    margin-bottom:2.5rem;
+    animation:fadeUp 1.4s ease both;
+  }
+  .hero .ornament{
+    color:var(--gold);
+    font-size:1.5rem;
+    letter-spacing:1rem;
+    margin:1rem 0 2rem;
+  }
+  .hero-meta{
+    display:flex;
+    gap:2.5rem;
+    flex-wrap:wrap;
+    justify-content:center;
+    margin-top:1rem;
+    font-family:'Special Elite',cursive;
+    font-size:.85rem;
+    letter-spacing:.15em;
+    text-transform:uppercase;
+    color:var(--gold);
+  }
+  .hero-meta span{display:flex;align-items:center;gap:.5rem}
+  .cta{
+    display:inline-block;
+    margin-top:2rem;
+    padding:1rem 2.5rem;
+    border:2px solid var(--gold);
+    color:var(--cream);
+    text-decoration:none;
+    font-family:'Special Elite',cursive;
+    letter-spacing:.3em;
+    font-size:.85rem;
+    text-transform:uppercase;
+    transition:all .3s;
+    background:transparent;
+  }
+  .cta:hover{background:var(--gold);color:var(--bordeaux-dark)}
+  
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  
+  /* SECTIONS */
+  section{padding:6rem 1.5rem;position:relative}
+  .container{max-width:1100px;margin:0 auto}
+  .section-title{
+    text-align:center;
+    margin-bottom:3.5rem;
+  }
+  .section-title .eyebrow{
+    font-family:'Special Elite',cursive;
+    letter-spacing:.4em;
+    font-size:.8rem;
+    color:var(--gold);
+    text-transform:uppercase;
+    margin-bottom:1rem;
+    display:block;
+  }
+  .section-title h2{
+    font-size:clamp(2.2rem,5vw,3.5rem);
+    font-style:italic;
+    color:var(--bordeaux);
+  }
+  .section-title .divider{
+    color:var(--gold);
+    font-size:1.2rem;
+    margin-top:.8rem;
+    letter-spacing:.8rem;
+  }
+  
+  /* À PROPOS */
+  .about{background:var(--paper)}
+  .about-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:4rem;
+    align-items:center;
+  }
+  .about-text p{margin-bottom:1.2rem;font-size:1.15rem}
+  .about-text .lead{
+    font-size:1.4rem;
+    font-style:italic;
+    color:var(--bordeaux);
+    border-left:3px solid var(--gold);
+    padding-left:1.2rem;
+    margin-bottom:1.5rem;
+  }
+  .about-card{
+    background:var(--cream);
+    border:1px solid rgba(90,26,26,.15);
+    padding:2.5rem;
+    box-shadow:8px 8px 0 var(--bordeaux);
+  }
+  .about-card h3{
+    font-size:1.4rem;
+    color:var(--bordeaux);
+    margin-bottom:1.5rem;
+    font-style:italic;
+  }
+  .services{list-style:none}
+  .services li{
+    padding:.6rem 0;
+    border-bottom:1px dashed rgba(90,26,26,.25);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .services li:last-child{border:none}
+  .services li::before{content:"❦";color:var(--gold);margin-right:.6rem}
+  .price-tag{
+    display:inline-block;
+    margin-top:1.5rem;
+    font-family:'Playfair Display',serif;
+    font-size:2rem;
+    color:var(--bordeaux);
+    font-weight:700;
+  }
+  .price-tag small{font-size:.9rem;color:var(--ink);font-family:'Cormorant Garamond',serif;font-style:italic;margin-left:.5rem}
+  
+  /* MENU */
+  .menu{
+    background:
+      linear-gradient(180deg, var(--paper), #efe3c6),
+      var(--cream);
+    position:relative;
+  }
+  .menu::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+      radial-gradient(circle at 10% 20%, rgba(184,136,74,.08) 0, transparent 40%),
+      radial-gradient(circle at 90% 80%, rgba(90,26,26,.06) 0, transparent 40%);
+    pointer-events:none;
+  }
+  .menu-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:3rem;
+    position:relative;
+  }
+  .menu-cat{
+    background:rgba(255,253,245,.6);
+    padding:2.5rem 2rem;
+    border-top:3px solid var(--bordeaux);
+  }
+  .menu-cat h3{
+    text-align:center;
+    font-size:1.7rem;
+    color:var(--bordeaux);
+    margin-bottom:.3rem;
+    font-style:italic;
+  }
+  .menu-cat .cat-sub{
+    text-align:center;
+    color:var(--gold);
+    font-family:'Special Elite',cursive;
+    font-size:.7rem;
+    letter-spacing:.3em;
+    text-transform:uppercase;
+    margin-bottom:2rem;
+  }
+  .dish{margin-bottom:1.8rem}
+  .dish-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    gap:.5rem;
+    margin-bottom:.2rem;
+  }
+  .dish-name{
+    font-family:'Playfair Display',serif;
+    font-weight:700;
+    font-size:1.15rem;
+    color:var(--ink);
+  }
+  .dish-dots{
+    flex:1;
+    border-bottom:2px dotted rgba(90,26,26,.35);
+    margin:0 .4rem;
+    transform:translateY(-4px);
+  }
+  .dish-price{
+    font-family:'Playfair Display',serif;
+    color:var(--bordeaux);
+    font-weight:700;
+  }
+  .dish-desc{
+    font-size:.95rem;
+    color:#6b4d3a;
+    font-style:italic;
+    line-height:1.4;
+  }
+  
+  /* HORAIRES */
+  .hours{
+    background:var(--bordeaux);
+    color:var(--cream);
+    position:relative;
+  }
+  .hours::before,.hours::after{
+    content:"";
+    position:absolute;
+    left:0;right:0;
+    height:20px;
+    background:radial-gradient(circle at 10px 0, var(--paper) 10px, transparent 11px) 0 0/20px 20px;
+  }
+  .hours::before{top:0;transform:rotate(180deg)}
+  .hours::after{bottom:0}
+  .hours .section-title h2{color:var(--cream)}
+  .hours .section-title .eyebrow{color:var(--gold)}
+  .hours-list{
+    max-width:600px;
+    margin:0 auto;
+    background:rgba(0,0,0,.15);
+    padding:2rem 2.5rem;
+    border:1px solid rgba(184,136,74,.3);
+  }
+  .hours-list li{
+    list-style:none;
+    display:flex;
+    justify-content:space-between;
+    padding:.9rem 0;
+    border-bottom:1px dashed rgba(184,136,74,.25);
+    font-size:1.1rem;
+  }
+  .hours-list li:last-child{border:none}
+  .day{font-family:'Playfair Display',serif;font-style:italic;font-size:1.2rem}
+  .time{font-family:'Special Elite',cursive;font-size:.95rem;color:#e8d9b8;letter-spacing:.05em}
+  .closed{color:var(--gold);font-style:italic}
+  
+  /* CONTACT */
+  .contact{background:var(--cream)}
+  .contact-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:3rem;
+  }
+  .contact-card{
+    background:var(--paper);
+    padding:3rem 2.5rem;
+    border:1px solid rgba(90,26,26,.15);
+    text-align:center;
+  }
+  .contact-card h3{
+    color:var(--bordeaux);
+    font-size:1.6rem;
+    font-style:italic;
+    margin-bottom:1.5rem;
+  }
+  .contact-card .icon{
+    font-size:2rem;
+    color:var(--gold);
+    margin-bottom:1rem;
+    display:block;
+  }
+  .contact-card p,.contact-card a{
+    font-size:1.15rem;
+    color:var(--ink);
+    text-decoration:none;
+    line-height:1.7;
+  }
+  .contact-card a:hover{color:var(--bordeaux)}
+  .btn-map{
+    display:inline-block;
+    margin-top:1.5rem;
+    padding:.9rem 2rem;
+    background:var(--bordeaux);
+    color:var(--cream)!important;
+    font-family:'Special Elite',cursive;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    font-size:.8rem;
+    transition:all .3s;
+    border:2px solid var(--bordeaux);
+  }
+  .btn-map:hover{background:transparent;color:var(--bordeaux)!important}
+  
+  /* REVIEWS */
+  .reviews{background:var(--paper);padding-bottom:2rem}
+  .reviews-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:2rem;
+  }
+  .review{
+    background:var(--cream);
+    padding:2rem;
+    border-left:3px solid var(--gold);
+    font-style:italic;
+    position:relative;
+  }
+  .review::before{
+    content:"“";
+    font-family:'Playfair Display',serif;
+    font-size:5rem;
+    color:var(--gold);
+    position:absolute;
+    top:-10px;left:10px;
+    opacity:.3;
+    line-height:1;
+  }
+  .review p{margin-bottom:1rem;font-size:1.05rem;position:relative}
+  .review .author{
+    font-family:'Playfair Display',serif;
+    font-weight:700;
+    font-style:normal;
+    color:var(--bordeaux);
+    font-size:1rem;
+  }
+  .stars{color:var(--gold);letter-spacing:.1em}
+  
+  /* FOOTER */
+  footer{
+    background:var(--bordeaux-dark);
+    color:var(--cream);
+    text-align:center;
+    padding:2.5rem 1rem;
+    font-size:.95rem;
+  }
+  footer .orn{color:var(--gold);letter-spacing:.5rem;margin-bottom:.8rem}
+  
+  @media(max-width:768px){
+    .about-grid,.menu-grid,.contact-grid,.reviews-grid{grid-template-columns:1fr;gap:2rem}
+    section{padding:4rem 1.2rem}
+    .hero-meta{gap:1.2rem;font-size:.75rem}
+    .about-card{box-shadow:5px 5px 0 var(--bordeaux)}
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <span class="eyebrow">Bistrot · Paris 5<sup>e</sup> · Depuis toujours</span>
+  <h1>Le Petit Pontoise</h1>
+  <div class="ornament">✦ ❦ ✦</div>
+  <p class="tagline">Viandes rôties maison, poissons grillés et vins régionaux dans une brasserie rétro à deux pas des quais de la Tournelle.</p>
+  <a href="#contact" class="cta">Réserver une table</a>
+  <div class="hero-meta">
+    <span>★ 4.6 / 5 — 1790 avis</span>
+    <span>€€ · Bistrot</span>
+    <span>9 Rue de Pontoise</span>
+  </div>
+</header>
+
+<!-- À PROPOS -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">Notre Maison</span>
+      <h2>L'esprit bouchon, l'âme parisienne</h2>
+      <div class="divider">✦ ✦ ✦</div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p class="lead">« Le Petit Pontoise fait penser aux bouchons lyonnais revisités à la sauce parisienne. »</p>
+        <p>Niché au cœur du Quartier Latin, à quelques pas des quais de la Tournelle et de Notre-Dame, notre bistrot perpétue depuis des années une certaine idée de la table française : généreuse, sincère, sans esbroufe.</p>
+        <p>Le comptoir patiné, la décoration pittoresque, la terrasse ouverte sur la rue de Pontoise — tout invite à s'attabler longuement autour d'un plat mijoté et d'un verre de vin de propriétaire.</p>
+        <p>Une cuisine de marché, signée par un chef qui rôtit ses viandes, grille ses poissons et choisit ses vins région par région, comme on choisit ses amis.</p>
+      </div>
+      <aside class="about-card">
+        <h3>L'essentiel</h3>
+        <ul class="services">
+          <li>Sur place</li>
+          <li>Réservation conseillée</li>
+          <li>Service déjeuner & dîner</li>
+          <li>Carte des vins régionaux</li>
+          <li>Plats végétariens</li>
+          <li>Terrasse côté rue</li>
+        </ul>
+        <div class="price-tag">€€ <small>plats de 22 € à 36 €</small></div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu" id="menu">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">La Carte</span>
+      <h2>Notre menu suggéré</h2>
+      <div class="divider">✦ ✦ ✦</div>
+    </div>
+    <div class="menu-grid">
+
+      <div class="menu-cat">
+        <h3>Entrées</h3>
+        <div class="cat-sub">Pour commencer</div>
+        <div class="dish">
+          <div class="dish-head"><span class="dish-name">Œuf parfait, mouillettes</span><span class="dish-dots"></span><span class="dish-price">14 €</span></div>
+          <div class="dish-desc">Crème de morilles, lard fumé, persil plat</div>
+        </div>
+        <div class="dish">
+          <div class="dish-head"><span class="dish-name">Foie gras maison</span><span class="dish-dots"></span><span class="dish-price">18 €</span></div>
+          <div class="dish-desc">Mi-cuit au Sauternes, chutney de figues</div>
+        </div>
+        <div class="dish">
+          <div class="dish-head"><span class="dish-name">Velouté de potimarron</span><span class="dish-dots"></span><span class="dish-price">12 €</span></div>
+          <div class="dish-desc">Châtaignes rôties, huile de noisette</div>
+        </div>
+        <div class="dish">
+          <div class="dish-head"><span class="dish-name">Salade lyonnaise</span><span class="dish-dots"></span><span class="dish-price">13 €</span></div>
+          <div class="dish-desc">Frisée, lardons, œuf poché, croûtons</div>
+        </div>
+      </div>
+
+      <div class="menu-cat">
+        <h3>Plats</h3>
+        <div class="cat-sub">Les classiques</div>
+        <div class="dish">
+          <div class="dish-head"><span class="dish-name">Côte de bœuf rôtie</span><span class="dish-dots"></span><span class="dish-price">34 €</span></div>
+          <div class="dish-desc">Pommes grenaille, beurre maître d'hôtel</div>
+        </div>
+        <div class="dish">
+          <div class="dish-head"><span class="dish-name">Bar de ligne grillé</span><span class="dish-dots"></span><span class="dish-price">32 €</span></div>
+          <div class="dish-desc">Fenouil confit, beurre blanc citronné</div>
+        </div>
+        <div class="dish">
+          <div class="dish-head"><span class="dish-name">Confit de canard</span><span class="dish-dots"></span><span class="dish-price">26 €</span></div>
+          <div class="dish-desc">Pommes sarladaises, jus au thym</div>
+        </div>
+        <div class="dish">
+          <div class="dish-head"><span class="dish-name">Ravioles aux cèpes</span><span class="dish-dots"></span><span class="dish-price">22 €</span></div>
+          <div class="dish-desc">Crème de parmesan, roquette, copeaux</div>
+        </div>
+      </div>
+
+      <div class="menu-cat">
+        <h3>Desserts</h3>
+        <div class="cat-sub">Pour finir en douceur</div>
+        <div class="dish">
+          <div class="dish-head"><span class="dish-name">Tarte Tatin tiède</span><span class="dish-dots"></span><span class="dish-price">11 €</span></div>
+          <div class="dish-desc">Crème fraîche d'Isigny</div>
+        </div>
+        <div class="dish">
+          <div class="dish-head"><span class="dish-name">Île flottante</span><span class="dish-dots"></span><span class="dish-price">10 €</span></div>
+          <div class="dish-desc">Crème anglaise vanillée, pralines roses</div>
+        </div>
+        <div class="dish">
+          <div class="dish-head"><span class="dish-name">Mousse au chocolat</span><span class="dish-dots"></span><span class="dish-price">9 €</span></div>
+          <div class="dish-desc">Chocolat noir 70 %, fleur de sel</div>
+        </div>
+        <div class="dish">
+          <div class="dish-head"><span class="dish-name">Sélection de fromages</span><span class="dish-dots"></span><span class="dish-price">13 €</span></div>
+          <div class="dish-desc">Affinés d'un crémier parisien</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- AVIS -->
+<section class="reviews">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">Ils en parlent</span>
+      <h2>Paroles de convives</h2>
+      <div class="divider">✦ ✦ ✦</div>
+    </div>
+    <div class="reviews-grid">
+      <div class="review">
+        <p>S'il existe une adresse incontournable à Paris, elle est située au 9 rue Pontoise. Quelle belle surprise, quelle belle adresse, l'accueil est des plus respectueux.</p>
+        <div class="stars">★★★★★</div>
+        <div class="author">— Marc P.</div>
+      </div>
+      <div class="review">
+        <p>Situé à deux pas des quais de la Tournelle, Le Petit Pontoise fait penser aux bouchons lyonnais revisités à la sauce parisienne. J'apprécie son comptoir et sa décoration pittoresque.</p>
+        <div class="stars">★★★★★</div>
+        <div class="author">— Prométhée S.</div>
+      </div>
+      <div class="review">
+        <p>Une cuisine généreuse, des viandes rôties parfaitement maîtrisées et une carte de vins régionaux qui invite au voyage. L'âme du bistrot parisien.</p>
+        <div class="stars">★★★★★</div>
+        <div class="author">— Avis Google</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HORAIRES -->
+<section class="hours" id="hours">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">Service</span>
+      <h2>Nos horaires</h2>
+      <div class="divider">✦ ✦ ✦</div>
+    </div>
+    <ul class="hours-list">
+      <li><span class="day">Lundi</span><span class="time">12:00–14:30 · 18:30–22:30</span></li>
+      <li><span class="day">Mardi</span><span class="time closed">Fermé</span></li>
+      <li><span class="day">Mercredi</span><span class="time">12:00–14:30 · 18:30–22:30</span></li>
+      <li><span class="day">Jeudi</span><span class="time">12:00–14:30 · 18:30–22:30</span></li>
+      <li><span class="day">Vendredi</span><span class="time">12:00–14:30 · 18:30–22:30</span></li>
+      <li><span class="day">Samedi</span><span class="time">12:00–14:30 · 18:30–22:30</span></li>
+      <li><span class="day">Dimanche</span><span class="time">12:00–14:30 · 18:30–22:30</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">Nous trouver</span>
+      <h2>Venez nous voir</h2>
+      <div class="divider">✦ ✦ ✦</div>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <span class="icon">✦</span>
+        <h3>Adresse</h3>
+        <p>9 Rue de Pontoise<br>75005 Paris, France</p>
+        <a class="btn-map" href="https://maps.google.com/?cid=1066918772778280520" target="_blank" rel="noopener">Itinéraire</a>
+      </div>
+      <div class="contact-card">
+        <span class="icon">❦</span>
+        <h3>Réservation</h3>
+        <p>Par téléphone, du mercredi au lundi</p>
+        <a href="tel:+33143292520" class="btn-map">01 43 29 25 20</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="orn">✦ ❦ ✦</div>
+  <p><strong>Le Petit Pontoise</strong> — 9 Rue de Pontoise, 75005 Paris</p>
+  <p style="opacity:.7;margin-top:.4rem;font-size:.85rem">© Tous droits réservés · Bistrot parisien depuis le 5<sup>e</sup></p>
+</footer>
+
+</body>
+</html>

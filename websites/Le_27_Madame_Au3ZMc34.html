@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le 27 Madame - Restaurant familial Paris 6e</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --bordeaux:#5c1a1b;
+    --cream:#f4ede1;
+    --ivory:#faf6ef;
+    --gold:#b08d57;
+    --dark:#2a1f1a;
+    --text:#3d342d;
+  }
+  html{scroll-behavior:smooth}
+  body{font-family:'Manrope',sans-serif;color:var(--text);background:var(--ivory);line-height:1.6}
+  h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;font-weight:600;color:var(--bordeaux)}
+  
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,246,239,0.95);backdrop-filter:blur(10px);padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(176,141,87,0.2)}
+  nav .logo{font-family:'Playfair Display',serif;font-style:italic;color:var(--bordeaux);font-size:1.2rem;font-weight:700}
+  nav ul{display:flex;list-style:none;gap:2rem}
+  nav a{color:var(--dark);text-decoration:none;font-size:.85rem;letter-spacing:1.5px;text-transform:uppercase;transition:color .3s}
+  nav a:hover{color:var(--bordeaux)}
+  
+  /* HERO */
+  .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(135deg,#3a1112 0%,#5c1a1b 50%,#2a1f1a 100%);position:relative;overflow:hidden;padding:6rem 2rem 3rem}
+  .hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 20% 30%,rgba(176,141,87,0.15) 0%,transparent 50%),radial-gradient(circle at 80% 70%,rgba(176,141,87,0.1) 0%,transparent 50%);pointer-events:none}
+  .hero::after{content:'';position:absolute;inset:2rem;border:1px solid rgba(244,237,225,0.2);pointer-events:none}
+  .hero-content{position:relative;z-index:2;animation:fadeUp 1.2s ease-out}
+  .hero-eyebrow{color:var(--gold);letter-spacing:8px;font-size:.75rem;text-transform:uppercase;margin-bottom:2rem}
+  .hero h1{font-family:'Playfair Display',serif;color:var(--cream);font-size:clamp(3.5rem,9vw,7rem);line-height:.95;font-weight:700;margin-bottom:1.5rem}
+  .hero h1 .num{font-style:italic;color:var(--gold)}
+  .hero .sub{color:var(--cream);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1.2rem,2.5vw,1.6rem);margin-bottom:2rem;opacity:.9}
+  .hero .stars{color:var(--gold);font-size:1.1rem;letter-spacing:4px;margin-bottom:.5rem}
+  .hero .reviews{color:rgba(244,237,225,0.7);font-size:.85rem;letter-spacing:2px}
+  .hero-cta{margin-top:3rem;display:inline-block;padding:1rem 2.5rem;border:1px solid var(--gold);color:var(--cream);text-decoration:none;letter-spacing:3px;font-size:.8rem;text-transform:uppercase;transition:all .3s;background:transparent}
+  .hero-cta:hover{background:var(--gold);color:var(--dark)}
+  
+  @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+  
+  /* SECTIONS */
+  section{padding:6rem 2rem}
+  .container{max-width:1200px;margin:0 auto}
+  .section-title{text-align:center;margin-bottom:4rem}
+  .section-title .eyebrow{color:var(--gold);letter-spacing:6px;font-size:.75rem;text-transform:uppercase;margin-bottom:1rem;display:block;font-family:'Manrope',sans-serif}
+  .section-title h2{font-size:clamp(2.5rem,5vw,4rem);font-family:'Playfair Display',serif}
+  .section-title .ornament{display:flex;align-items:center;justify-content:center;gap:1rem;margin-top:1rem}
+  .section-title .ornament span{height:1px;width:60px;background:var(--gold)}
+  .section-title .ornament svg{color:var(--gold)}
+  
+  /* ABOUT */
+  .about{background:var(--cream)}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+  .about-text p{font-size:1.05rem;margin-bottom:1.2rem;color:var(--text)}
+  .about-text .lead{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-style:italic;color:var(--bordeaux);line-height:1.4;margin-bottom:2rem}
+  .features{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:3rem}
+  .feature{padding:1.5rem;background:var(--ivory);border-left:3px solid var(--gold)}
+  .feature h4{font-size:1.3rem;margin-bottom:.3rem}
+  .feature p{font-size:.85rem;color:var(--text);opacity:.8;margin:0}
+  .about-visual{aspect-ratio:3/4;background:linear-gradient(135deg,var(--bordeaux) 0%,#3a1112 100%);position:relative;display:flex;align-items:center;justify-content:center;padding:3rem}
+  .about-visual::before{content:'';position:absolute;inset:1.5rem;border:1px solid rgba(176,141,87,0.4)}
+  .about-visual-inner{text-align:center;color:var(--cream);position:relative;z-index:2}
+  .about-visual-inner .big-num{font-family:'Playfair Display',serif;font-size:8rem;font-style:italic;color:var(--gold);line-height:1}
+  .about-visual-inner h3{color:var(--cream);font-family:'Playfair Display',serif;font-size:1.8rem;margin:1rem 0;font-weight:400}
+  .about-visual-inner p{font-style:italic;opacity:.85;font-family:'Cormorant Garamond',serif;font-size:1.2rem}
+  
+  /* MENU */
+  .menu{background:var(--ivory)}
+  .menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3rem;margin-top:2rem}
+  .menu-cat{}
+  .menu-cat-header{text-align:center;margin-bottom:2.5rem;padding-bottom:1.5rem;border-bottom:1px solid rgba(176,141,87,0.3)}
+  .menu-cat-header h3{font-size:2rem;font-family:'Playfair Display',serif;font-style:italic}
+  .menu-cat-header .icon{color:var(--gold);font-size:1.5rem;margin-bottom:.5rem}
+  .dish{margin-bottom:2rem}
+  .dish-head{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin-bottom:.4rem}
+  .dish-name{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--dark);flex:1}
+  .dish-dots{flex:1;border-bottom:1px dotted rgba(176,141,87,0.5);transform:translateY(-4px);min-width:20px}
+  .dish-price{color:var(--bordeaux);font-weight:600;font-family:'Cormorant Garamond',serif;font-size:1.2rem;white-space:nowrap}
+  .dish-desc{font-size:.85rem;color:var(--text);opacity:.75;font-style:italic;line-height:1.5}
+  .menu-note{text-align:center;margin-top:4rem;font-style:italic;color:var(--text);opacity:.7;font-family:'Cormorant Garamond',serif;font-size:1.1rem}
+  
+  /* HOURS */
+  .hours{background:var(--bordeaux);color:var(--cream)}
+  .hours .section-title h2{color:var(--cream)}
+  .hours .section-title .eyebrow{color:var(--gold)}
+  .hours-box{max-width:600px;margin:0 auto;background:rgba(244,237,225,0.05);border:1px solid rgba(176,141,87,0.3);padding:3rem}
+  .hours-list{list-style:none}
+  .hours-list li{display:flex;justify-content:space-between;padding:1rem 0;border-bottom:1px solid rgba(176,141,87,0.15);font-family:'Cormorant Garamond',serif;font-size:1.2rem}
+  .hours-list li:last-child{border-bottom:none}
+  .hours-list .day{color:var(--gold);text-transform:capitalize;letter-spacing:2px;font-family:'Manrope',sans-serif;font-size:.85rem}
+  .hours-list .time{color:var(--cream)}
+  .hours-info{text-align:center;margin-top:2rem;font-style:italic;opacity:.8;font-size:.9rem}
+  
+  /* CONTACT */
+  .contact{background:var(--cream)}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:2rem}
+  .contact-card{background:var(--ivory);padding:3rem;text-align:center;border:1px solid rgba(176,141,87,0.2)}
+  .contact-card h3{font-size:1.8rem;margin-bottom:1.5rem;font-style:italic}
+  .contact-card .icon{font-size:2rem;color:var(--gold);margin-bottom:1rem}
+  .contact-card p{font-size:1.05rem;line-height:1.7}
+  .contact-card a{color:var(--bordeaux);text-decoration:none;font-weight:600}
+  .btn-itinerary{display:inline-block;margin-top:1.5rem;padding:.9rem 2rem;background:var(--bordeaux);color:var(--cream);text-decoration:none;letter-spacing:2px;font-size:.8rem;text-transform:uppercase;transition:all .3s}
+  .btn-itinerary:hover{background:var(--dark)}
+  .btn-call{display:inline-block;margin-top:1.5rem;padding:.9rem 2rem;border:1px solid var(--bordeaux);color:var(--bordeaux);text-decoration:none;letter-spacing:2px;font-size:.8rem;text-transform:uppercase;transition:all .3s}
+  .btn-call:hover{background:var(--bordeaux);color:var(--cream)}
+  
+  /* FOOTER */
+  footer{background:var(--dark);color:var(--cream);padding:3rem 2rem;text-align:center}
+  footer .logo-foot{font-family:'Playfair Display',serif;font-style:italic;font-size:1.8rem;color:var(--gold);margin-bottom:.5rem}
+  footer p{font-size:.85rem;opacity:.7;letter-spacing:1px}
+  
+  @media (max-width:768px){
+    nav{padding:1rem}
+    nav ul{display:none}
+    section{padding:4rem 1.5rem}
+    .about-grid,.menu-grid,.contact-grid{grid-template-columns:1fr;gap:3rem}
+    .features{grid-template-columns:1fr}
+    .hero{padding:5rem 1.5rem 3rem}
+    .hours-box{padding:2rem 1.5rem}
+    .contact-card{padding:2rem 1.5rem}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Le 27 Madame</div>
+  <ul>
+    <li><a href="#about">Maison</a></li>
+    <li><a href="#menu">Carte</a></li>
+    <li><a href="#hours">Horaires</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">Restaurant familial · Paris 6<sup>e</sup></div>
+    <h1>Le <span class="num">27</span><br>Madame</h1>
+    <p class="sub">« Une cuisine de cœur, faite maison,<br>au rythme des saisons »</p>
+    <div class="stars">★ ★ ★ ★ ★</div>
+    <div class="reviews">4.6 / 5 — 385 avis Google</div>
+    <a href="#contact" class="hero-cta">Réserver une table</a>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">La Maison</span>
+      <h2>Bienvenue rue Madame</h2>
+      <div class="ornament"><span></span><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><circle cx="10" cy="10" r="3"/></svg><span></span></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p class="lead">Niché au cœur du 6<sup>e</sup> arrondissement, Le 27 Madame est une adresse familiale où l'on cultive l'art simple et précieux du bien recevoir.</p>
+        <p>Dans une ambiance chaleureuse et conviviale, notre équipe vous accueille midi et soir pour partager une cuisine entièrement faite maison, élaborée à partir de produits frais et de saison. Notre célèbre pâté en croûte, nos plats de bistrot revisités et nos desserts gourmands ont conquis le quartier — et tous ceux qui poussent notre porte.</p>
+        <p>Anniversaires, déjeuners d'affaires, dîners entre amis : chaque moment passé chez nous est l'occasion d'une rencontre, d'un sourire, et d'une belle assiette.</p>
+        <div class="features">
+          <div class="feature"><h4>Fait maison</h4><p>Produits frais & de saison</p></div>
+          <div class="feature"><h4>Réservation</h4><p>Sur place et par téléphone</p></div>
+          <div class="feature"><h4>Carte des vins</h4><p>Sélection bières & vins</p></div>
+          <div class="feature"><h4>Végétarien</h4><p>Options à chaque service</p></div>
+        </div>
+      </div>
+      <div class="about-visual">
+        <div class="about-visual-inner">
+          <div class="big-num">27</div>
+          <h3>Rue Madame</h3>
+          <p>Le bistrot du quartier<br>depuis toujours</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="menu" id="menu">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">Notre Carte</span>
+      <h2>Menu suggéré</h2>
+      <div class="ornament"><span></span><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><circle cx="10" cy="10" r="3"/></svg><span></span></div>
+    </div>
+    <div class="menu-grid">
+      
+      <div class="menu-cat">
+        <div class="menu-cat-header">
+          <div class="icon">✦</div>
+          <h3>Entrées</h3>
+        </div>
+        <div class="dish">
+          <div class="dish-head"><span class="dish-name">Pâté en croûte maison</span><span class="dish-dots"></span><span class="dish-price">14 €</span></div>
+          <div class="dish-desc">La signature de la maison, pickles & condiments</div>
+        </div>
+        <div class="dish">
+          <div class="dish-head"><span class="dish-name">Œuf parfait, crème de cèpes</span><span class="dish-dots"></span><span class="dish-price">12 €</span></div>
+          <div class="dish-desc">Mouillettes briochées et copeaux de comté</div>
+        </div>
+        <div class="dish">
+          <div class="dish-head"><span class="dish-name">Velouté de saison</span><span class="dish-dots"></span><span class="dish-price">10 €</span></div>
+          <div class="dish-desc">Selon le marché du jour, huile parfumée</div>
+        </div>
+        <div class="dish">
+          <div class="dish-head"><span class="dish-name">Burrata, légumes confits</span><span class="dish-dots"></span><span class="dish-price">13 €</span></div>
+          <div class="dish-desc">Tomates anciennes, basilic, huile d'olive</div>
+        </div>
+      </div>
+
+      <div class="menu-cat">
+        <div class="menu-cat-header">
+          <div class="icon">✦</div>
+          <h3>Plats</h3>
+        </div>
+        <div class="dish">
+          <div class="dish-head"><span class="dish-name">Filet de bœuf, sauce au poivre</span><span class="dish-dots"></span><span class="dish-price">29 €</span></div>
+          <div class="dish-desc">Pommes grenaille et jus corsé</div>
+        </div>
+        <div class="dish">
+          <div class="dish-head"><span class="dish-name">Cabillaud rôti, beurre blanc</span><span class="dish-dots"></span><span class="dish-price">26 €</span></div>
+          <div class="dish-desc">Poireaux fondants et écrasé de pommes de terre</div>
+        </div>
+        <div class="dish">
+          <div class="dish-head"><span class="dish-name">Volaille fermière, jus à l'estragon</span><span class="dish-dots"></span><span class="dish-price">24 €</span></div>
+          <div class="dish-desc">Gnocchis maison et légumes de saison</div>
+        </div>
+        <div class="dish">
+          <div class="dish-head"><span class="dish-name">Risotto aux champignons</span><span class="dish-dots"></span><span class="dish-price">21 €</span></div>
+          <div class="dish-desc">Parmesan affiné 24 mois, truffe d'été</div>
+        </div>
+      </div>
+
+      <div class="menu-cat">
+        <div class="menu-cat-header">
+          <div class="icon">✦</div>
+          <h3>Desserts</h3>
+        </div>
+        <div class="dish">
+          <div class="dish-head"><span class="dish-name">Paris-Brest revisité</span><span class="dish-dots"></span><span class="dish-price">10 €</span></div>
+          <div class="dish-desc">Praliné noisette du Piémont</div>
+        </div>
+        <div class="dish">
+          <div class="dish-head"><span class="dish-name">Tarte fine aux pommes</span><span class="dish-dots"></span><span class="dish-price">9 €</span></div>
+          <div class="dish-desc">Glace vanille de Madagascar</div>
+        </div>
+        <div class="dish">
+          <div class="dish-head"><span class="dish-name">Île flottante</span><span class="dish-dots"></span><span class="dish-price">8 €</span></div>
+          <div class="dish-desc">Crème anglaise, amandes caramélisées</div>
+        </div>
+        <div class="dish">
+          <div class="dish-head"><span class="dish-name">Café gourmand</span><span class="dish-dots"></span><span class="dish-price">11 €</span></div>
+          <div class="dish-desc">Trio de mignardises maison</div>
+        </div>
+      </div>
+
+    </div>
+    <p class="menu-note">Notre carte évolue au gré des saisons et des arrivages du marché.</p>
+  </div>
+</section>
+
+<section class="hours" id="hours">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">Service</span>
+      <h2>Nos horaires</h2>
+      <div class="ornament"><span></span><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><circle cx="10" cy="10" r="3"/></svg><span></span></div>
+    </div>
+    <div class="hours-box">
+      <ul class="hours-list">
+        <li><span class="day">Lundi</span><span class="time">12h – 15h · 19h – 22h</span></li>
+        <li><span class="day">Mardi</span><span class="time">12h – 15h · 19h – 22h</span></li>
+        <li><span class="day">Mercredi</span><span class="time">12h – 15h · 19h – 22h</span></li>
+        <li><span class="day">Jeudi</span><span class="time">12h – 15h · 19h – 22h</span></li>
+        <li><span class="day">Vendredi</span><span class="time">12h – 15h · 19h – 22h</span></li>
+        <li><span class="day">Samedi</span><span class="time">12h – 15h · 19h – 22h</span></li>
+        <li><span class="day">Dimanche</span><span class="time">12h – 15h · 19h – 22h</span></li>
+      </ul>
+      <p class="hours-info">Ouvert 7j/7 — Petit-déjeuner, déjeuner & dîner</p>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">Nous rejoindre</span>
+      <h2>Réservez votre table</h2>
+      <div class="ornament"><span></span><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><circle cx="10" cy="10" r="3"/></svg><span></span></div>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="icon">✉</div>
+        <h3>L'adresse</h3>
+        <p>27 Rue Madame<br>75006 Paris, France</p>
+        <a href="https://maps.google.com/?cid=9111710543932036046" target="_blank" class="btn-itinerary">Itinéraire →</a>
+      </div>
+      <div class="contact-card">
+        <div class="icon">☏</div>
+        <h3>Réservation</h3>
+        <p>Nous vous accueillons<br>avec plaisir, sur réservation</p>
+        <a href="tel:+33145486957" class="btn-call">01 45 48 69 57</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="logo-foot">Le 27 Madame</div>
+  <p>27 Rue Madame · 75006 Paris · 01 45 48 69 57</p>
+  <p style="margin-top:1rem;opacity:.5">© 2025 Le 27 Madame — Tous droits réservés</p>
+</footer>
+
+</body>
+</html>

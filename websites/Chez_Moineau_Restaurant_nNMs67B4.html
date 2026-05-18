@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chez Moineau — Restaurant Parisien, Saint-Germain-des-Prés</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --rouge:#7a1f1f;
+    --rouge-fonce:#5a1414;
+    --creme:#f4ead5;
+    --creme-clair:#faf5e6;
+    --noir:#1c1410;
+    --or:#c9a96e;
+    --gris:#6b5d52;
+  }
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--creme);
+    color:var(--noir);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:700}
+  
+  /* NAV */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(28,20,16,0.92);
+    backdrop-filter:blur(10px);
+    padding:1rem 2rem;
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  nav .logo{font-family:'Playfair Display',serif;color:var(--creme);font-size:1.3rem;font-style:italic}
+  nav ul{list-style:none;display:flex;gap:2rem}
+  nav a{color:var(--creme);text-decoration:none;font-size:0.9rem;letter-spacing:1px;text-transform:uppercase;transition:color .3s}
+  nav a:hover{color:var(--or)}
+  @media(max-width:768px){nav ul{display:none}nav{padding:.8rem 1rem}}
+  
+  /* HERO */
+  .hero{
+    min-height:100vh;
+    background:
+      linear-gradient(rgba(28,20,16,0.55),rgba(28,20,16,0.75)),
+      radial-gradient(ellipse at center, #3a2418 0%, #1c1410 70%);
+    background-size:cover;
+    background-position:center;
+    display:flex;align-items:center;justify-content:center;
+    text-align:center;
+    color:var(--creme);
+    position:relative;
+    padding:6rem 2rem 4rem;
+  }
+  .hero::before{
+    content:"";position:absolute;inset:0;
+    background-image:
+      repeating-linear-gradient(45deg, transparent 0 20px, rgba(201,169,110,0.03) 20px 21px);
+    pointer-events:none;
+  }
+  .hero-content{position:relative;z-index:2;max-width:900px;animation:fadeUp 1.4s ease}
+  .hero .eyebrow{
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;
+    color:var(--or);
+    letter-spacing:6px;
+    font-size:1rem;
+    text-transform:uppercase;
+    margin-bottom:1.5rem;
+  }
+  .hero h1{
+    font-size:clamp(3rem,8vw,6rem);
+    line-height:1;
+    margin-bottom:1.5rem;
+    letter-spacing:-1px;
+  }
+  .hero h1 span{font-style:italic;color:var(--or);font-weight:400}
+  .hero p.tagline{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(1.1rem,2vw,1.5rem);
+    max-width:600px;margin:0 auto 2.5rem;
+    font-weight:300;
+    line-height:1.5;
+  }
+  .hero .stars{margin-bottom:2rem;color:var(--or);letter-spacing:4px;font-size:1.2rem}
+  .hero .stars small{display:block;font-family:'Inter',sans-serif;letter-spacing:2px;font-size:.75rem;color:var(--creme);margin-top:.5rem;opacity:.7}
+  .cta-group{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+  .btn{
+    display:inline-block;
+    padding:1rem 2.2rem;
+    text-decoration:none;
+    font-size:.85rem;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    transition:all .3s ease;
+    border:1px solid var(--or);
+    font-weight:500;
+  }
+  .btn-primary{background:var(--or);color:var(--noir)}
+  .btn-primary:hover{background:transparent;color:var(--or)}
+  .btn-secondary{background:transparent;color:var(--creme);border-color:var(--creme)}
+  .btn-secondary:hover{background:var(--creme);color:var(--noir)}
+  
+  @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+  
+  /* SECTIONS */
+  section{padding:6rem 2rem}
+  .container{max-width:1200px;margin:0 auto}
+  .section-title{
+    text-align:center;
+    margin-bottom:4rem;
+  }
+  .section-title .eyebrow{
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;
+    color:var(--rouge);
+    letter-spacing:4px;
+    text-transform:uppercase;
+    font-size:.9rem;
+    margin-bottom:.8rem;
+    display:block;
+  }
+  .section-title h2{
+    font-size:clamp(2.2rem,5vw,3.5rem);
+    color:var(--noir);
+  }
+  .section-title h2 span{font-style:italic;color:var(--rouge)}
+  .ornament{
+    display:flex;align-items:center;justify-content:center;
+    gap:1rem;margin-top:1rem;
+  }
+  .ornament::before,.ornament::after{
+    content:"";height:1px;width:60px;background:var(--or);
+  }
+  .ornament span{color:var(--or);font-size:1rem}
+  
+  /* À PROPOS */
+  .apropos{background:var(--creme-clair)}
+  .apropos-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:4rem;
+    align-items:center;
+  }
+  .apropos-text p{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.2rem;
+    line-height:1.8;
+    margin-bottom:1.2rem;
+    color:var(--gris);
+  }
+  .apropos-text p:first-of-type::first-letter{
+    font-family:'Playfair Display',serif;
+    font-size:3.5rem;
+    float:left;
+    line-height:1;
+    padding-right:.5rem;
+    color:var(--rouge);
+    font-style:italic;
+  }
+  .apropos-visual{
+    aspect-ratio:4/5;
+    background:
+      linear-gradient(135deg,rgba(122,31,31,0.85),rgba(28,20,16,0.7)),
+      radial-gradient(circle at 30% 40%, #a83838, #5a1414);
+    position:relative;
+    display:flex;align-items:center;justify-content:center;
+    color:var(--creme);
+    text-align:center;
+    padding:3rem;
+    border:1px solid var(--or);
+  }
+  .apropos-visual::before{
+    content:"";position:absolute;inset:15px;border:1px solid rgba(201,169,110,.4);
+  }
+  .apropos-visual .quote{
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;
+    font-size:1.6rem;
+    line-height:1.5;
+    position:relative;z-index:2;
+  }
+  .apropos-visual .quote::before{
+    content:"“";display:block;font-size:5rem;line-height:.5;color:var(--or);margin-bottom:1rem;
+  }
+  .apropos-visual .author{
+    display:block;margin-top:1.5rem;font-size:.8rem;letter-spacing:3px;
+    text-transform:uppercase;color:var(--or);font-style:normal;
+  }
+  
+  .services{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:1.5rem;margin-top:4rem;
+  }
+  .service-item{
+    text-align:center;padding:2rem 1rem;
+    border:1px solid rgba(122,31,31,0.15);
+    background:white;
+    transition:all .3s;
+  }
+  .service-item:hover{transform:translateY(-5px);border-color:var(--rouge);box-shadow:0 10px 30px rgba(122,31,31,0.1)}
+  .service-item .icon{font-size:2rem;color:var(--rouge);margin-bottom:.8rem}
+  .service-item h4{font-size:1rem;margin-bottom:.3rem}
+  .service-item p{font-size:.85rem;color:var(--gris);font-family:'Inter',sans-serif}
+  
+  @media(max-width:768px){
+    .apropos-grid{grid-template-columns:1fr;gap:2.5rem}
+    section{padding:4rem 1.5rem}
+  }
+  
+  /* MENU */
+  .menu{
+    background:var(--noir);
+    color:var(--creme);
+    position:relative;
+  }
+  .menu::before{
+    content:"";position:absolute;inset:0;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(122,31,31,0.15), transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(201,169,110,0.08), transparent 50%);
+    pointer-events:none;
+  }
+  .menu .section-title .eyebrow{color:var(--or)}
+  .menu .section-title h2{color:var(--creme)}
+  .menu .section-title h2 span{color:var(--or)}
+  .menu-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:3rem;
+    position:relative;z-index:2;
+  }
+  .menu-category h3{
+    font-size:1.8rem;
+    color:var(--or);
+    text-align:center;
+    margin-bottom:.5rem;
+    font-style:italic;
+  }
+  .menu-category .cat-line{
+    width:50px;height:1px;background:var(--or);margin:0 auto 2rem;
+  }
+  .menu-item{
+    margin-bottom:1.8rem;
+    padding-bottom:1.5rem;
+    border-bottom:1px dashed rgba(201,169,110,0.2);
+  }
+  .menu-item:last-child{border-bottom:none}
+  .menu-item-head{
+    display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;margin-bottom:.4rem;
+  }
+  .menu-item-head h4{
+    font-family:'Playfair Display',serif;
+    font-size:1.15rem;
+    color:var(--creme);
+    font-weight:400;
+  }
+  .menu-item-head .price{
+    font-family:'Cormorant Garamond',serif;
+    color:var(--or);
+    font-size:1.3rem;
+    font-weight:400;
+    white-space:nowrap;
+  }
+  .menu-item p{
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;
+    font-size:1rem;
+    color:rgba(244,234,213,0.65);
+    line-height:1.4;
+  }
+  
+  /* HORAIRES */
+  .horaires{background:var(--creme-clair)}
+  .horaires-box{
+    max-width:600px;margin:0 auto;
+    background:white;
+    padding:3.5rem;
+    border:1px solid var(--or);
+    position:relative;
+  }
+  .horaires-box::before{
+    content:"";position:absolute;inset:10px;border:1px solid rgba(201,169,110,0.3);pointer-events:none;
+  }
+  .horaires-list{list-style:none}
+  .horaires-list li{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:1rem 0;
+    border-bottom:1px dotted rgba(122,31,31,0.2);
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.2rem;
+  }
+  .horaires-list li:last-child{border-bottom:none}
+  .horaires-list .jour{text-transform:capitalize;font-weight:500;color:var(--noir)}
+  .horaires-list .heure{color:var(--rouge);font-style:italic}
+  .horaires-note{
+    text-align:center;margin-top:2rem;
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;color:var(--gris);
+  }
+  @media(max-width:768px){.horaires-box{padding:2rem 1.5rem}}
+  
+  /* CONTACT */
+  .contact{
+    background:
+      linear-gradient(rgba(28,20,16,0.92),rgba(28,20,16,0.95)),
+      radial-gradient(ellipse at center, #3a2418, #1c1410);
+    color:var(--creme);
+    text-align:center;
+  }
+  .contact .section-title .eyebrow{color:var(--or)}
+  .contact .section-title h2{color:var(--creme)}
+  .contact .section-title h2 span{color:var(--or)}
+  .contact-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:3rem;margin-bottom:3rem;
+  }
+  .contact-item .icon{
+    font-size:2rem;color:var(--or);margin-bottom:1rem;display:block;
+  }
+  .contact-item h4{
+    font-size:1rem;letter-spacing:3px;text-transform:uppercase;
+    color:var(--or);margin-bottom:.8rem;font-family:'Inter',sans-serif;font-weight:500;
+  }
+  .contact-item p,.contact-item a{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.2rem;color:var(--creme);text-decoration:none;line-height:1.5;
+  }
+  .contact-item a:hover{color:var(--or)}
+  
+  footer{
+    padding:2rem;text-align:center;background:#0f0a08;color:rgba(244,234,213,0.5);
+    font-size:.85rem;letter-spacing:1px;
+  }
+  footer span{color:var(--or);font-style:italic;font-family:'Cormorant Garamond',serif}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Chez Moineau</div>
+  <ul>
+    <li><a href="#apropos">À propos</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#horaires">Horaires</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-content">
+    <div class="eyebrow">Saint-Germain-des-Prés · Depuis toujours</div>
+    <h1>Chez <span>Moineau</span></h1>
+    <p class="tagline">Une table parisienne où la générosité d'un bistrot rencontre l'élégance de la rive gauche. Cuisine de saison, vins choisis, accueil chaleureux.</p>
+    <div class="stars">
+      ★ ★ ★ ★ ★
+      <small>4,5 / 5 — 1 084 avis</small>
+    </div>
+    <div class="cta-group">
+      <a href="#menu" class="btn btn-primary">Découvrir la carte</a>
+      <a href="tel:+33142034786" class="btn btn-secondary">Réserver une table</a>
+    </div>
+  </div>
+</header>
+
+<!-- À PROPOS -->
+<section id="apropos" class="apropos">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">L'esprit de la maison</span>
+      <h2>Un <span>bistrot</span> au cœur du 6ᵉ</h2>
+      <div class="ornament"><span>✦</span></div>
+    </div>
+    <div class="apropos-grid">
+      <div class="apropos-text">
+        <p>Niché rue Mabillon, à deux pas du marché Saint-Germain, Chez Moineau cultive l'art de recevoir à la française. Ici, on pousse la porte le matin pour un café, on s'attable le midi pour un déjeuner soigné, et l'on prolonge la soirée jusqu'à minuit autour d'un verre et d'une planche.</p>
+        <p>La cuisine — sincère et raffinée — fait la part belle aux produits frais, aux classiques revisités et aux options végétariennes. Côté salle, un service jeune, attentif et souriant, dans un cadre lumineux et spacieux qui fait l'unanimité.</p>
+        <p>Une adresse à la fois rassurante et inventive, où chaque visite devient un rendez-vous.</p>
+      </div>
+      <div class="apropos-visual">
+        <div class="quote">
+          Un véritable coup de cœur ! À chaque visite, c'est un sans-faute. Des plats délicieux, raffinés, préparés avec des ingrédients de grande qualité.
+          <span class="author">— Avis Google</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="services">
+      <div class="service-item">
+        <div class="icon">☕</div>
+        <h4>Petit-déjeuner</h4>
+        <p>Dès 9h</p>
+      </div>
+      <div class="service-item">
+        <div class="icon">🍽️</div>
+        <h4>Déjeuner & Dîner</h4>
+        <p>Service continu</p>
+      </div>
+      <div class="service-item">
+        <div class="icon">🍷</div>
+        <h4>Bar à vins</h4>
+        <p>Bières & vins</p>
+      </div>
+      <div class="service-item">
+        <div class="icon">🌿</div>
+        <h4>Options Végé</h4>
+        <p>Plats sans viande</p>
+      </div>
+      <div class="service-item">
+        <div class="icon">📖</div>
+        <h4>Réservation</h4>
+        <p>Sur demande</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu" class="menu">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">Notre carte</span>
+      <h2>Menu <span>suggéré</span></h2>
+      <div class="ornament"><span>✦</span></div>
+    </div>
+
+    <div class="menu-grid">
+
+      <div class="menu-category">
+        <h3>Entrées</h3>
+        <div class="cat-line"></div>
+
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <h4>Soupe à l'oignon gratinée</h4>
+            <span class="price">12 €</span>
+          </div>
+          <p>Bouillon mijoté, croûton doré, comté affiné</p>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <h4>Planche du Moineau</h4>
+            <span class="price">18 €</span>
+          </div>
+          <p>Charcuteries de la Maison Chapuis, fromages affinés, cornichons</p>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <h4>Œuf parfait, crème de cèpes</h4>
+            <span class="price">14 €</span>
+          </div>
+          <p>Œuf basse température, mousseline forestière, croûtons à l'ail</p>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <h4>Burrata des Pouilles</h4>
+            <span class="price">15 €</span>
+          </div>
+          <p>Tomates anciennes, basilic frais, huile d'olive Frantoio</p>
+        </div>
+      </div>
+
+      <div class="menu-category">
+        <h3>Plats</h3>
+        <div class="cat-line"></div>
+
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <h4>Entrecôte, sauce béarnaise</h4>
+            <span class="price">28 €</span>
+          </div>
+          <p>Pièce de bœuf maturée, frites maison, salade verte</p>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <h4>Tartare de bœuf au couteau</h4>
+            <span class="price">22 €</span>
+          </div>
+          <p>Préparé à la commande, condiments, frites fraîches</p>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <h4>Suprême de volaille fermière</h4>
+            <span class="price">24 €</span>
+          </div>
+          <p>Jus corsé à l'estragon, écrasé de pommes de terre à l'huile de noisette</p>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <h4>Risotto aux légumes du marché <em style="color:var(--or);font-style:normal">v</em></h4>
+            <span class="price">19 €</span>
+          </div>
+          <p>Carnaroli crémeux, parmesan 24 mois, herbes fraîches</p>
+        </div>
+      </div>
+
+      <div class="menu-category">
+        <h3>Desserts</h3>
+        <div class="cat-line"></div>
+
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <h4>Crème brûlée à la vanille Bourbon</h4>
+            <span class="price">9 €</span>
+          </div>
+          <p>Crème onctueuse, caramel craquant minute</p>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <h4>Tarte fine aux pommes</h4>
+            <span class="price">10 €</span>
+          </div>
+          <p>Pâte feuilletée maison, glace vanille, caramel beurre salé</p>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <h4>Moelleux au chocolat Valrhona</h4>
+            <span class="price">11 €</span>
+          </div>
+          <p>Cœur coulant, sorbet cacao, fleur de sel</p>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <h4>Île flottante</h4>
+            <span class="price">9 €</span>
+          </div>
+          <p>Blanc en neige, crème anglaise à la vanille, pralin maison</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HORAIRES -->
+<section id="horaires" class="horaires">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">Toujours ouverts</span>
+      <h2>Nos <span>horaires</span></h2>
+      <div class="ornament"><span>✦</span></div>
+    </div>
+    <div class="horaires-box">
+      <ul class="horaires-list">
+        <li><span class="jour">Lundi</span><span class="heure">09h00 — 00h00</span></li>
+        <li><span class="jour">Mardi</span><span class="heure">09h00 — 00h00</span></li>
+        <li><span class="jour">Mercredi</span><span class="heure">09h00 — 00h00</span></li>
+        <li><span class="jour">Jeudi</span><span class="heure">09h00 — 00h00</span></li>
+        <li><span class="jour">Vendredi</span><span class="heure">09h00 — 00h00</span></li>
+        <li><span class="jour">Samedi</span><span class="heure">09h00 — 00h00</span></li>
+        <li><span class="jour">Dimanche</span><span class="heure">09h00 — 00h00</span></li>
+      </ul>
+      <p class="horaires-note">Service continu — du petit-déjeuner au dîner, 7 jours sur 7</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">Nous trouver</span>
+      <h2>Venez nous <span>rendre visite</span></h2>
+      <div class="ornament"><span>✦</span></div>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-item">
+        <span class="icon">📍</span>
+        <h4>Adresse</h4>
+        <p>12 Rue Mabillon<br>75006 Paris</p>
+      </div>
+      <div class="contact-item">
+        <span class="icon">📞</span>
+        <h4>Téléphone</h4>
+        <p><a href="tel:+33142034786">01 42 03 47 86</a></p>
+      </div>
+      <div class="contact-item">
+        <span class="icon">🚇</span>
+        <h4>Métro</h4>
+        <p>Mabillon · Saint-Germain-des-Prés</p>
+      </div>
+    </div>
+    <div class="cta-group">
+      <a href="https://maps.google.com/?cid=2228220560073492323" target="_blank" rel="noopener" class="btn btn-primary">Itinéraire Google Maps</a>
+      <a href="tel:+33142034786" class="btn btn-secondary">Appeler le restaurant</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © Chez Moineau Restaurant · 12 Rue Mabillon, 75006 Paris · <span>Une table à part, rive gauche</span>
+</footer>
+
+</body>
+</html>

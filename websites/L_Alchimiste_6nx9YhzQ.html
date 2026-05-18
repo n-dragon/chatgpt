@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L'Alchimiste — Bistrot créatif à Paris 12e</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Caveat:wght@500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --noir:#1a1410;
+    --crème:#f3ead8;
+    --papier:#e8dcc0;
+    --or:#b8893f;
+    --or-clair:#d4a85a;
+    --rouge:#7a2418;
+    --vert:#3d4a2a;
+    --craie:#f0ebe0;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--crème);
+    color:var(--noir);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;font-weight:600;letter-spacing:0.5px;}
+  .craie{font-family:'Caveat',cursive;}
+
+  /* HERO */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    background:
+      radial-gradient(ellipse at center, rgba(184,137,63,0.15) 0%, transparent 70%),
+      linear-gradient(135deg, #2a1f17 0%, #1a1410 60%, #0d0907 100%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    overflow:hidden;
+    padding:2rem;
+  }
+  .hero::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background-image:
+      radial-gradient(circle at 15% 25%, rgba(212,168,90,0.25) 0%, transparent 8%),
+      radial-gradient(circle at 85% 30%, rgba(212,168,90,0.2) 0%, transparent 7%),
+      radial-gradient(circle at 25% 75%, rgba(212,168,90,0.18) 0%, transparent 6%),
+      radial-gradient(circle at 75% 80%, rgba(212,168,90,0.22) 0%, transparent 7%);
+    pointer-events:none;
+  }
+  .hero-lamp{
+    position:absolute;
+    top:0;
+    left:50%;
+    transform:translateX(-50%);
+    width:2px;
+    height:80px;
+    background:linear-gradient(180deg, transparent, var(--or));
+  }
+  .hero-lamp::after{
+    content:'';
+    position:absolute;
+    bottom:-30px;
+    left:50%;
+    transform:translateX(-50%);
+    width:60px;
+    height:60px;
+    background:radial-gradient(circle, var(--or-clair) 0%, var(--or) 50%, transparent 70%);
+    border-radius:50% 50% 45% 45%;
+    box-shadow:0 0 60px 20px rgba(212,168,90,0.4);
+    animation:pulse 4s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{opacity:0.9;box-shadow:0 0 60px 20px rgba(212,168,90,0.4);}
+    50%{opacity:1;box-shadow:0 0 80px 30px rgba(212,168,90,0.55);}
+  }
+  .hero-content{position:relative;z-index:2;max-width:900px;}
+  .hero-eyebrow{
+    font-family:'Caveat',cursive;
+    color:var(--or-clair);
+    font-size:1.5rem;
+    margin-bottom:0.5rem;
+    letter-spacing:2px;
+  }
+  .hero h1{
+    font-size:clamp(3rem,9vw,7rem);
+    color:var(--crème);
+    font-weight:700;
+    line-height:1;
+    margin-bottom:1.5rem;
+    text-shadow:0 4px 30px rgba(0,0,0,0.5);
+  }
+  .hero h1 .amp{color:var(--or-clair);font-style:italic;}
+  .hero-divider{
+    width:120px;
+    height:1px;
+    background:var(--or);
+    margin:1.5rem auto;
+    position:relative;
+  }
+  .hero-divider::before,.hero-divider::after{
+    content:'';
+    position:absolute;
+    top:-3px;
+    width:7px;
+    height:7px;
+    background:var(--or);
+    border-radius:50%;
+  }
+  .hero-divider::before{left:-3px;}
+  .hero-divider::after{right:-3px;}
+  .hero-sub{
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;
+    font-size:clamp(1.1rem,2vw,1.5rem);
+    color:var(--papier);
+    margin-bottom:2rem;
+    max-width:600px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .hero-meta{
+    display:flex;
+    gap:2rem;
+    justify-content:center;
+    flex-wrap:wrap;
+    color:var(--papier);
+    font-size:0.9rem;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    margin-top:2rem;
+  }
+  .hero-meta span{display:flex;align-items:center;gap:0.5rem;}
+  .stars{color:var(--or-clair);letter-spacing:2px;}
+  .hero-cta{
+    display:inline-block;
+    margin-top:2.5rem;
+    padding:1rem 2.5rem;
+    border:1px solid var(--or);
+    color:var(--crème);
+    text-decoration:none;
+    letter-spacing:3px;
+    font-size:0.85rem;
+    text-transform:uppercase;
+    transition:all 0.3s;
+    background:transparent;
+  }
+  .hero-cta:hover{background:var(--or);color:var(--noir);}
+
+  /* SECTIONS */
+  section{padding:6rem 2rem;}
+  .container{max-width:1200px;margin:0 auto;}
+  .section-title{
+    text-align:center;
+    margin-bottom:4rem;
+  }
+  .section-title .craie{
+    color:var(--or);
+    font-size:1.8rem;
+    display:block;
+    margin-bottom:0.5rem;
+  }
+  .section-title h2{
+    font-size:clamp(2.2rem,5vw,3.5rem);
+    color:var(--noir);
+  }
+  .section-divider{
+    width:80px;height:1px;background:var(--or);
+    margin:1.5rem auto;
+  }
+
+  /* À PROPOS */
+  .about{background:var(--crème);}
+  .about-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:4rem;
+    align-items:center;
+  }
+  .about-text p{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.2rem;
+    margin-bottom:1.5rem;
+    color:#3a2e22;
+  }
+  .about-text p.lead{font-size:1.4rem;font-style:italic;color:var(--noir);}
+  .about-visual{
+    background:var(--vert);
+    padding:3rem 2rem;
+    color:var(--craie);
+    position:relative;
+    box-shadow:
+      0 0 0 8px var(--vert),
+      0 0 0 10px var(--or),
+      0 30px 60px rgba(0,0,0,0.2);
+    transform:rotate(-1deg);
+  }
+  .about-visual::before{
+    content:'';
+    position:absolute;
+    top:-25px;
+    left:50%;
+    transform:translateX(-50%);
+    width:80px;
+    height:30px;
+    background:#5a3a20;
+    border-radius:4px;
+    box-shadow:inset 0 -3px 6px rgba(0,0,0,0.3);
+  }
+  .about-visual h3{
+    font-family:'Caveat',cursive;
+    font-size:2.5rem;
+    margin-bottom:1.5rem;
+    color:var(--craie);
+    text-align:center;
+    border-bottom:1px dashed rgba(243,234,216,0.4);
+    padding-bottom:1rem;
+  }
+  .services-list{list-style:none;}
+  .services-list li{
+    font-family:'Caveat',cursive;
+    font-size:1.4rem;
+    padding:0.5rem 0;
+    color:var(--craie);
+    display:flex;
+    align-items:center;
+    gap:1rem;
+  }
+  .services-list li::before{
+    content:'✦';
+    color:var(--or-clair);
+  }
+  .price-tag{
+    display:inline-block;
+    margin-top:1.5rem;
+    font-family:'Caveat',cursive;
+    font-size:2rem;
+    color:var(--or-clair);
+    border:2px dashed var(--or-clair);
+    padding:0.3rem 1.5rem;
+    transform:rotate(-3deg);
+  }
+
+  /* MENU */
+  .menu{
+    background:var(--vert);
+    color:var(--craie);
+    position:relative;
+  }
+  .menu::before{
+    content:'';
+    position:absolute;
+    inset:1.5rem;
+    border:1px solid rgba(212,168,90,0.3);
+    pointer-events:none;
+  }
+  .menu .section-title h2{color:var(--craie);}
+  .menu .section-title .craie{color:var(--or-clair);}
+  .menu .section-divider{background:var(--or-clair);}
+  .menu-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:3rem;
+  }
+  .menu-cat h3{
+    font-family:'Caveat',cursive;
+    font-size:2.5rem;
+    color:var(--or-clair);
+    text-align:center;
+    margin-bottom:2rem;
+    position:relative;
+  }
+  .menu-cat h3::after{
+    content:'';
+    display:block;
+    width:50px;height:1px;
+    background:var(--or-clair);
+    margin:0.5rem auto 0;
+  }
+  .menu-item{
+    margin-bottom:1.8rem;
+    padding-bottom:1.2rem;
+    border-bottom:1px dashed rgba(243,234,216,0.2);
+  }
+  .menu-item:last-child{border:none;}
+  .menu-item-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    gap:1rem;
+    margin-bottom:0.3rem;
+  }
+  .menu-item-head h4{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.3rem;
+    color:var(--craie);
+    font-weight:600;
+  }
+  .menu-item-price{
+    font-family:'Caveat',cursive;
+    font-size:1.5rem;
+    color:var(--or-clair);
+    white-space:nowrap;
+  }
+  .menu-item p{
+    font-size:0.9rem;
+    color:rgba(243,234,216,0.7);
+    font-style:italic;
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.05rem;
+  }
+
+  /* HORAIRES */
+  .hours{background:var(--papier);}
+  .hours-grid{
+    max-width:600px;
+    margin:0 auto;
+    background:var(--crème);
+    padding:3rem;
+    border:1px solid var(--or);
+    box-shadow:0 20px 50px rgba(0,0,0,0.08);
+  }
+  .hour-row{
+    display:flex;
+    justify-content:space-between;
+    padding:1rem 0;
+    border-bottom:1px dotted rgba(184,137,63,0.4);
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.2rem;
+  }
+  .hour-row:last-child{border:none;}
+  .hour-row .day{font-weight:600;color:var(--noir);text-transform:capitalize;}
+  .hour-row .time{color:#5a4838;font-style:italic;}
+  .hour-row.today{
+    background:rgba(184,137,63,0.1);
+    margin:0 -1rem;
+    padding-left:1rem;
+    padding-right:1rem;
+  }
+  .hour-row.today .day::before{content:'▸ ';color:var(--or);}
+
+  /* CONTACT */
+  .contact{
+    background:var(--noir);
+    color:var(--crème);
+    text-align:center;
+  }
+  .contact .section-title h2{color:var(--crème);}
+  .contact-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:3rem;
+    margin-bottom:3rem;
+  }
+  .contact-card{
+    padding:2rem 1rem;
+  }
+  .contact-card .icon{
+    font-size:2rem;
+    color:var(--or-clair);
+    margin-bottom:1rem;
+  }
+  .contact-card h4{
+    font-family:'Caveat',cursive;
+    color:var(--or-clair);
+    font-size:1.5rem;
+    margin-bottom:0.5rem;
+  }
+  .contact-card p,.contact-card a{
+    color:var(--papier);
+    text-decoration:none;
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.15rem;
+    line-height:1.5;
+  }
+  .contact-card a:hover{color:var(--or-clair);}
+  .map-btn{
+    display:inline-block;
+    padding:1.2rem 3rem;
+    background:var(--or);
+    color:var(--noir);
+    text-decoration:none;
+    letter-spacing:3px;
+    font-size:0.9rem;
+    text-transform:uppercase;
+    font-weight:500;
+    transition:all 0.3s;
+  }
+  .map-btn:hover{background:var(--or-clair);transform:translateY(-2px);box-shadow:0 10px 30px rgba(212,168,90,0.3);}
+
+  footer{
+    background:#0d0907;
+    color:rgba(243,234,216,0.5);
+    text-align:center;
+    padding:2rem;
+    font-size:0.85rem;
+    letter-spacing:1px;
+  }
+  footer .craie{color:var(--or-clair);font-size:1.3rem;display:block;margin-bottom:0.3rem;}
+
+  @media (max-width:768px){
+    section{padding:4rem 1.5rem;}
+    .about-grid,.menu-grid,.contact-grid{grid-template-columns:1fr;gap:2.5rem;}
+    .hero-meta{gap:1rem;flex-direction:column;}
+    .hours-grid{padding:2rem 1.5rem;}
+    .hour-row{font-size:1rem;flex-direction:column;gap:0.2rem;}
+    .hour-row .time{font-size:0.95rem;}
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-lamp"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Bistrot créatif · Paris 12<sup>e</sup></div>
+    <h1>L'Alchimi<span class="amp">s</span>te</h1>
+    <div class="hero-divider"></div>
+    <p class="hero-sub">« Une cuisine française inventive, où chaque assiette transforme les saveurs en or. »</p>
+    <div class="hero-meta">
+      <span><span class="stars">★★★★★</span> 4.7 / 5</span>
+      <span>1355 avis Google</span>
+      <span>€€ · Bistrot</span>
+    </div>
+    <a href="#contact" class="hero-cta">Réserver une table</a>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="container">
+    <div class="section-title">
+      <span class="craie">Notre maison</span>
+      <h2>L'art de la transformation</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p class="lead">Au cœur du 12<sup>e</sup> arrondissement, L'Alchimiste cultive l'art du bistrot français revisité.</p>
+        <p>Sous les luminaires Art nouveau et face aux grandes ardoises murales qui dévoilent chaque jour la carte du marché, le chef compose des assiettes audacieuses — des mariages inattendus, des saveurs harmonieuses, une cuisine généreuse où tout est fait maison.</p>
+        <p>L'accueil chaleureux du propriétaire, un petit apéritif offert, quelques bonbons en fin de repas… Ici, l'expérience se savoure dans les moindres détails.</p>
+      </div>
+      <div class="about-visual">
+        <h3>L'Ardoise</h3>
+        <ul class="services-list">
+          <li>Service sur place</li>
+          <li>Réservation conseillée</li>
+          <li>Déjeuner & dîner</li>
+          <li>Carte de vins & bières</li>
+          <li>Cuisine 100 % maison</li>
+        </ul>
+        <div style="text-align:center;"><span class="price-tag">€€ Prix doux</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="menu" id="menu">
+  <div class="container">
+    <div class="section-title">
+      <span class="craie">À l'ardoise</span>
+      <h2>Notre carte suggérée</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="menu-grid">
+
+      <div class="menu-cat">
+        <h3>Entrées</h3>
+
+        <div class="menu-item">
+          <div class="menu-item-head"><h4>Velouté de butternut</h4><span class="menu-item-price">11 €</span></div>
+          <p>noisettes torréfiées, huile de truffe blanche</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><h4>Tartare de Saint-Jacques</h4><span class="menu-item-price">14 €</span></div>
+          <p>agrumes confits, fenouil croquant, pointe de wasabi</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><h4>Œuf parfait 63°</h4><span class="menu-item-price">12 €</span></div>
+          <p>crème de champignons, lard fumé, mouillettes sarrasin</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><h4>Foie gras maison</h4><span class="menu-item-price">15 €</span></div>
+          <p>chutney figue-poivre long, pain brioché toasté</p>
+        </div>
+      </div>
+
+      <div class="menu-cat">
+        <h3>Plats</h3>
+        <div class="menu-item">
+          <div class="menu-item-head"><h4>Magret de canard</h4><span class="menu-item-price">26 €</span></div>
+          <p>laqué au miel de châtaignier, panais rôti, jus corsé</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><h4>Cabillaud en croûte d'herbes</h4><span class="menu-item-price">24 €</span></div>
+          <p>risotto crémeux au safran, émulsion citronnée</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><h4>Joue de bœuf braisée</h4><span class="menu-item-price">25 €</span></div>
+          <p>vin rouge & cacao, purée truffée, légumes oubliés</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><h4>Risotto végétal</h4><span class="menu-item-price">21 €</span></div>
+          <p>champignons sauvages, parmesan 24 mois, copeaux de noix</p>
+        </div>
+      </div>
+
+      <div class="menu-cat">
+        <h3>Desserts</h3>
+        <div class="menu-item">
+          <div class="menu-item-head"><h4>Tarte fine au chocolat</h4><span class="menu-item-price">10 €</span></div>
+          <p>fleur de sel, glace caramel beurre salé</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><h4>Paris-Brest revisité</h4><span class="menu-item-price">11 €</span></div>
+          <p>praliné maison, croustillant noisette</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><h4>Poire pochée au vin</h4><span class="menu-item-price">9 €</span></div>
+          <p>épices douces, sorbet poire-gingembre</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><h4>Café gourmand</h4><span class="menu-item-price">9 €</span></div>
+          <p>quatre mignardises de saison, café de spécialité</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="hours" id="hours">
+  <div class="container">
+    <div class="section-title">
+      <span class="craie">À vos agendas</span>
+      <h2>Horaires d'ouverture</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="hours-grid">
+      <div class="hour-row"><span class="day">Lundi</span><span class="time">11h30 – 14h30 · 19h00 – 22h30</span></div>
+      <div class="hour-row"><span class="day">Mardi</span><span class="time">11h30 – 14h30 · 19h00 – 22h30</span></div>
+      <div class="hour-row"><span class="day">Mercredi</span><span class="time">11h30 – 14h30 · 19h00 – 22h30</span></div>
+      <div class="hour-row"><span class="day">Jeudi</span><span class="time">11h30 – 14h30 · 19h00 – 22h30</span></div>
+      <div class="hour-row"><span class="day">Vendredi</span><span class="time">11h30 – 14h30 · 19h00 – 22h30</span></div>
+      <div class="hour-row"><span class="day">Samedi</span><span class="time">11h30 – 14h30 · 19h00 – 22h30</span></div>
+      <div class="hour-row"><span class="day">Dimanche</span><span class="time">11h30 – 14h30 · Fermé le soir</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="section-title">
+      <span class="craie">Venez nous voir</span>
+      <h2>Nous rendre visite</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="icon">✉</div>
+        <h4>Adresse</h4>
+        <p>181 Rue de Charenton<br>75012 Paris</p>
+      </div>
+      <div class="contact-card">
+        <div class="icon">☎</div>
+        <h4>Téléphone</h4>
+        <p><a href="tel:+33143471038">01 43 47 10 38</a></p>
+      </div>
+      <div class="contact-card">
+        <div class="icon">★</div>
+        <h4>Réservation</h4>
+        <p>Conseillée<br>Déjeuner & dîner</p>
+      </div>
+    </div>
+    <a href="https://maps.google.com/?cid=3785090904675233981" target="_blank" rel="noopener" class="map-btn">Voir l'itinéraire</a>
+  </div>
+</section>
+
+<footer>
+  <span class="craie">L'Alchimiste</span>
+  © L'Alchimiste · Bistrot créatif · 181 Rue de Charenton, 75012 Paris
+</footer>
+
+</body>
+</html>

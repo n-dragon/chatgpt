@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chez Marie - Bistrot Parisien | Paris 10</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:wght@300;400;600&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  :root {
+    --bordeaux: #6b1a1a;
+    --bordeaux-dark: #4a0f0f;
+    --cream: #f5ecd9;
+    --warm-white: #faf5e8;
+    --gold: #c9a14a;
+    --charcoal: #2b2420;
+    --paper: #ede2c8;
+  }
+  
+  body {
+    font-family: 'Cormorant Garamond', serif;
+    background: var(--warm-white);
+    color: var(--charcoal);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  
+  h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 700; }
+  .script { font-family: 'Caveat', cursive; }
+  
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: 
+      linear-gradient(rgba(43,36,32,0.65), rgba(43,36,32,0.75)),
+      repeating-linear-gradient(45deg, #3a2a20, #3a2a20 2px, #2b2420 2px, #2b2420 8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    color: var(--cream);
+    text-align: center;
+    padding: 2rem;
+  }
+  
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 30px;
+    border: 2px solid rgba(201,161,74,0.5);
+    pointer-events: none;
+  }
+  
+  .hero-content { position: relative; z-index: 2; animation: fadeUp 1.2s ease; }
+  
+  .hero .script {
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--gold);
+    display: block;
+    margin-bottom: -0.5rem;
+  }
+  
+  .hero h1 {
+    font-size: clamp(3.5rem, 9vw, 7rem);
+    letter-spacing: 2px;
+    line-height: 1;
+    margin-bottom: 1.5rem;
+  }
+  
+  .hero .tagline {
+    font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+    font-style: italic;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    color: var(--paper);
+    letter-spacing: 1px;
+  }
+  
+  .divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .divider span {
+    display: inline-block;
+    width: 60px;
+    height: 1px;
+    background: var(--gold);
+  }
+  .divider::after { content: '✦'; color: var(--gold); }
+  .divider span:first-child { order: -1; }
+  
+  .hero-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+    font-size: 1rem;
+    letter-spacing: 1px;
+  }
+  
+  .hero-info div { display: flex; align-items: center; gap: 0.5rem; }
+  
+  .stars { color: var(--gold); letter-spacing: 2px; }
+  
+  .btn {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: var(--gold);
+    color: var(--charcoal);
+    text-decoration: none;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    border: 2px solid var(--gold);
+    transition: all 0.3s ease;
+    margin-top: 2rem;
+  }
+  .btn:hover { background: transparent; color: var(--gold); }
+  
+  .btn-dark { background: var(--bordeaux); color: var(--cream); border-color: var(--bordeaux); }
+  .btn-dark:hover { background: transparent; color: var(--bordeaux); }
+  
+  /* SECTIONS */
+  section { padding: 6rem 2rem; }
+  
+  .section-title {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  .section-title .script {
+    color: var(--bordeaux);
+    font-size: 2rem;
+    display: block;
+  }
+  .section-title h2 {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    color: var(--charcoal);
+    margin-top: -0.5rem;
+  }
+  
+  /* À PROPOS */
+  .about {
+    background: var(--cream);
+    position: relative;
+  }
+  .about-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .about-text p {
+    font-size: 1.2rem;
+    margin-bottom: 1.2rem;
+    color: #4a3f38;
+  }
+  .about-text p:first-letter { font-size: 1.5em; font-weight: 600; color: var(--bordeaux); }
+  
+  .about-visual {
+    background: var(--bordeaux);
+    color: var(--cream);
+    padding: 3rem;
+    position: relative;
+    box-shadow: 15px 15px 0 var(--gold);
+  }
+  .about-visual h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: var(--gold);
+  }
+  .about-visual ul { list-style: none; }
+  .about-visual li {
+    padding: 0.6rem 0;
+    border-bottom: 1px dashed rgba(245,236,217,0.3);
+    font-size: 1.1rem;
+  }
+  .about-visual li::before { content: '✦ '; color: var(--gold); }
+  
+  /* MENU */
+  .menu {
+    background: var(--warm-white);
+    background-image: 
+      radial-gradient(circle at 10% 20%, rgba(201,161,74,0.05) 0%, transparent 50%),
+      radial-gradient(circle at 90% 80%, rgba(107,26,26,0.05) 0%, transparent 50%);
+  }
+  
+  .menu-categories {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+  }
+  
+  .menu-cat {
+    background: var(--paper);
+    padding: 2.5rem 2rem;
+    border: 1px solid rgba(107,26,26,0.2);
+    position: relative;
+  }
+  .menu-cat::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: -1px; right: -1px; bottom: -1px;
+    border: 1px solid var(--gold);
+    pointer-events: none;
+    transform: translate(8px, 8px);
+    z-index: -1;
+  }
+  
+  .menu-cat h3 {
+    text-align: center;
+    color: var(--bordeaux);
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 2px;
+  }
+  .menu-cat .cat-sub {
+    text-align: center;
+    color: var(--gold);
+    font-style: italic;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+  }
+  
+  .menu-item {
+    padding: 1rem 0;
+    border-bottom: 1px dotted rgba(43,36,32,0.2);
+  }
+  .menu-item:last-child { border: none; }
+  .menu-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 0.3rem;
+  }
+  .menu-item-name {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--charcoal);
+  }
+  .menu-item-price {
+    font-family: 'Playfair Display', serif;
+    color: var(--bordeaux);
+    font-weight: 700;
+    font-size: 1.1rem;
+    white-space: nowrap;
+  }
+  .menu-item-desc {
+    font-size: 1rem;
+    color: #6b5d52;
+    font-style: italic;
+  }
+  
+  /* HORAIRES */
+  .hours {
+    background: var(--charcoal);
+    color: var(--cream);
+  }
+  .hours .section-title h2 { color: var(--cream); }
+  .hours .section-title .script { color: var(--gold); }
+  
+  .hours-list {
+    max-width: 600px;
+    margin: 0 auto;
+    background: rgba(255,255,255,0.03);
+    padding: 3rem;
+    border: 1px solid rgba(201,161,74,0.3);
+  }
+  .hours-list .day {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0;
+    border-bottom: 1px dashed rgba(245,236,217,0.15);
+    font-size: 1.15rem;
+  }
+  .hours-list .day:last-child { border: none; }
+  .hours-list .day-name {
+    font-family: 'Playfair Display', serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 1rem;
+  }
+  .hours-list .day-hours { color: var(--paper); font-style: italic; }
+  .hours-list .day.closed .day-hours { color: var(--bordeaux); opacity: 0.7; }
+  
+  /* CONTACT */
+  .contact {
+    background: var(--cream);
+    text-align: center;
+  }
+  .contact-grid {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+  .contact-card {
+    padding: 2rem 1rem;
+  }
+  .contact-card .icon {
+    font-size: 2rem;
+    color: var(--bordeaux);
+    margin-bottom: 1rem;
+  }
+  .contact-card h3 {
+    font-size: 1.2rem;
+    color: var(--bordeaux);
+    margin-bottom: 0.5rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .contact-card p, .contact-card a {
+    color: var(--charcoal);
+    text-decoration: none;
+    font-size: 1.1rem;
+  }
+  .contact-card a:hover { color: var(--bordeaux); }
+  
+  /* FOOTER */
+  footer {
+    background: var(--bordeaux-dark);
+    color: var(--paper);
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.95rem;
+  }
+  footer .script { color: var(--gold); font-size: 1.5rem; display: block; margin-bottom: 0.5rem; }
+  
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @media (max-width: 768px) {
+    section { padding: 4rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .menu-categories { grid-template-columns: 1fr; gap: 2rem; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .hero-info { gap: 1rem; flex-direction: column; }
+    .about-visual { box-shadow: 8px 8px 0 var(--gold); padding: 2rem; }
+    .hours-list { padding: 2rem 1.5rem; }
+    .hours-list .day { flex-direction: column; gap: 0.3rem; padding: 0.8rem 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <span class="script">Bienvenue</span>
+    <h1>Chez Marie</h1>
+    <p class="tagline">Bistrot de quartier au cœur du 10ème arrondissement — cuisine maison, fraîche et inventive</p>
+    <div class="divider"><span></span><span></span></div>
+    <div class="hero-info">
+      <div><span class="stars">★★★★★</span> 4.9 / 5 (161 avis)</div>
+      <div>📍 Paris 10ème</div>
+      <div>🍷 Bar · Restaurant</div>
+    </div>
+    <a href="#contact" class="btn">Réserver une table</a>
+  </div>
+</section>
+
+<!-- À PROPOS -->
+<section class="about" id="about">
+  <div class="section-title">
+    <span class="script">L'histoire</span>
+    <h2>Une adresse pépite</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>Niché rue Martel, à deux pas des grands boulevards, <em>Chez Marie</em> est ce petit bistrot parisien qu'on rêve d'avoir au coin de sa rue. Marie vous y accueille avec chaleur et générosité, comme à la maison.</p>
+      <p>Ici, on cultive l'art du fait-maison. Une petite carte, renouvelée au fil des saisons et des envies, qui met à l'honneur des produits frais, beaucoup de couleurs et des saveurs franches. Goûteuse, inventive, et toujours sincère — la cuisine de Marie réinvente les classiques avec malice.</p>
+      <p>Le midi en semaine, on s'y attable pour un déjeuner gourmand. Les jeudis et vendredis soirs, l'ambiance se fait plus intime autour d'un verre de vin et d'une assiette généreuse.</p>
+    </div>
+    <div class="about-visual">
+      <h3>Notre maison</h3>
+      <ul>
+        <li>Cuisine fait-maison</li>
+        <li>Produits frais & de saison</li>
+        <li>Options végétariennes</li>
+        <li>Sur place &amp; à emporter</li>
+        <li>Livraison disponible</li>
+        <li>Petit-déjeuner · Déjeuner · Dîner</li>
+        <li>Sélection de vins &amp; bières</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu" id="menu">
+  <div class="section-title">
+    <span class="script">La carte</span>
+    <h2>Suggestions du moment</h2>
+  </div>
+  <div class="menu-categories">
+    
+    <div class="menu-cat">
+      <h3>Entrées</h3>
+      <p class="cat-sub">Pour bien commencer</p>
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Velouté du jour</span>
+          <span class="menu-item-price">8 €</span>
+        </div>
+        <p class="menu-item-desc">Légumes de saison, crème fraîche et croûtons maison</p>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Œuf parfait</span>
+          <span class="menu-item-price">11 €</span>
+        </div>
+        <p class="menu-item-desc">Cuit basse température, mouillettes de pain de campagne, mousseline de petits pois</p>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Burrata des Pouilles</span>
+          <span class="menu-item-price">13 €</span>
+        </div>
+        <p class="menu-item-desc">Tomates anciennes, basilic frais, huile d'olive vierge</p>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Tartare de saumon</span>
+          <span class="menu-item-price">12 €</span>
+        </div>
+        <p class="menu-item-desc">Avocat, citron vert, aneth, blinis tièdes</p>
+      </div>
+    </div>
+    
+    <div class="menu-cat">
+      <h3>Plats</h3>
+      <p class="cat-sub">Les signatures de Marie</p>
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Le Burger Bourguignon</span>
+          <span class="menu-item-price">19 €</span>
+        </div>
+        <p class="menu-item-desc">Notre incontournable — bœuf mijoté au vin rouge, pommes grenailles rôties</p>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Suprême de volaille</span>
+          <span class="menu-item-price">21 €</span>
+        </div>
+        <p class="menu-item-desc">Crème de morilles, écrasé de pommes de terre à l'huile de truffe</p>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Risotto végétarien</span>
+          <span class="menu-item-price">17 €</span>
+        </div>
+        <p class="menu-item-desc">Courges, parmesan affiné 24 mois, noisettes torréfiées</p>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Pavé de cabillaud</span>
+          <span class="menu-item-price">22 €</span>
+        </div>
+        <p class="menu-item-desc">Légumes croquants, beurre blanc citronné, riz vénéré</p>
+      </div>
+    </div>
+    
+    <div class="menu-cat">
+      <h3>Desserts</h3>
+      <p class="cat-sub">Pour la note sucrée</p>
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Carrot Cake maison</span>
+          <span class="menu-item-price">8 €</span>
+        </div>
+        <p class="menu-item-desc">Le préféré de nos habitués — glaçage cream cheese, noix caramélisées</p>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Mousse au chocolat</span>
+          <span class="menu-item-price">7 €</span>
+        </div>
+        <p class="menu-item-desc">Chocolat noir 70%, fleur de sel, tuile au sésame</p>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Tarte fine du jour</span>
+          <span class="menu-item-price">8 €</span>
+        </div>
+        <p class="menu-item-desc">Fruits de saison, boule de glace vanille</p>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Café gourmand</span>
+          <span class="menu-item-price">9 €</span>
+        </div>
+        <p class="menu-item-desc">Sélection de mignardises maison &amp; expresso</p>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+<!-- HORAIRES -->
+<section class="hours" id="hours">
+  <div class="section-title">
+    <span class="script">Horaires</span>
+    <h2>Quand nous rendre visite</h2>
+  </div>
+  <div class="hours-list">
+    <div class="day">
+      <span class="day-name">Lundi</span>
+      <span class="day-hours">11:00 – 15:00</span>
+    </div>
+    <div class="day">
+      <span class="day-name">Mardi</span>
+      <span class="day-hours">11:00 – 15:00</span>
+    </div>
+    <div class="day">
+      <span class="day-name">Mercredi</span>
+      <span class="day-hours">11:00 – 15:00</span>
+    </div>
+    <div class="day">
+      <span class="day-name">Jeudi</span>
+      <span class="day-hours">11:00 – 15:00 · 18:00 – 23:00</span>
+    </div>
+    <div class="day">
+      <span class="day-name">Vendredi</span>
+      <span class="day-hours">11:00 – 15:00 · 18:00 – 23:00</span>
+    </div>
+    <div class="day closed">
+      <span class="day-name">Samedi</span>
+      <span class="day-hours">Fermé</span>
+    </div>
+    <div class="day closed">
+      <span class="day-name">Dimanche</span>
+      <span class="day-hours">Fermé</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-title">
+    <span class="script">À très vite</span>
+    <h2>Nous trouver</h2>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-card">
+      <div class="icon">📍</div>
+      <h3>Adresse</h3>
+      <p>1 bis Rue Martel<br>75010 Paris</p>
+    </div>
+    <div class="contact-card">
+      <div class="icon">📞</div>
+      <h3>Téléphone</h3>
+      <p><a href="tel:+33695230231">06 95 23 02 31</a></p>
+    </div>
+    <div class="contact-card">
+      <div class="icon">🕐</div>
+      <h3>Réservation</h3>
+      <p>Par téléphone<br>du lundi au vendredi</p>
+    </div>
+  </div>
+  <a href="https://maps.google.com/?cid=559303011977797498" target="_blank" rel="noopener" class="btn btn-dark">Itinéraire Google Maps</a>
+</section>
+
+<footer>
+  <span class="script">Chez Marie</span>
+  © 2025 — Bistrot parisien · 1 bis Rue Martel, 75010 Paris · Fait avec passion
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Les Bougresses — Bistrot du Marais, Paris</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:wght@400;500&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bordeaux: #6b1d20;
+    --bordeaux-dark: #4a1316;
+    --cream: #f4ead5;
+    --paper: #ede0c4;
+    --gold: #b08d57;
+    --ink: #2a1810;
+    --soft: #7a5a3a;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Cormorant Garamond', serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 18px;
+  }
+  h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background:
+      linear-gradient(rgba(42, 24, 16, 0.65), rgba(42, 24, 16, 0.8)),
+      radial-gradient(circle at 30% 40%, #6b1d20 0%, #3a0e10 60%, #1a0608 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--cream);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 80%, rgba(176, 141, 87, 0.15) 0%, transparent 40%),
+      radial-gradient(circle at 80% 20%, rgba(176, 141, 87, 0.1) 0%, transparent 40%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    font-family: 'Special Elite', monospace;
+    font-size: 0.9rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    animation: fadeIn 1.2s ease;
+  }
+  .hero h1 {
+    font-size: clamp(3rem, 9vw, 7rem);
+    font-style: italic;
+    letter-spacing: 0.02em;
+    margin-bottom: 1rem;
+    line-height: 1;
+    animation: fadeIn 1.4s ease;
+  }
+  .hero-sub {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    max-width: 600px;
+    font-style: italic;
+    color: var(--paper);
+    margin-bottom: 2.5rem;
+    animation: fadeIn 1.6s ease;
+  }
+  .hero-divider {
+    width: 80px;
+    height: 1px;
+    background: var(--gold);
+    margin: 0 auto 2rem;
+    position: relative;
+  }
+  .hero-divider::before, .hero-divider::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    transform: translateY(-50%);
+  }
+  .hero-divider::before { left: -15px; }
+  .hero-divider::after { right: -15px; }
+  .hero-meta {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-family: 'Special Elite', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    color: var(--paper);
+    animation: fadeIn 1.8s ease;
+  }
+  .hero-meta span { display: inline-flex; align-items: center; gap: 0.5rem; }
+  .cta {
+    display: inline-block;
+    margin-top: 3rem;
+    padding: 1rem 2.5rem;
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    text-decoration: none;
+    font-family: 'Special Elite', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    animation: fadeIn 2s ease;
+  }
+  .cta:hover {
+    background: var(--gold);
+    color: var(--bordeaux-dark);
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SECTIONS */
+  section { padding: 6rem 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-title {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  .section-title small {
+    display: block;
+    font-family: 'Special Elite', monospace;
+    color: var(--bordeaux);
+    letter-spacing: 0.4em;
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+  }
+  .section-title h2 {
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    color: var(--ink);
+    font-style: italic;
+  }
+  .section-title .ornament {
+    margin: 1.5rem auto 0;
+    width: 60px;
+    height: 1px;
+    background: var(--bordeaux);
+    position: relative;
+  }
+  .section-title .ornament::before {
+    content: "❦";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--cream);
+    color: var(--bordeaux);
+    padding: 0 1rem;
+    font-size: 1.2rem;
+  }
+
+  /* ABOUT */
+  .about {
+    background: var(--paper);
+    position: relative;
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .about-text p {
+    font-size: 1.15rem;
+    margin-bottom: 1.2rem;
+    color: var(--ink);
+  }
+  .about-text p:first-of-type::first-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    float: left;
+    line-height: 0.9;
+    padding-right: 0.5rem;
+    color: var(--bordeaux);
+    font-style: italic;
+  }
+  .about-card {
+    background: var(--bordeaux);
+    color: var(--cream);
+    padding: 3rem 2.5rem;
+    border: 1px solid var(--gold);
+    position: relative;
+  }
+  .about-card::before {
+    content: "";
+    position: absolute;
+    inset: 8px;
+    border: 1px solid rgba(244, 234, 213, 0.2);
+    pointer-events: none;
+  }
+  .about-card h3 {
+    font-style: italic;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+  }
+  .services-list {
+    list-style: none;
+  }
+  .services-list li {
+    padding: 0.6rem 0;
+    border-bottom: 1px dashed rgba(244, 234, 213, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.05rem;
+  }
+  .services-list li:last-child { border: none; }
+  .services-list li::before {
+    content: "✦";
+    color: var(--gold);
+    margin-right: 0.8rem;
+  }
+  .price-badge {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 0.4rem 1rem;
+    background: var(--gold);
+    color: var(--bordeaux-dark);
+    font-family: 'Special Elite', monospace;
+    letter-spacing: 0.2em;
+    font-size: 0.9rem;
+  }
+  .rating {
+    margin-top: 1.5rem;
+    font-family: 'Special Elite', monospace;
+    font-size: 0.9rem;
+  }
+  .stars { color: var(--gold); font-size: 1.2rem; letter-spacing: 0.1em; }
+
+  /* MENU */
+  .menu {
+    background: var(--cream);
+    background-image:
+      radial-gradient(circle at 10% 20%, rgba(176, 141, 87, 0.05) 0%, transparent 30%),
+      radial-gradient(circle at 90% 80%, rgba(107, 29, 32, 0.04) 0%, transparent 30%);
+  }
+  .menu-category {
+    margin-bottom: 4rem;
+  }
+  .menu-category h3 {
+    text-align: center;
+    font-size: 2rem;
+    font-style: italic;
+    color: var(--bordeaux);
+    margin-bottom: 0.5rem;
+  }
+  .menu-category .cat-sub {
+    text-align: center;
+    font-family: 'Special Elite', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.4em;
+    color: var(--soft);
+    margin-bottom: 2.5rem;
+  }
+  .menu-items {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem 3rem;
+  }
+  .menu-item {
+    padding: 1rem 0;
+    border-bottom: 1px dotted var(--soft);
+  }
+  .menu-item-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 0.3rem;
+  }
+  .menu-item-name {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--ink);
+  }
+  .menu-item-price {
+    font-family: 'Special Elite', monospace;
+    color: var(--bordeaux);
+    font-size: 1.05rem;
+    white-space: nowrap;
+  }
+  .menu-item-desc {
+    font-style: italic;
+    color: var(--soft);
+    font-size: 1rem;
+  }
+
+  /* HOURS */
+  .hours {
+    background: var(--bordeaux-dark);
+    color: var(--cream);
+    background-image:
+      linear-gradient(135deg, var(--bordeaux-dark) 0%, var(--bordeaux) 100%);
+  }
+  .hours .section-title h2 { color: var(--cream); }
+  .hours .section-title small { color: var(--gold); }
+  .hours .section-title .ornament { background: var(--gold); }
+  .hours .section-title .ornament::before {
+    background: var(--bordeaux-dark);
+    color: var(--gold);
+  }
+  .hours-list {
+    max-width: 600px;
+    margin: 0 auto;
+    background: rgba(244, 234, 213, 0.05);
+    padding: 2.5rem;
+    border: 1px solid rgba(176, 141, 87, 0.3);
+  }
+  .hours-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.9rem 0;
+    border-bottom: 1px dashed rgba(176, 141, 87, 0.3);
+    font-size: 1.1rem;
+  }
+  .hours-row:last-child { border: none; }
+  .hours-row .day {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hours-row .time { color: var(--cream); font-family: 'Special Elite', monospace; font-size: 0.95rem; }
+  .hours-row.closed .time { color: #a87a7c; font-style: italic; }
+
+  /* REVIEWS */
+  .reviews {
+    background: var(--paper);
+    padding: 5rem 2rem;
+  }
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .review {
+    background: var(--cream);
+    padding: 2rem;
+    border-left: 3px solid var(--bordeaux);
+    font-style: italic;
+    color: var(--ink);
+    position: relative;
+  }
+  .review::before {
+    content: "“";
+    position: absolute;
+    top: -0.5rem;
+    left: 1rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    color: var(--bordeaux);
+    opacity: 0.2;
+    line-height: 1;
+  }
+  .review p { font-size: 1rem; margin-bottom: 1rem; position: relative; z-index: 1; }
+  .review-author {
+    font-family: 'Special Elite', monospace;
+    font-style: normal;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    color: var(--bordeaux);
+  }
+  .review-stars { color: var(--gold); margin-bottom: 0.5rem; }
+
+  /* CONTACT */
+  .contact {
+    background: var(--ink);
+    color: var(--cream);
+    text-align: center;
+  }
+  .contact .section-title h2 { color: var(--cream); }
+  .contact .section-title small { color: var(--gold); }
+  .contact .section-title .ornament { background: var(--gold); }
+  .contact .section-title .ornament::before {
+    background: var(--ink);
+    color: var(--gold);
+  }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+  .contact-block h4 {
+    font-family: 'Special Elite', monospace;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+  .contact-block p {
+    font-size: 1.15rem;
+    color: var(--paper);
+  }
+  .contact-block a { color: var(--paper); text-decoration: none; }
+  .contact-block a:hover { color: var(--gold); }
+  .map-button {
+    display: inline-block;
+    padding: 1.2rem 3rem;
+    background: var(--bordeaux);
+    color: var(--cream);
+    text-decoration: none;
+    font-family: 'Special Elite', monospace;
+    letter-spacing: 0.3em;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    border: 1px solid var(--gold);
+    transition: all 0.3s ease;
+  }
+  .map-button:hover {
+    background: var(--gold);
+    color: var(--ink);
+  }
+  footer {
+    padding: 2rem;
+    background: #0d0604;
+    text-align: center;
+    color: var(--soft);
+    font-family: 'Special Elite', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    section { padding: 4rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .menu-items { grid-template-columns: 1fr; gap: 0.5rem; }
+    .reviews-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .hero-meta { gap: 1rem; font-size: 0.75rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-tag">Bistrot ❖ Marais ❖ Depuis Toujours</div>
+  <h1>Les Bougresses</h1>
+  <div class="hero-divider"></div>
+  <p class="hero-sub">Une pépite chaleureuse au cœur du Marais, où la cuisine française se savoure comme à la maison.</p>
+  <div class="hero-meta">
+    <span>★ 4.6/5 — 782 avis</span>
+    <span>•</span>
+    <span>6 Rue de Jarente, 75004</span>
+    <span>•</span>
+    <span>€€</span>
+  </div>
+  <a href="#contact" class="cta">Réserver une table</a>
+</header>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="section-title">
+      <small>Notre Maison</small>
+      <h2>L'âme du Marais</h2>
+      <div class="ornament"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>Niché dans une rue paisible du 4ᵉ arrondissement, Les Bougresses est de ces adresses que l'on garde précieusement. Tenu par un couple passionné, le restaurant cultive depuis des années l'art d'un accueil sincère et d'une cuisine française généreuse.</p>
+        <p>Filet de bœuf poêlé, bourguignon mijoté, foie gras maison, mi-cuit au chocolat — chaque plat raconte le savoir-faire d'un bistrot authentique. On y reconnaît les habitués, on y devient régulier en une soirée.</p>
+        <p>Petite salle au cadre atypique, lumière tamisée, conversations animées : ici, l'ambiance se vit autant qu'elle se déguste.</p>
+      </div>
+      <aside class="about-card">
+        <h3>L'essentiel</h3>
+        <ul class="services-list">
+          <li>Sur place</li>
+          <li>Réservation conseillée</li>
+          <li>Déjeuner &amp; dîner</li>
+          <li>Carte des vins</li>
+          <li>Bière artisanale</li>
+        </ul>
+        <span class="price-badge">€€ — Prix bistrot</span>
+        <div class="rating">
+          <div class="stars">★ ★ ★ ★ ★</div>
+          4.6 / 5 sur 782 avis
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu" id="menu">
+  <div class="container">
+    <div class="section-title">
+      <small>À la Carte</small>
+      <h2>Notre Suggestion</h2>
+      <div class="ornament"></div>
+    </div>
+
+    <div class="menu-category">
+      <h3>Entrées</h3>
+      <div class="cat-sub">Pour commencer</div>
+      <div class="menu-items">
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Foie Gras Maison</span>
+            <span class="menu-item-price">16 €</span>
+          </div>
+          <div class="menu-item-desc">Mi-cuit au torchon, chutney de figues et pain de campagne toasté</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Œuf Parfait</span>
+            <span class="menu-item-price">12 €</span>
+          </div>
+          <div class="menu-item-desc">Crème de champignons des bois, lard fumé et croûtons</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Tartare de Saint-Jacques</span>
+            <span class="menu-item-price">15 €</span>
+          </div>
+          <div class="menu-item-desc">Aneth, citron vert et huile d'olive de Provence</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Soupe à l'Oignon Gratinée</span>
+            <span class="menu-item-price">11 €</span>
+          </div>
+          <div class="menu-item-desc">Recette traditionnelle, comté affiné 18 mois</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-category">
+      <h3>Plats</h3>
+      <div class="cat-sub">Le cœur de la maison</div>
+      <div class="menu-items">
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Filet de Bœuf Poêlé</span>
+            <span class="menu-item-price">29 €</span>
+          </div>
+          <div class="menu-item-desc">Sauce au poivre vert, pommes grenaille et légumes du marché</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Bœuf Bourguignon</span>
+            <span class="menu-item-price">24 €</span>
+          </div>
+          <div class="menu-item-desc">Mijoté longuement au vin rouge, tagliatelles fraîches</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Magret de Canard</span>
+            <span class="menu-item-price">26 €</span>
+          </div>
+          <div class="menu-item-desc">Glacé au miel et thym, gratin dauphinois maison</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Cabillaud Rôti</span>
+            <span class="menu-item-price">25 €</span>
+          </div>
+          <div class="menu-item-desc">Beurre blanc citronné, écrasé de pommes de terre à l'huile d'olive</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-category">
+      <h3>Desserts</h3>
+      <div class="cat-sub">Pour conclure en douceur</div>
+      <div class="menu-items">
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Mi-Cuit au Chocolat</span>
+            <span class="menu-item-price">10 €</span>
+          </div>
+          <div class="menu-item-desc">Cœur coulant, glace vanille bourbon</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Crêpes Suzette</span>
+            <span class="menu-item-price">9 €</span>
+          </div>
+          <div class="menu-item-desc">Flambées au Grand Marnier devant vous</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Crème Brûlée</span>
+            <span class="menu-item-price">9 €</span>
+          </div>
+          <div class="menu-item-desc">À la vanille de Madagascar, caramel craquant</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Tarte Tatin</span>
+            <span class="menu-item-price">10 €</span>
+          </div>
+          <div class="menu-item-desc">Pommes caramélisées, crème fraîche d'Isigny</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews">
+  <div class="section-title">
+    <small>On en parle</small>
+    <h2>Paroles d'habitués</h2>
+    <div class="ornament"></div>
+  </div>
+  <div class="reviews-grid">
+    <div class="review">
+      <div class="review-stars">★★★★★</div>
+      <p>Quelle surprise d'être reconnu par les gérants à l'arrivée ! L'accueil est chaleureux, on s'y sent comme à la maison, même après huit ans d'absence.</p>
+      <div class="review-author">— Thierry B.</div>
+    </div>
+    <div class="review">
+      <div class="review-stars">★★★★★</div>
+      <p>Une véritable pépite au cœur du Marais. Tenu par un couple adorable et serviable, l'ambiance y est chaleureuse et authentique dans un petit cadre atypique.</p>
+      <div class="review-author">— Raphaël G.</div>
+    </div>
+    <div class="review">
+      <div class="review-stars">★★★★★</div>
+      <p>Le filet de bœuf poêlé est d'exception. Foie gras, bourguignon, mi-cuit, crêpes… L'ambiance et le service sont magnifiques.</p>
+      <div class="review-author">— Jacqueline H.</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOURS -->
+<section class="hours" id="hours">
+  <div class="container">
+    <div class="section-title">
+      <small>Ouverture</small>
+      <h2>Nos Horaires</h2>
+      <div class="ornament"></div>
+    </div>
+    <div class="hours-list">
+      <div class="hours-row closed"><span class="day">Lundi</span><span class="time">Fermé</span></div>
+      <div class="hours-row"><span class="day">Mardi</span><span class="time">18:30 — 22:30</span></div>
+      <div class="hours-row"><span class="day">Mercredi</span><span class="time">18:30 — 22:30</span></div>
+      <div class="hours-row"><span class="day">Jeudi</span><span class="time">18:30 — 22:30</span></div>
+      <div class="hours-row"><span class="day">Vendredi</span><span class="time">18:30 — 22:30</span></div>
+      <div class="hours-row"><span class="day">Samedi</span><span class="time">12:00 — 14:30  ·  18:30 — 22:30</span></div>
+      <div class="hours-row"><span class="day">Dimanche</span><span class="time">12:00 — 14:00  ·  18:30 — 22:30</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="section-title">
+      <small>Nous Trouver</small>
+      <h2>Réservez votre table</h2>
+      <div class="ornament"></div>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-block">
+        <h4>Adresse</h4>
+        <p>6 Rue de Jarente<br>75004 Paris, France</p>
+      </div>
+      <div class="contact-block">
+        <h4>Téléphone</h4>
+        <p><a href="tel:+33148877121">01 48 87 71 21</a></p>
+      </div>
+      <div class="contact-block">
+        <h4>Quartier</h4>
+        <p>Le Marais<br>Place du Marché Sainte-Catherine</p>
+      </div>
+    </div>
+    <a href="https://maps.google.com/?cid=11964198360899892139" target="_blank" rel="noopener" class="map-button">Itinéraire ↗</a>
+  </div>
+</section>
+
+<footer>
+  © Les Bougresses — Bistrot Parisien, depuis le cœur du Marais
+</footer>
+
+</body>
+</html>

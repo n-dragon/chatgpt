@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pardi — Comptoir basque au Marché Saint-Quentin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Cormorant+Garamond:wght@400;500;600;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --rouge:#9b1c1c;
+    --rouge-fonce:#6e1212;
+    --creme:#f5ede1;
+    --beige:#e9dcc4;
+    --noir:#2b1a14;
+    --terre:#c0633b;
+    --vert:#3d5236;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Work Sans',sans-serif;
+    color:var(--noir);
+    background:var(--creme);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:600;line-height:1.1}
+  
+  /* NAV */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(245,237,225,0.95);
+    backdrop-filter:blur(8px);
+    padding:1rem 2rem;
+    display:flex;justify-content:space-between;align-items:center;
+    border-bottom:1px solid rgba(155,28,28,0.15);
+  }
+  nav .logo{font-family:'Abril Fatface',serif;font-size:1.6rem;color:var(--rouge)}
+  nav ul{display:flex;gap:2rem;list-style:none}
+  nav a{text-decoration:none;color:var(--noir);font-size:.85rem;letter-spacing:.15em;text-transform:uppercase;transition:color .3s}
+  nav a:hover{color:var(--rouge)}
+  
+  /* HERO */
+  .hero{
+    min-height:100vh;
+    background:
+      radial-gradient(ellipse at 20% 30%, rgba(192,99,59,0.25), transparent 50%),
+      radial-gradient(ellipse at 80% 70%, rgba(155,28,28,0.3), transparent 50%),
+      linear-gradient(180deg,#1a0e0a 0%, #3a1f15 60%, #6e1212 100%);
+    color:var(--creme);
+    display:flex;flex-direction:column;justify-content:center;align-items:center;
+    text-align:center;padding:6rem 1.5rem 3rem;
+    position:relative;overflow:hidden;
+  }
+  .hero::before{
+    content:"";position:absolute;inset:0;
+    background-image:
+      repeating-linear-gradient(45deg, transparent 0 40px, rgba(245,237,225,.02) 40px 41px);
+    pointer-events:none;
+  }
+  .hero .tag{
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;font-size:1.1rem;letter-spacing:.3em;text-transform:uppercase;
+    color:var(--terre);margin-bottom:1.5rem;
+    animation:fadeUp 1s ease;
+  }
+  .hero h1{
+    font-family:'Abril Fatface',serif;
+    font-size:clamp(4rem,14vw,12rem);
+    color:var(--creme);
+    margin-bottom:1rem;letter-spacing:.02em;
+    text-shadow:0 4px 30px rgba(0,0,0,.4);
+    animation:fadeUp 1.2s ease;
+  }
+  .hero .sub{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(1.2rem,2.5vw,1.8rem);
+    font-style:italic;max-width:640px;margin:0 auto 2.5rem;
+    color:#f0e6d3;
+    animation:fadeUp 1.4s ease;
+  }
+  .hero .meta{
+    display:flex;gap:2rem;flex-wrap:wrap;justify-content:center;
+    font-size:.85rem;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--beige);opacity:.85;
+    animation:fadeUp 1.6s ease;
+  }
+  .hero .meta span{display:flex;align-items:center;gap:.5rem}
+  .stars{color:var(--terre);letter-spacing:.1em}
+  
+  @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+  
+  .scroll-cue{
+    position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+    font-size:.7rem;letter-spacing:.3em;color:var(--beige);
+    animation:bob 2s infinite;
+  }
+  @keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,8px)}}
+  
+  /* SECTIONS */
+  section{padding:6rem 1.5rem;max-width:1200px;margin:0 auto}
+  .section-label{
+    font-size:.75rem;letter-spacing:.4em;text-transform:uppercase;
+    color:var(--rouge);margin-bottom:1rem;display:block;
+  }
+  .section-title{
+    font-size:clamp(2.5rem,5vw,4rem);color:var(--noir);
+    margin-bottom:2.5rem;
+  }
+  .section-title em{color:var(--rouge);font-style:italic}
+  
+  /* À PROPOS */
+  .about{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+  .about-text p{margin-bottom:1.2rem;font-size:1.05rem;color:#4a342a}
+  .about-text p.lead{
+    font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-style:italic;
+    color:var(--rouge-fonce);line-height:1.4;
+  }
+  .about-card{
+    background:var(--rouge);color:var(--creme);
+    padding:3rem;border-radius:4px;
+    position:relative;
+    box-shadow:0 20px 60px rgba(110,18,18,.3);
+  }
+  .about-card::before{
+    content:"";position:absolute;top:-12px;left:-12px;right:12px;bottom:12px;
+    border:2px solid var(--terre);border-radius:4px;z-index:-1;
+  }
+  .about-card h3{font-size:1.8rem;margin-bottom:1.5rem;color:var(--beige)}
+  .services{list-style:none}
+  .services li{
+    padding:.7rem 0;border-bottom:1px dashed rgba(245,237,225,.25);
+    font-size:.95rem;display:flex;align-items:center;gap:.7rem;
+  }
+  .services li::before{content:"❦";color:var(--terre)}
+  .services li:last-child{border:none}
+  .price-tag{
+    display:inline-block;margin-top:1.5rem;
+    padding:.6rem 1.2rem;background:var(--terre);color:var(--creme);
+    font-family:'Abril Fatface',serif;font-size:1.4rem;letter-spacing:.1em;
+    border-radius:2px;
+  }
+  
+  /* MENU */
+  .menu-section{background:linear-gradient(180deg,var(--creme) 0%, var(--beige) 100%);max-width:none;margin:0;padding:6rem 1.5rem}
+  .menu-inner{max-width:1200px;margin:0 auto}
+  .menu-intro{text-align:center;max-width:600px;margin:0 auto 4rem;font-style:italic;color:#5a3e30;font-family:'Cormorant Garamond',serif;font-size:1.2rem}
+  .menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3rem}
+  .menu-cat{
+    background:var(--creme);
+    padding:2.5rem 2rem;
+    border:1px solid rgba(155,28,28,.15);
+    position:relative;
+  }
+  .menu-cat::before{
+    content:"";position:absolute;top:0;left:50%;transform:translate(-50%,-50%);
+    width:60px;height:30px;background:var(--rouge);
+    clip-path:polygon(0 0,100% 0,50% 100%);
+  }
+  .menu-cat h3{
+    font-size:2rem;color:var(--rouge);text-align:center;margin-bottom:.3rem;
+  }
+  .menu-cat .cat-sub{
+    text-align:center;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;
+    color:var(--terre);margin-bottom:2rem;
+  }
+  .menu-item{margin-bottom:1.5rem;padding-bottom:1.2rem;border-bottom:1px dotted rgba(110,18,18,.2)}
+  .menu-item:last-child{border:none;margin:0}
+  .menu-item-head{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin-bottom:.3rem}
+  .menu-item-name{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;color:var(--noir)}
+  .menu-item-price{font-family:'Abril Fatface',serif;color:var(--rouge);font-size:1.1rem;white-space:nowrap}
+  .menu-item-desc{font-size:.88rem;color:#6b4e3f;font-style:italic;line-height:1.4}
+  
+  /* HORAIRES */
+  .hours-wrap{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+  .hours-list{list-style:none;background:var(--creme);border:1px solid rgba(155,28,28,.2)}
+  .hours-list li{
+    display:flex;justify-content:space-between;
+    padding:1.1rem 1.8rem;
+    border-bottom:1px solid rgba(155,28,28,.1);
+    font-size:1rem;
+  }
+  .hours-list li:last-child{border:none}
+  .hours-list li.today{background:var(--rouge);color:var(--creme)}
+  .hours-list .day{letter-spacing:.15em;text-transform:uppercase;font-size:.85rem;font-weight:500}
+  .hours-list .time{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic}
+  .hours-list .closed{color:#a08577}
+  .hours-list li.today .closed{color:var(--beige)}
+  .hours-aside h3{font-size:2.5rem;color:var(--rouge);margin-bottom:1.2rem}
+  .hours-aside p{color:#5a3e30;margin-bottom:1rem}
+  
+  /* AVIS */
+  .reviews{background:var(--noir);color:var(--creme);padding:6rem 1.5rem;max-width:none;margin:0}
+  .reviews-inner{max-width:1200px;margin:0 auto;text-align:center}
+  .reviews .section-title{color:var(--creme)}
+  .reviews .section-label{color:var(--terre)}
+  .review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem}
+  .review{
+    background:rgba(245,237,225,.05);
+    padding:2rem;border-left:3px solid var(--terre);
+    text-align:left;
+  }
+  .review .stars{font-size:1rem;margin-bottom:1rem;display:block}
+  .review-text{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;line-height:1.5;margin-bottom:1.2rem;color:#f0e6d3}
+  .review-author{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(--beige);opacity:.7}
+  
+  /* CONTACT */
+  .contact{text-align:center}
+  .contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem}
+  .contact-card{
+    padding:2.5rem 1.5rem;
+    background:var(--creme);
+    border:1px solid rgba(155,28,28,.15);
+  }
+  .contact-card .icon{font-size:2rem;color:var(--rouge);margin-bottom:1rem}
+  .contact-card h4{font-family:'Cormorant Garamond',serif;font-size:1.4rem;margin-bottom:.8rem;color:var(--rouge-fonce)}
+  .contact-card p,.contact-card a{color:#4a342a;text-decoration:none;font-size:.95rem;line-height:1.5}
+  .contact-card a:hover{color:var(--rouge)}
+  .cta{
+    display:inline-block;margin-top:3rem;
+    padding:1.2rem 3rem;
+    background:var(--rouge);color:var(--creme);
+    text-decoration:none;letter-spacing:.3em;text-transform:uppercase;font-size:.85rem;
+    border:2px solid var(--rouge);
+    transition:all .3s;
+  }
+  .cta:hover{background:transparent;color:var(--rouge)}
+  
+  /* FOOTER */
+  footer{
+    background:var(--rouge-fonce);color:var(--beige);
+    text-align:center;padding:3rem 1.5rem;
+  }
+  footer .logo{font-family:'Abril Fatface',serif;font-size:2rem;color:var(--creme);margin-bottom:.5rem}
+  footer p{font-size:.85rem;opacity:.7;margin-top:.5rem}
+  
+  /* RESPONSIVE */
+  @media(max-width:768px){
+    nav ul{display:none}
+    .about,.hours-wrap{grid-template-columns:1fr;gap:2.5rem}
+    .menu-grid,.review-grid,.contact-grid{grid-template-columns:1fr;gap:2rem}
+    section{padding:4rem 1.2rem}
+    .hero{padding:5rem 1.2rem 3rem}
+    .about-card{padding:2rem}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Pardi</div>
+  <ul>
+    <li><a href="#about">Maison</a></li>
+    <li><a href="#menu">Carte</a></li>
+    <li><a href="#hours">Horaires</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <span class="tag">Comptoir basque · depuis le marché</span>
+  <h1>Pardi</h1>
+  <p class="sub">Tapas du Pays Basque, produits du marché et grands crus de comptoir — au cœur du Marché Saint-Quentin.</p>
+  <div class="meta">
+    <span class="stars">★★★★★</span>
+    <span>4,5 / 5 · 222 avis</span>
+    <span>Paris 10ᵉ</span>
+  </div>
+  <div class="scroll-cue">↓ Découvrir</div>
+</header>
+
+<section id="about">
+  <span class="section-label">La Maison</span>
+  <h2 class="section-title">Un <em>petit comptoir</em>,<br>une <em>grande table</em>.</h2>
+  <div class="about">
+    <div class="about-text">
+      <p class="lead">« Pardi ! », l'expression du Sud-Ouest qui dit l'évidence du bon goût et du bien-vivre.</p>
+      <p>Niché sous les verrières du Marché Saint-Quentin, Pardi est un comptoir intimiste où l'on déjeune au coude à coude, entre étals de poissonniers et fromagers. La cuisine y est franche, généreuse, d'inspiration basque — ce coin de table où les pimentos de Padron côtoient une burratina à tomber et un croque à la truffe.</p>
+      <p>Tout est fait maison, avec des produits locaux choisis sur le marché même. Une formule du midi qui change au gré des arrivages, des tapas à partager, un verre de vin nature et l'ardoise du jour griffonnée à la craie.</p>
+    </div>
+    <div class="about-card">
+      <h3>Le comptoir</h3>
+      <ul class="services">
+        <li>Service sur place</li>
+        <li>Réservation conseillée</li>
+        <li>Petit-déjeuner & brunch</li>
+        <li>Déjeuner — tapas & formule</li>
+        <li>Cave de vins et bières</li>
+        <li>Cuisine maison du marché</li>
+      </ul>
+      <div class="price-tag">€€ · Formule midi</div>
+    </div>
+  </div>
+</section>
+
+<section class="menu-section" id="menu">
+  <div class="menu-inner">
+    <div style="text-align:center">
+      <span class="section-label">À l'ardoise</span>
+      <h2 class="section-title">La <em>carte</em> du comptoir</h2>
+      <p class="menu-intro">Une sélection inspirée — variable selon le marché et la saison. Tout est fait maison, à partager si le cœur vous en dit.</p>
+    </div>
+    <div class="menu-grid">
+      
+      <div class="menu-cat">
+        <h3>Tapas</h3>
+        <div class="cat-sub">Pintxos & petites assiettes</div>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Pimentos de Padrón</span>
+            <span class="menu-item-price">8 €</span>
+          </div>
+          <p class="menu-item-desc">Poêlés à la fleur de sel, huile d'olive du Pays Basque.</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Burratina des Pouilles</span>
+            <span class="menu-item-price">12 €</span>
+          </div>
+          <p class="menu-item-desc">Tomates anciennes du marché, basilic, huile fruitée.</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Jambon Ibaïona 24 mois</span>
+            <span class="menu-item-price">14 €</span>
+          </div>
+          <p class="menu-item-desc">Tranché minute, pain grillé et tomate frottée.</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Croque à la truffe</span>
+            <span class="menu-item-price">13 €</span>
+          </div>
+          <p class="menu-item-desc">Comté affiné, brisures de truffe noire, pain de campagne.</p>
+        </div>
+      </div>
+      
+      <div class="menu-cat">
+        <h3>Plats</h3>
+        <div class="cat-sub">L'ardoise du midi</div>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Bavette d'Aloyau</span>
+            <span class="menu-item-price">19 €</span>
+          </div>
+          <p class="menu-item-desc">Échalotes confites, pommes grenailles, jus corsé.</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Axoa de veau</span>
+            <span class="menu-item-price">17 €</span>
+          </div>
+          <p class="menu-item-desc">Recette basque, piment d'Espelette, riz basmati.</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Cabillaud à la plancha</span>
+            <span class="menu-item-price">21 €</span>
+          </div>
+          <p class="menu-item-desc">Pipérade maison, citron de Menton, herbes fraîches.</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Formule du Marché</span>
+            <span class="menu-item-price">22 €</span>
+          </div>
+          <p class="menu-item-desc">Entrée + plat ou plat + dessert, selon l'arrivage.</p>
+        </div>
+      </div>
+      
+      <div class="menu-cat">
+        <h3>Douceurs</h3>
+        <div class="cat-sub">À l'heure du café</div>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Gâteau basque</span>
+            <span class="menu-item-price">8 €</span>
+          </div>
+          <p class="menu-item-desc">Pâte sablée, crème pâtissière à la vanille de Tahiti.</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Brebis & confiture de cerise</span>
+            <span class="menu-item-price">9 €</span>
+          </div>
+          <p class="menu-item-desc">Ossau-Iraty fermier, cerises noires d'Itxassou.</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Crème catalane</span>
+            <span class="menu-item-price">7 €</span>
+          </div>
+          <p class="menu-item-desc">Cassonade caramélisée minute, zestes d'agrumes.</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Café gourmand</span>
+            <span class="menu-item-price">9 €</span>
+          </div>
+          <p class="menu-item-desc">Trio de mignardises maison, expresso d'artisan.</p>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<section id="hours">
+  <span class="section-label">Le calendrier</span>
+  <h2 class="section-title"><em>Horaires</em> du comptoir</h2>
+  <div class="hours-wrap">
+    <div class="hours-aside">
+      <h3>Au gré du marché.</h3>
+      <p>Pardi vit au rythme du Marché Saint-Quentin : nous ouvrons quand les étals s'animent et fermons lorsque le marché tire le rideau.</p>
+      <p>Réservation vivement conseillée — la salle est petite, l'ambiance familiale.</p>
+    </div>
+    <ul class="hours-list">
+      <li><span class="day">Lundi</span><span class="time closed">Fermé</span></li>
+      <li><span class="day">Mardi</span><span class="time">09:00 — 15:00</span></li>
+      <li><span class="day">Mercredi</span><span class="time">09:00 — 15:00</span></li>
+      <li><span class="day">Jeudi</span><span class="time">09:00 — 15:00</span></li>
+      <li><span class="day">Vendredi</span><span class="time">09:00 — 15:00</span></li>
+      <li><span class="day">Samedi</span><span class="time">09:00 — 15:00</span></li>
+      <li><span class="day">Dimanche</span><span class="time">09:00 — 14:00</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="reviews">
+  <div class="reviews-inner">
+    <span class="section-label">On en parle</span>
+    <h2 class="section-title">Voix du <em>comptoir</em></h2>
+    <div class="review-grid">
+      <div class="review">
+        <span class="stars">★★★★★</span>
+        <p class="review-text">« Service vraiment adorable et la nourriture était incroyable ! Plein de plats avec des ingrédients locaux, tout fait maison ! »</p>
+        <span class="review-author">— Alizée</span>
+      </div>
+      <div class="review">
+        <span class="stars">★★★★★</span>
+        <p class="review-text">« Super spot pour manger au marché. Plats très bien assaisonnés, bons produits. Un croque à la truffe super bon, une burratina à tomber. »</p>
+        <span class="review-author">— Rémy</span>
+      </div>
+      <div class="review">
+        <span class="stars">★★★★★</span>
+        <p class="review-text">« Très bien reçu, les pimentos de Padrón une très bonne surprise, et une bavette parfaitement cuite et tendre. Je reviendrai pour sûr ! »</p>
+        <span class="review-author">— Mourad</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <span class="section-label">Nous trouver</span>
+  <h2 class="section-title">Venez nous <em>voir</em></h2>
+  <div class="contact-grid">
+    <div class="contact-card">
+      <div class="icon">✦</div>
+      <h4>Adresse</h4>
+      <p>85 bis boulevard Magenta<br>Marché Saint-Quentin<br>75010 Paris</p>
+    </div>
+    <div class="contact-card">
+      <div class="icon">☎</div>
+      <h4>Téléphone</h4>
+      <p><a href="tel:+33142465516">01 42 46 55 16</a></p>
+      <p style="margin-top:.5rem;font-size:.85rem;opacity:.7">Réservation conseillée</p>
+    </div>
+    <div class="contact-card">
+      <div class="icon">❦</div>
+      <h4>Métro</h4>
+      <p>Gare de l'Est<br>Poissonnière<br>Château d'Eau</p>
+    </div>
+  </div>
+  <a class="cta" href="https://maps.google.com/?cid=7672837444280141475" target="_blank" rel="noopener">Itinéraire Google Maps</a>
+</section>
+
+<footer>
+  <div class="logo">Pardi</div>
+  <p>Comptoir basque · Marché Saint-Quentin · Paris 10ᵉ</p>
+  <p>© Pardi — Tous droits réservés</p>
+</footer>
+
+</body>
+</html>

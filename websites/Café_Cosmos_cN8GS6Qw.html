@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Café Cosmos — Bistrot vintage à Paris 11</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:wght@300;400;600&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  :root {
+    --bordeaux: #6b1f2a;
+    --or: #c9a961;
+    --crème: #f4ecd8;
+    --noir: #1a1410;
+    --brun: #3d2817;
+    --vert-bouteille: #2d4a3a;
+  }
+  
+  html { scroll-behavior: smooth; }
+  
+  body {
+    font-family: 'Cormorant Garamond', serif;
+    background: var(--crème);
+    color: var(--noir);
+    line-height: 1.6;
+    font-size: 18px;
+  }
+  
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: 
+      radial-gradient(ellipse at center, rgba(26,20,16,0.4) 0%, rgba(26,20,16,0.85) 100%),
+      linear-gradient(135deg, #2a1a12 0%, #4a2f1f 50%, #1a1410 100%);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      repeating-linear-gradient(45deg, transparent 0, transparent 2px, rgba(201,169,97,0.03) 2px, rgba(201,169,97,0.03) 4px);
+    pointer-events: none;
+  }
+  
+  .hero-frame {
+    border: 2px solid var(--or);
+    padding: 4rem 3rem;
+    position: relative;
+    max-width: 900px;
+    animation: fadeIn 1.5s ease-out;
+  }
+  
+  .hero-frame::before,
+  .hero-frame::after {
+    content: '✦';
+    position: absolute;
+    color: var(--or);
+    font-size: 1.5rem;
+    background: #2a1a12;
+    padding: 0 1rem;
+  }
+  
+  .hero-frame::before { top: -1rem; left: 50%; transform: translateX(-50%); }
+  .hero-frame::after { bottom: -1rem; left: 50%; transform: translateX(-50%); }
+  
+  .hero-eyebrow {
+    font-family: 'Special Elite', cursive;
+    color: var(--or);
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    color: var(--crème);
+    font-size: clamp(3rem, 9vw, 6.5rem);
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 1rem;
+    font-style: italic;
+  }
+  
+  .hero-sub {
+    color: var(--crème);
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    font-style: italic;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+  
+  .hero-meta {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    color: var(--or);
+    font-family: 'Special Elite', cursive;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  
+  .hero-meta span { display: flex; align-items: center; gap: 0.5rem; }
+  
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    color: var(--or);
+    font-family: 'Special Elite', cursive;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    animation: bounce 2s infinite;
+  }
+  
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); opacity: 0.6; }
+    50% { transform: translateY(8px); opacity: 1; }
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* SECTIONS */
+  section { padding: 6rem 2rem; }
+  
+  .container { max-width: 1100px; margin: 0 auto; }
+  
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    text-align: center;
+    color: var(--bordeaux);
+    margin-bottom: 1rem;
+    font-style: italic;
+  }
+  
+  .section-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3.5rem;
+    color: var(--or);
+  }
+  
+  .section-divider::before,
+  .section-divider::after {
+    content: '';
+    height: 1px;
+    width: 60px;
+    background: var(--or);
+  }
+  
+  /* À PROPOS */
+  .about {
+    background: var(--crème);
+    position: relative;
+  }
+  
+  .about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  
+  .about-text p {
+    margin-bottom: 1.3rem;
+    font-size: 1.15rem;
+    color: var(--brun);
+  }
+  
+  .about-text p:first-of-type::first-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    float: left;
+    line-height: 0.9;
+    padding-right: 0.5rem;
+    color: var(--bordeaux);
+    font-style: italic;
+  }
+  
+  .about-card {
+    background: #fff;
+    border: 1px solid var(--or);
+    padding: 2.5rem;
+    box-shadow: 8px 8px 0 var(--bordeaux);
+  }
+  
+  .about-card h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--bordeaux);
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+    border-bottom: 1px solid var(--or);
+    padding-bottom: 0.8rem;
+  }
+  
+  .services-list {
+    list-style: none;
+    margin-bottom: 1.5rem;
+  }
+  
+  .services-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px dotted rgba(107,31,42,0.2);
+    color: var(--brun);
+    font-size: 1.05rem;
+  }
+  
+  .services-list li::before {
+    content: '✦ ';
+    color: var(--or);
+    margin-right: 0.5rem;
+  }
+  
+  .price-range {
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--bordeaux);
+    letter-spacing: 0.3em;
+    margin-top: 1rem;
+  }
+  
+  .price-range small {
+    display: block;
+    font-family: 'Special Elite', cursive;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--brun);
+    margin-top: 0.5rem;
+  }
+  
+  /* MENU */
+  .menu {
+    background: linear-gradient(135deg, #f4ecd8 0%, #e8dcc0 100%);
+    position: relative;
+  }
+  
+  .menu::before {
+    content: '';
+    position: absolute;
+    inset: 2rem;
+    border: 1px solid var(--or);
+    pointer-events: none;
+    opacity: 0.3;
+  }
+  
+  .menu-categories {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+    margin-top: 2rem;
+  }
+  
+  .menu-cat h3 {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--bordeaux);
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    position: relative;
+    padding-bottom: 1rem;
+  }
+  
+  .menu-cat h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 1px;
+    background: var(--or);
+  }
+  
+  .menu-item {
+    margin-bottom: 1.8rem;
+  }
+  
+  .menu-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 0.3rem;
+  }
+  
+  .menu-item-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--noir);
+    font-weight: 700;
+  }
+  
+  .menu-dots {
+    flex: 1;
+    border-bottom: 1px dotted var(--brun);
+    margin-bottom: 0.4rem;
+    opacity: 0.4;
+  }
+  
+  .menu-price {
+    font-family: 'Special Elite', cursive;
+    color: var(--bordeaux);
+    font-size: 1rem;
+  }
+  
+  .menu-desc {
+    font-size: 0.98rem;
+    color: var(--brun);
+    font-style: italic;
+    line-height: 1.4;
+  }
+  
+  /* HORAIRES */
+  .hours {
+    background: var(--noir);
+    color: var(--crème);
+    position: relative;
+  }
+  
+  .hours .section-title { color: var(--or); }
+  
+  .hours-grid {
+    max-width: 600px;
+    margin: 0 auto;
+    background: rgba(201,169,97,0.05);
+    border: 1px solid var(--or);
+    padding: 3rem;
+  }
+  
+  .hours-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0;
+    border-bottom: 1px dotted rgba(201,169,97,0.3);
+    font-size: 1.15rem;
+  }
+  
+  .hours-row:last-child { border-bottom: none; }
+  
+  .hours-day {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    text-transform: capitalize;
+    color: var(--or);
+  }
+  
+  .hours-time {
+    font-family: 'Special Elite', cursive;
+    letter-spacing: 0.1em;
+    font-size: 0.95rem;
+  }
+  
+  .hours-note {
+    text-align: center;
+    margin-top: 2rem;
+    font-style: italic;
+    color: var(--or);
+    opacity: 0.8;
+    font-size: 1.05rem;
+  }
+  
+  /* CONTACT */
+  .contact {
+    background: var(--bordeaux);
+    color: var(--crème);
+    text-align: center;
+  }
+  
+  .contact .section-title { color: var(--or); }
+  .contact .section-divider::before,
+  .contact .section-divider::after { background: var(--or); }
+  
+  .contact-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+    max-width: 800px;
+    margin: 0 auto 3rem;
+  }
+  
+  .contact-block h4 {
+    font-family: 'Special Elite', cursive;
+    color: var(--or);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+  
+  .contact-block p, .contact-block a {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--crème);
+    text-decoration: none;
+    font-style: italic;
+  }
+  
+  .btn {
+    display: inline-block;
+    padding: 1.2rem 3rem;
+    background: var(--or);
+    color: var(--noir);
+    text-decoration: none;
+    font-family: 'Special Elite', cursive;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    border: 1px solid var(--or);
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+  }
+  
+  .btn:hover {
+    background: transparent;
+    color: var(--or);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  }
+  
+  footer {
+    background: var(--noir);
+    color: var(--or);
+    text-align: center;
+    padding: 2rem;
+    font-family: 'Special Elite', cursive;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+  }
+  
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    section { padding: 4rem 1.5rem; }
+    .hero-frame { padding: 2.5rem 1.5rem; }
+    .about-content { grid-template-columns: 1fr; gap: 2.5rem; }
+    .menu-categories { grid-template-columns: 1fr; gap: 2.5rem; }
+    .contact-info { grid-template-columns: 1fr; gap: 2rem; }
+    .hours-grid { padding: 2rem 1.5rem; }
+    .hero-meta { gap: 1rem; font-size: 0.7rem; }
+    .about-card { padding: 1.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-frame">
+    <div class="hero-eyebrow">Bistrot · Bar · Café</div>
+    <h1>Café Cosmos</h1>
+    <p class="hero-sub">Un voyage vintage au cœur du 11ème — depuis l'aube jusqu'au bout de la nuit</p>
+    <div class="hero-meta">
+      <span>★ 4.6 / 5</span>
+      <span>591 avis</span>
+      <span>Paris 11ème</span>
+    </div>
+  </div>
+  <div class="scroll-hint">↓ Découvrir</div>
+</section>
+
+<!-- À PROPOS -->
+<section class="about" id="about">
+  <div class="container">
+    <h2 class="section-title">L'esprit du lieu</h2>
+    <div class="section-divider">✦</div>
+    <div class="about-content">
+      <div class="about-text">
+        <p>Niché au 53 rue de la Roquette, le Café Cosmos est de ces adresses parisiennes où le temps semble s'être arrêté. Sa décoration vintage, sa lumière tamisée et sa musique soignée composent un écrin chaleureux, à mi-chemin entre le bistrot d'autrefois et le bar de quartier où l'on aime s'attarder.</p>
+        <p>Étroit mais plein de caractère, l'établissement propose une cuisine française généreuse, dans la pure tradition des comptoirs parisiens. Du petit-déjeuner au dîner tardif, du brunch dominical au verre de vin partagé entre amis — chaque moment trouve sa place.</p>
+        <p>Une étoile fidèle dans la galaxie des bistrots du 11ème.</p>
+      </div>
+      <div class="about-card">
+        <h3>Services & Prestations</h3>
+        <ul class="services-list">
+          <li>Sur place & à emporter</li>
+          <li>Réservation possible</li>
+          <li>Petit-déjeuner · Brunch</li>
+          <li>Déjeuner · Dîner</li>
+          <li>Bière · Vin · Cocktails</li>
+          <li>Options végétariennes</li>
+        </ul>
+        <div class="price-range">
+          €€
+          <small>Gamme de prix</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu" id="menu">
+  <div class="container">
+    <h2 class="section-title">La Carte</h2>
+    <div class="section-divider">✦</div>
+    <div class="menu-categories">
+      
+      <div class="menu-cat">
+        <h3>Pour commencer</h3>
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <span class="menu-item-name">Œuf mayonnaise</span>
+            <span class="menu-dots"></span>
+            <span class="menu-price">7 €</span>
+          </div>
+          <p class="menu-desc">Le classique du comptoir, mayonnaise maison</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <span class="menu-item-name">Soupe à l'oignon gratinée</span>
+            <span class="menu-dots"></span>
+            <span class="menu-price">11 €</span>
+          </div>
+          <p class="menu-desc">Bouillon corsé, croûtons et comté</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <span class="menu-item-name">Burrata, tomates anciennes</span>
+            <span class="menu-dots"></span>
+            <span class="menu-price">13 €</span>
+          </div>
+          <p class="menu-desc">Basilic frais, huile d'olive, fleur de sel</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <span class="menu-item-name">Terrine de campagne</span>
+            <span class="menu-dots"></span>
+            <span class="menu-price">9 €</span>
+          </div>
+          <p class="menu-desc">Cornichons, pain de campagne grillé</p>
+        </div>
+      </div>
+      
+      <div class="menu-cat">
+        <h3>Les plats</h3>
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <span class="menu-item-name">Steak frites, sauce poivre</span>
+            <span class="menu-dots"></span>
+            <span class="menu-price">22 €</span>
+          </div>
+          <p class="menu-desc">Pièce du boucher, frites maison</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <span class="menu-item-name">Confit de canard</span>
+            <span class="menu-dots"></span>
+            <span class="menu-price">21 €</span>
+          </div>
+          <p class="menu-desc">Pommes sarladaises à l'ail et persil</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <span class="menu-item-name">Risotto aux champignons</span>
+            <span class="menu-dots"></span>
+            <span class="menu-price">18 €</span>
+          </div>
+          <p class="menu-desc">Crémeux au parmesan, copeaux truffés <em>(végétarien)</em></p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <span class="menu-item-name">Burger Cosmos</span>
+            <span class="menu-dots"></span>
+            <span class="menu-price">19 €</span>
+          </div>
+          <p class="menu-desc">Bœuf charolais, cheddar affiné, oignons confits</p>
+        </div>
+      </div>
+      
+      <div class="menu-cat">
+        <h3>Douceurs</h3>
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <span class="menu-item-name">Crème brûlée</span>
+            <span class="menu-dots"></span>
+            <span class="menu-price">8 €</span>
+          </div>
+          <p class="menu-desc">À la vanille de Madagascar</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <span class="menu-item-name">Moelleux au chocolat</span>
+            <span class="menu-dots"></span>
+            <span class="menu-price">9 €</span>
+          </div>
+          <p class="menu-desc">Cœur coulant, glace vanille</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <span class="menu-item-name">Tarte Tatin</span>
+            <span class="menu-dots"></span>
+            <span class="menu-price">9 €</span>
+          </div>
+          <p class="menu-desc">Pommes caramélisées, crème fraîche d'Isigny</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <span class="menu-item-name">Café gourmand</span>
+            <span class="menu-dots"></span>
+            <span class="menu-price">10 €</span>
+          </div>
+          <p class="menu-desc">Sélection de mignardises maison</p>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<!-- HORAIRES -->
+<section class="hours" id="hours">
+  <div class="container">
+    <h2 class="section-title">Nos horaires</h2>
+    <div class="section-divider">✦</div>
+    <div class="hours-grid">
+      <div class="hours-row"><span class="hours-day">Lundi</span><span class="hours-time">08:00 — 02:00</span></div>
+      <div class="hours-row"><span class="hours-day">Mardi</span><span class="hours-time">08:00 — 02:00</span></div>
+      <div class="hours-row"><span class="hours-day">Mercredi</span><span class="hours-time">08:00 — 02:00</span></div>
+      <div class="hours-row"><span class="hours-day">Jeudi</span><span class="hours-time">08:00 — 02:00</span></div>
+      <div class="hours-row"><span class="hours-day">Vendredi</span><span class="hours-time">08:00 — 02:00</span></div>
+      <div class="hours-row"><span class="hours-day">Samedi</span><span class="hours-time">08:00 — 02:00</span></div>
+      <div class="hours-row"><span class="hours-day">Dimanche</span><span class="hours-time">08:00 — 02:00</span></div>
+    </div>
+    <p class="hours-note">— Ouvert 7 jours sur 7, du matin jusqu'au bout de la nuit —</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <h2 class="section-title">Nous trouver</h2>
+    <div class="section-divider">✦</div>
+    <div class="contact-info">
+      <div class="contact-block">
+        <h4>Adresse</h4>
+        <p>53 Rue de la Roquette<br>75011 Paris, France</p>
+      </div>
+      <div class="contact-block">
+        <h4>Réservations</h4>
+        <a href="tel:+33143142583">01 43 14 25 83</a>
+      </div>
+    </div>
+    <a class="btn" href="https://maps.google.com/?cid=930436156588041774" target="_blank" rel="noopener">Itinéraire →</a>
+  </div>
+</section>
+
+<footer>
+  © Café Cosmos · Paris 11ème · Tous droits réservés
+</footer>
+
+</body>
+</html>
