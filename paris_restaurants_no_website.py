@@ -1,11 +1,14 @@
 """
 Collecte les restaurants à Paris sans site internet via l'API Google Maps Places.
+Pour chaque restaurant, télécharge les photos et les analyse via Claude (vision)
+pour décrire le style et l'ambiance.
 
 Prérequis:
-    pip install requests
+    pip install requests anthropic
 
 Usage:
     export GOOGLE_MAPS_API_KEY="votre_clé_api"
+    export ANTHROPIC_API_KEY="votre_clé_anthropic"
     python paris_restaurants_no_website.py
 """
 
@@ -13,12 +16,18 @@ import os
 import time
 import json
 import csv
+import base64
 import requests
+import anthropic
 
 API_KEY = os.environ.get("GOOGLE_MAPS_API_KEY")
+ANTHROPIC_CLIENT = anthropic.Anthropic()
 
 PLACES_SEARCH_URL = "https://maps.googleapis.com/maps/api/place/textsearch/json"
 PLACES_DETAIL_URL = "https://maps.googleapis.com/maps/api/place/details/json"
+PLACES_PHOTO_URL = "https://maps.googleapis.com/maps/api/place/photo"
+
+MAX_PHOTOS_PER_RESTAURANT = 3
 
 DETAIL_FIELDS = (
     "name,"
@@ -45,7 +54,8 @@ DETAIL_FIELDS = (
     "takeout,"
     "delivery,"
     "reservable,"
-    "wheelchair_accessible_entrance"
+    "wheelchair_accessible_entrance,"
+    "photos"
 )
 
 PARIS_ZONES = [
@@ -96,6 +106,66 @@ def get_place_details(place_id: str) -> dict:
     response = requests.get(PLACES_DETAIL_URL, params=params, timeout=10)
     response.raise_for_status()
     return response.json().get("result", {})
+
+
+def fetch_photo_bytes(photo_reference: str, max_width: int = 800) -> bytes | None:
+    """Télécharge une photo Google Maps et retourne ses octets bruts."""
+    params = {
+        "maxwidth": max_width,
+        "photo_reference": photo_reference,
+        "key": API_KEY,
+    }
+    try:
+        response = requests.get(PLACES_PHOTO_URL, params=params, timeout=15)
+        response.raise_for_status()
+        return response.content
+    except Exception as exc:
+        print(f"    [photo] erreur téléchargement : {exc}")
+        return None
+
+
+def analyze_ambiance(restaurant_name: str, photos_bytes: list[bytes]) -> str:
+    """
+    Envoie les photos d'un restaurant à Claude (vision) et retourne
+    une description du style et de l'ambiance.
+    """
+    if not photos_bytes:
+        return ""
+
+    image_blocks = []
+    for raw in photos_bytes:
+        b64 = base64.standard_b64encode(raw).decode("utf-8")
+        image_blocks.append({
+            "type": "image",
+            "source": {
+                "type": "base64",
+                "media_type": "image/jpeg",
+                "data": b64,
+            },
+        })
+
+    image_blocks.append({
+        "type": "text",
+        "text": (
+            f"Voici {len(photos_bytes)} photo(s) du restaurant « {restaurant_name} » à Paris.\n"
+            "Décris en 3 à 5 phrases courtes le style et l'ambiance de ce restaurant : "
+            "type de décor (moderne, rustique, bistrot, gastronomique…), atmosphère "
+            "(intime, animée, familiale…), clientèle probable, et tout détail visuel "
+            "notable (luminosité, couleurs, matériaux, terrasse, etc.).\n"
+            "Réponds uniquement en français, de manière factuelle et concise."
+        ),
+    })
+
+    try:
+        response = ANTHROPIC_CLIENT.messages.create(
+            model="claude-opus-4-7",
+            max_tokens=512,
+            messages=[{"role": "user", "content": image_blocks}],
+        )
+        return response.content[0].text.strip()
+    except Exception as exc:
+        print(f"    [claude] erreur analyse ambiance : {exc}")
+        return ""
 
 
 def collect_restaurants(max_per_zone: int = 60) -> list[dict]:
@@ -162,6 +232,22 @@ def collect_restaurants(max_per_zone: int = 60) -> list[dict]:
                 opening = detail.get("opening_hours", {})
                 hours = opening.get("weekday_text", [])
 
+                # Photos → analyse ambiance via Claude
+                raw_photos = detail.get("photos") or []
+                photos_bytes = []
+                for photo_info in raw_photos[:MAX_PHOTOS_PER_RESTAURANT]:
+                    ref = photo_info.get("photo_reference", "")
+                    if ref:
+                        img = fetch_photo_bytes(ref)
+                        if img:
+                            photos_bytes.append(img)
+                        time.sleep(0.1)
+
+                ambiance = analyze_ambiance(
+                    detail.get("name", place.get("name", "")),
+                    photos_bytes,
+                )
+
                 restaurant = {
                     # Identité
                     "place_id": place_id,
@@ -194,6 +280,9 @@ def collect_restaurants(max_per_zone: int = 60) -> list[dict]:
                     # Horaires
                     "opening_hours": " | ".join(hours),
                     "open_now": opening.get("open_now", ""),
+                    # Ambiance (analyse Claude vision)
+                    "photos_analysed": len(photos_bytes),
+                    "ambiance_style": ambiance,
                 }
                 results.append(restaurant)
                 print(f"  [SANS SITE] {restaurant['name']} — {restaurant['address']}")
@@ -224,6 +313,8 @@ def save_results(restaurants: list[dict], json_path: str = "results.json", csv_p
 def main():
     if not API_KEY:
         raise SystemExit("Erreur : variable d'environnement GOOGLE_MAPS_API_KEY non définie.")
+    if not os.environ.get("ANTHROPIC_API_KEY"):
+        raise SystemExit("Erreur : variable d'environnement ANTHROPIC_API_KEY non définie.")
 
     print("Collecte des restaurants parisiens sans site internet…")
     restaurants = collect_restaurants(max_per_zone=60)
