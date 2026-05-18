@@ -3,360 +3,302 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tableau de bord</title>
+  <title>Restaurants parisiens — Sites générés</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
   <style>
-    :root {
-      --accent: #ef7d00;
-      --panel: #f8f8f8;
-      --border: #dcdcdc;
-      --text: #4a4a4a;
-      --muted: #999;
-    }
-
-    * { box-sizing: border-box; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      margin: 0;
-      padding: 16px;
-      font-family: "Segoe UI", Arial, sans-serif;
-      background: white;
-      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      background: #f7f5f0;
+      color: #1a1a1a;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #1a1a1a;
+      color: #fff;
+      padding: 3rem 2rem 2.5rem;
+      text-align: center;
+    }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      letter-spacing: -.5px;
+    }
+    header p {
+      margin-top: .75rem;
+      color: #aaa;
+      font-size: .95rem;
+    }
+    #stats {
+      margin-top: 1.25rem;
+      display: inline-flex;
+      gap: 2rem;
+    }
+    #stats span {
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: #e8c97e;
+    }
+    #stats small { display: block; font-size: .75rem; color: #888; margin-top: .15rem; }
+
+    .toolbar {
+      max-width: 900px;
+      margin: 2rem auto 0;
+      padding: 0 1rem;
       display: flex;
-      flex-direction: column;
-      gap: 16px;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    #search {
+      flex: 1;
+      min-width: 200px;
+      padding: .65rem 1rem;
+      border: 1.5px solid #ddd;
+      border-radius: 8px;
+      font-size: .95rem;
+      font-family: inherit;
+      background: #fff;
+      outline: none;
+      transition: border-color .2s;
+    }
+    #search:focus { border-color: #1a1a1a; }
+    #sort {
+      padding: .65rem 1rem;
+      border: 1.5px solid #ddd;
+      border-radius: 8px;
+      font-size: .9rem;
+      font-family: inherit;
+      background: #fff;
+      cursor: pointer;
     }
 
-    .row {
+    #grid {
+      max-width: 1200px;
+      margin: 2rem auto 4rem;
+      padding: 0 1rem;
       display: grid;
-      grid-template-columns: 80px 1fr 340px;
-      gap: 12px;
-      min-height: 280px;
-    }
-
-    .sidebar {
-      border: 1px solid var(--border);
-      display: grid;
-      grid-template-rows: 80px 1fr;
-      min-height: 100%;
-    }
-
-    .brand {
-      background: var(--accent);
-    }
-
-    .menu {
-      background: #e9e9e9;
-    }
-
-    .panel {
-      border: 1px solid var(--border);
-      background: #fafafa;
-      padding: 12px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .panel h2 {
-      margin: 0;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--muted);
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
     }
 
     .card {
       background: #fff;
-      border-radius: 4px;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
-      padding: 12px 14px;
-      border: 1px solid #ededed;
-    }
-
-    .card label {
-      display: block;
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 4px;
-    }
-
-    .card select,
-    .card input[type="text"],
-    .card textarea {
-      width: 100%;
-      padding: 6px 8px;
-      border: 1px solid var(--border);
-      border-radius: 3px;
-      font-size: 13px;
-      color: var(--text);
-      background: #fff;
-    }
-
-    .card textarea { min-height: 90px; resize: vertical; }
-
-    .status-bar {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 10px;
-    }
-
-    .dot { width: 8px; height: 8px; border-radius: 50%; background: #d9392b; }
-
-    .form-stack {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,.07);
+      transition: transform .2s, box-shadow .2s;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      padding: 4px;
     }
-
-    .form-stack .section {
-      border: 1px solid var(--border);
-      border-radius: 3px;
-      background: #fff;
-      padding: 8px 10px 12px;
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,.12);
     }
-
-    .form-stack h3 {
-      margin: 0 0 8px;
-      font-size: 13px;
-      color: #cd3c30;
-      font-weight: 600;
+    .card-body {
+      padding: 1.25rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
     }
-
-    .form-row { margin-bottom: 10px; }
-
-    .form-row label {
-      font-size: 12px;
-      color: var(--muted);
-      display: block;
-      margin-bottom: 4px;
+    .card-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      line-height: 1.3;
     }
-
-    .form-row select,
-    .form-row input,
-    .form-row textarea {
-      width: 100%;
-      padding: 6px 8px;
-      border: 1px solid var(--border);
-      border-radius: 3px;
-      font-size: 13px;
+    .card-address {
+      font-size: .8rem;
+      color: #777;
     }
-
-    .form-row textarea { min-height: 80px; resize: vertical; }
-
-    .form-flex {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
+    .card-meta {
+      display: flex;
+      gap: .5rem;
+      flex-wrap: wrap;
+      margin-top: .25rem;
     }
-
-    .table-card {
-      border: 1px solid var(--border);
-      border-radius: 4px;
+    .badge {
+      font-size: .72rem;
+      padding: .2rem .55rem;
+      border-radius: 20px;
+      background: #f0ede6;
+      color: #555;
+      white-space: nowrap;
+    }
+    .badge.price { background: #e8f5e9; color: #2e7d32; }
+    .badge.rating { background: #fff8e1; color: #f57f17; }
+    .card-ambiance {
+      font-size: .82rem;
+      color: #555;
+      line-height: 1.5;
+      flex: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
       overflow: hidden;
     }
-
-    .table-header {
+    .card-footer {
+      padding: 1rem 1.25rem;
+      border-top: 1px solid #f0ede6;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #f4f4f4;
-      border-bottom: 1px solid var(--border);
-      padding: 8px 12px;
-      font-size: 13px;
-      color: var(--muted);
+      gap: .75rem;
+    }
+    .btn {
+      flex: 1;
+      text-align: center;
+      padding: .55rem;
+      border-radius: 7px;
+      font-size: .85rem;
+      font-family: inherit;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background .15s;
+    }
+    .btn-primary {
+      background: #1a1a1a;
+      color: #fff;
+    }
+    .btn-primary:hover { background: #333; }
+    .btn-secondary {
+      background: #f0ede6;
+      color: #1a1a1a;
+    }
+    .btn-secondary:hover { background: #e0dbd2; }
+
+    #empty {
+      text-align: center;
+      padding: 4rem 1rem;
+      color: #999;
+      display: none;
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-      color: var(--text);
+    #loading {
+      text-align: center;
+      padding: 5rem 1rem;
+      color: #999;
     }
 
-    thead tr { background: #f9faf9; }
-
-    th, td {
-      text-align: left;
-      padding: 8px 10px;
-      border-bottom: 1px solid #f1f1f1;
-    }
-
-    th:first-child, td:first-child { width: 44px; text-align: center; }
-
-    th:nth-child(2) { width: 80px; }
-
-    th:nth-child(3) { width: 140px; }
-
-    th:nth-child(4) { width: 80px; }
-
-    th:nth-child(5) { width: 70px; }
-
-    .tag {
-      display: inline-block;
-      background: #e8e8e8;
-      color: #777;
-      padding: 4px 8px;
-      border-radius: 8px;
-      font-size: 12px;
-    }
-
-    .circle-chart {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      display: inline-block;
-      background: conic-gradient(#66b6f5 0 120deg, #f56a6a 120deg 240deg, #f2c54a 240deg 360deg);
-      position: relative;
-    }
-
-    .circle-chart:after {
-      content: "";
-      position: absolute;
-      inset: 8px;
-      background: #fff;
-      border-radius: 50%;
-    }
-
-    .bar-chart {
-      width: 34px;
-      height: 34px;
-      display: inline-flex;
-      align-items: flex-end;
-      justify-content: space-around;
-    }
-
-    .bar-chart span {
-      display: block;
-      width: 6px;
-      border-radius: 2px 2px 0 0;
-    }
-
-    .bar-chart .bar1 { height: 28px; background: #66b6f5; }
-    .bar-chart .bar2 { height: 34px; background: #f56a6a; }
-    .bar-chart .bar3 { height: 18px; background: #a7a7a7; }
-
-    .table-footer {
-      padding: 8px 10px;
-      font-size: 12px;
-      color: var(--muted);
-      background: #fdfdfd;
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: .8rem;
+      color: #bbb;
+      border-top: 1px solid #e8e3da;
     }
   </style>
 </head>
 <body>
-  <div class="row">
-    <aside class="sidebar">
-      <div class="brand"></div>
-      <div class="menu"></div>
-    </aside>
 
-    <section class="panel">
-      <h2>HEADER</h2>
-      <div class="card" style="border-color: #d9352b; box-shadow: 0 0 0 1px rgba(217,53,43,.15);">
-        <label for="pays">Pays</label>
-        <select id="pays">
-          <option>• France</option>
-        </select>
-        <div class="status-bar">
-          <span class="dot"></span>
-          <span>Type de signalement &gt; Arrêt de rigueur</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="panel">
-      <div class="form-stack">
-        <div class="section">
-          <h3>SCUTS DE REPONSE</h3>
-          <div class="form-row">
-            <label for="scuts">Scuts</label>
-            <input id="scuts" type="text" value="• 36 - à affinage" />
-          </div>
-          <div class="form-row">
-            <label for="date-anomalie">Date de l'anomalie</label>
-            <input id="date-anomalie" type="text" />
-          </div>
-          <div class="form-row">
-            <label for="commentaire">Commentaire</label>
-            <textarea id="commentaire"></textarea>
-          </div>
-        </div>
-
-        <div class="section">
-          <div class="form-row">
-            <label for="type-signalement">Type de signalement &gt; Arrêt de rigueur &gt; Fin de rigueur</label>
-            <input id="type-signalement" type="text" />
-          </div>
-          <div class="form-row form-flex">
-            <div>
-              <label for="etat-qualif">Etape de qualification</label>
-              <select id="etat-qualif"></select>
-            </div>
-            <div>
-              <label for="avancement">Avancement de traitement</label>
-              <select id="avancement"></select>
-            </div>
-          </div>
-          <div class="form-row">
-            <label for="commentaire2">Commentaire</label>
-            <textarea id="commentaire2"></textarea>
-          </div>
-        </div>
-      </div>
-    </section>
+<header>
+  <h1>Restaurants parisiens</h1>
+  <p>Établissements sans site internet &mdash; sites générés automatiquement</p>
+  <div id="stats">
+    <div><span id="count-total">—</span><small>restaurants</small></div>
+    <div><span id="count-sites">—</span><small>sites générés</small></div>
+    <div><span id="count-arr">20</span><small>arrondissements</small></div>
   </div>
+</header>
 
-  <div class="table-card">
-    <div class="table-header">
-      <div class="tag">Arrêt de rigueur</div>
-      <span>Nombre de signalements</span>
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th>&nbsp;</th>
-          <th>Date</th>
-          <th>Magasin</th>
-          <th>Type</th>
-          <th>Avancement</th>
-          <th>Etat</th>
-          <th>Commentaire</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><span class="circle-chart" aria-hidden="true"></span></td>
-          <td>23/04/2020</td>
-          <td>63264206001</td>
-          <td>Arrêt de rigueur</td>
-          <td>... fin de rigueur</td>
-          <td>Refus de charge</td>
-          <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
-        </tr>
-        <tr>
-          <td><span class="circle-chart" aria-hidden="true"></span></td>
-          <td>23/04/2020</td>
-          <td>63264206001</td>
-          <td>Arrêt de rigueur</td>
-          <td>... fin de rigueur</td>
-          <td>Refus de charge</td>
-          <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
-        </tr>
-        <tr>
-          <td><span class="bar-chart" aria-hidden="true"><span class="bar1"></span><span class="bar2"></span><span class="bar3"></span></span></td>
-          <td>23/04/2020</td>
-          <td>63264206001</td>
-          <td>Arrêt de rigueur</td>
-          <td>... fin de rigueur</td>
-          <td>Refus de charge</td>
-          <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="table-footer">Trouvé 3 signalements</div>
-  </div>
+<div class="toolbar">
+  <input id="search" type="search" placeholder="Rechercher un restaurant…" />
+  <select id="sort">
+    <option value="name">Nom A→Z</option>
+    <option value="rating">Mieux notés</option>
+    <option value="price">Prix croissant</option>
+  </select>
+</div>
+
+<div id="loading">Chargement des restaurants…</div>
+<div id="grid"></div>
+<div id="empty">Aucun restaurant ne correspond à votre recherche.</div>
+
+<footer>Données Google Maps · Sites générés par Claude (Anthropic)</footer>
+
+<script>
+  const PRICE_ORDER = { '': 0, 'gratuit': 0, '€': 1, '€€': 2, '€€€': 3, '€€€€': 4 };
+
+  let all = [];
+
+  async function load() {
+    try {
+      const res = await fetch('results.json');
+      if (!res.ok) throw new Error();
+      all = await res.json();
+    } catch {
+      document.getElementById('loading').textContent =
+        '⚠️ results.json introuvable. Lancez le script puis committez les fichiers générés.';
+      return;
+    }
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('count-total').textContent = all.length;
+    document.getElementById('count-sites').textContent =
+      all.filter(r => r.website_file).length;
+    render(all);
+  }
+
+  function render(list) {
+    const grid = document.getElementById('grid');
+    const empty = document.getElementById('empty');
+    grid.innerHTML = '';
+    if (!list.length) { empty.style.display = 'block'; return; }
+    empty.style.display = 'none';
+    list.forEach(r => grid.appendChild(card(r)));
+  }
+
+  function card(r) {
+    const el = document.createElement('div');
+    el.className = 'card';
+    const siteBtn = r.website_file
+      ? `<a class="btn btn-primary" href="${r.website_file}" target="_blank">Voir le site</a>`
+      : `<span class="btn btn-primary" style="opacity:.4;cursor:default">Site non généré</span>`;
+    el.innerHTML = `
+      <div class="card-body">
+        <div class="card-name">${esc(r.name)}</div>
+        <div class="card-address">${esc(r.address)}</div>
+        <div class="card-meta">
+          ${r.price_level ? `<span class="badge price">${esc(r.price_level)}</span>` : ''}
+          ${r.rating ? `<span class="badge rating">★ ${r.rating} (${r.total_reviews})</span>` : ''}
+          ${r.categories ? r.categories.split(',').slice(0,2).map(c =>
+            `<span class="badge">${esc(c.trim())}</span>`).join('') : ''}
+        </div>
+        ${r.ambiance_style
+          ? `<p class="card-ambiance">${esc(r.ambiance_style)}</p>`
+          : ''}
+      </div>
+      <div class="card-footer">
+        ${siteBtn}
+        <a class="btn btn-secondary" href="${esc(r.google_maps_url)}" target="_blank">Maps</a>
+      </div>`;
+    return el;
+  }
+
+  function esc(s) {
+    return String(s ?? '')
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function filtered() {
+    const q = document.getElementById('search').value.toLowerCase();
+    const s = document.getElementById('sort').value;
+    let list = q
+      ? all.filter(r =>
+          (r.name + r.address + r.categories + r.ambiance_style)
+            .toLowerCase().includes(q))
+      : [...all];
+    if (s === 'rating') list.sort((a,b) => (b.rating||0) - (a.rating||0));
+    else if (s === 'price') list.sort((a,b) =>
+      (PRICE_ORDER[a.price_level]||0) - (PRICE_ORDER[b.price_level]||0));
+    else list.sort((a,b) => a.name.localeCompare(b.name, 'fr'));
+    return list;
+  }
+
+  document.getElementById('search').addEventListener('input', () => render(filtered()));
+  document.getElementById('sort').addEventListener('change', () => render(filtered()));
+
+  load();
+</script>
 </body>
 </html>
