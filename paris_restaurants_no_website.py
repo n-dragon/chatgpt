@@ -168,6 +168,157 @@ def analyze_ambiance(restaurant_name: str, photos_bytes: list[bytes]) -> str:
         return ""
 
 
+def _build_services_text(r: dict) -> str:
+    lines = []
+    if r.get("dine_in") is True:    lines.append("Sur place")
+    if r.get("takeout") is True:    lines.append("À emporter")
+    if r.get("delivery") is True:   lines.append("Livraison")
+    if r.get("reservable") is True: lines.append("Réservation possible")
+    meals = []
+    if r.get("serves_breakfast"): meals.append("petit-déjeuner")
+    if r.get("serves_brunch"):    meals.append("brunch")
+    if r.get("serves_lunch"):     meals.append("déjeuner")
+    if r.get("serves_dinner"):    meals.append("dîner")
+    if meals:
+        lines.append("Service : " + ", ".join(meals))
+    extras = []
+    if r.get("serves_beer"):             extras.append("bière")
+    if r.get("serves_wine"):             extras.append("vin")
+    if r.get("serves_vegetarian_food"):  extras.append("plats végétariens")
+    if extras:
+        lines.append("Propose : " + ", ".join(extras))
+    return " · ".join(lines)
+
+
+def generate_website(restaurant: dict, photos_bytes: list[bytes], output_dir: str = "websites") -> str:
+    """
+    Génère une page HTML one-page pour le restaurant via Claude (vision + génération).
+    Sauvegarde le fichier dans output_dir et retourne le chemin relatif.
+    """
+    os.makedirs(output_dir, exist_ok=True)
+
+    # Prépare les blocs images pour Claude
+    content: list[dict] = []
+    for raw in photos_bytes:
+        b64 = base64.standard_b64encode(raw).decode("utf-8")
+        content.append({
+            "type": "image",
+            "source": {"type": "base64", "media_type": "image/jpeg", "data": b64},
+        })
+
+    # Reconstruit les avis lisibles
+    try:
+        reviews_list = json.loads(restaurant.get("customer_reviews", "[]"))
+        reviews_txt = "\n".join(
+            f'  • {rv["author"]} ({rv["rating"]}/5, {rv["time"]}) : '
+            f'"{rv["text"][:220].strip()}"'
+            for rv in reviews_list[:3] if rv.get("text")
+        )
+    except Exception:
+        reviews_txt = "  Aucun avis disponible."
+
+    # Photographies en data-URI pour l'insertion dans le HTML
+    photos_data_uris = [
+        "data:image/jpeg;base64," + base64.standard_b64encode(raw).decode("utf-8")
+        for raw in photos_bytes
+    ]
+    photos_vars = "\n".join(
+        f'  PHOTO_{i + 1} = "{uri[:60]}…"  ({len(raw) // 1024} Ko)'
+        for i, (uri, raw) in enumerate(zip(photos_data_uris, photos_bytes))
+    )
+
+    services = _build_services_text(restaurant)
+
+    prompt = f"""Tu es un designer web expert. Génère une page HTML one-page complète pour ce restaurant parisien.
+
+━━━━━━━━━━━━ DONNÉES DU RESTAURANT ━━━━━━━━━━━━
+Nom          : {restaurant["name"]}
+Adresse      : {restaurant["address"]}
+Téléphone    : {restaurant["phone"] or "Non renseigné"}
+Google Maps  : {restaurant["google_maps_url"]}
+Catégories   : {restaurant["categories"]}
+Prix         : {restaurant["price_level"] or "Non renseigné"}
+Note         : {restaurant["rating"]}/5 ({restaurant["total_reviews"]} avis)
+Statut       : {restaurant["business_status"]}
+
+DESCRIPTION GOOGLE :
+{restaurant["description"] or "Aucune description disponible."}
+
+AMBIANCE & STYLE (analyse visuelle des photos) :
+{restaurant["ambiance_style"] or "Aucune analyse disponible."}
+
+HORAIRES :
+{restaurant["opening_hours"].replace(" | ", chr(10) + "  ") if restaurant["opening_hours"] else "Non renseignés"}
+
+SERVICES :
+{services or "Non renseignés"}
+
+AVIS CLIENTS :
+{reviews_txt}
+
+━━━━━━━━━━━━ PHOTOS DISPONIBLES ━━━━━━━━━━━━
+{f"Ci-jointes : {len(photos_bytes)} photo(s) du restaurant (utilisées pour le hero et la galerie)." if photos_bytes else "Aucune photo disponible."}
+{photos_vars}
+
+━━━━━━━━━━━━ INSTRUCTIONS DE GÉNÉRATION ━━━━━━━━━━━━
+1. STYLE : le design doit être 100 % cohérent avec l'ambiance du restaurant déduite des photos et de la description. Sois radical dans tes choix graphiques : un bistrot chaleureux ≠ un gastronomique épuré ≠ une cantine asiatique vibrante. Couleurs, typographies, espacements, tout doit coller à l'identité.
+
+2. STRUCTURE OBLIGATOIRE (dans cet ordre) :
+   a) Section HERO pleine largeur — nom du restaurant en grand, sous-titre accrocheur, photo principale en arrière-plan ou en vedette.
+   b) Section À PROPOS — présentation du restaurant (utilise description + ambiance), services, gamme de prix.
+   c) Section MENU SUGGÉRÉ — propose un menu réaliste et attrayant en cohérence avec le type de cuisine et le niveau de prix. Minimum 3 catégories (Entrées, Plats, Desserts) avec 3-4 items chacune incluant un prix cohérent. Si restaurant asiatique → items asiatiques, si bistrot → plats de brasserie, etc. Présente-le visuellement (grille, cartes, typo élégante).
+   d) Section HORAIRES — tableau ou liste visuelle des jours/heures.
+   e) Section CONTACT — adresse, téléphone, bouton « Itinéraire » (lien vers Google Maps fourni ci-dessus).
+
+3. PHOTOS : si des photos sont disponibles, intègre-les dans le HTML en utilisant exactement les data URIs fournis ci-dessous (ne les tronque pas, copie-les intégralement). Photo principale dans le hero, les autres dans une galerie ou section dédiée.
+
+4. TECHNIQUE :
+   - HTML5 + CSS entièrement inline dans une balise <style>
+   - Google Fonts via CDN autorisé (choisis une fonte adaptée au style)
+   - Responsive (flexbox ou grid, breakpoints 768px minimum)
+   - Animations CSS subtiles si appropriées au style
+   - Aucune dépendance JS externe
+   - Les images sont déjà en base64 dans le code, pas besoin d'URL externe
+
+5. FORMAT DE RÉPONSE : retourne UNIQUEMENT le code HTML complet (de <!DOCTYPE html> à </html>), sans bloc markdown, sans explication.
+
+━━━━━━━━━━━━ DATA URIs DES PHOTOS ━━━━━━━━━━━━
+{chr(10).join(f'PHOTO_{i + 1} (utilise en src de <img>) : {uri}' for i, uri in enumerate(photos_data_uris)) if photos_data_uris else "Aucune photo."}
+"""
+
+    content.append({"type": "text", "text": prompt})
+
+    html = ""
+    try:
+        with ANTHROPIC_CLIENT.messages.stream(
+            model="claude-opus-4-7",
+            max_tokens=16000,
+            messages=[{"role": "user", "content": content}],
+        ) as stream:
+            html = stream.get_final_message().content[0].text.strip()
+
+        # Retire les éventuelles balises markdown
+        if html.startswith("```"):
+            html = "\n".join(html.split("\n")[1:])
+        if html.endswith("```"):
+            html = html.rsplit("```", 1)[0].strip()
+    except Exception as exc:
+        print(f"    [claude] erreur génération site : {exc}")
+        return ""
+
+    # Sauvegarde du fichier
+    safe_name = "".join(c if c.isalnum() or c in "-_ " else "_" for c in restaurant["name"])
+    safe_name = safe_name.strip().replace(" ", "_")[:60]
+    filename = f"{safe_name}_{restaurant['place_id'][-8:]}.html"
+    filepath = os.path.join(output_dir, filename)
+
+    with open(filepath, "w", encoding="utf-8") as f:
+        f.write(html)
+
+    print(f"    [site] {filepath}")
+    return filepath
+
+
 def collect_restaurants(max_per_zone: int = 60) -> list[dict]:
     """
     Parcourt les arrondissements de Paris et retourne les restaurants sans site web.
@@ -243,15 +394,13 @@ def collect_restaurants(max_per_zone: int = 60) -> list[dict]:
                             photos_bytes.append(img)
                         time.sleep(0.1)
 
-                ambiance = analyze_ambiance(
-                    detail.get("name", place.get("name", "")),
-                    photos_bytes,
-                )
+                name = detail.get("name", place.get("name", ""))
+                ambiance = analyze_ambiance(name, photos_bytes)
 
                 restaurant = {
                     # Identité
                     "place_id": place_id,
-                    "name": detail.get("name", place.get("name", "")),
+                    "name": name,
                     "address": detail.get("formatted_address", place.get("formatted_address", "")),
                     "phone": detail.get("formatted_phone_number", ""),
                     "google_maps_url": detail.get("url", ""),
@@ -283,7 +432,14 @@ def collect_restaurants(max_per_zone: int = 60) -> list[dict]:
                     # Ambiance (analyse Claude vision)
                     "photos_analysed": len(photos_bytes),
                     "ambiance_style": ambiance,
+                    # Site généré
+                    "website_file": "",
                 }
+
+                # Génération du site one-page
+                website_path = generate_website(restaurant, photos_bytes)
+                restaurant["website_file"] = website_path
+
                 results.append(restaurant)
                 print(f"  [SANS SITE] {restaurant['name']} — {restaurant['address']}")
 
@@ -317,10 +473,13 @@ def main():
         raise SystemExit("Erreur : variable d'environnement ANTHROPIC_API_KEY non définie.")
 
     print("Collecte des restaurants parisiens sans site internet…")
+    print("Pour chaque restaurant : analyse ambiance + génération site HTML\n")
     restaurants = collect_restaurants(max_per_zone=60)
 
     print(f"\n{'='*50}")
-    print(f"Total trouvé : {len(restaurants)} restaurant(s) sans site web")
+    print(f"Total trouvé  : {len(restaurants)} restaurant(s) sans site web")
+    sites = [r for r in restaurants if r.get("website_file")]
+    print(f"Sites générés : {len(sites)} (dossier : websites/)")
 
     save_results(restaurants)
 
