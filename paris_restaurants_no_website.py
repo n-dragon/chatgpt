@@ -108,20 +108,39 @@ def get_place_details(place_id: str) -> dict:
     return response.json().get("result", {})
 
 
+def build_photo_url(photo_reference: str, max_width: int = 800) -> str:
+    """Retourne l'URL Places Photos pour une référence (le navigateur suit la redirection 302)."""
+    return (
+        f"{PLACES_PHOTO_URL}?maxwidth={max_width}"
+        f"&photo_reference={photo_reference}&key={API_KEY}"
+    )
+
+
 def fetch_photo_bytes(photo_reference: str, max_width: int = 800) -> bytes | None:
-    """Télécharge une photo Google Maps et retourne ses octets bruts."""
+    """
+    Tente de télécharger les octets d'une photo Google Maps.
+    Retourne None si le CDN bloque la requête (403 courant hors navigateur).
+    """
     params = {
         "maxwidth": max_width,
         "photo_reference": photo_reference,
         "key": API_KEY,
     }
     try:
-        response = requests.get(PLACES_PHOTO_URL, params=params, timeout=15)
-        response.raise_for_status()
-        return response.content
-    except Exception as exc:
-        print(f"    [photo] erreur téléchargement : {exc}")
-        return None
+        resp = requests.get(
+            PLACES_PHOTO_URL, params=params, allow_redirects=False, timeout=10
+        )
+        redirect_url = resp.headers.get("Location")
+        if redirect_url:
+            # Les CDN lh3.googleusercontent.com bloquent souvent les requêtes hors navigateur
+            img_resp = requests.get(redirect_url, timeout=10)
+            if img_resp.status_code == 200:
+                return img_resp.content
+        elif resp.status_code == 200:
+            return resp.content
+    except Exception:
+        pass
+    return None
 
 
 def analyze_ambiance(restaurant_name: str, photos_bytes: list[bytes]) -> str:
@@ -190,14 +209,22 @@ def _build_services_text(r: dict) -> str:
     return " · ".join(lines)
 
 
-def generate_website(restaurant: dict, photos_bytes: list[bytes], output_dir: str = "websites") -> str:
+def generate_website(
+    restaurant: dict,
+    photos_bytes: list[bytes],
+    photo_urls: list[str] | None = None,
+    output_dir: str = "websites",
+) -> str:
     """
-    Génère une page HTML one-page pour le restaurant via Claude (vision + génération).
-    Sauvegarde le fichier dans output_dir et retourne le chemin relatif.
+    Génère une page HTML one-page pour le restaurant via Claude.
+    Si des octets de photos sont disponibles, ils sont envoyés à Claude (vision).
+    Les URLs photos sont intégrées dans le HTML en <img src> pour un affichage navigateur.
     """
     os.makedirs(output_dir, exist_ok=True)
+    if photo_urls is None:
+        photo_urls = []
 
-    # Prépare les blocs images pour Claude
+    # Prépare les blocs images pour Claude (vision) si disponibles
     content: list[dict] = []
     for raw in photos_bytes:
         b64 = base64.standard_b64encode(raw).decode("utf-8")
@@ -217,15 +244,7 @@ def generate_website(restaurant: dict, photos_bytes: list[bytes], output_dir: st
     except Exception:
         reviews_txt = "  Aucun avis disponible."
 
-    # Photographies en data-URI pour l'insertion dans le HTML
-    photos_data_uris = [
-        "data:image/jpeg;base64," + base64.standard_b64encode(raw).decode("utf-8")
-        for raw in photos_bytes
-    ]
-    photos_vars = "\n".join(
-        f'  PHOTO_{i + 1} = "{uri[:60]}…"  ({len(raw) // 1024} Ko)'
-        for i, (uri, raw) in enumerate(zip(photos_data_uris, photos_bytes))
-    )
+    photos_vars = ""  # Les URLs sont listées séparément dans le prompt
 
     services = _build_services_text(restaurant)
 
@@ -257,7 +276,7 @@ AVIS CLIENTS :
 {reviews_txt}
 
 ━━━━━━━━━━━━ PHOTOS DISPONIBLES ━━━━━━━━━━━━
-{f"Ci-jointes : {len(photos_bytes)} photo(s) du restaurant (utilisées pour le hero et la galerie)." if photos_bytes else "Aucune photo disponible."}
+{f"{len(photo_urls)} URL(s) photo Google Maps à intégrer directement en src= des balises <img>." if photo_urls else "Aucune photo disponible."}
 {photos_vars}
 
 ━━━━━━━━━━━━ INSTRUCTIONS DE GÉNÉRATION ━━━━━━━━━━━━
@@ -270,7 +289,7 @@ AVIS CLIENTS :
    d) Section HORAIRES — tableau ou liste visuelle des jours/heures.
    e) Section CONTACT — adresse, téléphone, bouton « Itinéraire » (lien vers Google Maps fourni ci-dessus).
 
-3. PHOTOS : si des photos sont disponibles, intègre-les dans le HTML en utilisant exactement les data URIs fournis ci-dessous (ne les tronque pas, copie-les intégralement). Photo principale dans le hero, les autres dans une galerie ou section dédiée.
+3. PHOTOS : intègre les URLs fournies ci-dessous directement dans les balises <img src="URL"> (le navigateur affichera les photos automatiquement via la redirection Google). Photo principale dans le hero en background-image ou <img>, les autres dans une galerie. Ajoute un attribut onerror="this.style.display='none'" sur chaque <img> au cas où une URL expirerait.
 
 4. TECHNIQUE :
    - HTML5 + CSS entièrement inline dans une balise <style>
@@ -278,12 +297,11 @@ AVIS CLIENTS :
    - Responsive (flexbox ou grid, breakpoints 768px minimum)
    - Animations CSS subtiles si appropriées au style
    - Aucune dépendance JS externe
-   - Les images sont déjà en base64 dans le code, pas besoin d'URL externe
 
 5. FORMAT DE RÉPONSE : retourne UNIQUEMENT le code HTML complet (de <!DOCTYPE html> à </html>), sans bloc markdown, sans explication.
 
-━━━━━━━━━━━━ DATA URIs DES PHOTOS ━━━━━━━━━━━━
-{chr(10).join(f'PHOTO_{i + 1} (utilise en src de <img>) : {uri}' for i, uri in enumerate(photos_data_uris)) if photos_data_uris else "Aucune photo."}
+━━━━━━━━━━━━ URLs DES PHOTOS (utilise en src= de <img>) ━━━━━━━━━━━━
+{chr(10).join(f'PHOTO_{i + 1} : {url}' for i, url in enumerate(photo_urls)) if photo_urls else "Aucune photo."}
 """
 
     content.append({"type": "text", "text": prompt})
@@ -319,15 +337,17 @@ AVIS CLIENTS :
     return filepath
 
 
-def collect_restaurants(max_per_zone: int = 60) -> list[dict]:
+def collect_restaurants(max_per_zone: int = 60, max_zones: int | None = None) -> list[dict]:
     """
     Parcourt les arrondissements de Paris et retourne les restaurants sans site web.
-    max_per_zone : nombre max de restaurants analysés par arrondissement (multiple de 20).
+    max_per_zone : nombre max de restaurants analysés par arrondissement.
+    max_zones    : nombre d'arrondissements à couvrir (None = tous les 20).
     """
     seen_place_ids = set()
     results = []
+    zones = PARIS_ZONES[:max_zones] if max_zones else PARIS_ZONES
 
-    for zone in PARIS_ZONES:
+    for zone in zones:
         print(f"\n--- Recherche : {zone} ---")
         page_token = None
         zone_count = 0
@@ -383,12 +403,14 @@ def collect_restaurants(max_per_zone: int = 60) -> list[dict]:
                 opening = detail.get("opening_hours", {})
                 hours = opening.get("weekday_text", [])
 
-                # Photos → analyse ambiance via Claude
+                # Photos → URLs directes + tentative de téléchargement pour vision Claude
                 raw_photos = detail.get("photos") or []
+                photo_urls = []
                 photos_bytes = []
                 for photo_info in raw_photos[:MAX_PHOTOS_PER_RESTAURANT]:
                     ref = photo_info.get("photo_reference", "")
                     if ref:
+                        photo_urls.append(build_photo_url(ref))
                         img = fetch_photo_bytes(ref)
                         if img:
                             photos_bytes.append(img)
@@ -431,13 +453,14 @@ def collect_restaurants(max_per_zone: int = 60) -> list[dict]:
                     "open_now": opening.get("open_now", ""),
                     # Ambiance (analyse Claude vision)
                     "photos_analysed": len(photos_bytes),
+                    "photo_urls": json.dumps(photo_urls, ensure_ascii=False),
                     "ambiance_style": ambiance,
                     # Site généré
                     "website_file": "",
                 }
 
                 # Génération du site one-page
-                website_path = generate_website(restaurant, photos_bytes)
+                website_path = generate_website(restaurant, photos_bytes, photo_urls=photo_urls)
                 restaurant["website_file"] = website_path
 
                 results.append(restaurant)
@@ -467,6 +490,19 @@ def save_results(restaurants: list[dict], json_path: str = "results.json", csv_p
 
 
 def main():
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Collecte restaurants Paris sans site web")
+    parser.add_argument(
+        "--max-per-zone", type=int, default=60,
+        help="Nombre max de restaurants à analyser par arrondissement (défaut: 60)"
+    )
+    parser.add_argument(
+        "--zones", type=int, default=None,
+        help="Nombre d'arrondissements à couvrir (défaut: tous les 20)"
+    )
+    args = parser.parse_args()
+
     if not API_KEY:
         raise SystemExit("Erreur : variable d'environnement GOOGLE_MAPS_API_KEY non définie.")
     if not os.environ.get("ANTHROPIC_API_KEY"):
@@ -474,7 +510,7 @@ def main():
 
     print("Collecte des restaurants parisiens sans site internet…")
     print("Pour chaque restaurant : analyse ambiance + génération site HTML\n")
-    restaurants = collect_restaurants(max_per_zone=60)
+    restaurants = collect_restaurants(max_per_zone=args.max_per_zone, max_zones=args.zones)
 
     print(f"\n{'='*50}")
     print(f"Total trouvé  : {len(restaurants)} restaurant(s) sans site web")

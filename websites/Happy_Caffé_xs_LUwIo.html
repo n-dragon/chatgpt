@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Caffé — Crêperie & Café à Paris</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --rouge: #D9322F;
+    --jaune: #FFD93D;
+    --creme: #FFF8EC;
+    --noir: #2B2118;
+    --brun: #6B4423;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--creme);
+    color: var(--noir);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  .script { font-family: 'Caveat', cursive; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: 
+      radial-gradient(circle at 20% 30%, rgba(255,217,61,0.25) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(217,50,47,0.2) 0%, transparent 50%),
+      linear-gradient(135deg, #FFF8EC 0%, #FFE9C4 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '🥞';
+    position: absolute;
+    font-size: 180px;
+    top: 8%;
+    left: 5%;
+    opacity: 0.08;
+    transform: rotate(-15deg);
+  }
+  .hero::after {
+    content: '☕';
+    position: absolute;
+    font-size: 200px;
+    bottom: 5%;
+    right: 5%;
+    opacity: 0.08;
+    transform: rotate(15deg);
+  }
+  .hero-content { position: relative; z-index: 2; max-width: 900px; }
+  .hero .tagline-top {
+    font-family: 'Caveat', cursive;
+    font-size: 2rem;
+    color: var(--rouge);
+    margin-bottom: 10px;
+    animation: fadeUp 1s ease;
+  }
+  .hero h1 {
+    font-size: clamp(3rem, 9vw, 7rem);
+    font-weight: 700;
+    color: var(--noir);
+    line-height: 1;
+    margin-bottom: 24px;
+    animation: fadeUp 1.2s ease;
+  }
+  .hero h1 span { color: var(--rouge); }
+  .hero p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto 16px;
+    color: var(--brun);
+    animation: fadeUp 1.4s ease;
+  }
+  .rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: white;
+    padding: 12px 24px;
+    border-radius: 50px;
+    margin-top: 24px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    font-weight: 500;
+    animation: fadeUp 1.6s ease;
+  }
+  .stars { color: var(--jaune); font-size: 1.2rem; }
+  .cta-row {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 36px;
+    flex-wrap: wrap;
+    animation: fadeUp 1.8s ease;
+  }
+  .btn {
+    display: inline-block;
+    padding: 14px 32px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+    font-size: 1rem;
+  }
+  .btn-primary {
+    background: var(--rouge);
+    color: white;
+    box-shadow: 0 8px 20px rgba(217,50,47,0.3);
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(217,50,47,0.4); }
+  .btn-secondary {
+    background: white;
+    color: var(--noir);
+    border: 2px solid var(--noir);
+  }
+  .btn-secondary:hover { background: var(--noir); color: white; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SECTIONS */
+  section { padding: 100px 24px; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .section-title {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  .section-title .script {
+    font-size: 2rem;
+    color: var(--rouge);
+    display: block;
+  }
+  .section-title h2 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    color: var(--noir);
+  }
+
+  /* APROPOS */
+  .about { background: white; }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .about-text p {
+    font-size: 1.05rem;
+    margin-bottom: 18px;
+    color: #555;
+  }
+  .about-visual {
+    background: linear-gradient(135deg, var(--jaune), #FFB84D);
+    border-radius: 30px;
+    padding: 60px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .about-visual .big-emoji { font-size: 8rem; display: block; margin-bottom: 16px; }
+  .about-visual h3 { font-size: 2rem; color: var(--noir); margin-bottom: 8px; }
+  .price-tag {
+    display: inline-block;
+    background: var(--rouge);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-weight: 600;
+    margin-top: 16px;
+  }
+  .services {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 24px;
+  }
+  .service-tag {
+    background: var(--creme);
+    color: var(--brun);
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid #f0e0c0;
+  }
+
+  /* MENU */
+  .menu { background: var(--creme); position: relative; }
+  .menu-categories {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+  .menu-card {
+    background: white;
+    border-radius: 24px;
+    padding: 36px 28px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+    border-top: 6px solid var(--rouge);
+  }
+  .menu-card:nth-child(2) { border-top-color: var(--jaune); }
+  .menu-card:nth-child(3) { border-top-color: var(--brun); }
+  .menu-card:hover { transform: translateY(-8px); }
+  .menu-card-header {
+    text-align: center;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 2px dashed #f0e0c0;
+  }
+  .menu-card-header .emoji { font-size: 3rem; display: block; margin-bottom: 8px; }
+  .menu-card-header h3 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--noir);
+  }
+  .menu-card-header .script {
+    color: var(--rouge);
+    font-size: 1.3rem;
+  }
+  .menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 18px;
+    gap: 12px;
+  }
+  .menu-item-info h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--noir);
+  }
+  .menu-item-info p {
+    font-size: 0.85rem;
+    color: #888;
+    margin-top: 2px;
+  }
+  .menu-item-dots {
+    flex: 1;
+    border-bottom: 2px dotted #ddd;
+    margin: 0 8px;
+    transform: translateY(-4px);
+  }
+  .menu-item-price {
+    font-weight: 700;
+    color: var(--rouge);
+    font-size: 1.05rem;
+    white-space: nowrap;
+  }
+
+  /* HORAIRES */
+  .hours { background: var(--noir); color: white; }
+  .hours .section-title h2 { color: white; }
+  .hours-grid {
+    max-width: 600px;
+    margin: 0 auto;
+    background: rgba(255,255,255,0.05);
+    border-radius: 24px;
+    padding: 40px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .hours-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .hours-row:last-child { border-bottom: none; }
+  .hours-row .day { font-weight: 500; }
+  .hours-row .time { color: var(--jaune); font-weight: 500; }
+  .hours-badge {
+    text-align: center;
+    margin-top: 30px;
+  }
+  .open-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--jaune);
+    color: var(--noir);
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-weight: 600;
+  }
+  .pulse-dot {
+    width: 10px;
+    height: 10px;
+    background: var(--rouge);
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.2); }
+  }
+
+  /* CONTACT */
+  .contact { background: white; }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: stretch;
+  }
+  .contact-card {
+    background: linear-gradient(135deg, var(--creme), #FFE9C4);
+    padding: 50px 40px;
+    border-radius: 30px;
+  }
+  .contact-card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 24px;
+    color: var(--noir);
+  }
+  .contact-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .contact-icon {
+    width: 50px;
+    height: 50px;
+    background: var(--rouge);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+  .contact-info-text strong { display: block; color: var(--noir); margin-bottom: 4px; }
+  .contact-info-text a { color: var(--brun); text-decoration: none; }
+  .map-card {
+    background: var(--noir);
+    color: white;
+    padding: 50px 40px;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+  .map-card .big-pin { font-size: 5rem; margin-bottom: 16px; }
+  .map-card h3 { font-size: 1.8rem; margin-bottom: 12px; }
+  .map-card p { margin-bottom: 24px; opacity: 0.85; }
+
+  /* FOOTER */
+  footer {
+    background: var(--noir);
+    color: rgba(255,255,255,0.7);
+    text-align: center;
+    padding: 40px 24px;
+    font-size: 0.9rem;
+  }
+  footer .script {
+    color: var(--jaune);
+    font-size: 1.8rem;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    section { padding: 70px 20px; }
+    .about-grid, .menu-categories, .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+    .hours-grid { padding: 24px; }
+    .hours-row { flex-direction: column; gap: 4px; padding: 10px 0; }
+    .contact-card, .map-card { padding: 30px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <span class="tagline-top">Bienvenue chez nous</span>
+    <h1>Happy <span>Caffé</span></h1>
+    <p>Crêpes, sandwichs et pâtisseries dans le cœur battant de Paris. Un sourire, une bonne adresse, et beaucoup de gourmandise.</p>
+    <div class="rating">
+      <span class="stars">★★★★★</span>
+      <span><strong>4.9/5</strong> · 9 958 avis Google</span>
+    </div>
+    <div class="cta-row">
+      <a href="#menu" class="btn btn-primary">Voir le menu</a>
+      <a href="https://maps.google.com/?cid=9998225311620202518" target="_blank" class="btn btn-secondary">Nous trouver</a>
+    </div>
+  </div>
+</section>
+
+<!-- A PROPOS -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="section-title">
+      <span class="script">Notre histoire</span>
+      <h2>Une pause gourmande à Rivoli</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>Au 214 rue de Rivoli, à deux pas du Louvre, Happy Caffé est ce petit comptoir parisien où l'on s'arrête sans hésiter. Ici, on prépare avec soin <strong>crêpes salées et sucrées</strong>, sandwichs garnis dans une vraie baguette croustillante, et de gourmandes <strong>pâtisseries à emporter</strong>.</p>
+        <p>L'accueil chaleureux de Christian, le sourire de l'équipe et des prix doux ont fait de l'adresse un incontournable des Parisiens pressés comme des voyageurs en quête d'une bouchée authentique.</p>
+        <p>Sur place, à emporter ou en livraison — du petit-déjeuner au dîner, Happy Caffé vous accompagne du matin jusqu'au soir.</p>
+        <div class="services">
+          <span class="service-tag">☕ Petit-déjeuner</span>
+          <span class="service-tag">🥐 Brunch</span>
+          <span class="service-tag">🍽️ Déjeuner & Dîner</span>
+          <span class="service-tag">🥗 Options végé</span>
+          <span class="service-tag">🍷 Vin & Bière</span>
+          <span class="service-tag">🛵 Livraison</span>
+        </div>
+      </div>
+      <div class="about-visual">
+        <span class="big-emoji">🥐</span>
+        <h3>Simple. Bon. Souriant.</h3>
+        <p>Le café de quartier comme on l'aime.</p>
+        <span class="price-tag">€ · Prix doux</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu" id="menu">
+  <div class="container">
+    <div class="section-title">
+      <span class="script">À la carte</span>
+      <h2>Notre menu</h2>
+    </div>
+    <div class="menu-categories">
+
+      <div class="menu-card">
+        <div class="menu-card-header">
+          <span class="emoji">🥖</span>
+          <span class="script">Pour commencer</span>
+          <h3>Sandwichs & Salés</h3>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <h4>Le Parisien</h4>
+            <p>Jambon, beurre, baguette</p>
+          </div>
+          <span class="menu-item-dots"></span>
+          <span class="menu-item-price">4,50 €</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <h4>Poulet Crudités</h4>
+            <p>Poulet rôti, salade, tomate</p>
+          </div>
+          <span class="menu-item-dots"></span>
+          <span class="menu-item-price">5,90 €</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <h4>Végétarien</h4>
+            <p>Chèvre, miel, tomates séchées</p>
+          </div>
+          <span class="menu-item-dots"></span>
+          <span class="menu-item-price">5,50 €</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <h4>Croque-Monsieur</h4>
+            <p>Maison, gratiné au four</p>
+          </div>
+          <span class="menu-item-dots"></span>
+          <span class="menu-item-price">6,00 €</span>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <div class="menu-card-header">
+          <span class="emoji">🥞</span>
+          <span class="script">Spécialité</span>
+          <h3>Crêpes Salées</h3>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <h4>Complète</h4>
+            <p>Jambon, œuf, fromage</p>
+          </div>
+          <span class="menu-item-dots"></span>
+          <span class="menu-item-price">7,50 €</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <h4>Chèvre Miel</h4>
+            <p>Chèvre fondu, miel, noix</p>
+          </div>
+          <span class="menu-item-dots"></span>
+          <span class="menu-item-price">7,90 €</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <h4>Forestière</h4>
+            <p>Champignons, crème, emmental</p>
+          </div>
+          <span class="menu-item-dots"></span>
+          <span class="menu-item-price">8,20 €</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <h4>Saumon Fumé</h4>
+            <p>Saumon, crème, ciboulette</p>
+          </div>
+          <span class="menu-item-dots"></span>
+          <span class="menu-item-price">9,50 €</span>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <div class="menu-card-header">
+          <span class="emoji">🍓</span>
+          <span class="script">Douceurs</span>
+          <h3>Crêpes & Desserts</h3>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <h4>Sucre / Citron</h4>
+            <p>Le classique indémodable</p>
+          </div>
+          <span class="menu-item-dots"></span>
+          <span class="menu-item-price">3,50 €</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <h4>Nutella Banane</h4>
+            <p>Banane fraîche & pâte à tartiner</p>
+          </div>
+          <span class="menu-item-dots"></span>
+          <span class="menu-item-price">5,50 €</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <h4>Crêpe Suzette</h4>
+            <p>Beurre, sucre, orange</p>
+          </div>
+          <span class="menu-item-dots"></span>
+          <span class="menu-item-price">6,00 €</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <h4>Gourmande</h4>
+            <p>Chantilly, fraises, chocolat</p>
+          </div>
+          <span class="menu-item-dots"></span>
+          <span class="menu-item-price">6,90 €</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HORAIRES -->
+<section class="hours" id="horaires">
+  <div class="container">
+    <div class="section-title">
+      <span class="script">À quelle heure ?</span>
+      <h2>Nos horaires</h2>
+    </div>
+    <div class="hours-grid">
+      <div class="hours-row"><span class="day">Lundi</span><span class="time">07:30 – 22:30</span></div>
+      <div class="hours-row"><span class="day">Mardi</span><span class="time">07:30 – 22:30</span></div>
+      <div class="hours-row"><span class="day">Mercredi</span><span class="time">07:30 – 22:30</span></div>
+      <div class="hours-row"><span class="day">Jeudi</span><span class="time">07:30 – 22:30</span></div>
+      <div class="hours-row"><span class="day">Vendredi</span><span class="time">07:30 – 22:30</span></div>
+      <div class="hours-row"><span class="day">Samedi</span><span class="time">07:30 – 22:30</span></div>
+      <div class="hours-row"><span class="day">Dimanche</span><span class="time">07:30 – 22:30</span></div>
+    </div>
+    <div class="hours-badge">
+      <div class="open-badge">
+        <span class="pulse-dot"></span>
+        Ouvert 7j/7 · de 7h30 à 22h30
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="section-title">
+      <span class="script">On vous attend</span>
+      <h2>Venez nous voir</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <h3>Informations</h3>
+        <div class="contact-info">
+          <div class="contact-icon">📍</div>
+          <div class="contact-info-text">
+            <strong>Adresse</strong>
+            214 Rue de Rivoli<br>75001 Paris, France
+          </div>
+        </div>
+        <div class="contact-info">
+          <div class="contact-icon">📞</div>
+          <div class="contact-info-text">
+            <strong>Téléphone</strong>
+            <a href="tel:+33953529691">09 53 52 96 91</a>
+          </div>
+        </div>
+        <div class="contact-info">
+          <div class="contact-icon">⏰</div>
+          <div class="contact-info-text">
+            <strong>Horaires</strong>
+            Tous les jours · 7h30 – 22h30
+          </div>
+        </div>
+      </div>
+      <div class="map-card">
+        <div class="big-pin">📍</div>
+        <h3>Au cœur de Paris</h3>
+        <p>À deux pas du Louvre et des Tuileries, retrouvez-nous rue de Rivoli pour une pause savoureuse.</p>
+        <a href="https://maps.google.com/?cid=9998225311620202518" target="_blank" class="btn btn-primary">🗺️ Obtenir l'itinéraire</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="script">Happy Caffé</span>
+  © 2025 Happy Caffé · 214 Rue de Rivoli, 75001 Paris · Tous droits réservés
+</footer>
+
+</body>
+</html>

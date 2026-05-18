@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Les Chartrons — Bistrot Parisien</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:wght@300;400;600&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bordeaux: #6b1e1e;
+    --bordeaux-dark: #4a1414;
+    --cream: #f4ead5;
+    --cream-light: #faf3e0;
+    --ink: #2a1a0e;
+    --gold: #b8862b;
+    --olive: #5c5a36;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Cormorant Garamond', serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 18px;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background:
+      linear-gradient(rgba(42,26,14,0.55), rgba(42,26,14,0.75)),
+      radial-gradient(circle at 30% 40%, #8b3a3a 0%, #4a1414 60%, #2a1a0e 100%);
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--cream);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 30px; left: 30px; right: 30px; bottom: 30px;
+    border: 1px solid rgba(244,234,213,0.3);
+    pointer-events: none;
+  }
+
+  .hero-tag {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.9rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    color: var(--gold);
+    animation: fadeIn 1.2s ease;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 9vw, 7rem);
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.02em;
+    animation: fadeIn 1.5s ease;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    max-width: 600px;
+    font-style: italic;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+    animation: fadeIn 2s ease;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-family: 'Special Elite', cursive;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    animation: fadeIn 2.5s ease;
+  }
+
+  .hero-meta span { padding: 0.5rem 1rem; border-top: 1px solid var(--gold); border-bottom: 1px solid var(--gold); }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SECTIONS */
+  section { padding: 6rem 2rem; }
+
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--bordeaux);
+    font-weight: 700;
+  }
+
+  .section-title em { font-style: italic; color: var(--gold); }
+
+  .section-sub {
+    text-align: center;
+    font-family: 'Special Elite', cursive;
+    font-size: 0.85rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--olive);
+    margin-bottom: 4rem;
+  }
+
+  /* À PROPOS */
+  .about { background: var(--cream-light); position: relative; }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .about-text p {
+    font-size: 1.2rem;
+    margin-bottom: 1.2rem;
+    color: #3a2818;
+  }
+
+  .about-text p:first-of-type::first-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    float: left;
+    line-height: 0.9;
+    margin-right: 0.5rem;
+    color: var(--bordeaux);
+    font-weight: 700;
+  }
+
+  .about-visual {
+    background: var(--bordeaux);
+    color: var(--cream);
+    padding: 3rem 2.5rem;
+    position: relative;
+    border: 1px solid var(--gold);
+    box-shadow: 8px 8px 0 var(--bordeaux-dark);
+  }
+
+  .about-visual h3 {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: var(--gold);
+  }
+
+  .about-visual ul { list-style: none; }
+  .about-visual li {
+    padding: 0.6rem 0;
+    border-bottom: 1px dashed rgba(244,234,213,0.3);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 1.05rem;
+  }
+  .about-visual li::before {
+    content: '✦';
+    color: var(--gold);
+  }
+
+  .rating-badge {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--gold);
+    color: var(--bordeaux-dark);
+    font-family: 'Special Elite', cursive;
+    letter-spacing: 0.1em;
+    font-size: 0.9rem;
+  }
+
+  /* MENU */
+  .menu { background: var(--cream); }
+
+  .menu-decoration {
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--gold);
+    font-size: 1.5rem;
+    letter-spacing: 1rem;
+  }
+
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+  }
+
+  .menu-cat {
+    background: var(--cream-light);
+    padding: 2.5rem 2rem;
+    border: 1px solid rgba(107,30,30,0.2);
+    position: relative;
+  }
+
+  .menu-cat::before {
+    content: '';
+    position: absolute;
+    top: 10px; left: 10px; right: 10px; bottom: 10px;
+    border: 1px solid rgba(184,134,43,0.3);
+    pointer-events: none;
+  }
+
+  .menu-cat h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    text-align: center;
+    color: var(--bordeaux);
+    margin-bottom: 0.3rem;
+    font-style: italic;
+  }
+
+  .menu-cat-sub {
+    text-align: center;
+    font-family: 'Special Elite', cursive;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--olive);
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+  }
+
+  .menu-item {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px dotted rgba(107,30,30,0.3);
+  }
+
+  .menu-item:last-child { border-bottom: none; }
+
+  .menu-item-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .menu-item-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .menu-item-price {
+    font-family: 'Special Elite', cursive;
+    color: var(--bordeaux);
+    font-size: 1rem;
+    white-space: nowrap;
+  }
+
+  .menu-item-desc {
+    font-size: 0.95rem;
+    font-style: italic;
+    color: #5a4a3a;
+    line-height: 1.4;
+  }
+
+  /* HORAIRES */
+  .hours {
+    background: var(--bordeaux-dark);
+    color: var(--cream);
+    position: relative;
+  }
+
+  .hours .section-title { color: var(--cream); }
+  .hours .section-title em { color: var(--gold); }
+  .hours .section-sub { color: rgba(244,234,213,0.6); }
+
+  .hours-table {
+    max-width: 600px;
+    margin: 0 auto;
+    background: rgba(244,234,213,0.05);
+    padding: 2.5rem;
+    border: 1px solid var(--gold);
+  }
+
+  .hours-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0;
+    border-bottom: 1px dashed rgba(244,234,213,0.2);
+    font-size: 1.15rem;
+  }
+
+  .hours-row:last-child { border-bottom: none; }
+
+  .hours-row.closed { color: #a08070; font-style: italic; }
+  .hours-row.today {
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  .hours-day { font-family: 'Playfair Display', serif; }
+  .hours-time { font-family: 'Special Elite', cursive; letter-spacing: 0.1em; }
+
+  /* CONTACT */
+  .contact { background: var(--cream-light); }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 2rem;
+  }
+
+  .contact-card {
+    background: white;
+    padding: 3rem 2.5rem;
+    text-align: center;
+    border: 1px solid rgba(107,30,30,0.15);
+    box-shadow: 0 4px 20px rgba(74,20,20,0.08);
+  }
+
+  .contact-icon {
+    font-size: 2rem;
+    color: var(--bordeaux);
+    margin-bottom: 1rem;
+  }
+
+  .contact-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--bordeaux);
+    margin-bottom: 1rem;
+    font-style: italic;
+  }
+
+  .contact-card p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    color: #3a2818;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.9rem 2rem;
+    background: var(--bordeaux);
+    color: var(--cream);
+    text-decoration: none;
+    font-family: 'Special Elite', cursive;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    border: 1px solid var(--gold);
+    transition: all 0.3s ease;
+  }
+
+  .btn:hover {
+    background: var(--gold);
+    color: var(--bordeaux-dark);
+    transform: translateY(-2px);
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    color: var(--cream);
+    text-align: center;
+    padding: 3rem 2rem;
+  }
+
+  footer .name {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.8rem;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  footer p {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    opacity: 0.7;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    section { padding: 4rem 1.5rem; }
+    .about-grid, .menu-grid, .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .hero::before { top: 15px; left: 15px; right: 15px; bottom: 15px; }
+    .hero-meta { gap: 1rem; flex-direction: column; align-items: center; }
+    .about-visual { box-shadow: 5px 5px 0 var(--bordeaux-dark); }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-tag">— Bistrot · Cave · Comptoir —</div>
+  <h1>Les <em>Chartrons</em></h1>
+  <p class="hero-sub">Une ancienne épicerie du Marais réinventée en table d'habitués, où la cuisine généreuse rencontre les vins choisis avec un nez de connaisseur.</p>
+  <div class="hero-meta">
+    <span>Depuis le Marais</span>
+    <span>★ 4.7 / 5</span>
+    <span>Paris 3ᵉ</span>
+  </div>
+</header>
+
+<!-- À PROPOS -->
+<section class="about">
+  <div class="container">
+    <h2 class="section-title">L'esprit de <em>la maison</em></h2>
+    <p class="section-sub">— Un autre temps, au coin de la rue —</p>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>Niché à l'angle d'une petite rue calme du 3ᵉ arrondissement, Les Chartrons est de ces adresses confidentielles que l'on se transmet à voix basse. L'âme d'une épicerie d'antan plane encore entre les murs : étagères patinées, comptoir d'origine, et cette atmosphère feutrée d'un Paris qui prend son temps.</p>
+        <p>La cuisine y est sincère, généreuse, sans artifices. Les vins sont choisis avec sagesse, le service est aimable, et l'on s'y attable comme on retrouve un vieil ami. Aux beaux jours, la terrasse ensoleillée du midi prolonge ce voyage hors du temps.</p>
+      </div>
+      <div class="about-visual">
+        <h3>La maison propose</h3>
+        <ul>
+          <li>Petit-déjeuner, déjeuner, dîner</li>
+          <li>Réservation conseillée</li>
+          <li>Belle sélection de vins</li>
+          <li>Bières de caractère</li>
+          <li>Options végétariennes</li>
+          <li>Terrasse ensoleillée le midi</li>
+        </ul>
+        <span class="rating-badge">★ 4.7 — 276 avis</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu">
+  <div class="container">
+    <h2 class="section-title">La <em>carte</em></h2>
+    <p class="section-sub">— Suggestions du chef —</p>
+    <div class="menu-decoration">✦ ✦ ✦</div>
+
+    <div class="menu-grid">
+      <!-- ENTRÉES -->
+      <div class="menu-cat">
+        <h3>Entrées</h3>
+        <p class="menu-cat-sub">Pour commencer</p>
+
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Œuf parfait</span>
+            <span class="menu-item-price">11 €</span>
+          </div>
+          <p class="menu-item-desc">Crème de champignons, lard fumé, croûtons à l'ail</p>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Terrine maison</span>
+            <span class="menu-item-price">12 €</span>
+          </div>
+          <p class="menu-item-desc">Cornichons croquants, pickles d'oignons rouges</p>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Burrata des Pouilles</span>
+            <span class="menu-item-price">14 €</span>
+          </div>
+          <p class="menu-item-desc">Tomates anciennes, basilic, huile d'olive de Sicile</p>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Ceviche du moment</span>
+            <span class="menu-item-price">13 €</span>
+          </div>
+          <p class="menu-item-desc">Poisson du marché, agrumes, coriandre fraîche</p>
+        </div>
+      </div>
+
+      <!-- PLATS -->
+      <div class="menu-cat">
+        <h3>Plats</h3>
+        <p class="menu-cat-sub">Le cœur de la maison</p>
+
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Onglet de bœuf</span>
+            <span class="menu-item-price">22 €</span>
+          </div>
+          <p class="menu-item-desc">Échalotes confites, frites maison, salade verte</p>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Suprême de volaille</span>
+            <span class="menu-item-price">19 €</span>
+          </div>
+          <p class="menu-item-desc">Jus corsé, purée de pommes de terre à la truffe</p>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Cabillaud rôti</span>
+            <span class="menu-item-price">23 €</span>
+          </div>
+          <p class="menu-item-desc">Risotto crémeux, émulsion citron-aneth</p>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Risotto végétarien</span>
+            <span class="menu-item-price">17 €</span>
+          </div>
+          <p class="menu-item-desc">Légumes de saison rôtis, parmesan affiné 24 mois</p>
+        </div>
+      </div>
+
+      <!-- DESSERTS -->
+      <div class="menu-cat">
+        <h3>Desserts</h3>
+        <p class="menu-cat-sub">Douceurs finales</p>
+
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Tarte fine aux pommes</span>
+            <span class="menu-item-price">8 €</span>
+          </div>
+          <p class="menu-item-desc">Caramel beurre salé, glace vanille bourbon</p>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Île flottante</span>
+            <span class="menu-item-price">8 €</span>
+          </div>
+          <p class="menu-item-desc">Crème anglaise à la vanille, pralin maison</p>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Mousse au chocolat</span>
+            <span class="menu-item-price">9 €</span>
+          </div>
+          <p class="menu-item-desc">Grand cru 70%, fleur de sel, tuile cacao</p>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Plateau de fromages</span>
+            <span class="menu-item-price">11 €</span>
+          </div>
+          <p class="menu-item-desc">Sélection affinée, confiture de figues, pain aux noix</p>
+        </div>
+      </div>
+    </div>
+
+    <p style="text-align:center; margin-top:3rem; font-style:italic; color:var(--olive); font-size:1.1rem;">Formule entrée + plat à 18,90 € le midi · Carte des vins disponible sur demande</p>
+  </div>
+</section>
+
+<!-- HORAIRES -->
+<section class="hours">
+  <div class="container">
+    <h2 class="section-title">Nos <em>horaires</em></h2>
+    <p class="section-sub">— Ouvert du lundi au samedi —</p>
+    <div class="hours-table">
+      <div class="hours-row"><span class="hours-day">Lundi</span><span class="hours-time">10:00 — 00:00</span></div>
+      <div class="hours-row"><span class="hours-day">Mardi</span><span class="hours-time">10:00 — 00:00</span></div>
+      <div class="hours-row"><span class="hours-day">Mercredi</span><span class="hours-time">10:00 — 00:00</span></div>
+      <div class="hours-row"><span class="hours-day">Jeudi</span><span class="hours-time">10:00 — 00:00</span></div>
+      <div class="hours-row"><span class="hours-day">Vendredi</span><span class="hours-time">10:00 — 00:00</span></div>
+      <div class="hours-row"><span class="hours-day">Samedi</span><span class="hours-time">10:00 — 00:00</span></div>
+      <div class="hours-row closed"><span class="hours-day">Dimanche</span><span class="hours-time">Fermé</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact">
+  <div class="container">
+    <h2 class="section-title">Nous <em>trouver</em></h2>
+    <p class="section-sub">— Au cœur du Marais —</p>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="contact-icon">✉</div>
+        <h3>L'adresse</h3>
+        <p>2 Rue au Maire<br>75003 Paris, France</p>
+        <a href="https://maps.google.com/?cid=6302694215661348690" target="_blank" class="btn">Itinéraire</a>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">☎</div>
+        <h3>Réservations</h3>
+        <p>Pour réserver votre table,<br>contactez-nous directement.</p>
+        <a href="tel:+33140278802" class="btn">01 40 27 88 02</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="name">Les Chartrons</div>
+  <p>Bistrot Parisien · Paris 3ᵉ</p>
+</footer>
+
+</body>
+</html>

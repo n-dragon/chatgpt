@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le Coyote Paris — Saloon élégant au cœur du Marais</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rye&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Special+Elite&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#1a0f08;
+    --bg-2:#241408;
+    --paper:#f0e3c8;
+    --paper-dark:#e0cfa8;
+    --rust:#b8482e;
+    --rust-dark:#8a2f1c;
+    --gold:#c9962b;
+    --ink:#2c1810;
+    --shadow:rgba(0,0,0,0.4);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Cormorant Garamond',Georgia,serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+
+  /* === NAV === */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(26,15,8,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(201,150,43,0.3);
+    padding:15px 30px;
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  nav .brand{
+    font-family:'Rye',serif;
+    color:var(--gold);
+    font-size:1.3rem;
+    letter-spacing:2px;
+  }
+  nav ul{display:flex;gap:30px;list-style:none}
+  nav a{
+    color:var(--paper);
+    text-decoration:none;
+    font-family:'Special Elite',cursive;
+    font-size:0.85rem;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    transition:color .3s;
+  }
+  nav a:hover{color:var(--gold)}
+  @media (max-width:768px){nav ul{display:none}}
+
+  /* === HERO === */
+  .hero{
+    min-height:100vh;
+    background:
+      radial-gradient(ellipse at center, rgba(26,15,8,0.4) 0%, rgba(26,15,8,0.85) 100%),
+      repeating-linear-gradient(90deg, #1a0f08 0px, #1a0f08 2px, #241408 2px, #241408 4px),
+      linear-gradient(180deg,#2c1810 0%, #1a0f08 100%);
+    display:flex;align-items:center;justify-content:center;
+    text-align:center;
+    position:relative;
+    padding:120px 20px 60px;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;inset:0;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(201,150,43,0.08) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(184,72,46,0.12) 0%, transparent 40%);
+    pointer-events:none;
+  }
+  .hero-inner{position:relative;z-index:2;max-width:900px;animation:fadeUp 1.4s ease-out}
+  .hero .ornament{
+    color:var(--gold);
+    font-family:'Special Elite';
+    letter-spacing:6px;
+    font-size:0.8rem;
+    margin-bottom:25px;
+  }
+  .hero h1{
+    font-family:'Rye',serif;
+    color:var(--paper);
+    font-size:clamp(3rem, 9vw, 7rem);
+    line-height:0.95;
+    letter-spacing:3px;
+    text-shadow:4px 4px 0 var(--rust-dark), 8px 8px 20px rgba(0,0,0,0.6);
+    margin-bottom:30px;
+  }
+  .hero h1 span{display:block;color:var(--gold)}
+  .hero .tagline{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    color:var(--paper-dark);
+    font-size:clamp(1.1rem,2.2vw,1.5rem);
+    margin-bottom:40px;
+  }
+  .hero .saloon-doors{
+    display:flex;align-items:center;justify-content:center;gap:20px;
+    color:var(--gold);
+    font-family:'Special Elite';
+    letter-spacing:3px;
+  }
+  .hero .saloon-doors::before,.hero .saloon-doors::after{
+    content:"";display:block;height:1px;width:80px;background:var(--gold);
+  }
+  .hero .cta{
+    display:inline-block;
+    margin-top:35px;
+    padding:15px 40px;
+    background:var(--rust);
+    color:var(--paper);
+    text-decoration:none;
+    font-family:'Special Elite';
+    letter-spacing:2px;
+    text-transform:uppercase;
+    font-size:0.9rem;
+    border:2px solid var(--gold);
+    transition:all .3s;
+    box-shadow:4px 4px 0 var(--rust-dark);
+  }
+  .hero .cta:hover{
+    background:var(--gold);
+    color:var(--ink);
+    transform:translate(-2px,-2px);
+    box-shadow:6px 6px 0 var(--rust-dark);
+  }
+  .stars{margin-top:30px;color:var(--gold);font-size:1.3rem;letter-spacing:5px}
+  .stars small{display:block;color:var(--paper-dark);font-family:'Cormorant Garamond';font-size:0.9rem;letter-spacing:1px;margin-top:5px}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+
+  /* === SECTION COMMON === */
+  section{padding:100px 20px;position:relative}
+  .container{max-width:1200px;margin:0 auto}
+  .section-title{
+    text-align:center;
+    margin-bottom:60px;
+  }
+  .section-title .small{
+    font-family:'Special Elite';
+    color:var(--rust);
+    letter-spacing:5px;
+    font-size:0.85rem;
+    text-transform:uppercase;
+  }
+  .section-title h2{
+    font-family:'Rye',serif;
+    font-size:clamp(2rem,5vw,3.5rem);
+    color:var(--ink);
+    margin-top:10px;
+    letter-spacing:2px;
+  }
+  .divider{
+    width:120px;height:30px;margin:20px auto;
+    background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 30'><line x1='0' y1='15' x2='45' y2='15' stroke='%238a2f1c' stroke-width='1.5'/><line x1='75' y1='15' x2='120' y2='15' stroke='%238a2f1c' stroke-width='1.5'/><polygon points='60,5 65,15 60,25 55,15' fill='%23c9962b'/></svg>") center/contain no-repeat;
+  }
+
+  /* === À PROPOS === */
+  .about{
+    background:var(--paper);
+    background-image:
+      radial-gradient(circle at 10% 10%, rgba(184,72,46,0.05) 0%, transparent 40%),
+      radial-gradient(circle at 90% 90%, rgba(201,150,43,0.08) 0%, transparent 40%);
+  }
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+  @media(max-width:768px){.about-grid{grid-template-columns:1fr;gap:40px}}
+  .about-text p{
+    font-size:1.15rem;
+    margin-bottom:20px;
+    color:#3a2418;
+  }
+  .about-text .lead{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-size:1.4rem;
+    color:var(--rust-dark);
+    border-left:3px solid var(--gold);
+    padding-left:20px;
+    margin-bottom:30px;
+  }
+  .services-list{
+    list-style:none;
+    margin-top:25px;
+  }
+  .services-list li{
+    padding:10px 0;
+    border-bottom:1px dashed rgba(138,47,28,0.3);
+    font-family:'Special Elite';
+    font-size:0.95rem;
+    letter-spacing:1px;
+  }
+  .services-list li::before{
+    content:"★";color:var(--gold);margin-right:12px;
+  }
+  .about-card{
+    background:linear-gradient(135deg,#2c1810,#1a0f08);
+    color:var(--paper);
+    padding:50px 40px;
+    border:1px solid var(--gold);
+    box-shadow:10px 10px 0 var(--rust-dark);
+    position:relative;
+  }
+  .about-card::before{
+    content:"";
+    position:absolute;top:10px;left:10px;right:10px;bottom:10px;
+    border:1px solid rgba(201,150,43,0.4);
+    pointer-events:none;
+  }
+  .about-card h3{
+    font-family:'Rye',serif;
+    color:var(--gold);
+    font-size:1.5rem;
+    margin-bottom:20px;
+    text-align:center;
+    letter-spacing:2px;
+  }
+  .about-card .info-row{
+    display:flex;justify-content:space-between;
+    padding:12px 0;
+    border-bottom:1px dotted rgba(240,227,200,0.2);
+    font-family:'Cormorant Garamond';
+    font-size:1.05rem;
+  }
+  .about-card .info-row span:first-child{color:var(--paper-dark);font-style:italic}
+  .about-card .info-row span:last-child{color:var(--gold);font-family:'Special Elite';font-size:0.9rem;letter-spacing:1px}
+
+  /* === MENU === */
+  .menu{
+    background:var(--bg);
+    color:var(--paper);
+    background-image:
+      repeating-linear-gradient(45deg, transparent 0, transparent 60px, rgba(201,150,43,0.02) 60px, rgba(201,150,43,0.02) 61px);
+    position:relative;
+  }
+  .menu::before,.menu::after{
+    content:"";position:absolute;left:0;right:0;height:20px;
+    background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 20'><polygon points='0,0 20,20 40,0' fill='%23f0e3c8'/></svg>") repeat-x;
+    background-size:40px 20px;
+  }
+  .menu::before{top:0}
+  .menu::after{bottom:0;transform:rotate(180deg)}
+  .menu .section-title h2{color:var(--paper)}
+  .menu .section-title .small{color:var(--gold)}
+  .menu-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:40px;
+  }
+  @media(max-width:900px){.menu-grid{grid-template-columns:1fr;gap:50px}}
+  .menu-cat{
+    background:rgba(240,227,200,0.04);
+    border:1px solid rgba(201,150,43,0.3);
+    padding:40px 30px;
+    position:relative;
+  }
+  .menu-cat-title{
+    text-align:center;
+    font-family:'Rye',serif;
+    color:var(--gold);
+    font-size:1.6rem;
+    letter-spacing:3px;
+    margin-bottom:30px;
+    padding-bottom:15px;
+    border-bottom:1px solid rgba(201,150,43,0.3);
+  }
+  .menu-item{
+    margin-bottom:25px;
+  }
+  .menu-item .top{
+    display:flex;justify-content:space-between;align-items:baseline;gap:10px;
+    margin-bottom:5px;
+  }
+  .menu-item .name{
+    font-family:'Playfair Display',serif;
+    font-size:1.15rem;
+    color:var(--paper);
+    font-weight:600;
+  }
+  .menu-item .dots{flex:1;border-bottom:1px dotted rgba(201,150,43,0.4);margin:0 5px;transform:translateY(-4px)}
+  .menu-item .price{
+    font-family:'Special Elite';
+    color:var(--rust);
+    font-size:1rem;
+    white-space:nowrap;
+  }
+  .menu-item .desc{
+    font-family:'Cormorant Garamond';
+    font-style:italic;
+    color:var(--paper-dark);
+    font-size:0.95rem;
+    line-height:1.4;
+  }
+
+  /* === HORAIRES === */
+  .hours{
+    background:var(--paper-dark);
+    background-image:
+      linear-gradient(180deg, var(--paper) 0%, var(--paper-dark) 100%);
+  }
+  .hours-card{
+    max-width:600px;margin:0 auto;
+    background:var(--paper);
+    border:2px solid var(--rust-dark);
+    padding:50px 40px;
+    box-shadow:12px 12px 0 var(--rust-dark);
+    position:relative;
+  }
+  .hours-card::before{
+    content:"OUVERT";
+    position:absolute;
+    top:-20px;left:50%;transform:translateX(-50%);
+    background:var(--rust);
+    color:var(--paper);
+    padding:8px 25px;
+    font-family:'Special Elite';
+    letter-spacing:4px;
+    font-size:0.9rem;
+    border:2px solid var(--rust-dark);
+  }
+  .hours-list{list-style:none}
+  .hours-list li{
+    display:flex;justify-content:space-between;
+    padding:14px 5px;
+    border-bottom:1px dashed rgba(138,47,28,0.3);
+    font-family:'Cormorant Garamond';
+    font-size:1.15rem;
+  }
+  .hours-list li.weekend{background:rgba(201,150,43,0.1);padding-left:15px;padding-right:15px}
+  .hours-list li .day{
+    text-transform:uppercase;
+    letter-spacing:2px;
+    font-family:'Special Elite';
+    font-size:0.9rem;
+    color:var(--ink);
+  }
+  .hours-list li .time{
+    color:var(--rust-dark);
+    font-weight:600;
+  }
+
+  /* === CONTACT === */
+  .contact{
+    background:var(--bg-2);
+    color:var(--paper);
+    text-align:center;
+  }
+  .contact .section-title h2{color:var(--paper)}
+  .contact .section-title .small{color:var(--gold)}
+  .contact-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:30px;
+    max-width:1000px;margin:0 auto 50px;
+  }
+  @media(max-width:768px){.contact-grid{grid-template-columns:1fr}}
+  .contact-item{
+    padding:35px 25px;
+    border:1px solid rgba(201,150,43,0.3);
+    transition:all .3s;
+  }
+  .contact-item:hover{
+    border-color:var(--gold);
+    background:rgba(201,150,43,0.05);
+    transform:translateY(-5px);
+  }
+  .contact-item .icon{
+    font-family:'Rye',serif;
+    color:var(--gold);
+    font-size:1.8rem;
+    margin-bottom:15px;
+  }
+  .contact-item h4{
+    font-family:'Special Elite';
+    letter-spacing:3px;
+    font-size:0.85rem;
+    color:var(--gold);
+    margin-bottom:15px;
+    text-transform:uppercase;
+  }
+  .contact-item p, .contact-item a{
+    font-family:'Cormorant Garamond';
+    font-size:1.15rem;
+    color:var(--paper);
+    text-decoration:none;
+    line-height:1.5;
+  }
+  .contact-item a:hover{color:var(--gold)}
+  .map-cta{
+    display:inline-block;
+    padding:18px 50px;
+    background:var(--rust);
+    color:var(--paper);
+    text-decoration:none;
+    font-family:'Special Elite';
+    letter-spacing:3px;
+    text-transform:uppercase;
+    border:2px solid var(--gold);
+    box-shadow:5px 5px 0 var(--rust-dark);
+    transition:all .3s;
+  }
+  .map-cta:hover{
+    background:var(--gold);color:var(--ink);
+    transform:translate(-2px,-2px);
+    box-shadow:7px 7px 0 var(--rust-dark);
+  }
+
+  footer{
+    background:var(--bg);
+    color:var(--paper-dark);
+    text-align:center;
+    padding:30px 20px;
+    font-family:'Special Elite';
+    font-size:0.8rem;
+    letter-spacing:2px;
+    border-top:1px solid rgba(201,150,43,0.2);
+  }
+  footer .brand{
+    color:var(--gold);
+    font-family:'Rye',serif;
+    font-size:1.1rem;
+    letter-spacing:3px;
+    margin-bottom:10px;
+    display:block;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">⚜ LE COYOTE ⚜</div>
+  <ul>
+    <li><a href="#about">L'Antre</a></li>
+    <li><a href="#menu">Carte</a></li>
+    <li><a href="#hours">Horaires</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="ornament">— EST. PARIS · LE MARAIS —</div>
+    <h1>LE COYOTE<span>PARIS</span></h1>
+    <p class="tagline">« L'esprit du saloon, réinterprété avec élégance, au cœur du Marais »</p>
+    <div class="saloon-doors">PUSH THE DOORS</div>
+    <a href="#menu" class="cta">Découvrir la carte</a>
+    <div class="stars">
+      ★★★★★
+      <small>4,4 / 5 — 60 avis voyageurs</small>
+    </div>
+  </div>
+</header>
+
+<!-- À PROPOS -->
+<section id="about" class="about">
+  <div class="container">
+    <div class="section-title">
+      <div class="small">— Notre maison —</div>
+      <h2>L'Antre du Coyote</h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-text">
+        <p class="lead">« Derrière ses portes battantes, Le Coyote dévoile un écrin intime et chaleureux. »</p>
+        <p>Au 86 rue des Archives, au cœur battant du Marais, Le Coyote Paris cultive un art rare : celui d'allier l'âme rugueuse des saloons d'antan à la finesse de la cuisine parisienne contemporaine.</p>
+        <p>Sous la houlette du Chef Alphonse et de sa cheffe complice, les assiettes se font raffinées et gourmandes, ponctuées de touches d'originalité qui font tout le sel de la maison. Une cuisine de marché, sincère, à savourer accompagnée d'une carte des vins soigneusement choisie.</p>
+        <ul class="services-list">
+          <li>Service sur place — ambiance saloon élégant</li>
+          <li>À emporter</li>
+          <li>Réservation conseillée</li>
+          <li>Carte des vins sélectionnée</li>
+          <li>Service déjeuner (week-end) & dîner</li>
+        </ul>
+      </div>
+
+      <div class="about-card">
+        <h3>~ Le Saloon ~</h3>
+        <div class="info-row"><span>Quartier</span><span>Le Marais · 75003</span></div>
+        <div class="info-row"><span>Cuisine</span><span>Bistronomique</span></div>
+        <div class="info-row"><span>Ambiance</span><span>Saloon chic</span></div>
+        <div class="info-row"><span>Capacité</span><span>Intime</span></div>
+        <div class="info-row"><span>Note</span><span>★ 4,4 / 5</span></div>
+        <div class="info-row"><span>Chef</span><span>Alphonse</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu" class="menu">
+  <div class="container">
+    <div class="section-title">
+      <div class="small">— Wanted : gourmets —</div>
+      <h2>La Carte du Coyote</h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="menu-grid">
+      <!-- ENTRÉES -->
+      <div class="menu-cat">
+        <div class="menu-cat-title">~ Entrées ~</div>
+
+        <div class="menu-item">
+          <div class="top"><span class="name">Tartare de bœuf au couteau</span><span class="dots"></span><span class="price">16€</span></div>
+          <div class="desc">Cornichons, câpres, jaune d'œuf fumé, toasts grillés</div>
+        </div>
+
+        <div class="menu-item">
+          <div class="top"><span class="name">Burrata des Pouilles</span><span class="dots"></span><span class="price">14€</span></div>
+          <div class="desc">Tomates anciennes confites, basilic, huile d'olive d'Andalousie</div>
+        </div>
+
+        <div class="menu-item">
+          <div class="top"><span class="name">Œuf parfait, crème de cèpes</span><span class="dots"></span><span class="price">13€</span></div>
+          <div class="desc">Émulsion de comté, copeaux de noisettes torréfiées</div>
+        </div>
+
+        <div class="menu-item">
+          <div class="top"><span class="name">Velouté du jour</span><span class="dots"></span><span class="price">11€</span></div>
+          <div class="desc">Selon l'inspiration du marché du matin</div>
+        </div>
+      </div>
+
+      <!-- PLATS -->
+      <div class="menu-cat">
+        <div class="menu-cat-title">~ Plats ~</div>
+
+        <div class="menu-item">
+          <div class="top"><span class="name">Côte de bœuf maturée (2 pers.)</span><span class="dots"></span><span class="price">58€</span></div>
+          <div class="desc">Pommes grenailles, beurre maître d'hôtel, jus corsé</div>
+        </div>
+
+        <div class="menu-item">
+          <div class="top"><span class="name">Suprême de volaille fermière</span><span class="dots"></span><span class="price">26€</span></div>
+          <div class="desc">Risotto crémeux au parmesan, jus à la sauge</div>
+        </div>
+
+        <div class="menu-item">
+          <div class="top"><span class="name">Pavé de cabillaud rôti</span><span class="dots"></span><span class="price">28€</span></div>
+          <div class="desc">Écrasé de pommes de terre fumées, bouillon de coquillages</div>
+        </div>
+
+        <div class="menu-item">
+          <div class="top"><span class="name">Risotto végétarien d'automne</span><span class="dots"></span><span class="price">22€</span></div>
+          <div class="desc">Champignons des bois, butternut rôtie, tuile au parmesan</div>
+        </div>
+      </div>
+
+      <!-- DESSERTS -->
+      <div class="menu-cat">
+        <div class="menu-cat-title">~ Desserts ~</div>
+
+        <div class="menu-item">
+          <div class="top"><span class="name">Tarte fine aux pommes</span><span class="dots"></span><span class="price">10€</span></div>
+          <div class="desc">Glace vanille bourbon, caramel au beurre salé</div>
+        </div>
+
+        <div class="menu-item">
+          <div class="top"><span class="name">Moelleux au chocolat noir</span><span class="dots"></span><span class="price">11€</span></div>
+          <div class="desc">Cœur coulant, sorbet cacao, fleur de sel</div>
+        </div>
+
+        <div class="menu-item">
+          <div class="top"><span class="name">Pavlova fruits rouges</span><span class="dots"></span><span class="price">10€</span></div>
+          <div class="desc">Chantilly à la vanille, coulis maison</div>
+        </div>
+
+        <div class="menu-item">
+          <div class="top"><span class="name">Café gourmand du Coyote</span><span class="dots"></span><span class="price">12€</span></div>
+          <div class="desc">Trio de mignardises au gré du chef</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HORAIRES -->
+<section id="hours" class="hours">
+  <div class="container">
+    <div class="section-title">
+      <div class="small">— À vos agendas —</div>
+      <h2>Horaires d'ouverture</h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="hours-card">
+      <ul class="hours-list">
+        <li><span class="day">Lundi</span><span class="time">17h30 — 00h00</span></li>
+        <li><span class="day">Mardi</span><span class="time">17h30 — 00h00</span></li>
+        <li><span class="day">Mercredi</span><span class="time">17h30 — 00h00</span></li>
+        <li><span class="day">Jeudi</span><span class="time">17h30 — 00h00</span></li>
+        <li><span class="day">Vendredi</span><span class="time">17h30 — 00h00</span></li>
+        <li class="weekend"><span class="day">Samedi</span><span class="time">12h00 — 00h00</span></li>
+        <li class="weekend"><span class="day">Dimanche</span><span class="time">12h00 — 00h00</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div class="container">
+    <div class="section-title">
+      <div class="small">— Venez nous voir —</div>
+      <h2>Rejoignez le Saloon</h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-item">
+        <div class="icon">⌖</div>
+        <h4>Adresse</h4>
+        <p>86 Rue des Archives<br>75003 Paris</p>
+      </div>
+      <div class="contact-item">
+        <div class="icon">☏</div>
+        <h4>Téléphone</h4>
+        <p><a href="tel:+33782064306">07 82 06 43 06</a></p>
+      </div>
+      <div class="contact-item">
+        <div class="icon">✦</div>
+        <h4>Réservation</h4>
+        <p>Recommandée<br>par téléphone</p>
+      </div>
+    </div>
+
+    <a href="https://maps.google.com/?cid=10063179348314489067" target="_blank" rel="noopener" class="map-cta">⟶ Obtenir l'itinéraire</a>
+  </div>
+</section>
+
+<footer>
+  <span class="brand">LE COYOTE PARIS</span>
+  © 2025 · Le Marais · Tous droits réservés
+</footer>
+
+</body>
+</html>

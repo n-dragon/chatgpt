@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Cantine des Pieds Nickelés - Bistrot Parisien</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Special+Elite&family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  :root {
+    --bordeaux: #6b1d1d;
+    --moutarde: #d4a017;
+    --creme: #f5ecd9;
+    --noir: #1a1410;
+    --brun: #3d2817;
+    --vert-bouteille: #2a3f2a;
+  }
+  
+  body {
+    font-family: 'Cormorant Garamond', serif;
+    background: var(--creme);
+    color: var(--noir);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: 
+      linear-gradient(rgba(26,20,16,0.7), rgba(26,20,16,0.85)),
+      repeating-linear-gradient(45deg, var(--bordeaux) 0, var(--bordeaux) 20px, var(--brun) 20px, var(--brun) 40px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    color: var(--creme);
+    border-bottom: 8px solid var(--moutarde);
+  }
+  
+  .hero::before {
+    content: "★ BISTROT ★ PARIS ★ 75002 ★";
+    position: absolute;
+    top: 2rem;
+    letter-spacing: 0.5em;
+    font-family: 'Special Elite', monospace;
+    font-size: 0.8rem;
+    color: var(--moutarde);
+  }
+  
+  .hero::after {
+    content: "« On y mange comme à la maison »";
+    position: absolute;
+    bottom: 2rem;
+    font-style: italic;
+    color: var(--moutarde);
+    font-size: 1.1rem;
+  }
+  
+  .hero h1 {
+    font-family: 'Abril Fatface', serif;
+    font-size: clamp(2.8rem, 8vw, 6.5rem);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+    text-shadow: 4px 4px 0 var(--bordeaux);
+    animation: fadeDown 1.2s ease-out;
+  }
+  
+  .hero .tagline {
+    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+    max-width: 700px;
+    font-style: italic;
+    color: var(--creme);
+    animation: fadeUp 1.4s ease-out;
+  }
+  
+  .hero .stars {
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    color: var(--moutarde);
+    letter-spacing: 0.3rem;
+  }
+  
+  .hero .stars span {
+    font-family: 'Special Elite', monospace;
+    font-size: 1rem;
+    color: var(--creme);
+    margin-left: 1rem;
+    letter-spacing: 0.1rem;
+  }
+  
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* SECTIONS */
+  section {
+    padding: 5rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .section-title {
+    font-family: 'Abril Fatface', serif;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    color: var(--bordeaux);
+    text-align: center;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+  
+  .section-subtitle {
+    text-align: center;
+    font-family: 'Special Elite', monospace;
+    color: var(--moutarde);
+    letter-spacing: 0.3em;
+    font-size: 0.9rem;
+    margin-bottom: 3rem;
+  }
+  
+  /* À PROPOS */
+  .about {
+    background: var(--creme);
+  }
+  
+  .about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  
+  .about-text p {
+    font-size: 1.2rem;
+    margin-bottom: 1.2rem;
+    color: var(--brun);
+  }
+  
+  .about-text .lead {
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--bordeaux);
+    border-left: 4px solid var(--moutarde);
+    padding-left: 1.5rem;
+  }
+  
+  .services-box {
+    background: var(--noir);
+    color: var(--creme);
+    padding: 2.5rem;
+    border: 3px solid var(--moutarde);
+    position: relative;
+  }
+  
+  .services-box::before {
+    content: "♦";
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--creme);
+    color: var(--bordeaux);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+  }
+  
+  .services-box h3 {
+    font-family: 'Abril Fatface', serif;
+    color: var(--moutarde);
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .services-box ul {
+    list-style: none;
+  }
+  
+  .services-box li {
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed rgba(245,236,217,0.2);
+    font-size: 1.1rem;
+  }
+  
+  .services-box li::before {
+    content: "✓ ";
+    color: var(--moutarde);
+    font-weight: bold;
+  }
+  
+  .price-tag {
+    display: inline-block;
+    background: var(--moutarde);
+    color: var(--noir);
+    padding: 0.3rem 1rem;
+    font-family: 'Abril Fatface', serif;
+    font-size: 1.5rem;
+    margin-top: 1rem;
+  }
+  
+  /* MENU */
+  .menu {
+    background: 
+      linear-gradient(rgba(245,236,217,0.95), rgba(245,236,217,0.95)),
+      var(--creme);
+    max-width: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  
+  .menu-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  
+  .ardoise {
+    background: var(--noir);
+    background-image: 
+      radial-gradient(circle at 30% 20%, rgba(255,255,255,0.03) 0%, transparent 50%),
+      radial-gradient(circle at 70% 60%, rgba(255,255,255,0.03) 0%, transparent 50%);
+    padding: 3rem;
+    border: 12px solid var(--brun);
+    border-radius: 8px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4), inset 0 0 80px rgba(0,0,0,0.5);
+    color: var(--creme);
+    margin-top: 2rem;
+  }
+  
+  .ardoise-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px dashed var(--moutarde);
+  }
+  
+  .ardoise-header h3 {
+    font-family: 'Special Elite', cursive;
+    color: var(--moutarde);
+    font-size: 2rem;
+    letter-spacing: 0.1em;
+  }
+  
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+  }
+  
+  .menu-category h4 {
+    font-family: 'Abril Fatface', serif;
+    color: var(--moutarde);
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-bottom: 1px solid var(--moutarde);
+    padding-bottom: 0.5rem;
+  }
+  
+  .menu-item {
+    margin-bottom: 1.5rem;
+  }
+  
+  .menu-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+  
+  .menu-item-name {
+    font-family: 'Special Elite', monospace;
+    font-size: 1.1rem;
+    color: var(--creme);
+  }
+  
+  .menu-item-price {
+    font-family: 'Abril Fatface', serif;
+    color: var(--moutarde);
+    font-size: 1.3rem;
+    white-space: nowrap;
+  }
+  
+  .menu-item-desc {
+    font-size: 1rem;
+    color: rgba(245,236,217,0.7);
+    font-style: italic;
+    margin-top: 0.3rem;
+  }
+  
+  /* HORAIRES */
+  .hours {
+    background: var(--bordeaux);
+    color: var(--creme);
+    max-width: none;
+    text-align: center;
+  }
+  
+  .hours .section-title {
+    color: var(--creme);
+  }
+  
+  .hours .section-subtitle {
+    color: var(--moutarde);
+  }
+  
+  .hours-grid {
+    max-width: 600px;
+    margin: 0 auto;
+    background: rgba(0,0,0,0.2);
+    padding: 2.5rem;
+    border: 2px solid var(--moutarde);
+  }
+  
+  .hours-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.8rem 0;
+    border-bottom: 1px dashed rgba(245,236,217,0.3);
+    font-size: 1.2rem;
+  }
+  
+  .hours-row:last-child { border-bottom: none; }
+  
+  .hours-day {
+    font-family: 'Special Elite', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  
+  .hours-time {
+    font-family: 'Abril Fatface', serif;
+    color: var(--moutarde);
+  }
+  
+  .hours-note {
+    margin-top: 2rem;
+    font-style: italic;
+    font-size: 1.1rem;
+  }
+  
+  /* CONTACT */
+  .contact {
+    background: var(--creme);
+    text-align: center;
+  }
+  
+  .contact-info {
+    max-width: 600px;
+    margin: 0 auto;
+    background: white;
+    padding: 3rem;
+    border: 2px solid var(--bordeaux);
+    box-shadow: 8px 8px 0 var(--moutarde);
+  }
+  
+  .contact-info p {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: var(--brun);
+  }
+  
+  .contact-info strong {
+    color: var(--bordeaux);
+    font-family: 'Abril Fatface', serif;
+    letter-spacing: 0.05em;
+  }
+  
+  .btn-itinerary {
+    display: inline-block;
+    margin-top: 2rem;
+    background: var(--bordeaux);
+    color: var(--creme);
+    padding: 1rem 2.5rem;
+    font-family: 'Special Elite', monospace;
+    text-decoration: none;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-size: 1rem;
+    border: 2px solid var(--noir);
+    transition: all 0.3s ease;
+    box-shadow: 4px 4px 0 var(--moutarde);
+  }
+  
+  .btn-itinerary:hover {
+    background: var(--moutarde);
+    color: var(--noir);
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--bordeaux);
+  }
+  
+  footer {
+    background: var(--noir);
+    color: var(--creme);
+    text-align: center;
+    padding: 2rem;
+    font-family: 'Special Elite', monospace;
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+  }
+  
+  footer span { color: var(--moutarde); }
+  
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .about-content { grid-template-columns: 1fr; }
+    .menu-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .ardoise { padding: 1.5rem; border-width: 8px; }
+    .hero::before, .hero::after { font-size: 0.7rem; }
+    section { padding: 3rem 1.5rem; }
+    .contact-info { padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>La Cantine<br>des Pieds Nickelés</h1>
+  <p class="tagline">Bistrot convivial au cœur de Paris — ardoise créative, ambiance chaleureuse et plats faits maison comme on les aime.</p>
+  <div class="stars">★ ★ ★ ★ ★ <span>4.5 / 5 · 427 avis</span></div>
+</section>
+
+<!-- À PROPOS -->
+<section class="about">
+  <h2 class="section-title">L'Esprit Bistrot</h2>
+  <p class="section-subtitle">— Rue Saint-Denis · 75002 —</p>
+  <div class="about-content">
+    <div class="about-text">
+      <p class="lead">« Une pépite près de Châtelet où l'on se sent comme à la maison. »</p>
+      <p>Niché au 120 rue Saint-Denis, notre bistrot vous accueille dans une ambiance authentique et chaleureuse. Ici, pas de chichis : une ardoise créative, des produits frais, des assiettes généreuses et un sourire en prime.</p>
+      <p>Des billes de mozzarella panées au magret de canard au miel, en passant par de véritables options végétariennes pensées avec amour — chaque plat raconte une histoire de simplicité et de gourmandise.</p>
+      <span class="price-tag">€€ · Prix doux</span>
+    </div>
+    <div class="services-box">
+      <h3>Nos Services</h3>
+      <ul>
+        <li>Service sur place</li>
+        <li>Réservation possible</li>
+        <li>Petit-déjeuner, déjeuner & dîner</li>
+        <li>Plats végétariens authentiques</li>
+        <li>Belle carte de vins & bières</li>
+        <li>Ouvert jusqu'à 1h45 du matin</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu">
+  <div class="menu-inner">
+    <h2 class="section-title">L'Ardoise du Jour</h2>
+    <p class="section-subtitle">— Suggestions du Chef —</p>
+    
+    <div class="ardoise">
+      <div class="ardoise-header">
+        <h3>~ Carte Maison ~</h3>
+      </div>
+      
+      <div class="menu-grid">
+        <!-- ENTRÉES -->
+        <div class="menu-category">
+          <h4>Entrées</h4>
+          <div class="menu-item">
+            <div class="menu-item-header">
+              <span class="menu-item-name">Billes de Mozzarella panées</span>
+              <span class="menu-item-price">9€</span>
+            </div>
+            <p class="menu-item-desc">Coulis de tomates maison & basilic frais</p>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-header">
+              <span class="menu-item-name">Œuf parfait & lardons</span>
+              <span class="menu-item-price">8€</span>
+            </div>
+            <p class="menu-item-desc">Crème de champignons, pain grillé</p>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-header">
+              <span class="menu-item-name">Salade du marché</span>
+              <span class="menu-item-price">10€</span>
+            </div>
+            <p class="menu-item-desc">Légumes croquants, chèvre chaud, miel</p>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-header">
+              <span class="menu-item-name">Velouté de saison</span>
+              <span class="menu-item-price">7€</span>
+            </div>
+            <p class="menu-item-desc">Selon arrivage du jour</p>
+          </div>
+        </div>
+        
+        <!-- PLATS -->
+        <div class="menu-category">
+          <h4>Plats</h4>
+          <div class="menu-item">
+            <div class="menu-item-header">
+              <span class="menu-item-name">Magret de canard au miel</span>
+              <span class="menu-item-price">22€</span>
+            </div>
+            <p class="menu-item-desc">Pommes grenailles rôties, jus corsé</p>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-header">
+              <span class="menu-item-name">Entrecôte sauce maison</span>
+              <span class="menu-item-price">24€</span>
+            </div>
+            <p class="menu-item-desc">Frites maison, beurre maître d'hôtel</p>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-header">
+              <span class="menu-item-name">Risotto végétarien</span>
+              <span class="menu-item-price">17€</span>
+            </div>
+            <p class="menu-item-desc">Champignons, parmesan, huile de truffe</p>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-header">
+              <span class="menu-item-name">Poisson du jour</span>
+              <span class="menu-item-price">21€</span>
+            </div>
+            <p class="menu-item-desc">Légumes glacés, sauce vierge</p>
+          </div>
+        </div>
+        
+        <!-- DESSERTS -->
+        <div class="menu-category">
+          <h4>Desserts</h4>
+          <div class="menu-item">
+            <div class="menu-item-header">
+              <span class="menu-item-name">Crème brûlée vanille</span>
+              <span class="menu-item-price">7€</span>
+            </div>
+            <p class="menu-item-desc">Vanille de Madagascar</p>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-header">
+              <span class="menu-item-name">Moelleux au chocolat</span>
+              <span class="menu-item-price">8€</span>
+            </div>
+            <p class="menu-item-desc">Cœur coulant, glace vanille</p>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-header">
+              <span class="menu-item-name">Tarte tatin maison</span>
+              <span class="menu-item-price">8€</span>
+            </div>
+            <p class="menu-item-desc">Pommes caramélisées, crème fraîche</p>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-header">
+              <span class="menu-item-name">Café gourmand</span>
+              <span class="menu-item-price">9€</span>
+            </div>
+            <p class="menu-item-desc">Trio de mignardises du chef</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HORAIRES -->
+<section class="hours">
+  <h2 class="section-title">Nos Horaires</h2>
+  <p class="section-subtitle">— Ouvert 7j/7 jusqu'à tard —</p>
+  <div class="hours-grid">
+    <div class="hours-row"><span class="hours-day">Lundi</span><span class="hours-time">15h00 – 01h45</span></div>
+    <div class="hours-row"><span class="hours-day">Mardi</span><span class="hours-time">15h00 – 01h45</span></div>
+    <div class="hours-row"><span class="hours-day">Mercredi</span><span class="hours-time">15h00 – 01h45</span></div>
+    <div class="hours-row"><span class="hours-day">Jeudi</span><span class="hours-time">15h00 – 01h45</span></div>
+    <div class="hours-row"><span class="hours-day">Vendredi</span><span class="hours-time">15h00 – 01h45</span></div>
+    <div class="hours-row"><span class="hours-day">Samedi</span><span class="hours-time">15h00 – 01h45</span></div>
+    <div class="hours-row"><span class="hours-day">Dimanche</span><span class="hours-time">15h00 – 01h45</span></div>
+  </div>
+  <p class="hours-note">★ Réservation conseillée en soirée ★</p>
+</section>
+
+<!-- CONTACT -->
+<section class="contact">
+  <h2 class="section-title">Venez nous voir</h2>
+  <p class="section-subtitle">— On vous attend —</p>
+  <div class="contact-info">
+    <p><strong>Adresse</strong><br>120 Rue Saint-Denis<br>75002 Paris, France</p>
+    <p style="margin-top:1.5rem;"><strong>Métro</strong><br>Étienne Marcel · Châtelet · Les Halles</p>
+    <a href="https://maps.google.com/?cid=7084298099892654998" target="_blank" class="btn-itinerary">→ Itinéraire</a>
+  </div>
+</section>
+
+<footer>
+  <p>LA CANTINE DES PIEDS NICKELÉS <span>★</span> PARIS 2<sup>e</sup> <span>★</span> BISTROT DEPUIS TOUJOURS</p>
+</footer>
+
+</body>
+</html>

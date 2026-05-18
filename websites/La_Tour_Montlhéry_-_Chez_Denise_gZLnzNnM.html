@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Tour Montlhéry - Chez Denise | Bistrot parisien depuis toujours</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Special+Elite&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rouge: #8b1a1a;
+    --rouge-fonce: #5c0e0e;
+    --creme: #f4ecd8;
+    --creme-fonce: #e8dcc0;
+    --bois: #3d2817;
+    --bois-clair: #6b4423;
+    --noir: #1a1208;
+    --or: #c9a961;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Cormorant Garamond', serif;
+    background: var(--creme);
+    color: var(--noir);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* Motif nappe à carreaux */
+  .carreaux {
+    background-image: 
+      linear-gradient(45deg, transparent 48%, rgba(139,26,26,0.08) 48%, rgba(139,26,26,0.08) 52%, transparent 52%),
+      linear-gradient(-45deg, transparent 48%, rgba(139,26,26,0.08) 48%, rgba(139,26,26,0.08) 52%, transparent 52%);
+    background-size: 30px 30px;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: 
+      linear-gradient(rgba(26,18,8,0.75), rgba(26,18,8,0.85)),
+      repeating-linear-gradient(45deg, #8b1a1a 0, #8b1a1a 40px, #f4ecd8 40px, #f4ecd8 80px, #8b1a1a 80px, #8b1a1a 120px);
+    background-size: cover, 200px 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 20px;
+    position: relative;
+    border-bottom: 8px double var(--or);
+  }
+
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: 30px; left: 30px; right: 30px; bottom: 30px;
+    border: 2px solid var(--or);
+    pointer-events: none;
+    opacity: 0.4;
+  }
+
+  .hero-tag {
+    color: var(--or);
+    font-family: 'Special Elite', cursive;
+    letter-spacing: 6px;
+    font-size: 0.9rem;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-style: italic;
+    color: var(--creme);
+    font-size: clamp(2.5rem, 7vw, 6rem);
+    line-height: 1;
+    margin-bottom: 10px;
+    text-shadow: 3px 3px 0 var(--rouge-fonce);
+  }
+
+  .hero .denise {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--or);
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 400;
+    margin-bottom: 40px;
+  }
+
+  .hero-soustitre {
+    color: var(--creme);
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    max-width: 700px;
+    font-style: italic;
+    margin-bottom: 40px;
+  }
+
+  .hero-note {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    color: var(--creme);
+    font-family: 'Special Elite', cursive;
+    font-size: 0.95rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .stars { color: var(--or); letter-spacing: 3px; font-size: 1.2rem; }
+
+  .hero-cta {
+    margin-top: 50px;
+    display: inline-block;
+    padding: 16px 40px;
+    background: var(--rouge);
+    color: var(--creme);
+    text-decoration: none;
+    font-family: 'Special Elite', cursive;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    border: 2px solid var(--or);
+    transition: all 0.3s;
+    font-size: 0.95rem;
+  }
+
+  .hero-cta:hover {
+    background: var(--or);
+    color: var(--noir);
+    transform: translateY(-3px);
+  }
+
+  /* SECTIONS */
+  section { padding: 100px 20px; }
+
+  .container { max-width: 1200px; margin: 0 auto; }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    text-align: center;
+    color: var(--rouge);
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .section-subtitle {
+    font-family: 'Special Elite', cursive;
+    text-align: center;
+    color: var(--bois-clair);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    margin-bottom: 60px;
+  }
+
+  .section-subtitle::before,
+  .section-subtitle::after {
+    content: "✦";
+    margin: 0 15px;
+    color: var(--or);
+  }
+
+  /* À PROPOS */
+  .apropos {
+    background: var(--creme);
+    position: relative;
+  }
+
+  .apropos-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .apropos-text p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: var(--bois);
+  }
+
+  .apropos-text .premiere {
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--rouge);
+    line-height: 1.4;
+  }
+
+  .apropos-card {
+    background: var(--rouge-fonce);
+    padding: 50px 40px;
+    color: var(--creme);
+    border: 3px double var(--or);
+    position: relative;
+  }
+
+  .apropos-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--or);
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    text-align: center;
+  }
+
+  .services-list {
+    list-style: none;
+  }
+
+  .services-list li {
+    padding: 12px 0;
+    border-bottom: 1px dashed rgba(201,169,97,0.3);
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .services-list li::before {
+    content: "❦";
+    color: var(--or);
+    font-size: 1.2rem;
+  }
+
+  .services-list li:last-child { border: none; }
+
+  .prix-badge {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 8px 20px;
+    background: var(--or);
+    color: var(--noir);
+    font-family: 'Special Elite', cursive;
+    letter-spacing: 2px;
+  }
+
+  /* MENU */
+  .menu-section {
+    background: var(--rouge-fonce);
+    color: var(--creme);
+    position: relative;
+  }
+
+  .menu-section .section-title { color: var(--or); }
+  .menu-section .section-subtitle { color: var(--creme); }
+  .menu-section .section-subtitle::before,
+  .menu-section .section-subtitle::after { color: var(--or); }
+
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-top: 40px;
+  }
+
+  .menu-cat {
+    background: var(--creme);
+    color: var(--noir);
+    padding: 40px 30px;
+    border: 2px solid var(--or);
+    position: relative;
+  }
+
+  .menu-cat::before {
+    content: "";
+    position: absolute;
+    top: 8px; left: 8px; right: 8px; bottom: 8px;
+    border: 1px solid var(--rouge);
+    pointer-events: none;
+  }
+
+  .menu-cat h3 {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 2rem;
+    color: var(--rouge);
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--or);
+  }
+
+  .menu-item {
+    margin-bottom: 25px;
+  }
+
+  .menu-item-titre {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 5px;
+  }
+
+  .menu-item-titre h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    color: var(--bois);
+    font-weight: 700;
+    flex: 1;
+  }
+
+  .menu-item-titre .dots {
+    flex: 1;
+    border-bottom: 2px dotted var(--bois-clair);
+    margin: 0 8px;
+    height: 12px;
+  }
+
+  .menu-item-titre .prix {
+    font-family: 'Special Elite', cursive;
+    color: var(--rouge);
+    font-size: 1.1rem;
+    white-space: nowrap;
+  }
+
+  .menu-item p {
+    font-size: 1rem;
+    color: var(--bois-clair);
+    font-style: italic;
+  }
+
+  /* HORAIRES */
+  .horaires {
+    background: var(--creme);
+    background-image: 
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(139,26,26,0.1) 39px, rgba(139,26,26,0.1) 40px);
+  }
+
+  .horaires-box {
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--creme);
+    border: 3px double var(--rouge);
+    padding: 50px 40px;
+    position: relative;
+  }
+
+  .horaires-box::before {
+    content: "⏱";
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--creme);
+    padding: 0 15px;
+    font-size: 2rem;
+    color: var(--rouge);
+  }
+
+  .jour-ligne {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px dashed var(--bois-clair);
+    font-size: 1.2rem;
+  }
+
+  .jour-ligne:last-child { border: none; }
+
+  .jour-ligne .jour {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--bois);
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+
+  .jour-ligne .heures {
+    font-family: 'Special Elite', cursive;
+    color: var(--rouge);
+  }
+
+  .ouvert-tjrs {
+    text-align: center;
+    margin-top: 25px;
+    font-style: italic;
+    color: var(--bois-clair);
+    font-size: 1.1rem;
+  }
+
+  /* CONTACT */
+  .contact {
+    background: var(--bois);
+    color: var(--creme);
+    text-align: center;
+  }
+
+  .contact .section-title { color: var(--or); }
+  .contact .section-subtitle { color: var(--creme-fonce); }
+  .contact .section-subtitle::before,
+  .contact .section-subtitle::after { color: var(--or); }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    max-width: 900px;
+    margin: 0 auto 50px;
+  }
+
+  .contact-card {
+    background: rgba(244,236,216,0.05);
+    padding: 40px 30px;
+    border: 1px solid var(--or);
+  }
+
+  .contact-card .icone {
+    font-size: 2.5rem;
+    color: var(--or);
+    margin-bottom: 15px;
+  }
+
+  .contact-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--or);
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+
+  .contact-card p, .contact-card a {
+    color: var(--creme);
+    font-size: 1.15rem;
+    text-decoration: none;
+    line-height: 1.5;
+  }
+
+  .contact-card a:hover { color: var(--or); }
+
+  .btn-itineraire {
+    display: inline-block;
+    padding: 18px 50px;
+    background: var(--rouge);
+    color: var(--creme);
+    text-decoration: none;
+    font-family: 'Special Elite', cursive;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    border: 2px solid var(--or);
+    transition: all 0.3s;
+    font-size: 1rem;
+  }
+
+  .btn-itineraire:hover {
+    background: var(--or);
+    color: var(--noir);
+    transform: translateY(-3px);
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--noir);
+    color: var(--creme-fonce);
+    text-align: center;
+    padding: 40px 20px;
+    font-family: 'Special Elite', cursive;
+    letter-spacing: 2px;
+    font-size: 0.85rem;
+  }
+
+  footer .nom {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--or);
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    section { padding: 60px 20px; }
+    .apropos-grid { grid-template-columns: 1fr; gap: 40px; }
+    .menu-grid { grid-template-columns: 1fr; gap: 30px; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .hero { min-height: 90vh; }
+    .hero::before { top: 15px; left: 15px; right: 15px; bottom: 15px; }
+    .horaires-box { padding: 40px 25px; }
+    .jour-ligne { font-size: 1rem; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero h1, .hero .denise, .hero-soustitre, .hero-note, .hero-cta {
+    animation: fadeUp 1s ease both;
+  }
+  .hero .denise { animation-delay: 0.2s; }
+  .hero-soustitre { animation-delay: 0.4s; }
+  .hero-note { animation-delay: 0.6s; }
+  .hero-cta { animation-delay: 0.8s; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">Bistrot Parisien · Depuis toujours</div>
+  <h1>La Tour Montlhéry</h1>
+  <div class="denise">— Chez Denise —</div>
+  <p class="hero-soustitre">« Une institution des Halles. Poutres apparentes, nappes à carreaux, viandes généreuses et ambiance d'habitués. Le Paris d'autrefois, encore vivant. »</p>
+  <div class="hero-note">
+    <span class="stars">★★★★★</span>
+    <span>4,3 / 5 — 2541 avis</span>
+    <span>•</span>
+    <span>€€</span>
+  </div>
+  <a href="#contact" class="hero-cta">Réserver une table</a>
+</section>
+
+<!-- À PROPOS -->
+<section class="apropos" id="apropos">
+  <div class="container">
+    <h2 class="section-title">La Maison</h2>
+    <p class="section-subtitle">L'esprit des Halles</p>
+    <div class="apropos-grid">
+      <div class="apropos-text">
+        <p class="premiere">Au cœur du 1er arrondissement, à deux pas de l'ancien ventre de Paris, Chez Denise perpétue depuis des décennies l'art du véritable bistrot.</p>
+        <p>Sous les <strong>poutres apparentes</strong> de la salle, on s'attable sur les célèbres nappes à carreaux rouges et blancs pour partager des plats de viande copieux, des abats généreux et des classiques canailles arrosés de vins choisis.</p>
+        <p>L'ambiance est chaleureuse, animée, parfois bruyante — toujours authentique. On y croise habitués de longue date et curieux venus goûter à un Paris qui résiste au temps.</p>
+        <p style="font-family:'Special Elite',cursive; color: var(--rouge); margin-top: 30px;">— « Accueil adorable, conseils avisés, portions généreuses. Un vrai savoir-faire. »</p>
+      </div>
+      <div class="apropos-card">
+        <h3>Notre Service</h3>
+        <ul class="services-list">
+          <li>Service sur place</li>
+          <li>Réservation possible</li>
+          <li>Déjeuner & dîner</li>
+          <li>Sélection de vins</li>
+          <li>Bières françaises</li>
+          <li>Ambiance d'habitués</li>
+        </ul>
+        <div style="text-align:center;">
+          <span class="prix-badge">Gamme de prix · €€</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu-section" id="menu">
+  <div class="container">
+    <h2 class="section-title">L'Ardoise du Jour</h2>
+    <p class="section-subtitle">Suggestions de la Maison</p>
+
+    <div class="menu-grid">
+      <!-- ENTRÉES -->
+      <div class="menu-cat">
+        <h3>Pour Commencer</h3>
+        <div class="menu-item">
+          <div class="menu-item-titre">
+            <h4>Œufs mayonnaise</h4>
+            <span class="dots"></span>
+            <span class="prix">9 €</span>
+          </div>
+          <p>Maison, sauce généreuse au piment d'Espelette</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-titre">
+            <h4>Os à moelle</h4>
+            <span class="dots"></span>
+            <span class="prix">14 €</span>
+          </div>
+          <p>Gros sel, pain de campagne grillé</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-titre">
+            <h4>Terrine de campagne</h4>
+            <span class="dots"></span>
+            <span class="prix">12 €</span>
+          </div>
+          <p>Maison, cornichons et oignons confits</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-titre">
+            <h4>Salade de gésiers</h4>
+            <span class="dots"></span>
+            <span class="prix">13 €</span>
+          </div>
+          <p>Confits, vinaigrette à l'échalote</p>
+        </div>
+      </div>
+
+      <!-- PLATS -->
+      <div class="menu-cat">
+        <h3>Les Plats Canailles</h3>
+        <div class="menu-item">
+          <div class="menu-item-titre">
+            <h4>Côte de bœuf (2 pers.)</h4>
+            <span class="dots"></span>
+            <span class="prix">58 €</span>
+          </div>
+          <p>Maturée, frites maison, sauce au choix</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-titre">
+            <h4>Tripes à la mode de Caen</h4>
+            <span class="dots"></span>
+            <span class="prix">24 €</span>
+          </div>
+          <p>Spécialité de la maison, portion généreuse</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-titre">
+            <h4>Onglet à l'échalote</h4>
+            <span class="dots"></span>
+            <span class="prix">26 €</span>
+          </div>
+          <p>Pommes paillasson, jus corsé</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-titre">
+            <h4>Rognons de veau</h4>
+            <span class="dots"></span>
+            <span class="prix">25 €</span>
+          </div>
+          <p>Sauce moutarde à l'ancienne, gratin dauphinois</p>
+        </div>
+      </div>
+
+      <!-- DESSERTS -->
+      <div class="menu-cat">
+        <h3>Les Douceurs</h3>
+        <div class="menu-item">
+          <div class="menu-item-titre">
+            <h4>Charlotte aux framboises</h4>
+            <span class="dots"></span>
+            <span class="prix">10 €</span>
+          </div>
+          <p>À partager, biscuit à la cuillère imbibé</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-titre">
+            <h4>Tarte Tatin</h4>
+            <span class="dots"></span>
+            <span class="prix">9 €</span>
+          </div>
+          <p>Crème fraîche d'Isigny</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-titre">
+            <h4>Œufs à la neige</h4>
+            <span class="dots"></span>
+            <span class="prix">8 €</span>
+          </div>
+          <p>Crème anglaise vanille, caramel</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-titre">
+            <h4>Mousse au chocolat</h4>
+            <span class="dots"></span>
+            <span class="prix">8 €</span>
+          </div>
+          <p>Maison, chocolat noir grand cru</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HORAIRES -->
+<section class="horaires" id="horaires">
+  <div class="container">
+    <h2 class="section-title">Nos Horaires</h2>
+    <p class="section-subtitle">Ouvert 7j/7</p>
+    <div class="horaires-box">
+      <div class="jour-ligne"><span class="jour">Lundi</span><span class="heures">12h00 — 00h00</span></div>
+      <div class="jour-ligne"><span class="jour">Mardi</span><span class="heures">12h00 — 00h00</span></div>
+      <div class="jour-ligne"><span class="jour">Mercredi</span><span class="heures">12h00 — 00h00</span></div>
+      <div class="jour-ligne"><span class="jour">Jeudi</span><span class="heures">12h00 — 00h00</span></div>
+      <div class="jour-ligne"><span class="jour">Vendredi</span><span class="heures">12h00 — 00h00</span></div>
+      <div class="jour-ligne"><span class="jour">Samedi</span><span class="heures">12h00 — 00h00</span></div>
+      <div class="jour-ligne"><span class="jour">Dimanche</span><span class="heures">12h00 — 00h00</span></div>
+      <p class="ouvert-tjrs">Service continu du déjeuner au dîner</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <h2 class="section-title">Nous Trouver</h2>
+    <p class="section-subtitle">Au cœur de Paris</p>
+
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="icone">✦</div>
+        <h3>Adresse</h3>
+        <p>5 Rue des Prouvaires<br>75001 Paris</p>
+      </div>
+      <div class="contact-card">
+        <div class="icone">☎</div>
+        <h3>Réservation</h3>
+        <p><a href="tel:+33142362182">01 42 36 21 82</a></p>
+      </div>
+    </div>
+
+    <a href="https://maps.google.com/?cid=8302090940691035364" target="_blank" rel="noopener" class="btn-itineraire">Obtenir l'itinéraire</a>
+  </div>
+</section>
+
+<footer>
+  <div class="nom">La Tour Montlhéry — Chez Denise</div>
+  <div>Bistrot parisien · 5 Rue des Prouvaires · 75001 Paris</div>
+</footer>
+
+</body>
+</html>

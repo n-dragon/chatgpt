@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Corte — Trattoria Italienne à Paris</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #f4ecdc;
+  --warm: #ead9b8;
+  --wood: #6b3e1f;
+  --darkwood: #3d2412;
+  --terracotta: #b34a2a;
+  --olive: #6a6a3c;
+  --ink: #2a1a10;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  line-height: 1.6;
+}
+h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
+.italic { font-family: 'Cormorant Garamond', serif; font-style: italic; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; width: 100%;
+  padding: 1rem 2rem;
+  background: rgba(61, 36, 18, 0.95);
+  backdrop-filter: blur(8px);
+  z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+}
+nav .logo {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--cream);
+  font-size: 1.4rem;
+  letter-spacing: 2px;
+}
+nav ul { display: flex; gap: 2rem; list-style: none; }
+nav a {
+  color: var(--cream);
+  text-decoration: none;
+  font-size: 0.85rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+nav a:hover { color: var(--terracotta); }
+@media (max-width: 768px) { nav ul { display: none; } }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at center, rgba(61,36,18,0.4) 0%, rgba(20,12,6,0.85) 100%),
+    repeating-linear-gradient(90deg, #4a2a14 0px, #5a3520 2px, #4a2a14 4px, #6b3e1f 80px),
+    #3d2412;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 6rem 2rem 3rem;
+  color: var(--cream);
+  position: relative;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 2rem;
+  border: 1px solid rgba(244, 236, 220, 0.2);
+  pointer-events: none;
+}
+.hero .tagline-top {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--warm);
+  letter-spacing: 4px;
+  margin-bottom: 1.5rem;
+  animation: fadeUp 1s ease;
+}
+.hero h1 {
+  font-size: clamp(3.5rem, 10vw, 7rem);
+  font-weight: 400;
+  letter-spacing: 4px;
+  line-height: 1;
+  margin-bottom: 1.5rem;
+  animation: fadeUp 1.2s ease;
+}
+.hero h1 span {
+  font-style: italic;
+  color: var(--terracotta);
+  display: block;
+  font-size: 0.55em;
+  margin-top: 0.3em;
+}
+.hero .sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  max-width: 600px;
+  font-style: italic;
+  margin-bottom: 2.5rem;
+  color: var(--warm);
+  animation: fadeUp 1.4s ease;
+}
+.hero .rating {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 2.5rem;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+}
+.hero .stars { color: #e6b35a; font-size: 1.2rem; }
+.btn {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  background: var(--terracotta);
+  color: var(--cream);
+  text-decoration: none;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: 1px solid var(--terracotta);
+}
+.btn:hover {
+  background: transparent;
+  color: var(--terracotta);
+}
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--cream);
+  color: var(--cream);
+}
+.btn-outline:hover { background: var(--cream); color: var(--darkwood); }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* SECTIONS */
+section { padding: 6rem 2rem; }
+.container { max-width: 1100px; margin: 0 auto; }
+.section-label {
+  text-align: center;
+  font-size: 0.8rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  margin-bottom: 1rem;
+}
+.section-title {
+  text-align: center;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  margin-bottom: 1rem;
+  font-weight: 400;
+  color: var(--darkwood);
+}
+.section-title em { color: var(--terracotta); font-family: 'Cormorant Garamond', serif; }
+.section-divider {
+  width: 60px; height: 2px;
+  background: var(--terracotta);
+  margin: 1rem auto 3rem;
+}
+
+/* ABOUT */
+.about { background: var(--cream); }
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+@media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; gap: 2rem; } }
+.about-text p {
+  margin-bottom: 1.2rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #4a3525;
+}
+.about-text p:first-child::first-letter {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  float: left;
+  line-height: 1;
+  color: var(--terracotta);
+  padding-right: 0.5rem;
+  margin-top: 0.3rem;
+}
+.about-card {
+  background: var(--darkwood);
+  color: var(--cream);
+  padding: 3rem 2.5rem;
+  position: relative;
+}
+.about-card::before {
+  content: '';
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(244,236,220,0.25);
+  pointer-events: none;
+}
+.about-card h3 {
+  font-style: italic;
+  font-size: 1.6rem;
+  margin-bottom: 1.5rem;
+  color: var(--warm);
+}
+.about-card ul { list-style: none; }
+.about-card li {
+  padding: 0.7rem 0;
+  border-bottom: 1px dashed rgba(244,236,220,0.2);
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+}
+.about-card li:last-child { border: none; }
+.about-card li span { color: var(--terracotta); margin-right: 0.7rem; }
+
+/* MENU */
+.menu {
+  background:
+    linear-gradient(rgba(61,36,18,0.95), rgba(45,25,12,0.97)),
+    repeating-linear-gradient(0deg, #3d2412 0px, #4a2a14 1px, #3d2412 2px, #5a3520 60px);
+  color: var(--cream);
+}
+.menu .section-title { color: var(--cream); }
+.menu .section-label { color: var(--warm); }
+.menu-category {
+  margin-bottom: 4rem;
+}
+.menu-category-title {
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 2rem;
+  color: var(--terracotta);
+  margin-bottom: 2.5rem;
+  position: relative;
+}
+.menu-category-title::before,
+.menu-category-title::after {
+  content: '';
+  display: inline-block;
+  width: 40px; height: 1px;
+  background: var(--terracotta);
+  vertical-align: middle;
+  margin: 0 1.5rem;
+}
+.menu-items {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem 3rem;
+}
+@media (max-width: 768px) { .menu-items { grid-template-columns: 1fr; } }
+.menu-item {
+  border-bottom: 1px dotted rgba(244,236,220,0.25);
+  padding-bottom: 1.2rem;
+}
+.menu-item-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 0.4rem;
+}
+.menu-item-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  color: var(--cream);
+}
+.menu-item-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  color: var(--terracotta);
+  font-size: 1.2rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.menu-item-desc {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: rgba(244,236,220,0.7);
+}
+
+/* HOURS */
+.hours { background: var(--cream); }
+.hours-table {
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  padding: 2.5rem;
+  box-shadow: 0 10px 40px rgba(61,36,18,0.1);
+  border-top: 4px solid var(--terracotta);
+}
+.hours-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0;
+  border-bottom: 1px dashed #d4c5a8;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+}
+.hours-row:last-child { border: none; }
+.hours-day {
+  text-transform: capitalize;
+  color: var(--darkwood);
+  font-weight: 500;
+}
+.hours-time { color: #6a4a30; font-style: italic; }
+.hours-closed { color: var(--terracotta); }
+.today { background: var(--warm); margin: 0 -1rem; padding-left: 1rem; padding-right: 1rem; }
+
+/* CONTACT */
+.contact {
+  background: var(--darkwood);
+  color: var(--cream);
+  position: relative;
+}
+.contact .section-title { color: var(--cream); }
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+@media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } }
+.contact-block {
+  text-align: center;
+  padding: 2rem;
+  border: 1px solid rgba(244,236,220,0.2);
+}
+.contact-block .icon {
+  font-size: 2rem;
+  color: var(--terracotta);
+  margin-bottom: 1rem;
+}
+.contact-block h3 {
+  font-style: italic;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--warm);
+}
+.contact-block p, .contact-block a {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  color: var(--cream);
+  text-decoration: none;
+  line-height: 1.6;
+}
+.contact-block a:hover { color: var(--terracotta); }
+.contact-cta {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+footer {
+  background: #1a0e07;
+  color: var(--warm);
+  text-align: center;
+  padding: 2rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+}
+footer .heart { color: var(--terracotta); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">La Corte</div>
+  <ul>
+    <li><a href="#about">L'histoire</a></li>
+    <li><a href="#menu">Carte</a></li>
+    <li><a href="#hours">Horaires</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="tagline-top">— TRATTORIA FAMILIALE • PARIS 1ᵉʳ —</div>
+  <h1>La Corte<span>una storia di famiglia</span></h1>
+  <p class="sub">Une cuisine italienne du cœur, nichée dans une cour discrète de la rue Saint-Honoré depuis plus de vingt ans.</p>
+  <div class="rating">
+    <span class="stars">★★★★★</span>
+    <span>4.6 / 5 — 335 avis</span>
+  </div>
+  <div style="display:flex; gap:1rem; flex-wrap:wrap; justify-content:center;">
+    <a href="tel:+33142604527" class="btn">Réserver une table</a>
+    <a href="#menu" class="btn btn-outline">Découvrir la carte</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="section-label">Benvenuti</div>
+    <h2 class="section-title">L'<em>authentique</em> Italie</h2>
+    <div class="section-divider"></div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>Poussez la porte de La Corte et vous voilà ailleurs. Caché dans une cour pavée du 320 rue Saint-Honoré, ce petit refuge italien vous accueille comme à la maison — celle d'une famille du sud, où l'on cuisine avec le cœur et l'on partage avec passion.</p>
+        <p>Dans une salle chaleureuse aux murs boisés, le patron et son fils perpétuent depuis plus de vingt ans une cuisine de tradition : des pâtes pleines de saveurs, des produits choisis, des recettes transmises. <em>Una vera trattoria, nel cuore di Parigi.</em></p>
+      </div>
+      <div class="about-card">
+        <h3>La maison en bref</h3>
+        <ul>
+          <li><span>✦</span> Cuisine italienne traditionnelle</li>
+          <li><span>✦</span> Salle au décor boisé</li>
+          <li><span>✦</span> Service déjeuner & dîner</li>
+          <li><span>✦</span> Réservation conseillée</li>
+          <li><span>✦</span> Carte des vins italiens</li>
+          <li><span>✦</span> Gamme de prix : €€€</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu" id="menu">
+  <div class="container">
+    <div class="section-label">La Carta</div>
+    <h2 class="section-title">Le <em>menu</em> du chef</h2>
+    <div class="section-divider"></div>
+
+    <div class="menu-category">
+      <h3 class="menu-category-title">Antipasti</h3>
+      <div class="menu-items">
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Burrata des Pouilles</span><span class="menu-item-price">18 €</span></div>
+          <div class="menu-item-desc">Tomates anciennes, basilic frais, huile d'olive extra vierge</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Vitello Tonnato</span><span class="menu-item-price">19 €</span></div>
+          <div class="menu-item-desc">Fines tranches de veau, sauce crémeuse au thon et câpres</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Carpaccio di Manzo</span><span class="menu-item-price">17 €</span></div>
+          <div class="menu-item-desc">Bœuf cru mariné, copeaux de parmesan, roquette</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Antipasto della Casa</span><span class="menu-item-price">22 €</span></div>
+          <div class="menu-item-desc">Assortiment de charcuteries fines, légumes grillés, mozzarella</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-category">
+      <h3 class="menu-category-title">Pasta & Secondi</h3>
+      <div class="menu-items">
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Tagliatelle al Tartufo</span><span class="menu-item-price">32 €</span></div>
+          <div class="menu-item-desc">Pâtes fraîches maison, crème de truffe noire d'Ombrie</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Spaghetti alle Vongole</span><span class="menu-item-price">28 €</span></div>
+          <div class="menu-item-desc">Palourdes fraîches, ail, persil, vin blanc</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Risotto ai Funghi Porcini</span><span class="menu-item-price">29 €</span></div>
+          <div class="menu-item-desc">Riz Carnaroli, cèpes, parmesan vieilli 24 mois</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Osso Buco alla Milanese</span><span class="menu-item-price">34 €</span></div>
+          <div class="menu-item-desc">Jarret de veau braisé, gremolata, polenta crémeuse</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-category">
+      <h3 class="menu-category-title">Dolci</h3>
+      <div class="menu-items">
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Tiramisù della Mamma</span><span class="menu-item-price">12 €</span></div>
+          <div class="menu-item-desc">La recette familiale, mascarpone, café et cacao amer</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Panna Cotta aux Fruits Rouges</span><span class="menu-item-price">11 €</span></div>
+          <div class="menu-item-desc">Crème onctueuse à la vanille bourbon, coulis maison</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Cannoli Siciliani</span><span class="menu-item-price">12 €</span></div>
+          <div class="menu-item-desc">Cylindres croustillants, ricotta sucrée, pistache de Bronte</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Affogato al Caffè</span><span class="menu-item-price">10 €</span></div>
+          <div class="menu-item-desc">Glace vanille noyée d'espresso bouillant</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOURS -->
+<section class="hours" id="hours">
+  <div class="container">
+    <div class="section-label">Orari</div>
+    <h2 class="section-title">Nos <em>horaires</em></h2>
+    <div class="section-divider"></div>
+    <div class="hours-table">
+      <div class="hours-row"><span class="hours-day">Lundi</span><span class="hours-time">12:30–14:00 · 19:30–22:00</span></div>
+      <div class="hours-row"><span class="hours-day">Mardi</span><span class="hours-time">12:30–14:00 · 19:30–22:00</span></div>
+      <div class="hours-row"><span class="hours-day">Mercredi</span><span class="hours-time">12:30–14:00 · 19:30–22:00</span></div>
+      <div class="hours-row"><span class="hours-day">Jeudi</span><span class="hours-time">12:30–14:00 · 19:30–22:00</span></div>
+      <div class="hours-row"><span class="hours-day">Vendredi</span><span class="hours-time">12:30–14:00 · 19:30–22:00</span></div>
+      <div class="hours-row"><span class="hours-day">Samedi</span><span class="hours-time">19:30–22:15</span></div>
+      <div class="hours-row"><span class="hours-day">Dimanche</span><span class="hours-time hours-closed">Fermé</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="section-label" style="color:var(--warm);">Contatto</div>
+    <h2 class="section-title">Venez nous <em>retrouver</em></h2>
+    <div class="section-divider"></div>
+    <div class="contact-grid">
+      <div class="contact-block">
+        <div class="icon">✉</div>
+        <h3>L'adresse</h3>
+        <p>320 Rue Saint-Honoré<br>75001 Paris, France</p>
+      </div>
+      <div class="contact-block">
+        <div class="icon">✆</div>
+        <h3>Réservations</h3>
+        <p><a href="tel:+33142604527">01 42 60 45 27</a></p>
+      </div>
+    </div>
+    <div class="contact-cta">
+      <a href="https://maps.google.com/?cid=9661305339347545605" target="_blank" rel="noopener" class="btn">Itinéraire Google Maps</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © La Corte — Trattoria Italiana · Fait avec <span class="heart">♥</span> à Paris
+</footer>
+
+</body>
+</html>
