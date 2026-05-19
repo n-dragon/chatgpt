@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chez Vincent — Trattoria Parisienne</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --rouge:#8b1e1e;
+    --rouge-fonce:#5c1313;
+    --creme:#f5ecd9;
+    --beurre:#e8d9b4;
+    --olive:#6b7333;
+    --noir:#2a1a14;
+    --or:#c9a14a;
+  }
+  body{
+    font-family:'Cormorant Garamond',serif;
+    background:var(--creme);
+    color:var(--noir);
+    line-height:1.6;
+    font-size:18px;
+  }
+  h1,h2,h3{font-family:'Playfair Display',serif;font-weight:700}
+  .accent{font-family:'Caveat',cursive;color:var(--rouge);font-size:1.5em}
+
+  /* HERO */
+  .hero{
+    min-height:100vh;
+    background:
+      radial-gradient(ellipse at center, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%),
+      repeating-linear-gradient(45deg, #3a1a1a 0px, #3a1a1a 2px, #2a0e0e 2px, #2a0e0e 4px),
+      linear-gradient(135deg, #5c1313 0%, #2a0e0e 100%);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:var(--creme);
+    padding:2rem;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    inset:20px;
+    border:2px solid var(--or);
+    pointer-events:none;
+  }
+  .hero::after{
+    content:"";
+    position:absolute;
+    inset:30px;
+    border:1px solid rgba(201,161,74,0.4);
+    pointer-events:none;
+  }
+  .hero-flag{
+    display:flex;
+    gap:0;
+    margin-bottom:1.5rem;
+    box-shadow:0 4px 15px rgba(0,0,0,0.5);
+  }
+  .hero-flag span{width:25px;height:50px}
+  .hero-flag span:nth-child(1){background:#009246}
+  .hero-flag span:nth-child(2){background:#f1f2f1}
+  .hero-flag span:nth-child(3){background:#ce2b37}
+  .hero h1{
+    font-size:clamp(3rem,9vw,7rem);
+    line-height:1;
+    letter-spacing:0.02em;
+    color:var(--creme);
+    text-shadow:3px 3px 10px rgba(0,0,0,0.6);
+    margin-bottom:0.5rem;
+  }
+  .hero .sub{
+    font-family:'Caveat',cursive;
+    font-size:clamp(1.5rem,3vw,2.5rem);
+    color:var(--or);
+    margin-bottom:2rem;
+  }
+  .hero .tagline{
+    font-style:italic;
+    font-size:1.3rem;
+    max-width:600px;
+    margin-bottom:2rem;
+    color:#f5ecd9;
+  }
+  .hero .stars{
+    color:var(--or);
+    font-size:1.5rem;
+    letter-spacing:0.3em;
+    margin-bottom:0.5rem;
+  }
+  .hero .note{font-family:'Cormorant Garamond',serif;letter-spacing:0.2em;text-transform:uppercase;font-size:0.9rem}
+  .scroll-down{
+    position:absolute;
+    bottom:40px;
+    left:50%;
+    transform:translateX(-50%);
+    color:var(--or);
+    animation:bounce 2s infinite;
+    font-size:2rem;
+  }
+  @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(10px)}}
+
+  section{padding:6rem 2rem}
+  .container{max-width:1100px;margin:0 auto}
+  .section-title{
+    text-align:center;
+    margin-bottom:3rem;
+  }
+  .section-title .accent{display:block;margin-bottom:0.5rem}
+  .section-title h2{
+    font-size:clamp(2.2rem,5vw,3.5rem);
+    color:var(--rouge-fonce);
+    position:relative;
+    display:inline-block;
+  }
+  .section-title h2::after{
+    content:"";
+    display:block;
+    width:80px;
+    height:2px;
+    background:var(--or);
+    margin:1rem auto 0;
+  }
+
+  /* À PROPOS */
+  .about{background:var(--creme)}
+  .about-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:4rem;
+    align-items:center;
+  }
+  .about-text p{margin-bottom:1.2rem;font-size:1.15rem}
+  .about-text .lead{
+    font-size:1.4rem;
+    font-style:italic;
+    color:var(--rouge-fonce);
+    border-left:3px solid var(--or);
+    padding-left:1.5rem;
+  }
+  .about-features{
+    background:white;
+    padding:2.5rem;
+    box-shadow:0 10px 40px rgba(139,30,30,0.08);
+    border:1px solid var(--beurre);
+  }
+  .about-features h3{
+    color:var(--rouge);
+    margin-bottom:1.5rem;
+    font-size:1.5rem;
+    text-align:center;
+  }
+  .features-list{list-style:none}
+  .features-list li{
+    padding:0.8rem 0;
+    border-bottom:1px dashed var(--beurre);
+    display:flex;
+    align-items:center;
+    gap:0.8rem;
+  }
+  .features-list li:last-child{border:none}
+  .features-list li::before{
+    content:"🍷";
+    font-size:1.2rem;
+  }
+  .features-list li:nth-child(2)::before{content:"🍝"}
+  .features-list li:nth-child(3)::before{content:"📖"}
+  .features-list li:nth-child(4)::before{content:"🍺"}
+  .features-list li:nth-child(5)::before{content:"€€"}
+
+  /* MENU */
+  .menu{
+    background:
+      linear-gradient(rgba(245,236,217,0.95),rgba(245,236,217,0.95)),
+      repeating-linear-gradient(0deg, transparent 0, transparent 30px, rgba(139,30,30,0.05) 30px, rgba(139,30,30,0.05) 31px);
+  }
+  .menu-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:3rem;
+  }
+  .menu-card{
+    background:white;
+    padding:2.5rem 2rem;
+    box-shadow:0 8px 30px rgba(0,0,0,0.08);
+    border-top:4px solid var(--rouge);
+    position:relative;
+    transition:transform 0.3s ease;
+  }
+  .menu-card:hover{transform:translateY(-8px)}
+  .menu-card h3{
+    text-align:center;
+    color:var(--rouge-fonce);
+    font-size:1.8rem;
+    margin-bottom:0.3rem;
+  }
+  .menu-card .it{
+    text-align:center;
+    font-family:'Caveat',cursive;
+    color:var(--olive);
+    font-size:1.3rem;
+    margin-bottom:1.5rem;
+    display:block;
+  }
+  .menu-item{
+    margin-bottom:1.3rem;
+    padding-bottom:1rem;
+    border-bottom:1px dotted #ccc;
+  }
+  .menu-item:last-child{border:none;margin-bottom:0}
+  .menu-item-head{
+    display:flex;
+    justify-content:space-between;
+    gap:1rem;
+    align-items:baseline;
+    margin-bottom:0.3rem;
+  }
+  .menu-item-name{font-weight:700;font-size:1.15rem;color:var(--noir)}
+  .menu-item-price{
+    color:var(--rouge);
+    font-weight:700;
+    font-family:'Playfair Display',serif;
+    white-space:nowrap;
+  }
+  .menu-item-desc{
+    font-size:0.95rem;
+    color:#666;
+    font-style:italic;
+    line-height:1.4;
+  }
+
+  /* HORAIRES */
+  .hours{
+    background:var(--rouge-fonce);
+    color:var(--creme);
+  }
+  .hours .section-title h2{color:var(--creme)}
+  .hours .section-title .accent{color:var(--or)}
+  .hours-grid{
+    max-width:600px;
+    margin:0 auto;
+    background:rgba(0,0,0,0.2);
+    padding:2.5rem;
+    border:1px solid var(--or);
+  }
+  .hour-row{
+    display:flex;
+    justify-content:space-between;
+    padding:1rem 0;
+    border-bottom:1px solid rgba(201,161,74,0.2);
+    font-size:1.15rem;
+  }
+  .hour-row:last-child{border:none}
+  .hour-row.today{
+    color:var(--or);
+    font-weight:600;
+  }
+  .hour-day{text-transform:capitalize;letter-spacing:0.05em}
+  .hour-time{font-family:'Playfair Display',serif}
+  .closed{font-style:italic;opacity:0.6}
+
+  /* AVIS */
+  .reviews{background:var(--beurre)}
+  .reviews-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:2rem;
+  }
+  .review-card{
+    background:white;
+    padding:2rem;
+    box-shadow:0 6px 20px rgba(0,0,0,0.06);
+    position:relative;
+  }
+  .review-card::before{
+    content:"\201C";
+    position:absolute;
+    top:-20px;
+    left:20px;
+    font-family:'Playfair Display',serif;
+    font-size:6rem;
+    color:var(--rouge);
+    line-height:1;
+  }
+  .review-stars{color:var(--or);margin-bottom:1rem;letter-spacing:0.2em}
+  .review-text{
+    font-style:italic;
+    margin-bottom:1.5rem;
+    font-size:1.05rem;
+  }
+  .review-author{
+    font-family:'Playfair Display',serif;
+    font-weight:700;
+    color:var(--rouge-fonce);
+  }
+  .review-date{font-size:0.85rem;color:#888;font-style:italic}
+
+  /* CONTACT */
+  .contact{
+    background:var(--noir);
+    color:var(--creme);
+    text-align:center;
+  }
+  .contact .section-title h2{color:var(--creme)}
+  .contact .section-title .accent{color:var(--or)}
+  .contact-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:3rem;
+    text-align:left;
+    max-width:900px;
+    margin:0 auto;
+  }
+  .contact-block{
+    padding:2rem;
+    border:1px solid rgba(201,161,74,0.3);
+  }
+  .contact-block h3{
+    color:var(--or);
+    margin-bottom:1rem;
+    font-size:1.4rem;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+  }
+  .contact-block p, .contact-block a{
+    color:var(--creme);
+    text-decoration:none;
+    font-size:1.2rem;
+    line-height:1.7;
+  }
+  .contact-block a:hover{color:var(--or)}
+  .btn{
+    display:inline-block;
+    margin-top:1.5rem;
+    padding:1rem 2.5rem;
+    background:var(--rouge);
+    color:var(--creme)!important;
+    text-decoration:none;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    font-size:0.95rem!important;
+    font-weight:600;
+    transition:all 0.3s;
+    border:2px solid var(--rouge);
+  }
+  .btn:hover{
+    background:transparent;
+    color:var(--or)!important;
+    border-color:var(--or);
+  }
+  footer{
+    background:#000;
+    color:#888;
+    text-align:center;
+    padding:2rem;
+    font-size:0.9rem;
+  }
+  footer .accent{font-size:1.2rem;color:var(--or)}
+
+  @media(max-width:768px){
+    section{padding:4rem 1.2rem}
+    .about-grid, .menu-grid, .reviews-grid, .contact-grid{
+      grid-template-columns:1fr;
+      gap:2rem;
+    }
+    .hero h1{font-size:3.5rem}
+    .hour-row{font-size:1rem}
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-flag"><span></span><span></span><span></span></div>
+  <span class="accent" style="color:var(--or);font-size:2rem">Trattoria depuis toujours</span>
+  <h1>Chez Vincent</h1>
+  <p class="sub">~ Cucina italiana autentica ~</p>
+  <p class="tagline">Des plats italiens traditionnels servis avec le cœur, dans un cadre rustique aux fresques colorées. Une adresse familiale au cœur du 9ᵉ.</p>
+  <div class="stars">★ ★ ★ ★ ★</div>
+  <p class="note">4.7 / 5 — 436 avis Google</p>
+  <div class="scroll-down">❦</div>
+</section>
+
+<!-- À PROPOS -->
+<section class="about">
+  <div class="container">
+    <div class="section-title">
+      <span class="accent">La maison</span>
+      <h2>L'Italie à Saint-Georges</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p class="lead">« Une cuisine simple, délicieuse et authentique, avec des plats qui ont du goût et du caractère. »</p>
+        <p>Tenu par Vincent et son épouse, ce petit restaurant du 9ᵉ arrondissement célèbre depuis des années la cuisine italienne traditionnelle — celle des nonnas, des trattorias de quartier, des sauces qui mijotent et du parfum d'origan dans l'air.</p>
+        <p>Les murs ornés de fresques et de toiles colorées vous transportent quelque part entre la Toscane et la Sicile, le temps d'un déjeuner ou d'un dîner. L'accueil chaleureux des patrons et la sélection de bons vins font le reste.</p>
+      </div>
+      <div class="about-features">
+        <h3>La table</h3>
+        <ul class="features-list">
+          <li>Vins italiens sélectionnés</li>
+          <li>Pâtes & gnocchis maison</li>
+          <li>Réservation conseillée</li>
+          <li>Bière & ardoise du jour</li>
+          <li>Gamme de prix : €€</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu">
+  <div class="container">
+    <div class="section-title">
+      <span class="accent">Il menù</span>
+      <h2>Notre carte suggérée</h2>
+    </div>
+    <div class="menu-grid">
+
+      <div class="menu-card">
+        <h3>Antipasti</h3>
+        <span class="it">~ Pour commencer ~</span>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Burrata des Pouilles</span><span class="menu-item-price">14 €</span></div>
+          <div class="menu-item-desc">Tomates anciennes, basilic, huile d'olive de Sicile</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Vitello tonnato</span><span class="menu-item-price">13 €</span></div>
+          <div class="menu-item-desc">Fines tranches de veau, sauce au thon et câpres</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Bruschetta du jour</span><span class="menu-item-price">9 €</span></div>
+          <div class="menu-item-desc">Pain grillé, tomate marinée, ail et roquette</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Antipasti misti</span><span class="menu-item-price">16 €</span></div>
+          <div class="menu-item-desc">Charcuterie, légumes grillés, mozzarella di bufala</div>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <h3>Piatti</h3>
+        <span class="it">~ Les plats ~</span>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Gnocchis saucisse</span><span class="menu-item-price">19 €</span></div>
+          <div class="menu-item-desc">Maison, sauce tomate, saucisse italienne, parmesan</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Raviolis au sanglier</span><span class="menu-item-price">22 €</span></div>
+          <div class="menu-item-desc">Farce de sanglier braisé, beurre de sauge</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Tagliatelles al ragù</span><span class="menu-item-price">18 €</span></div>
+          <div class="menu-item-desc">Pâtes fraîches, ragù bolognaise mijoté 5 heures</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Osso buco alla milanese</span><span class="menu-item-price">24 €</span></div>
+          <div class="menu-item-desc">Jarret de veau, gremolata, risotto safrané</div>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <h3>Dolci</h3>
+        <span class="it">~ Les douceurs ~</span>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Tiramisù della casa</span><span class="menu-item-price">9 €</span></div>
+          <div class="menu-item-desc">Recette familiale, mascarpone et café ristretto</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Panna cotta</span><span class="menu-item-price">8 €</span></div>
+          <div class="menu-item-desc">Coulis de fruits rouges de saison</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Cannolo siciliano</span><span class="menu-item-price">8 €</span></div>
+          <div class="menu-item-desc">Ricotta sucrée, pistache de Bronte, écorces confites</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Affogato al caffè</span><span class="menu-item-price">7 €</span></div>
+          <div class="menu-item-desc">Glace vanille noyée d'un espresso brûlant</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HORAIRES -->
+<section class="hours">
+  <div class="container">
+    <div class="section-title">
+      <span class="accent">Quando</span>
+      <h2>Nos horaires</h2>
+    </div>
+    <div class="hours-grid">
+      <div class="hour-row"><span class="hour-day">Lundi</span><span class="hour-time">12:00 – 14:00</span></div>
+      <div class="hour-row"><span class="hour-day">Mardi</span><span class="hour-time">12:00 – 14:00</span></div>
+      <div class="hour-row"><span class="hour-day">Mercredi</span><span class="hour-time">12:00 – 14:00 · 19:00 – 22:00</span></div>
+      <div class="hour-row"><span class="hour-day">Jeudi</span><span class="hour-time">12:00 – 14:00 · 19:00 – 22:00</span></div>
+      <div class="hour-row"><span class="hour-day">Vendredi</span><span class="hour-time">12:00 – 14:00 · 19:00 – 22:00</span></div>
+      <div class="hour-row"><span class="hour-day">Samedi</span><span class="hour-time">19:00 – 22:30</span></div>
+      <div class="hour-row"><span class="hour-day">Dimanche</span><span class="hour-time closed">Fermé</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- AVIS -->
+<section class="reviews">
+  <div class="container">
+    <div class="section-title">
+      <span class="accent">Ils en parlent</span>
+      <h2>Paroles de clients</h2>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Un grand merci à Vincent et à son épouse pour cet excellent dîner et leur accueil chaleureux. Une cuisine simple, délicieuse et authentique, avec des plats qui ont du goût et du caractère.</p>
+        <div class="review-author">Alexandre M.</div>
+        <div class="review-date">il y a 7 mois</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">De passage en formation pendant 2 semaines, nous avons déjeuné chez Vincent chaque jour. Quel plaisir, un accueil et un service chaleureux et souriant des 2 gérants... tellement appréciable.</p>
+        <div class="review-author">Nicolas R.</div>
+        <div class="review-date">il y a 3 mois</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★☆☆</div>
+        <p class="review-text">Très bon accueil et gentillesse tout au long du service. Cuisine goûteuse, on revient pour les saveurs et l'ambiance authentique de cette petite trattoria du 9ᵉ.</p>
+        <div class="review-author">Barbara</div>
+        <div class="review-date">il y a 6 mois</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact">
+  <div class="container">
+    <div class="section-title">
+      <span class="accent">Venez nous voir</span>
+      <h2>Nous trouver</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-block">
+        <h3>L'adresse</h3>
+        <p>56 Rue Saint-Georges<br>75009 Paris<br>France</p>
+        <a href="https://maps.google.com/?cid=4039941560797249503" target="_blank" class="btn">Itinéraire ➜</a>
+      </div>
+      <div class="contact-block">
+        <h3>Réserver</h3>
+        <p>Pour réserver votre table, appelez-nous directement :</p>
+        <p><a href="tel:+33142850279"><strong>01 42 85 02 79</strong></a></p>
+        <a href="tel:+33142850279" class="btn">Appeler ☎</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><span class="accent">Chez Vincent</span> — Trattoria · 56 Rue Saint-Georges, 75009 Paris</p>
+  <p style="margin-top:0.5rem">© 2025 — Tous droits réservés · Buon appetito !</p>
+</footer>
+
+</body>
+</html>

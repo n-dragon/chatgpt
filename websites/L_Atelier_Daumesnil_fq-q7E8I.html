@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L'Atelier Daumesnil — Brasserie Parisienne</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bordeaux: #5c1a1b;
+    --or: #c9a96e;
+    --crème: #f5efe6;
+    --noir: #1a1410;
+    --gris: #6b5d52;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--noir);
+    background: var(--crème);
+    line-height: 1.7;
+  }
+  h1, h2, h3, h4 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    background: rgba(26, 20, 16, 0.92);
+    backdrop-filter: blur(8px);
+    padding: 18px 5%; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  nav .logo {
+    font-family: 'Playfair Display', serif;
+    color: var(--or); font-size: 1.3rem; font-style: italic;
+  }
+  nav ul { list-style: none; display: flex; gap: 32px; }
+  nav ul a {
+    color: var(--crème); text-decoration: none; font-size: 0.85rem;
+    text-transform: uppercase; letter-spacing: 1.5px; transition: color 0.3s;
+  }
+  nav ul a:hover { color: var(--or); }
+  @media (max-width: 768px) { nav ul { display: none; } }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background:
+      linear-gradient(rgba(26,20,16,0.55), rgba(26,20,16,0.7)),
+      radial-gradient(circle at 30% 40%, #7a2a2c 0%, #2a1010 60%, #1a0a0a 100%);
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; color: var(--crème); padding: 0 20px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background-image:
+      repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(201,169,110,0.04) 35px, rgba(201,169,110,0.04) 36px);
+    pointer-events: none;
+  }
+  .hero-content { position: relative; z-index: 2; animation: fadeUp 1.2s ease; }
+  .hero .tagline {
+    font-family: 'Playfair Display', serif;
+    font-style: italic; color: var(--or);
+    font-size: 1.1rem; letter-spacing: 4px;
+    text-transform: uppercase; margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: clamp(3rem, 9vw, 7rem);
+    line-height: 1; margin-bottom: 24px;
+    text-shadow: 2px 4px 20px rgba(0,0,0,0.5);
+  }
+  .hero h1 .amp { color: var(--or); font-style: italic; }
+  .hero .subtitle {
+    font-size: 1.15rem; max-width: 600px; margin: 0 auto 40px;
+    font-weight: 300; letter-spacing: 1px;
+  }
+  .hero .rating {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(201,169,110,0.15); padding: 10px 24px;
+    border: 1px solid var(--or); border-radius: 50px;
+    margin-bottom: 36px; font-size: 0.9rem;
+  }
+  .hero .rating .stars { color: var(--or); }
+  .btn {
+    display: inline-block;
+    background: var(--or); color: var(--noir);
+    padding: 16px 42px; text-decoration: none;
+    font-size: 0.85rem; letter-spacing: 2.5px;
+    text-transform: uppercase; font-weight: 600;
+    transition: all 0.3s; border: 1px solid var(--or);
+  }
+  .btn:hover {
+    background: transparent; color: var(--or);
+    transform: translateY(-2px);
+  }
+  .btn-outline { background: transparent; color: var(--crème); border-color: var(--crème); }
+  .btn-outline:hover { background: var(--crème); color: var(--noir); }
+  .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* SECTIONS */
+  section { padding: 100px 8%; }
+  .section-title {
+    text-align: center; margin-bottom: 60px;
+  }
+  .section-title .label {
+    color: var(--bordeaux); font-size: 0.8rem;
+    letter-spacing: 4px; text-transform: uppercase;
+    font-weight: 600; margin-bottom: 12px; display: block;
+  }
+  .section-title h2 {
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    color: var(--noir);
+  }
+  .section-title .ornament {
+    width: 80px; height: 2px; background: var(--or);
+    margin: 20px auto; position: relative;
+  }
+  .section-title .ornament::before {
+    content: '✦'; position: absolute; top: -12px; left: 50%;
+    transform: translateX(-50%); background: var(--crème);
+    color: var(--or); padding: 0 12px; font-size: 0.9rem;
+  }
+
+  /* À PROPOS */
+  .about { background: var(--crème); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center; max-width: 1200px; margin: 0 auto;
+  }
+  .about-text p {
+    margin-bottom: 20px; color: var(--gris);
+    font-size: 1.05rem;
+  }
+  .about-text .lead {
+    font-family: 'Playfair Display', serif;
+    font-style: italic; font-size: 1.3rem;
+    color: var(--bordeaux); line-height: 1.5;
+  }
+  .about-visual {
+    background: linear-gradient(135deg, var(--bordeaux), #3a0e0f);
+    aspect-ratio: 4/5; position: relative;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--or); text-align: center;
+    box-shadow: 20px 20px 0 var(--or);
+  }
+  .about-visual::before {
+    content: ''; position: absolute; inset: 20px;
+    border: 1px solid rgba(201,169,110,0.4);
+  }
+  .about-visual-inner {
+    position: relative; z-index: 2; padding: 40px;
+  }
+  .about-visual h3 {
+    font-size: 3rem; margin-bottom: 12px;
+    font-style: italic;
+  }
+  .about-visual p {
+    font-size: 0.9rem; letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .services-list {
+    display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px;
+  }
+  .service-tag {
+    background: white; padding: 8px 18px;
+    font-size: 0.8rem; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--bordeaux);
+    border: 1px solid var(--bordeaux); border-radius: 2px;
+  }
+  @media (max-width: 768px) {
+    .about-grid { grid-template-columns: 1fr; gap: 50px; }
+    .about-visual { aspect-ratio: 1/1; box-shadow: 10px 10px 0 var(--or); }
+  }
+
+  /* MENU */
+  .menu { background: var(--noir); color: var(--crème); }
+  .menu .section-title h2 { color: var(--crème); }
+  .menu .section-title .label { color: var(--or); }
+  .menu .section-title .ornament { background: var(--or); }
+  .menu .section-title .ornament::before { background: var(--noir); }
+  .menu-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 50px; max-width: 1300px; margin: 0 auto;
+  }
+  .menu-category h3 {
+    text-align: center; font-size: 1.8rem;
+    color: var(--or); margin-bottom: 30px;
+    font-style: italic;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(201,169,110,0.3);
+  }
+  .menu-item {
+    margin-bottom: 24px; padding-bottom: 16px;
+    border-bottom: 1px dashed rgba(245,239,230,0.1);
+  }
+  .menu-item:last-child { border-bottom: none; }
+  .menu-item-header {
+    display: flex; justify-content: space-between;
+    align-items: baseline; gap: 12px; margin-bottom: 6px;
+  }
+  .menu-item-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem; font-weight: 700;
+    color: var(--crème);
+  }
+  .menu-item-price {
+    color: var(--or); font-weight: 600;
+    white-space: nowrap;
+  }
+  .menu-item-desc {
+    color: #a89888; font-size: 0.88rem;
+    font-style: italic; line-height: 1.5;
+  }
+  @media (max-width: 900px) {
+    .menu-grid { grid-template-columns: 1fr; gap: 50px; }
+  }
+
+  /* HORAIRES */
+  .horaires { background: var(--crème); }
+  .horaires-wrap {
+    max-width: 700px; margin: 0 auto;
+    background: white; padding: 60px 50px;
+    border: 1px solid rgba(92,26,27,0.15);
+    position: relative;
+  }
+  .horaires-wrap::before, .horaires-wrap::after {
+    content: ''; position: absolute;
+    width: 30px; height: 30px;
+    border: 2px solid var(--or);
+  }
+  .horaires-wrap::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+  .horaires-wrap::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+  .horaires-list { list-style: none; }
+  .horaires-list li {
+    display: flex; justify-content: space-between;
+    padding: 16px 0; border-bottom: 1px dashed rgba(92,26,27,0.15);
+    font-size: 1rem;
+  }
+  .horaires-list li:last-child { border-bottom: none; }
+  .horaires-list .jour {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700; color: var(--bordeaux);
+    text-transform: capitalize; letter-spacing: 1px;
+  }
+  .horaires-list .heures {
+    color: var(--gris); font-weight: 500;
+  }
+  .horaires-note {
+    text-align: center; margin-top: 30px;
+    font-style: italic; color: var(--gris);
+    font-size: 0.9rem;
+  }
+
+  /* CONTACT */
+  .contact {
+    background: linear-gradient(rgba(26,20,16,0.92), rgba(26,20,16,0.92)),
+                radial-gradient(circle at 70% 30%, #5c1a1b 0%, #1a0a0a 80%);
+    color: var(--crème); text-align: center;
+  }
+  .contact .section-title h2 { color: var(--crème); }
+  .contact .section-title .label { color: var(--or); }
+  .contact .section-title .ornament::before { background: var(--noir); }
+  .contact-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 40px; max-width: 1000px; margin: 0 auto 50px;
+  }
+  .contact-card {
+    padding: 40px 20px;
+    border: 1px solid rgba(201,169,110,0.25);
+    transition: all 0.3s;
+  }
+  .contact-card:hover {
+    background: rgba(201,169,110,0.05);
+    border-color: var(--or);
+    transform: translateY(-5px);
+  }
+  .contact-card .icon {
+    font-size: 1.8rem; color: var(--or); margin-bottom: 16px;
+  }
+  .contact-card h4 {
+    color: var(--or); font-size: 1.1rem;
+    margin-bottom: 12px; letter-spacing: 1px;
+  }
+  .contact-card p, .contact-card a {
+    color: var(--crème); text-decoration: none;
+    font-size: 0.95rem; line-height: 1.6;
+  }
+  .contact-card a:hover { color: var(--or); }
+  @media (max-width: 768px) {
+    .contact-grid { grid-template-columns: 1fr; }
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--noir); color: #6b5d52;
+    text-align: center; padding: 30px 20px;
+    font-size: 0.8rem; letter-spacing: 1px;
+    border-top: 1px solid rgba(201,169,110,0.15);
+  }
+  footer .brand { color: var(--or); font-style: italic; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">L'Atelier Daumesnil</div>
+  <ul>
+    <li><a href="#about">Maison</a></li>
+    <li><a href="#menu">Carte</a></li>
+    <li><a href="#horaires">Horaires</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="tagline">— Brasserie Parisienne · Depuis le 12ᵉ —</div>
+    <h1>L'Atelier <span class="amp">&</span><br>Daumesnil</h1>
+    <p class="subtitle">Une adresse chaleureuse au cœur du 12ᵉ arrondissement. Du petit-déjeuner à la nuit tombée, l'art de recevoir à la française.</p>
+    <div class="rating">
+      <span class="stars">★★★★★</span>
+      <span>4,4 / 5 · 830 avis Google</span>
+    </div>
+    <div class="hero-btns">
+      <a href="#menu" class="btn">Découvrir la carte</a>
+      <a href="tel:0143433970" class="btn btn-outline">Réserver une table</a>
+    </div>
+  </div>
+</section>
+
+<!-- À PROPOS -->
+<section class="about" id="about">
+  <div class="section-title">
+    <span class="label">La Maison</span>
+    <h2>Bienvenue à l'Atelier</h2>
+    <div class="ornament"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p class="lead">« Un établissement très bien tenu, un accueil impeccable, un service rapide et avec le sourire. »</p>
+      <p>Niché au 100 avenue Daumesnil, L'Atelier Daumesnil est cette brasserie de quartier que l'on découvre par hasard et que l'on n'oublie plus. Une halte gourmande où l'on pousse la porte aussi bien pour un café matinal qu'un dîner tardif entre amis.</p>
+      <p>Notre carte évolue au fil des saisons, fidèle aux grands classiques de la brasserie parisienne. Vins choisis, bières fraîches, et une attention particulière portée aux régimes spécifiques — sans gluten notamment.</p>
+      <p>Et parce qu'un bon restaurant se doit aussi de faire vivre son quartier, nous organisons régulièrement des soirées karaoké conviviales. La vie est trop courte pour les dîners silencieux.</p>
+      <div class="services-list">
+        <span class="service-tag">Petit-déjeuner</span>
+        <span class="service-tag">Déjeuner</span>
+        <span class="service-tag">Dîner</span>
+        <span class="service-tag">Bière & Vin</span>
+        <span class="service-tag">Réservation</span>
+      </div>
+    </div>
+    <div class="about-visual">
+      <div class="about-visual-inner">
+        <h3>€</h3>
+        <p>Cuisine accessible<br>& Généreuse</p>
+        <div style="margin: 30px 0; height: 1px; background: rgba(201,169,110,0.4);"></div>
+        <h3 style="font-size: 2rem;">19h<sup>30</sup></h3>
+        <p>Karaoké tous<br>les samedis</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu" id="menu">
+  <div class="section-title">
+    <span class="label">Notre Carte</span>
+    <h2>Suggestions du Chef</h2>
+    <div class="ornament"></div>
+  </div>
+  <div class="menu-grid">
+
+    <div class="menu-category">
+      <h3>Entrées</h3>
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Œuf Mayonnaise Maison</span>
+          <span class="menu-item-price">6 €</span>
+        </div>
+        <p class="menu-item-desc">Œufs fermiers, mayonnaise maison à la moutarde de Dijon</p>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Soupe à l'Oignon Gratinée</span>
+          <span class="menu-item-price">9 €</span>
+        </div>
+        <p class="menu-item-desc">Oignons confits, croûtons dorés, gruyère fondu</p>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Salade de Chèvre Chaud</span>
+          <span class="menu-item-price">11 €</span>
+        </div>
+        <p class="menu-item-desc">Mesclun, toasts de chèvre, miel, noix et vinaigrette balsamique</p>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Terrine Maison</span>
+          <span class="menu-item-price">8,50 €</span>
+        </div>
+        <p class="menu-item-desc">Terrine de campagne, cornichons et pain de campagne grillé</p>
+      </div>
+    </div>
+
+    <div class="menu-category">
+      <h3>Plats</h3>
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Entrecôte Frites Maison</span>
+          <span class="menu-item-price">19 €</span>
+        </div>
+        <p class="menu-item-desc">Entrecôte grillée, beurre maître d'hôtel, frites fraîches</p>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Confit de Canard</span>
+          <span class="menu-item-price">17 €</span>
+        </div>
+        <p class="menu-item-desc">Cuisse de canard confite, pommes sarladaises et salade verte</p>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Burger de l'Atelier</span>
+          <span class="menu-item-price">15 €</span>
+        </div>
+        <p class="menu-item-desc">Bœuf charolais, cheddar affiné, oignons caramélisés, frites maison</p>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Risotto aux Champignons</span>
+          <span class="menu-item-price">14 €</span>
+        </div>
+        <p class="menu-item-desc">Riz arborio, champignons des bois, parmesan et persil plat <em>(sans gluten)</em></p>
+      </div>
+    </div>
+
+    <div class="menu-category">
+      <h3>Desserts</h3>
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Crème Brûlée Vanille</span>
+          <span class="menu-item-price">7 €</span>
+        </div>
+        <p class="menu-item-desc">Vanille bourbon, croûte de sucre caramélisée minute</p>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Moelleux au Chocolat</span>
+          <span class="menu-item-price">7,50 €</span>
+        </div>
+        <p class="menu-item-desc">Cœur coulant, glace vanille et éclats de noisettes</p>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Tarte Tatin Maison</span>
+          <span class="menu-item-price">8 €</span>
+        </div>
+        <p class="menu-item-desc">Pommes caramélisées, pâte sablée, crème fraîche d'Isigny</p>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Café Gourmand</span>
+          <span class="menu-item-price">8,50 €</span>
+        </div>
+        <p class="menu-item-desc">Expresso accompagné de trois mignardises du jour</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- HORAIRES -->
+<section class="horaires" id="horaires">
+  <div class="section-title">
+    <span class="label">Ouverture</span>
+    <h2>Nos Horaires</h2>
+    <div class="ornament"></div>
+  </div>
+  <div class="horaires-wrap">
+    <ul class="horaires-list">
+      <li><span class="jour">Lundi</span><span class="heures">07h00 — 02h00</span></li>
+      <li><span class="jour">Mardi</span><span class="heures">07h00 — 02h00</span></li>
+      <li><span class="jour">Mercredi</span><span class="heures">07h00 — 02h00</span></li>
+      <li><span class="jour">Jeudi</span><span class="heures">07h00 — 02h00</span></li>
+      <li><span class="jour">Vendredi</span><span class="heures">07h00 — 02h00</span></li>
+      <li><span class="jour">Samedi</span><span class="heures">07h00 — 02h00</span></li>
+      <li><span class="jour">Dimanche</span><span class="heures">09h00 — 00h00</span></li>
+    </ul>
+    <p class="horaires-note">Service continu — Du petit-déjeuner au dernier verre.</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-title">
+    <span class="label">Nous Trouver</span>
+    <h2>À votre Service</h2>
+    <div class="ornament"></div>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-card">
+      <div class="icon">✉</div>
+      <h4>Adresse</h4>
+      <p>100 Avenue Daumesnil<br>75012 Paris</p>
+    </div>
+    <div class="contact-card">
+      <div class="icon">☎</div>
+      <h4>Téléphone</h4>
+      <p><a href="tel:0143433970">01 43 43 39 70</a></p>
+    </div>
+    <div class="contact-card">
+      <div class="icon">★</div>
+      <h4>Réservations</h4>
+      <p>Par téléphone<br>de 9h à 22h</p>
+    </div>
+  </div>
+  <a href="https://maps.google.com/?cid=13984727884483216754" target="_blank" rel="noopener" class="btn">Obtenir l'itinéraire</a>
+</section>
+
+<footer>
+  <p>© <span class="brand">L'Atelier Daumesnil</span> · Brasserie Parisienne · Paris 12ᵉ</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L'ouzeri Paris Odéon — Cuisine Grecque Authentique</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Marcellus&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bleu-egeen: #1d6fa5;
+    --bleu-profond: #0e3d5e;
+    --blanc-chaud: #f7f3ec;
+    --blanc-pur: #fdfbf6;
+    --or-olivier: #b08d3e;
+    --pierre: #d9d2c5;
+    --noir: #1a1a1a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--noir);
+    background: var(--blanc-chaud);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+  .subtitle-greek {
+    font-family: 'Marcellus', serif;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    color: var(--or-olivier);
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background:
+      linear-gradient(rgba(14,61,94,0.55), rgba(14,61,94,0.7)),
+      radial-gradient(circle at 30% 40%, #2a7cb0 0%, #0e3d5e 60%, #082a42 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--blanc-chaud);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      radial-gradient(circle at 10% 20%, rgba(255,255,255,0.05) 1px, transparent 1px),
+      radial-gradient(circle at 80% 70%, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 60px 60px, 90px 90px;
+    pointer-events: none;
+  }
+  .hero-ornament {
+    font-size: 2rem;
+    color: var(--or-olivier);
+    margin-bottom: 1rem;
+    animation: fadeDown 1.4s ease;
+  }
+  .hero h1 {
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    line-height: 1;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    animation: fadeUp 1.2s ease;
+  }
+  .hero .tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(1.1rem, 2vw, 1.6rem);
+    max-width: 600px;
+    margin-bottom: 2rem;
+    color: var(--blanc-pur);
+    animation: fadeUp 1.4s ease;
+  }
+  .hero .location {
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--pierre);
+    animation: fadeUp 1.6s ease;
+  }
+  .hero-rating {
+    margin-top: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.9rem;
+    color: var(--blanc-chaud);
+    animation: fadeUp 1.8s ease;
+  }
+  .stars { color: var(--or-olivier); letter-spacing: 0.2em; }
+  .scroll-cue {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--blanc-chaud);
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    animation: bounce 2s infinite;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translate(-50%, 0); }
+    50% { transform: translate(-50%, 10px); }
+  }
+
+  /* SECTIONS */
+  section { padding: 6rem 2rem; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .section-header { text-align: center; margin-bottom: 4rem; }
+  .section-header h2 {
+    font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+    color: var(--bleu-profond);
+    margin: 0.5rem 0;
+  }
+  .ornament-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    color: var(--or-olivier);
+  }
+  .ornament-line::before, .ornament-line::after {
+    content: '';
+    width: 60px;
+    height: 1px;
+    background: var(--or-olivier);
+  }
+
+  /* À PROPOS */
+  .about {
+    background: var(--blanc-pur);
+    position: relative;
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .about-text p {
+    font-size: 1.05rem;
+    margin-bottom: 1.2rem;
+    color: #444;
+  }
+  .about-text .intro {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-style: italic;
+    color: var(--bleu-profond);
+    line-height: 1.4;
+  }
+  .about-visual {
+    background: linear-gradient(135deg, var(--bleu-egeen), var(--bleu-profond));
+    aspect-ratio: 4/5;
+    border-radius: 4px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .about-visual::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(45deg, transparent 0 30px, rgba(255,255,255,0.03) 30px 31px);
+  }
+  .about-visual-content {
+    text-align: center;
+    color: var(--blanc-chaud);
+    z-index: 1;
+    padding: 2rem;
+  }
+  .about-visual-content .symbol {
+    font-size: 5rem;
+    color: var(--or-olivier);
+    margin-bottom: 1rem;
+  }
+  .about-visual-content h3 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  .about-visual-content p {
+    font-style: italic;
+    color: var(--pierre);
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--pierre);
+  }
+  .service-item {
+    text-align: center;
+  }
+  .service-item .icon {
+    font-size: 1.8rem;
+    color: var(--or-olivier);
+    margin-bottom: 0.5rem;
+  }
+  .service-item h4 {
+    font-size: 1.2rem;
+    color: var(--bleu-profond);
+    margin-bottom: 0.3rem;
+  }
+  .service-item p {
+    font-size: 0.85rem;
+    color: #666;
+  }
+
+  /* MENU */
+  .menu {
+    background:
+      linear-gradient(rgba(247,243,236,0.96), rgba(247,243,236,0.96)),
+      radial-gradient(circle at 20% 30%, var(--pierre) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, var(--pierre) 0%, transparent 50%);
+  }
+  .menu-categories {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+  .menu-category {
+    background: var(--blanc-pur);
+    padding: 3rem;
+    border: 1px solid var(--pierre);
+    position: relative;
+  }
+  .menu-category::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: -1px; right: -1px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--bleu-egeen), var(--or-olivier), var(--bleu-egeen));
+  }
+  .menu-category h3 {
+    font-size: 2.2rem;
+    color: var(--bleu-profond);
+    margin-bottom: 0.3rem;
+    text-align: center;
+  }
+  .menu-category .greek-name {
+    text-align: center;
+    font-family: 'Marcellus', serif;
+    color: var(--or-olivier);
+    letter-spacing: 0.3em;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+  }
+  .menu-items {
+    display: grid;
+    gap: 1.8rem;
+  }
+  .menu-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    align-items: baseline;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px dotted var(--pierre);
+  }
+  .menu-item:last-child { border-bottom: none; }
+  .menu-item-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--bleu-profond);
+  }
+  .menu-item-desc {
+    font-size: 0.9rem;
+    color: #666;
+    font-style: italic;
+    margin-top: 0.3rem;
+  }
+  .menu-item-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    color: var(--or-olivier);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  /* HORAIRES */
+  .hours {
+    background: var(--bleu-profond);
+    color: var(--blanc-chaud);
+    position: relative;
+    overflow: hidden;
+  }
+  .hours::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 90% 10%, rgba(176,141,62,0.15) 0%, transparent 40%),
+      radial-gradient(circle at 10% 90%, rgba(29,111,165,0.3) 0%, transparent 50%);
+  }
+  .hours .section-header h2 { color: var(--blanc-chaud); }
+  .hours-content {
+    position: relative;
+    max-width: 700px;
+    margin: 0 auto;
+    background: rgba(255,255,255,0.04);
+    padding: 3rem;
+    border: 1px solid rgba(176,141,62,0.4);
+    backdrop-filter: blur(10px);
+  }
+  .hours-list {
+    list-style: none;
+  }
+  .hours-list li {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px dotted rgba(255,255,255,0.15);
+    font-size: 1rem;
+  }
+  .hours-list li:last-child { border-bottom: none; }
+  .hours-list .day {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    color: var(--or-olivier);
+    text-transform: capitalize;
+  }
+  .hours-list .time {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+  }
+  .hours-note {
+    text-align: center;
+    margin-top: 2rem;
+    font-style: italic;
+    color: var(--pierre);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+  }
+
+  /* CONTACT */
+  .contact {
+    background: var(--blanc-pur);
+    text-align: center;
+  }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+  .contact-item {
+    padding: 2rem 1rem;
+  }
+  .contact-item .icon {
+    font-size: 2rem;
+    color: var(--or-olivier);
+    margin-bottom: 1rem;
+  }
+  .contact-item h4 {
+    font-size: 1.4rem;
+    color: var(--bleu-profond);
+    margin-bottom: 0.8rem;
+  }
+  .contact-item p, .contact-item a {
+    color: #444;
+    text-decoration: none;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  .contact-item a:hover { color: var(--or-olivier); }
+  .btn {
+    display: inline-block;
+    padding: 1.1rem 3rem;
+    background: var(--bleu-profond);
+    color: var(--blanc-chaud);
+    text-decoration: none;
+    font-family: 'Marcellus', serif;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    transition: all 0.4s ease;
+    border: 1px solid var(--bleu-profond);
+    position: relative;
+  }
+  .btn:hover {
+    background: var(--or-olivier);
+    border-color: var(--or-olivier);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(176,141,62,0.3);
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--noir);
+    color: var(--pierre);
+    text-align: center;
+    padding: 2.5rem 2rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+  }
+  footer .footer-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    color: var(--or-olivier);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    section { padding: 4rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .menu-category { padding: 2rem 1.5rem; }
+    .menu-item { grid-template-columns: 1fr; }
+    .menu-item-price { font-size: 1.2rem; }
+    .hours-list li { grid-template-columns: 1fr; gap: 0.2rem; text-align: center; }
+    .hours-content { padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-ornament">⟡</div>
+  <div class="subtitle-greek">Καλώς ορίσατε</div>
+  <h1>L'ouzeri</h1>
+  <p class="tagline">L'âme de la Grèce au cœur de Saint-Germain-des-Prés. Une table authentique où la Méditerranée se raconte.</p>
+  <div class="location">Paris · Odéon · 75006</div>
+  <div class="hero-rating">
+    <span class="stars">★★★★★</span>
+    <span>4.8 / 5 — 574 avis</span>
+  </div>
+  <div class="scroll-cue">Découvrir ▾</div>
+</section>
+
+<!-- À PROPOS -->
+<section class="about">
+  <div class="container">
+    <div class="section-header">
+      <div class="subtitle-greek">Notre Maison</div>
+      <h2>L'esprit d'une taverne, l'élégance d'une table</h2>
+      <div class="ornament-line">⟡</div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p class="intro">Niché rue Grégoire de Tours, L'ouzeri est une invitation au voyage : celui des îles, des oliveraies et des longues tablées partagées sous le soleil de l'Égée.</p>
+        <p>Dans un cadre intimiste et feutré, notre maison propose une cuisine grecque savoureuse et authentique, sans tricherie ni artifice. Chaque assiette est composée avec finesse, chaque vin sélectionné avec passion.</p>
+        <p>Du déjeuner au dîner, nous vous accueillons sept jours sur sept dans une atmosphère élégante et chaleureuse, où le service attentionné se conjugue à la générosité méditerranéenne.</p>
+      </div>
+      <div class="about-visual">
+        <div class="about-visual-content">
+          <div class="symbol">🫒</div>
+          <h3>Φιλοξενία</h3>
+          <p>« Philoxenia » — l'art grec de l'hospitalité</p>
+        </div>
+      </div>
+    </div>
+    <div class="services-grid">
+      <div class="service-item">
+        <div class="icon">🍽️</div>
+        <h4>Sur place</h4>
+        <p>Déjeuner & dîner</p>
+      </div>
+      <div class="service-item">
+        <div class="icon">📖</div>
+        <h4>Réservation</h4>
+        <p>Recommandée</p>
+      </div>
+      <div class="service-item">
+        <div class="icon">🍷</div>
+        <h4>Cave</h4>
+        <p>Vins grecs sélectionnés</p>
+      </div>
+      <div class="service-item">
+        <div class="icon">🌿</div>
+        <h4>Végétarien</h4>
+        <p>Options gourmandes</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu">
+  <div class="container">
+    <div class="section-header">
+      <div class="subtitle-greek">Carte suggérée</div>
+      <h2>Les saveurs de l'Égée</h2>
+      <div class="ornament-line">⟡</div>
+    </div>
+    <div class="menu-categories">
+
+      <div class="menu-category">
+        <h3>Mezzés & Entrées</h3>
+        <div class="greek-name">Μεζέδες</div>
+        <div class="menu-items">
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Taramosalata maison</div>
+              <div class="menu-item-desc">Œufs de mulet fumés, huile d'olive de Kalamata, pain pita grillé</div>
+            </div>
+            <div class="menu-item-price">12 €</div>
+          </div>
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Tzatziki & Melitzanosalata</div>
+              <div class="menu-item-desc">Duo de caviars d'aubergine fumée et yaourt grec, concombre, ail</div>
+            </div>
+            <div class="menu-item-price">11 €</div>
+          </div>
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Saganaki au miel</div>
+              <div class="menu-item-desc">Fromage kefalograviera poêlé, miel de thym, sésame</div>
+            </div>
+            <div class="menu-item-price">14 €</div>
+          </div>
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Dolmades</div>
+              <div class="menu-item-desc">Feuilles de vigne farcies au riz, herbes fraîches, citron</div>
+            </div>
+            <div class="menu-item-price">13 €</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-category">
+        <h3>Plats</h3>
+        <div class="greek-name">Κυρίως πιάτα</div>
+        <div class="menu-items">
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Moussaka traditionnelle</div>
+              <div class="menu-item-desc">Aubergines, agneau confit, béchamel parfumée à la cannelle</div>
+            </div>
+            <div class="menu-item-price">24 €</div>
+          </div>
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Souvlaki d'agneau</div>
+              <div class="menu-item-desc">Brochettes marinées origan-citron, pita, sauce tzatziki, riz pilaf</div>
+            </div>
+            <div class="menu-item-price">26 €</div>
+          </div>
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Poulpe grillé à la braise</div>
+              <div class="menu-item-desc">Câpres, oignons rouges, vinaigre balsamique, huile d'olive vierge</div>
+            </div>
+            <div class="menu-item-price">29 €</div>
+          </div>
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Gemista végétarien</div>
+              <div class="menu-item-desc">Tomates et poivrons farcis au riz, raisins secs, pignons, fines herbes</div>
+            </div>
+            <div class="menu-item-price">21 €</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-category">
+        <h3>Desserts</h3>
+        <div class="greek-name">Γλυκά</div>
+        <div class="menu-items">
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Baklava</div>
+              <div class="menu-item-desc">Feuilles de filo, pistaches d'Égine, miel de fleurs d'oranger</div>
+            </div>
+            <div class="menu-item-price">9 €</div>
+          </div>
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Galaktoboureko</div>
+              <div class="menu-item-desc">Crème de semoule à la vanille en pâte filo, sirop tiède au citron</div>
+            </div>
+            <div class="menu-item-price">10 €</div>
+          </div>
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Yaourt grec, miel & noix</div>
+              <div class="menu-item-desc">Yaourt fermier, miel de thym du Péloponnèse, noix caramélisées</div>
+            </div>
+            <div class="menu-item-price">8 €</div>
+          </div>
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Loukoumades</div>
+              <div class="menu-item-desc">Beignets dorés, miel chaud, cannelle, glace au mastiha</div>
+            </div>
+            <div class="menu-item-price">9 €</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HORAIRES -->
+<section class="hours">
+  <div class="container">
+    <div class="section-header">
+      <div class="subtitle-greek" style="color: var(--or-olivier);">Ouvert 7j/7</div>
+      <h2>Horaires d'ouverture</h2>
+      <div class="ornament-line">⟡</div>
+    </div>
+    <div class="hours-content">
+      <ul class="hours-list">
+        <li><span class="day">Lundi</span><span class="time">12h00 – 15h00  ·  18h00 – 23h00</span></li>
+        <li><span class="day">Mardi</span><span class="time">12h00 – 15h00  ·  18h00 – 23h00</span></li>
+        <li><span class="day">Mercredi</span><span class="time">12h00 – 15h00  ·  18h00 – 23h00</span></li>
+        <li><span class="day">Jeudi</span><span class="time">12h00 – 15h00  ·  18h00 – 23h00</span></li>
+        <li><span class="day">Vendredi</span><span class="time">12h00 – 15h00  ·  18h00 – 23h00</span></li>
+        <li><span class="day">Samedi</span><span class="time">12h00 – 15h00  ·  18h00 – 23h00</span></li>
+        <li><span class="day">Dimanche</span><span class="time">12h00 – 15h00  ·  18h00 – 23h00</span></li>
+      </ul>
+      <p class="hours-note">« Réservation vivement conseillée »</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact">
+  <div class="container">
+    <div class="section-header">
+      <div class="subtitle-greek">Nous trouver</div>
+      <h2>Venez nous rejoindre</h2>
+      <div class="ornament-line">⟡</div>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-item">
+        <div class="icon">📍</div>
+        <h4>Adresse</h4>
+        <p>17 Rue Grégoire de Tours<br>75006 Paris</p>
+      </div>
+      <div class="contact-item">
+        <div class="icon">📞</div>
+        <h4>Téléphone</h4>
+        <p><a href="tel:+33142013670">01 42 01 36 70</a></p>
+      </div>
+      <div class="contact-item">
+        <div class="icon">🚇</div>
+        <h4>Métro</h4>
+        <p>Odéon (lignes 4 & 10)<br>Mabillon (ligne 10)</p>
+      </div>
+    </div>
+    <a href="https://maps.google.com/?cid=16877757327532692789" target="_blank" rel="noopener" class="btn">Obtenir l'itinéraire</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-name">L'ouzeri Paris Odéon</div>
+  <div>Cuisine grecque authentique · Saint-Germain-des-Prés</div>
+</footer>
+
+</body>
+</html>

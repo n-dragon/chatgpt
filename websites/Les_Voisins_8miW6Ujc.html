@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Les Voisins — Café-Restaurant Traditionnel Paris 12e</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Oswald:wght@300;500;700&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rouge: #8b1a1a;
+    --rouge-vif: #b22222;
+    --rouge-sombre: #5c0f0f;
+    --creme: #f4e9d8;
+    --beige: #e8d9b8;
+    --noir: #1a0f0a;
+    --bois: #3d2418;
+    --or: #c9a961;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Playfair Display', serif;
+    background: var(--creme);
+    color: var(--noir);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* Texture papier */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: 
+      radial-gradient(circle at 20% 30%, rgba(139,26,26,0.03) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(61,36,24,0.04) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* === HERO === */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    background: 
+      linear-gradient(135deg, rgba(92,15,15,0.85) 0%, rgba(139,26,26,0.75) 100%),
+      repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(0,0,0,0.05) 20px, rgba(0,0,0,0.05) 40px);
+    background-color: var(--rouge);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--creme);
+    padding: 2rem;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 20px; left: 20px; right: 20px; bottom: 20px;
+    border: 2px solid rgba(244,233,216,0.3);
+    pointer-events: none;
+  }
+
+  /* Sous-bocks décoratifs */
+  .sous-bock {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid rgba(244,233,216,0.15);
+    background: radial-gradient(circle, rgba(244,233,216,0.08) 0%, transparent 70%);
+    animation: tourne 20s linear infinite;
+  }
+  .sous-bock.sb1 { top: 10%; left: 8%; }
+  .sous-bock.sb2 { bottom: 15%; right: 10%; width: 80px; height: 80px; animation-direction: reverse; }
+  .sous-bock.sb3 { top: 60%; left: 5%; width: 60px; height: 60px; }
+  .sous-bock.sb4 { top: 15%; right: 15%; width: 100px; height: 100px; animation-duration: 30s; }
+
+  @keyframes tourne {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+  }
+
+  .hero-tagline {
+    font-family: 'Caveat', cursive;
+    font-size: 1.8rem;
+    color: var(--or);
+    margin-bottom: 1rem;
+    letter-spacing: 2px;
+    opacity: 0;
+    animation: fadeUp 1s 0.3s forwards;
+  }
+
+  .hero h1 {
+    font-size: clamp(3.5rem, 10vw, 7rem);
+    font-weight: 700;
+    letter-spacing: -2px;
+    line-height: 1;
+    margin-bottom: 1.5rem;
+    text-shadow: 4px 4px 0 var(--rouge-sombre);
+    opacity: 0;
+    animation: fadeUp 1s 0.6s forwards;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--or);
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    font-weight: 300;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.9s forwards;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.85rem;
+    opacity: 0;
+    animation: fadeUp 1s 1.2s forwards;
+  }
+
+  .hero-meta span {
+    padding: 0.5rem 1.2rem;
+    border: 1px solid rgba(244,233,216,0.4);
+    background: rgba(0,0,0,0.2);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .scroll-down {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--creme);
+    font-family: 'Caveat', cursive;
+    font-size: 1.2rem;
+    animation: bounce 2s infinite;
+    z-index: 2;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-10px); }
+  }
+
+  /* === SECTIONS === */
+  section {
+    position: relative;
+    padding: 6rem 2rem;
+    z-index: 2;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .section-title .surtitle {
+    font-family: 'Caveat', cursive;
+    color: var(--rouge);
+    font-size: 1.6rem;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title h2 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    color: var(--bois);
+    position: relative;
+    display: inline-block;
+  }
+
+  .section-title h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--rouge);
+    margin: 1rem auto 0;
+  }
+
+  /* === À PROPOS === */
+  .apropos {
+    background: var(--creme);
+  }
+
+  .apropos-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .apropos-text p {
+    font-size: 1.15rem;
+    margin-bottom: 1.5rem;
+    color: var(--bois);
+  }
+
+  .apropos-text .lead {
+    font-size: 1.4rem;
+    font-style: italic;
+    color: var(--rouge);
+    border-left: 3px solid var(--rouge);
+    padding-left: 1.5rem;
+  }
+
+  .infos-card {
+    background: var(--rouge);
+    color: var(--creme);
+    padding: 3rem 2.5rem;
+    position: relative;
+    box-shadow: 8px 8px 0 var(--bois);
+  }
+
+  .infos-card::before {
+    content: '';
+    position: absolute;
+    top: 15px; left: 15px; right: 15px; bottom: 15px;
+    border: 1px solid rgba(244,233,216,0.3);
+    pointer-events: none;
+  }
+
+  .infos-card h3 {
+    font-family: 'Caveat', cursive;
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+    color: var(--or);
+  }
+
+  .infos-card ul {
+    list-style: none;
+  }
+
+  .infos-card li {
+    padding: 0.7rem 0;
+    border-bottom: 1px dashed rgba(244,233,216,0.3);
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.95rem;
+  }
+
+  .infos-card li::before {
+    content: '★ ';
+    color: var(--or);
+  }
+
+  .note-bloc {
+    margin-top: 2rem;
+    text-align: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(244,233,216,0.3);
+  }
+
+  .note-bloc .etoiles {
+    font-size: 1.5rem;
+    color: var(--or);
+  }
+
+  .note-bloc .note-txt {
+    font-family: 'Caveat', cursive;
+    font-size: 1.3rem;
+    margin-top: 0.5rem;
+  }
+
+  /* === MENU === */
+  .menu {
+    background: var(--bois);
+    color: var(--creme);
+    position: relative;
+  }
+
+  .menu::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(244,233,216,0.02) 40px, rgba(244,233,216,0.02) 41px);
+    pointer-events: none;
+  }
+
+  .menu .section-title h2 { color: var(--creme); }
+  .menu .section-title .surtitle { color: var(--or); }
+  .menu .section-title h2::after { background: var(--or); }
+
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+  }
+
+  .menu-cat {
+    background: rgba(244,233,216,0.05);
+    padding: 2.5rem 2rem;
+    border: 1px solid rgba(201,169,97,0.3);
+    transition: transform 0.3s;
+  }
+
+  .menu-cat:hover {
+    transform: translateY(-8px);
+    border-color: var(--or);
+  }
+
+  .menu-cat h3 {
+    font-family: 'Caveat', cursive;
+    font-size: 2.5rem;
+    color: var(--or);
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px dashed rgba(201,169,97,0.5);
+  }
+
+  .menu-item {
+    margin-bottom: 1.8rem;
+  }
+
+  .menu-item:last-child { margin-bottom: 0; }
+
+  .menu-item-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .menu-item-name {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--creme);
+    flex: 1;
+  }
+
+  .dots {
+    flex: 1;
+    border-bottom: 1px dotted rgba(244,233,216,0.4);
+    margin-bottom: 5px;
+  }
+
+  .menu-item-price {
+    font-family: 'Oswald', sans-serif;
+    color: var(--or);
+    font-weight: 500;
+    font-size: 1.1rem;
+  }
+
+  .menu-item-desc {
+    font-size: 0.9rem;
+    color: rgba(244,233,216,0.7);
+    font-style: italic;
+  }
+
+  /* === HORAIRES === */
+  .horaires {
+    background: var(--creme);
+  }
+
+  .horaires-box {
+    max-width: 700px;
+    margin: 0 auto;
+    background: white;
+    padding: 3rem;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+    border-top: 6px solid var(--rouge);
+    position: relative;
+  }
+
+  .horaires-box::before, .horaires-box::after {
+    content: '';
+    position: absolute;
+    top: -6px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--rouge);
+  }
+  .horaires-box::before { left: -15px; }
+  .horaires-box::after { right: -15px; }
+
+  .horaires-list {
+    list-style: none;
+  }
+
+  .horaires-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0;
+    border-bottom: 1px dashed rgba(0,0,0,0.15);
+    font-size: 1.05rem;
+  }
+
+  .horaires-list li:last-child { border-bottom: none; }
+
+  .horaires-list .jour {
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--bois);
+    font-weight: 500;
+  }
+
+  .horaires-list .heure {
+    color: var(--rouge);
+    font-weight: 700;
+  }
+
+  .horaires-list .ferme {
+    color: #999;
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  /* === AVIS === */
+  .avis {
+    background: var(--rouge-sombre);
+    color: var(--creme);
+  }
+
+  .avis .section-title h2 { color: var(--creme); }
+  .avis .section-title .surtitle { color: var(--or); }
+  .avis .section-title h2::after { background: var(--or); }
+
+  .avis-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .avis-card {
+    background: rgba(244,233,216,0.08);
+    padding: 2rem;
+    border-left: 3px solid var(--or);
+    position: relative;
+  }
+
+  .avis-card::before {
+    content: '"';
+    position: absolute;
+    top: -20px;
+    left: 15px;
+    font-size: 5rem;
+    color: var(--or);
+    font-family: 'Playfair Display', serif;
+    line-height: 1;
+  }
+
+  .avis-stars {
+    color: var(--or);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+  }
+
+  .avis-text {
+    font-style: italic;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .avis-author {
+    font-family: 'Caveat', cursive;
+    font-size: 1.4rem;
+    color: var(--or);
+  }
+
+  /* === CONTACT === */
+  .contact {
+    background: var(--creme);
+    text-align: center;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .contact-item {
+    padding: 2rem;
+    background: white;
+    border-bottom: 4px solid var(--rouge);
+    transition: transform 0.3s;
+  }
+
+  .contact-item:hover {
+    transform: translateY(-5px);
+  }
+
+  .contact-item .icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--rouge);
+  }
+
+  .contact-item h4 {
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--bois);
+    margin-bottom: 0.8rem;
+    font-size: 0.95rem;
+  }
+
+  .contact-item p, .contact-item a {
+    color: var(--noir);
+    text-decoration: none;
+    font-size: 1.1rem;
+  }
+
+  .contact-item a:hover { color: var(--rouge); }
+
+  .btn-itineraire {
+    display: inline-block;
+    padding: 1.2rem 3rem;
+    background: var(--rouge);
+    color: var(--creme);
+    text-decoration: none;
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: 500;
+    border: 2px solid var(--rouge);
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-itineraire:hover {
+    background: var(--bois);
+    border-color: var(--bois);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  }
+
+  /* === FOOTER === */
+  footer {
+    background: var(--noir);
+    color: var(--creme);
+    text-align: center;
+    padding: 2.5rem 2rem;
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    font-weight: 300;
+  }
+
+  footer .signature {
+    font-family: 'Caveat', cursive;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--or);
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+  }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 768px) {
+    section { padding: 4rem 1.5rem; }
+    .apropos-grid, .menu-grid, .avis-grid, .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .infos-card { box-shadow: 5px 5px 0 var(--bois); }
+    .horaires-box { padding: 2rem 1.5rem; }
+    .horaires-list li { font-size: 0.95rem; }
+    .hero-meta { gap: 0.8rem; }
+    .hero-meta span { font-size: 0.75rem; padding: 0.4rem 0.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="sous-bock sb1"></div>
+  <div class="sous-bock sb2"></div>
+  <div class="sous-bock sb3"></div>
+  <div class="sous-bock sb4"></div>
+  <div class="hero-content">
+    <span class="hero-tagline">~ Café-Restaurant traditionnel ~</span>
+    <h1>Les <em>Voisins</em></h1>
+    <p class="hero-subtitle">Bistrot de quartier · Paris 12<sup>e</sup></p>
+    <div class="hero-meta">
+      <span>★ 4,5 / 5</span>
+      <span>395 avis</span>
+      <span>€€</span>
+      <span>Depuis toujours</span>
+    </div>
+  </div>
+  <div class="scroll-down">↓ Poussez la porte</div>
+</section>
+
+<!-- À PROPOS -->
+<section class="apropos">
+  <div class="container">
+    <div class="section-title">
+      <span class="surtitle">Bienvenue chez nous</span>
+      <h2>La maison</h2>
+    </div>
+    <div class="apropos-grid">
+      <div class="apropos-text">
+        <p class="lead">« Un vrai bistrot parisien, comme on les aime : chaleureux, généreux, vivant. »</p>
+        <p>Aux <strong>Voisins</strong>, les tables et le bas des murs s'habillent de rouge, le bar patiné raconte les conversations de mille soirées, et les sous-bocks témoignent des verres partagés. Ici, on cultive l'art du bistrot traditionnel : une cuisine sincère, un service complice, et cette ambiance familiale qui fait revenir les habitants du quartier — et les autres.</p>
+        <p>Que ce soit pour un déjeuner sur le pouce, un dîner entre amis ou un dernier verre tard dans la nuit, on vous accueille comme à la maison. Le patron est aux fourneaux, le barman vous reconnaît, et la carte des vins fait la part belle aux belles bouteilles à prix doux.</p>
+      </div>
+      <aside class="infos-card">
+        <h3>L'essentiel</h3>
+        <ul>
+          <li>Sur place</li>
+          <li>Réservation possible</li>
+          <li>Petit-déjeuner, déjeuner, dîner</li>
+          <li>Bières & vins</li>
+          <li>Ouvert jusqu'à 2h du matin</li>
+          <li>Bistrot patiné & convivial</li>
+        </ul>
+        <div class="note-bloc">
+          <div class="etoiles">★ ★ ★ ★ ★</div>
+          <div class="note-txt">4,5 / 5 — sur 395 avis Google</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu">
+  <div class="container">
+    <div class="section-title">
+      <span class="surtitle">À l'ardoise</span>
+      <h2>Notre carte</h2>
+    </div>
+    <div class="menu-grid">
+      <div class="menu-cat">
+        <h3>Entrées</h3>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Œuf mayonnaise maison</span><span class="dots"></span><span class="menu-item-price">8 €</span></div>
+          <div class="menu-item-desc">L'incontournable du bistrot, à l'ancienne</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Soupe à l'oignon gratinée</span><span class="dots"></span><span class="menu-item-price">11 €</span></div>
+          <div class="menu-item-desc">Bouillon corsé, croûtons & comté</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Terrine de campagne</span><span class="dots"></span><span class="menu-item-price">10 €</span></div>
+          <div class="menu-item-desc">Cornichons & pain grillé</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Salade de chèvre chaud</span><span class="dots"></span><span class="menu-item-price">12 €</span></div>
+          <div class="menu-item-desc">Mesclun, miel, noix & lardons</div>
+        </div>
+      </div>
+
+      <div class="menu-cat">
+        <h3>Plats</h3>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Magret de canard confit</span><span class="dots"></span><span class="menu-item-price">23 €</span></div>
+          <div class="menu-item-desc">Pommes sarladaises & sauce au poivre</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Entrecôte, sauce béarnaise</span><span class="dots"></span><span class="menu-item-price">26 €</span></div>
+          <div class="menu-item-desc">300g, frites maison</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Blanquette de veau</span><span class="dots"></span><span class="menu-item-price">21 €</span></div>
+          <div class="menu-item-desc">Riz pilaf & champignons de Paris</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Tartare de bœuf au couteau</span><span class="dots"></span><span class="menu-item-price">22 €</span></div>
+          <div class="menu-item-desc">Coupé minute, condiments traditionnels</div>
+        </div>
+      </div>
+
+      <div class="menu-cat">
+        <h3>Desserts</h3>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Crème brûlée</span><span class="dots"></span><span class="menu-item-price">8 €</span></div>
+          <div class="menu-item-desc">Vanille de Madagascar</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Tarte Tatin</span><span class="dots"></span><span class="menu-item-price">9 €</span></div>
+          <div class="menu-item-desc">Crème fraîche d'Isigny</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Mousse au chocolat</span><span class="dots"></span><span class="menu-item-price">8 €</span></div>
+          <div class="menu-item-desc">Chocolat noir 70%, à la louche</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Île flottante</span><span class="dots"></span><span class="menu-item-price">8 €</span></div>
+          <div class="menu-item-desc">Crème anglaise & caramel</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HORAIRES -->
+<section class="horaires">
+  <div class="container">
+    <div class="section-title">
+      <span class="surtitle">Quand passer ?</span>
+      <h2>Horaires</h2>
+    </div>
+    <div class="horaires-box">
+      <ul class="horaires-list">
+        <li><span class="jour">Lundi</span><span class="heure">12h – 15h · 19h – 2h</span></li>
+        <li><span class="jour">Mardi</span><span class="heure">12h – 15h · 19h – 2h</span></li>
+        <li><span class="jour">Mercredi</span><span class="heure">12h – 15h · 19h – 2h</span></li>
+        <li><span class="jour">Jeudi</span><span class="heure">12h – 15h · 19h – 2h</span></li>
+        <li><span class="jour">Vendredi</span><span class="heure">12h – 15h · 19h – 2h</span></li>
+        <li><span class="jour">Samedi</span><span class="heure">12h – 15h · 19h – 2h</span></li>
+        <li><span class="jour">Dimanche</span><span class="heure ferme">Fermé</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- AVIS -->
+<section class="avis">
+  <div class="container">
+    <div class="section-title">
+      <span class="surtitle">Le mot des voisins</span>
+      <h2>Ils en parlent</h2>
+    </div>
+    <div class="avis-grid">
+      <div class="avis-card">
+        <div class="avis-stars">★ ★ ★ ★ ★</div>
+        <p class="avis-text">Les saveurs, les quantités, les présentations des plats, le service vraiment top. Superbe découverte du quartier. Nous reviendrons sans hésiter.</p>
+        <div class="avis-author">— Mathilde L.</div>
+      </div>
+      <div class="avis-card">
+        <div class="avis-stars">★ ★ ★ ★ ★</div>
+        <p class="avis-text">Magnifique endroit. J'y passais presque chaque jour pendant les vacances. L'ambiance est chaleureuse, les gens sont agréables, accueillants et très gentils.</p>
+        <div class="avis-author">— Brahim K.</div>
+      </div>
+      <div class="avis-card">
+        <div class="avis-stars">★ ★ ★ ★ ★</div>
+        <p class="avis-text">Très bonne expérience ! Le patron et le serveur nous ont accueilli chaleureusement. Le magret de canard confit était à tomber par terre.</p>
+        <div class="avis-author">— Paul F.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact">
+  <div class="container">
+    <div class="section-title">
+      <span class="surtitle">On vous attend</span>
+      <h2>Nous trouver</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-item">
+        <div class="icon">📍</div>
+        <h4>Adresse</h4>
+        <p>14 Rue de Capri<br>75012 Paris</p>
+      </div>
+      <div class="contact-item">
+        <div class="icon">📞</div>
+        <h4>Téléphone</h4>
+        <p><a href="tel:+33144670866">01 44 67 08 66</a></p>
+      </div>
+      <div class="contact-item">
+        <div class="icon">🍷</div>
+        <h4>Réservation</h4>
+        <p>Sur place ou par téléphone</p>
+      </div>
+    </div>
+    <a href="https://maps.google.com/?cid=3986453290853081124" target="_blank" rel="noopener" class="btn-itineraire">Itinéraire →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="signature">Les Voisins</div>
+  <div>© 2024 · Bistrot parisien · Paris 12<sup>e</sup></div>
+</footer>
+
+</body>
+</html>

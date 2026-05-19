@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le Bistro de Buci — Bistrot Parisien · Saint-Germain-des-Prés</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bordeaux: #6b1f2a;
+    --bordeaux-dark: #4a141c;
+    --cream: #f4ead5;
+    --cream-light: #faf4e4;
+    --gold: #b8893b;
+    --gold-light: #d4a857;
+    --ink: #2b1810;
+    --paper: #f1e7d0;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Cormorant Garamond', serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 18px;
+  }
+
+  /* ── HERO ───────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    background:
+      linear-gradient(rgba(40,15,10,0.55), rgba(40,15,10,0.7)),
+      radial-gradient(ellipse at top, #6b1f2a 0%, #2b1810 70%);
+    background-size: cover;
+    background-position: center;
+    color: var(--cream-light);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 20px;
+    border: 1px solid rgba(212,168,87,0.4);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: "";
+    position: absolute;
+    inset: 30px;
+    border: 1px solid rgba(212,168,87,0.2);
+    pointer-events: none;
+  }
+  .hero-overline {
+    font-family: 'Special Elite', monospace;
+    letter-spacing: 0.4em;
+    font-size: 0.85rem;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    animation: fadeDown 1.2s ease;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: clamp(3rem, 9vw, 7rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 1.2s ease;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold-light);
+    font-weight: 400;
+  }
+  .hero-sub {
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    font-style: italic;
+    max-width: 600px;
+    color: rgba(244,234,213,0.9);
+    margin-bottom: 2rem;
+    animation: fadeUp 1.4s ease;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-family: 'Special Elite', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    margin-top: 1rem;
+    animation: fadeUp 1.6s ease;
+  }
+  .hero-meta span { display: flex; align-items: center; gap: 0.5rem; }
+  .hero-meta .dot { color: var(--cream); }
+  .scroll-cue {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--gold-light);
+    font-family: 'Special Elite', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    animation: bob 2s infinite ease-in-out;
+  }
+  .scroll-cue::after {
+    content: "";
+    display: block;
+    width: 1px;
+    height: 30px;
+    background: var(--gold-light);
+    margin: 0.5rem auto 0;
+  }
+
+  /* ── SECTIONS COMMON ────────────────── */
+  section { padding: 6rem 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    text-align: center;
+    color: var(--bordeaux);
+    margin-bottom: 1rem;
+    position: relative;
+  }
+  .section-title em { font-style: italic; color: var(--gold); font-weight: 400; }
+  .section-overline {
+    display: block;
+    text-align: center;
+    font-family: 'Special Elite', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1.5rem auto 3rem;
+    color: var(--gold);
+  }
+  .ornament::before, .ornament::after {
+    content: "";
+    width: 60px;
+    height: 1px;
+    background: var(--gold);
+  }
+  .ornament span { font-size: 1.2rem; }
+
+  /* ── À PROPOS ───────────────────────── */
+  .about {
+    background: var(--cream-light);
+    position: relative;
+  }
+  .about-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  .about-text p {
+    font-size: 1.15rem;
+    margin-bottom: 1.2rem;
+    color: #3d2a1f;
+  }
+  .about-text p.lead {
+    font-size: 1.4rem;
+    font-style: italic;
+    color: var(--bordeaux);
+    line-height: 1.5;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .info-card {
+    background: white;
+    border: 1px solid rgba(184,137,59,0.3);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .info-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(107,31,42,0.15);
+  }
+  .info-card .icon {
+    font-size: 1.8rem;
+    color: var(--bordeaux);
+    margin-bottom: 0.8rem;
+  }
+  .info-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--bordeaux);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+  }
+  .info-card p {
+    font-size: 1rem;
+    color: #5a4030;
+  }
+  .rating {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 2rem 0;
+    font-family: 'Special Elite', monospace;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    font-size: 0.95rem;
+  }
+  .stars { color: var(--gold); letter-spacing: 0.1em; }
+
+  /* ── MENU ───────────────────────────── */
+  .menu {
+    background:
+      linear-gradient(rgba(75,20,28,0.92), rgba(40,15,10,0.95)),
+      repeating-linear-gradient(45deg, rgba(0,0,0,0.05) 0 2px, transparent 2px 12px);
+    color: var(--cream-light);
+  }
+  .menu .section-title { color: var(--cream-light); }
+  .menu .section-title em { color: var(--gold-light); }
+  .menu .section-overline { color: var(--gold-light); }
+  .menu .ornament { color: var(--gold-light); }
+  .menu .ornament::before, .menu .ornament::after { background: var(--gold-light); }
+
+  .menu-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    margin-top: 2rem;
+  }
+  .menu-category h3 {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 2rem;
+    color: var(--gold-light);
+    text-align: center;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+  .menu-category h3::after {
+    content: "✦";
+    display: block;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+    color: var(--gold-light);
+    opacity: 0.7;
+  }
+  .menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px dotted rgba(212,168,87,0.3);
+  }
+  .menu-item:last-child { border-bottom: none; }
+  .menu-item-head { flex: 1; }
+  .menu-item h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--cream-light);
+    font-weight: 400;
+    margin-bottom: 0.3rem;
+  }
+  .menu-item p {
+    font-size: 0.95rem;
+    color: rgba(244,234,213,0.7);
+    font-style: italic;
+  }
+  .menu-item .price {
+    font-family: 'Special Elite', monospace;
+    color: var(--gold-light);
+    font-size: 1.1rem;
+    white-space: nowrap;
+  }
+  .menu-note {
+    text-align: center;
+    margin-top: 3rem;
+    font-style: italic;
+    color: rgba(244,234,213,0.6);
+    font-size: 1rem;
+  }
+
+  /* ── HORAIRES ───────────────────────── */
+  .hours { background: var(--cream-light); }
+  .hours-card {
+    max-width: 600px;
+    margin: 0 auto;
+    background: white;
+    border: 1px solid rgba(184,137,59,0.3);
+    padding: 3rem;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(107,31,42,0.08);
+  }
+  .hours-list { list-style: none; margin-top: 1.5rem; }
+  .hours-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.7rem 0;
+    border-bottom: 1px dotted rgba(184,137,59,0.3);
+    font-size: 1.1rem;
+  }
+  .hours-list li:last-child { border-bottom: none; }
+  .hours-list .day {
+    font-family: 'Playfair Display', serif;
+    color: var(--bordeaux);
+    text-transform: capitalize;
+  }
+  .hours-list .time {
+    font-family: 'Special Elite', monospace;
+    color: var(--ink);
+    font-size: 0.95rem;
+  }
+  .hours-banner {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: var(--bordeaux);
+    color: var(--cream-light);
+    font-family: 'Special Elite', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  /* ── CONTACT ────────────────────────── */
+  .contact {
+    background: var(--ink);
+    color: var(--cream-light);
+    text-align: center;
+  }
+  .contact .section-title { color: var(--cream-light); }
+  .contact .section-title em { color: var(--gold-light); }
+  .contact .section-overline { color: var(--gold-light); }
+  .contact .ornament { color: var(--gold-light); }
+  .contact .ornament::before, .contact .ornament::after { background: var(--gold-light); }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin: 3rem 0;
+  }
+  .contact-block h4 {
+    font-family: 'Special Elite', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .contact-block p, .contact-block a {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--cream-light);
+    text-decoration: none;
+    line-height: 1.5;
+  }
+  .contact-block a:hover { color: var(--gold-light); }
+
+  .btn {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 1.2rem 3rem;
+    background: var(--bordeaux);
+    color: var(--cream-light);
+    text-decoration: none;
+    font-family: 'Special Elite', monospace;
+    letter-spacing: 0.3em;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    border: 1px solid var(--gold-light);
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  .btn:hover {
+    background: var(--gold);
+    color: var(--ink);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(184,137,59,0.3);
+  }
+
+  footer {
+    background: #1a0e09;
+    color: rgba(244,234,213,0.5);
+    text-align: center;
+    padding: 2rem;
+    font-family: 'Special Elite', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+  }
+
+  /* ── ANIMATIONS ─────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes bob {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(10px); }
+  }
+
+  /* ── RESPONSIVE ─────────────────────── */
+  @media (min-width: 768px) {
+    .menu-grid { grid-template-columns: repeat(3, 1fr); }
+    .about-content { grid-template-columns: 1.2fr 1fr; }
+    .contact-grid { grid-template-columns: repeat(2, 1fr); }
+    section { padding: 8rem 3rem; }
+  }
+  @media (max-width: 480px) {
+    .hero-meta { gap: 1rem; font-size: 0.7rem; }
+    .hours-card { padding: 2rem 1.5rem; }
+    .hours-list li { font-size: 1rem; flex-direction: column; gap: 0.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <p class="hero-overline">Bistrot · Saint-Germain-des-Prés · Paris VI</p>
+  <h1>Le Bistro<br><em>de Buci</em></h1>
+  <p class="hero-sub">L'âme d'un bistrot parisien, au cœur de la rue de Buci — cuisine de tradition, ambiance chaleureuse et l'esprit Rive Gauche.</p>
+  <div class="hero-meta">
+    <span>★ 4.7 / 5</span>
+    <span class="dot">·</span>
+    <span>369 avis</span>
+    <span class="dot">·</span>
+    <span>Ouvert 7j/7</span>
+  </div>
+  <a href="#contact" class="scroll-cue">Découvrir</a>
+</header>
+
+<!-- À PROPOS -->
+<section class="about" id="about">
+  <div class="container">
+    <span class="section-overline">Notre Maison</span>
+    <h2 class="section-title">L'esprit <em>bistrot</em></h2>
+    <div class="ornament"><span>✦</span></div>
+
+    <div class="about-content">
+      <div class="about-text">
+        <p class="lead">« Une superbe découverte : déco, ambiance, service et plats délicieux. »</p>
+        <p>Niché au numéro 12 de la rue de Buci, dans le mythique quartier de Saint-Germain-des-Prés, <strong>Le Bistro de Buci</strong> perpétue la tradition du bistrot parisien avec une élégance retrouvée. Boiseries patinées, miroirs anciens, banquettes en velours et l'animation joyeuse d'une salle qui vibre du matin jusqu'au cœur de la nuit.</p>
+        <p>Ici, l'on travaille des produits frais, des classiques maîtrisés, et l'on accueille avec ce mélange si parisien de chaleur et de professionnalisme. Une adresse cosy où l'on s'attarde — pour un café, un verre de vin, ou un dîner qui se prolonge.</p>
+      </div>
+      <div class="about-text">
+        <div class="rating">
+          <span class="stars">★ ★ ★ ★ ★</span>
+          <span>4.7 / 5 · 369 avis</span>
+        </div>
+        <p style="font-style:italic; text-align:center; color:#5a4030;">« Accueil très chaleureux et très professionnel. Nourriture très bonne et ambiance très cosy. »<br><small style="opacity:0.7;">— Kenna, cliente</small></p>
+      </div>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="icon">⚜</div>
+        <h4>Sur Place</h4>
+        <p>Salle & terrasse</p>
+      </div>
+      <div class="info-card">
+        <div class="icon">✦</div>
+        <h4>Réservation</h4>
+        <p>Sur demande</p>
+      </div>
+      <div class="info-card">
+        <div class="icon">🍷</div>
+        <h4>Cave</h4>
+        <p>Vins sélectionnés</p>
+      </div>
+      <div class="info-card">
+        <div class="icon">⏱</div>
+        <h4>7 jours / 7</h4>
+        <p>9h — 2h du matin</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu" id="menu">
+  <div class="container">
+    <span class="section-overline">À la carte</span>
+    <h2 class="section-title">Le <em>Menu</em></h2>
+    <div class="ornament"><span>✦</span></div>
+
+    <div class="menu-grid">
+
+      <div class="menu-category">
+        <h3>Entrées</h3>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <h4>Œuf mayonnaise</h4>
+            <p>Œuf fermier, mayonnaise maison, ciboulette</p>
+          </div>
+          <span class="price">9 €</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <h4>Soupe à l'oignon gratinée</h4>
+            <p>Bouillon corsé, croûtons, comté affiné</p>
+          </div>
+          <span class="price">14 €</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <h4>Foie gras maison</h4>
+            <p>Mi-cuit au Sauternes, chutney de figues</p>
+          </div>
+          <span class="price">18 €</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <h4>Escargots de Bourgogne</h4>
+            <p>Les six, beurre persillé à l'ail des ours</p>
+          </div>
+          <span class="price">15 €</span>
+        </div>
+      </div>
+
+      <div class="menu-category">
+        <h3>Plats</h3>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <h4>Entrecôte, sauce béarnaise</h4>
+            <p>Pièce du boucher 300g, frites maison</p>
+          </div>
+          <span class="price">29 €</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <h4>Confit de canard du Sud-Ouest</h4>
+            <p>Pommes sarladaises, salade frisée</p>
+          </div>
+          <span class="price">26 €</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <h4>Filet de bar rôti</h4>
+            <p>Beurre blanc, légumes de saison</p>
+          </div>
+          <span class="price">28 €</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <h4>Blanquette de veau</h4>
+            <p>À l'ancienne, riz pilaf, champignons</p>
+          </div>
+          <span class="price">24 €</span>
+        </div>
+      </div>
+
+      <div class="menu-category">
+        <h3>Desserts</h3>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <h4>Crème brûlée à la vanille</h4>
+            <p>Vanille Bourbon, sucre caramélisé</p>
+          </div>
+          <span class="price">9 €</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <h4>Tarte Tatin tiède</h4>
+            <p>Pommes confites, crème fraîche d'Isigny</p>
+          </div>
+          <span class="price">10 €</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <h4>Profiteroles</h4>
+            <p>Glace vanille, chocolat chaud, amandes</p>
+          </div>
+          <span class="price">11 €</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <h4>Île flottante</h4>
+            <p>Crème anglaise, praline rose, caramel</p>
+          </div>
+          <span class="price">9 €</span>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="menu-note">— Carte indicative susceptible d'évoluer au gré du marché —</p>
+  </div>
+</section>
+
+<!-- HORAIRES -->
+<section class="hours" id="hours">
+  <div class="container">
+    <span class="section-overline">Ouverture</span>
+    <h2 class="section-title">Nos <em>horaires</em></h2>
+    <div class="ornament"><span>✦</span></div>
+
+    <div class="hours-card">
+      <p style="font-style:italic; color:var(--bordeaux); font-size:1.2rem; margin-bottom:1rem;">Ouvert tous les jours, du petit-déjeuner aux dernières heures de la nuit.</p>
+      <ul class="hours-list">
+        <li><span class="day">Lundi</span><span class="time">09:00 — 02:00</span></li>
+        <li><span class="day">Mardi</span><span class="time">09:00 — 02:00</span></li>
+        <li><span class="day">Mercredi</span><span class="time">09:00 — 02:00</span></li>
+        <li><span class="day">Jeudi</span><span class="time">09:00 — 02:00</span></li>
+        <li><span class="day">Vendredi</span><span class="time">09:00 — 02:00</span></li>
+        <li><span class="day">Samedi</span><span class="time">09:00 — 02:00</span></li>
+        <li><span class="day">Dimanche</span><span class="time">09:00 — 02:00</span></li>
+      </ul>
+      <div class="hours-banner">Service continu · 7 jours / 7</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <span class="section-overline">Nous trouver</span>
+    <h2 class="section-title">À <em>bientôt</em></h2>
+    <div class="ornament"><span>✦</span></div>
+
+    <div class="contact-grid">
+      <div class="contact-block">
+        <h4>Adresse</h4>
+        <p>12 Rue de Buci<br>75006 Paris</p>
+      </div>
+      <div class="contact-block">
+        <h4>Réservations</h4>
+        <p><a href="tel:+33144410005">01 44 41 00 05</a></p>
+      </div>
+    </div>
+
+    <a href="https://maps.google.com/?cid=5202566676509712832" target="_blank" rel="noopener" class="btn">Itinéraire →</a>
+  </div>
+</section>
+
+<footer>
+  © Le Bistro de Buci · 12 Rue de Buci, 75006 Paris
+</footer>
+
+</body>
+</html>

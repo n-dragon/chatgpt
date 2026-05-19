@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rannouch City - Meilleur Libanais à Paris 3e</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  :root {
+    --cedar-green: #2d5840;
+    --cedar-dark: #1a3a28;
+    --gold: #c9a961;
+    --gold-light: #e0c890;
+    --cream: #f8f1e3;
+    --warm-white: #fdf9f0;
+    --terracotta: #c75d3a;
+    --dark: #1a1a1a;
+  }
+  
+  body {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--dark);
+    background: var(--warm-white);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  
+  h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 600; }
+  .arabic { font-family: 'Amiri', serif; }
+  
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--cedar-dark) 0%, var(--cedar-green) 100%);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--cream);
+    padding: 2rem;
+    overflow: hidden;
+  }
+  
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      radial-gradient(circle at 20% 30%, rgba(201, 169, 97, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(199, 93, 58, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath d='M30 0L37 23H60L41 37L48 60L30 46L12 60L19 37L0 23H23Z' fill='%23c9a961' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  
+  .hero-content { position: relative; z-index: 2; max-width: 900px; animation: fadeUp 1.2s ease-out; }
+  
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .hero-tag {
+    font-size: 0.85rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+  }
+  
+  .hero-arabic {
+    font-size: 2.5rem;
+    color: var(--gold-light);
+    margin-bottom: 0.5rem;
+    opacity: 0.9;
+  }
+  
+  .hero h1 {
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+    color: var(--cream);
+    font-weight: 700;
+  }
+  
+  .hero h1 .accent { color: var(--gold); font-style: italic; }
+  
+  .hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.1rem, 2vw, 1.6rem);
+    font-style: italic;
+    color: var(--cream);
+    opacity: 0.9;
+    margin-bottom: 2.5rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .hero-rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(0,0,0,0.25);
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    border: 1px solid var(--gold);
+    margin-bottom: 2.5rem;
+  }
+  
+  .stars { color: var(--gold); font-size: 1.2rem; letter-spacing: 2px; }
+  
+  .btn {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: var(--gold);
+    color: var(--cedar-dark);
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    border: 2px solid var(--gold);
+    transition: all 0.3s ease;
+    margin: 0.5rem;
+  }
+  
+  .btn:hover { background: transparent; color: var(--gold); transform: translateY(-2px); }
+  
+  .btn-outline {
+    background: transparent;
+    color: var(--cream);
+    border-color: var(--cream);
+  }
+  
+  .btn-outline:hover { background: var(--cream); color: var(--cedar-dark); }
+  
+  /* SECTIONS */
+  section { padding: 6rem 2rem; }
+  
+  .container { max-width: 1200px; margin: 0 auto; }
+  
+  .section-title {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  
+  .section-title .pre {
+    display: block;
+    font-size: 0.85rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+  }
+  
+  .section-title h2 {
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    color: var(--cedar-dark);
+  }
+  
+  .section-title .ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .section-title .ornament::before,
+  .section-title .ornament::after {
+    content: '';
+    width: 60px;
+    height: 1px;
+    background: var(--gold);
+  }
+  
+  .section-title .ornament span { color: var(--gold); }
+  
+  /* ABOUT */
+  .about { background: var(--cream); position: relative; }
+  
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  
+  .about-text p {
+    margin-bottom: 1.2rem;
+    font-size: 1.05rem;
+    color: #4a4a4a;
+  }
+  
+  .about-text p:first-of-type::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4rem;
+    float: left;
+    line-height: 1;
+    padding: 0.3rem 0.8rem 0 0;
+    color: var(--terracotta);
+    font-weight: 700;
+  }
+  
+  .about-visual {
+    background: linear-gradient(135deg, var(--cedar-green), var(--cedar-dark));
+    aspect-ratio: 4/5;
+    border-radius: 4px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    overflow: hidden;
+  }
+  
+  .about-visual::before {
+    content: '';
+    position: absolute;
+    inset: 20px;
+    border: 1px solid var(--gold);
+    opacity: 0.5;
+  }
+  
+  .about-visual-content {
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .about-visual-content .arabic {
+    font-size: 4rem;
+    color: var(--gold-light);
+    margin-bottom: 1rem;
+  }
+  
+  .about-visual-content h3 {
+    color: var(--cream);
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .about-visual-content p {
+    color: var(--gold-light);
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+  }
+  
+  .services {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  
+  .service {
+    background: white;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    border-bottom: 3px solid var(--terracotta);
+    transition: transform 0.3s ease;
+  }
+  
+  .service:hover { transform: translateY(-5px); }
+  
+  .service-icon { font-size: 1.8rem; margin-bottom: 0.5rem; }
+  
+  .service h4 { font-family: 'Montserrat', sans-serif; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--cedar-dark); }
+  
+  /* MENU */
+  .menu { background: var(--warm-white); }
+  
+  .menu-categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 3rem;
+  }
+  
+  .menu-category {
+    background: white;
+    padding: 2.5rem 2rem;
+    border-top: 4px solid var(--gold);
+    box-shadow: 0 10px 40px rgba(45, 88, 64, 0.08);
+    position: relative;
+  }
+  
+  .menu-category h3 {
+    text-align: center;
+    font-size: 1.8rem;
+    color: var(--cedar-dark);
+    margin-bottom: 0.5rem;
+  }
+  
+  .menu-category .cat-sub {
+    text-align: center;
+    font-family: 'Amiri', serif;
+    color: var(--terracotta);
+    margin-bottom: 2rem;
+    font-size: 1.3rem;
+  }
+  
+  .menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 1.2rem 0;
+    border-bottom: 1px dashed #e0d4b8;
+  }
+  
+  .menu-item:last-child { border-bottom: none; }
+  
+  .menu-item-info { flex: 1; }
+  
+  .menu-item h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    color: var(--cedar-dark);
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+  }
+  
+  .menu-item p {
+    font-size: 0.85rem;
+    color: #7a7a7a;
+    line-height: 1.4;
+  }
+  
+  .menu-item .price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--terracotta);
+    white-space: nowrap;
+  }
+  
+  .menu-note {
+    text-align: center;
+    margin-top: 3rem;
+    font-style: italic;
+    color: #7a7a7a;
+  }
+  
+  /* HOURS */
+  .hours {
+    background: var(--cedar-dark);
+    color: var(--cream);
+    position: relative;
+  }
+  
+  .hours::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cpath d='M40 0L50 30L80 40L50 50L40 80L30 50L0 40L30 30Z' fill='%23c9a961' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  
+  .hours .section-title h2 { color: var(--cream); }
+  .hours .section-title .pre { color: var(--gold); }
+  
+  .hours-list {
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .hour-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.2rem 1.5rem;
+    border-bottom: 1px solid rgba(201, 169, 97, 0.2);
+    transition: background 0.3s ease;
+  }
+  
+  .hour-row:hover { background: rgba(201, 169, 97, 0.05); }
+  
+  .hour-row.today {
+    background: rgba(201, 169, 97, 0.15);
+    border-left: 3px solid var(--gold);
+    padding-left: 1.2rem;
+  }
+  
+  .hour-row .day {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    color: var(--gold-light);
+    text-transform: capitalize;
+  }
+  
+  .hour-row .time {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    color: var(--cream);
+  }
+  
+  /* CONTACT */
+  .contact { background: var(--cream); }
+  
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+  
+  .contact-card {
+    text-align: center;
+    padding: 2rem;
+  }
+  
+  .contact-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 1.5rem;
+    background: var(--cedar-green);
+    color: var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+  }
+  
+  .contact-card h3 {
+    color: var(--cedar-dark);
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .contact-card p, .contact-card a {
+    color: #4a4a4a;
+    text-decoration: none;
+    font-size: 1.05rem;
+    display: block;
+    transition: color 0.3s ease;
+  }
+  
+  .contact-card a:hover { color: var(--terracotta); }
+  
+  .contact-cta { text-align: center; margin-top: 2rem; }
+  
+  .btn-primary {
+    background: var(--terracotta);
+    border-color: var(--terracotta);
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background: transparent;
+    color: var(--terracotta);
+  }
+  
+  /* FOOTER */
+  footer {
+    background: var(--dark);
+    color: var(--cream);
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.85rem;
+  }
+  
+  footer .arabic { color: var(--gold); font-size: 1.5rem; margin-bottom: 0.5rem; }
+  
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    section { padding: 4rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .about-visual { aspect-ratio: 1; max-width: 400px; margin: 0 auto; }
+    .hero { min-height: 90vh; }
+    .hour-row { padding: 1rem; }
+    .menu-categories { gap: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-arabic arabic">رنوش</div>
+    <p class="hero-tag">★ Meilleur Libanais à Paris 3e ★</p>
+    <h1>Rannouch <span class="accent">City</span></h1>
+    <p class="hero-subtitle">L'authentique saveur du Liban au cœur du Marais — chaleur, générosité et tradition depuis des années.</p>
+    <div class="hero-rating">
+      <span class="stars">★★★★★</span>
+      <span><strong>4.8</strong> · 1 888 avis Google</span>
+    </div>
+    <div>
+      <a href="#menu" class="btn">Découvrir le menu</a>
+      <a href="tel:+33984156419" class="btn btn-outline">Réserver</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="section-title">
+      <span class="pre">Notre Maison</span>
+      <h2>Une table libanaise pleine d'âme</h2>
+      <div class="ornament"><span>✦</span></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>Niché au 44 rue de Turbigo, dans le 3e arrondissement de Paris, <strong>Rannouch City</strong> est bien plus qu'un restaurant libanais : c'est un véritable voyage sensoriel. Dès l'entrée, on est accueilli par un sourire, un verre de thé chaud et l'arôme envoûtant des épices du Levant.</p>
+        <p>Nos plats, préparés avec passion et générosité, célèbrent l'authenticité de la cuisine libanaise traditionnelle. Mezzés colorés, grillades parfumées au charbon, douceurs au miel et à la fleur d'oranger : chaque bouchée raconte une histoire.</p>
+        <p>Ici, la convivialité n'est pas un mot, c'est une manière de vivre. <em>Ahla wa Sahla</em> — bienvenue chez nous.</p>
+      </div>
+      <div class="about-visual">
+        <div class="about-visual-content">
+          <div class="arabic">أهلاً</div>
+          <h3>Ahla wa Sahla</h3>
+          <p>« Bienvenue dans notre maison »</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="services">
+      <div class="service"><div class="service-icon">🍽️</div><h4>Sur Place</h4></div>
+      <div class="service"><div class="service-icon">🥡</div><h4>À Emporter</h4></div>
+      <div class="service"><div class="service-icon">🛵</div><h4>Livraison</h4></div>
+      <div class="service"><div class="service-icon">📅</div><h4>Réservation</h4></div>
+      <div class="service"><div class="service-icon">🌱</div><h4>Options Veggie</h4></div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu" id="menu">
+  <div class="container">
+    <div class="section-title">
+      <span class="pre">À la carte</span>
+      <h2>Saveurs du Levant</h2>
+      <div class="ornament"><span>✦</span></div>
+    </div>
+    
+    <div class="menu-categories">
+      <!-- MEZZÉS -->
+      <div class="menu-category">
+        <h3>Mezzés</h3>
+        <p class="cat-sub arabic">المقبلات</p>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <h4>Houmous</h4>
+            <p>Purée de pois chiches, tahini, huile d'olive</p>
+          </div>
+          <span class="price">7€</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <h4>Moutabal</h4>
+            <p>Caviar d'aubergine fumée au sésame</p>
+          </div>
+          <span class="price">8€</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <h4>Taboulé Libanais</h4>
+            <p>Persil, menthe, tomate, boulgour fin</p>
+          </div>
+          <span class="price">8€</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <h4>Falafels Maison</h4>
+            <p>Six boulettes croustillantes, sauce blanche</p>
+          </div>
+          <span class="price">9€</span>
+        </div>
+      </div>
+      
+      <!-- PLATS -->
+      <div class="menu-category">
+        <h3>Plats</h3>
+        <p class="cat-sub arabic">الأطباق الرئيسية</p>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <h4>Chich Taouk</h4>
+            <p>Brochettes de poulet marinées, riz, ail</p>
+          </div>
+          <span class="price">16€</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <h4>Kafta Grillée</h4>
+            <p>Bœuf haché aux herbes, oignons, épices</p>
+          </div>
+          <span class="price">17€</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <h4>Mixed Grill</h4>
+            <p>Trio de grillades, riz et légumes confits</p>
+          </div>
+          <span class="price">22€</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <h4>Assiette Végétarienne</h4>
+            <p>Sélection de mezzés chauds et froids</p>
+          </div>
+          <span class="price">15€</span>
+        </div>
+      </div>
+      
+      <!-- DESSERTS -->
+      <div class="menu-category">
+        <h3>Douceurs</h3>
+        <p class="cat-sub arabic">الحلويات</p>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <h4>Baklava</h4>
+            <p>Pâte filo, pistaches, miel de fleur d'oranger</p>
+          </div>
+          <span class="price">6€</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <h4>Mouhalabieh</h4>
+            <p>Crème de lait à la rose et pistaches</p>
+          </div>
+          <span class="price">6€</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <h4>Knefeh</h4>
+            <p>Fromage chaud, semoule, sirop d'orgeat</p>
+          </div>
+          <span class="price">8€</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <h4>Thé à la Menthe</h4>
+            <p>Servi avec la générosité du Liban</p>
+          </div>
+          <span class="price">4€</span>
+        </div>
+      </div>
+    </div>
+    
+    <p class="menu-note">— Carte à titre indicatif. Plats végétariens disponibles. —</p>
+  </div>
+</section>
+
+<!-- HOURS -->
+<section class="hours" id="hours">
+  <div class="container">
+    <div class="section-title">
+      <span class="pre">Toujours ouvert pour vous</span>
+      <h2>Horaires d'ouverture</h2>
+      <div class="ornament"><span>✦</span></div>
+    </div>
+    <div class="hours-list">
+      <div class="hour-row"><span class="day">Lundi</span><span class="time">11h30 – 01h00</span></div>
+      <div class="hour-row"><span class="day">Mardi</span><span class="time">11h30 – 01h00</span></div>
+      <div class="hour-row"><span class="day">Mercredi</span><span class="time">11h30 – 01h00</span></div>
+      <div class="hour-row"><span class="day">Jeudi</span><span class="time">11h30 – 01h00</span></div>
+      <div class="hour-row"><span class="day">Vendredi</span><span class="time">11h30 – 01h30</span></div>
+      <div class="hour-row"><span class="day">Samedi</span><span class="time">11h30 – 01h30</span></div>
+      <div class="hour-row"><span class="day">Dimanche</span><span class="time">11h30 – 00h00</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="section-title">
+      <span class="pre">Venez nous voir</span>
+      <h2>Nous trouver</h2>
+      <div class="ornament"><span>✦</span></div>
+    </div>
+    
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="contact-icon">📍</div>
+        <h3>Adresse</h3>
+        <p>44 Rue de Turbigo<br>75003 Paris, France</p>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">📞</div>
+        <h3>Téléphone</h3>
+        <a href="tel:+33984156419">09 84 15 64 19</a>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">🕐</div>
+        <h3>Service</h3>
+        <p>Petit-déjeuner<br>Déjeuner · Dîner</p>
+      </div>
+    </div>
+    
+    <div class="contact-cta">
+      <a href="https://maps.google.com/?cid=7839310230258892620" target="_blank" rel="noopener" class="btn btn-primary">→ Obtenir l'itinéraire</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="arabic">رنوش سيتي</div>
+  <p>© Rannouch City · 44 Rue de Turbigo, 75003 Paris · Fait avec ❤️ au Liban</p>
+</footer>
+
+</body>
+</html>

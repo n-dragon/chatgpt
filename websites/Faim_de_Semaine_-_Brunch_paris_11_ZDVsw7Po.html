@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Faim de Semaine — Brunch Paris 11</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=DM+Serif+Display&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --cream:#fdf6ec;
+    --peach:#f5c89c;
+    --terracotta:#d97b5e;
+    --olive:#6b7a4f;
+    --charcoal:#2b2418;
+    --mustard:#e6b450;
+  }
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--cream);
+    color:var(--charcoal);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{font-family:'DM Serif Display',serif;font-weight:400}
+  .script{font-family:'Caveat',cursive}
+
+  /* ==== NAV ==== */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    padding:1.2rem 2rem;
+    display:flex;justify-content:space-between;align-items:center;
+    background:rgba(253,246,236,0.92);backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(43,36,24,0.08);
+  }
+  nav .logo{font-family:'Caveat',cursive;font-size:1.6rem;color:var(--terracotta);font-weight:700}
+  nav ul{display:flex;gap:2rem;list-style:none}
+  nav a{color:var(--charcoal);text-decoration:none;font-size:0.9rem;font-weight:500;transition:color .3s}
+  nav a:hover{color:var(--terracotta)}
+  @media(max-width:768px){nav ul{display:none}}
+
+  /* ==== HERO ==== */
+  .hero{
+    min-height:100vh;
+    background:linear-gradient(135deg,#fdf6ec 0%,#f5c89c 50%,#e6b450 100%);
+    display:flex;align-items:center;justify-content:center;
+    position:relative;overflow:hidden;
+    padding:8rem 2rem 4rem;
+  }
+  .hero::before{
+    content:"";position:absolute;width:500px;height:500px;border-radius:50%;
+    background:radial-gradient(circle,rgba(217,123,94,0.3) 0%,transparent 70%);
+    top:-100px;right:-100px;animation:float 8s ease-in-out infinite;
+  }
+  .hero::after{
+    content:"";position:absolute;width:400px;height:400px;border-radius:50%;
+    background:radial-gradient(circle,rgba(107,122,79,0.25) 0%,transparent 70%);
+    bottom:-100px;left:-100px;animation:float 10s ease-in-out infinite reverse;
+  }
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-30px)}}
+  .hero-content{position:relative;z-index:2;text-align:center;max-width:900px}
+  .hero .tag{
+    display:inline-block;
+    font-family:'Caveat',cursive;font-size:1.8rem;color:var(--terracotta);
+    margin-bottom:1rem;transform:rotate(-2deg);
+  }
+  .hero h1{
+    font-size:clamp(3rem,8vw,6.5rem);line-height:1;
+    color:var(--charcoal);margin-bottom:1.5rem;
+  }
+  .hero h1 span{color:var(--terracotta);font-style:italic}
+  .hero p.subtitle{
+    font-size:1.2rem;color:var(--charcoal);max-width:600px;margin:0 auto 2.5rem;
+    font-weight:300;
+  }
+  .hero-buttons{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+  .btn{
+    display:inline-block;padding:0.9rem 2rem;border-radius:50px;
+    text-decoration:none;font-weight:500;font-size:0.95rem;
+    transition:all .3s;border:2px solid var(--charcoal);
+  }
+  .btn-primary{background:var(--charcoal);color:var(--cream)}
+  .btn-primary:hover{background:var(--terracotta);border-color:var(--terracotta);transform:translateY(-2px)}
+  .btn-secondary{background:transparent;color:var(--charcoal)}
+  .btn-secondary:hover{background:var(--charcoal);color:var(--cream)}
+  .rating{
+    margin-top:3rem;display:flex;align-items:center;justify-content:center;gap:0.5rem;
+    font-size:0.95rem;
+  }
+  .stars{color:var(--mustard);letter-spacing:2px;font-size:1.1rem}
+
+  /* ==== SECTIONS ==== */
+  section{padding:6rem 2rem;position:relative}
+  .container{max-width:1200px;margin:0 auto}
+  .section-header{text-align:center;margin-bottom:4rem}
+  .section-header .script{
+    font-size:1.6rem;color:var(--terracotta);display:block;margin-bottom:0.5rem;
+  }
+  .section-header h2{font-size:clamp(2.2rem,5vw,3.5rem);color:var(--charcoal)}
+
+  /* ==== ABOUT ==== */
+  .about{background:var(--cream)}
+  .about-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;
+  }
+  @media(max-width:768px){.about-grid{grid-template-columns:1fr}}
+  .about-text p{margin-bottom:1.2rem;font-size:1.05rem;color:#4a3f2e}
+  .about-visual{
+    aspect-ratio:1;background:linear-gradient(135deg,var(--peach),var(--mustard));
+    border-radius:20px;position:relative;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 20px 60px rgba(217,123,94,0.25);
+    overflow:hidden;
+  }
+  .about-visual::before{
+    content:"🥑🍳🥐";font-size:5rem;letter-spacing:1rem;
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  }
+  .about-visual .quote{
+    position:absolute;bottom:2rem;left:2rem;right:2rem;
+    background:var(--cream);padding:1.5rem;border-radius:12px;
+    font-family:'Caveat',cursive;font-size:1.3rem;color:var(--charcoal);
+    box-shadow:0 10px 30px rgba(0,0,0,0.1);
+  }
+  .services{
+    margin-top:3rem;display:flex;flex-wrap:wrap;gap:0.8rem;
+  }
+  .service-pill{
+    background:rgba(217,123,94,0.12);color:var(--terracotta);
+    padding:0.5rem 1.2rem;border-radius:50px;font-size:0.85rem;font-weight:500;
+  }
+
+  /* ==== MENU ==== */
+  .menu{background:var(--charcoal);color:var(--cream)}
+  .menu .section-header h2{color:var(--cream)}
+  .menu .section-header .script{color:var(--peach)}
+  .menu-categories{display:grid;gap:4rem}
+  .menu-category h3{
+    font-size:2rem;color:var(--peach);margin-bottom:2rem;
+    display:flex;align-items:center;gap:1rem;
+  }
+  .menu-category h3::after{
+    content:"";flex:1;height:1px;background:rgba(245,200,156,0.3);
+  }
+  .menu-items{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem}
+  .menu-item{
+    padding:1.5rem;border-radius:12px;
+    background:rgba(253,246,236,0.04);border:1px solid rgba(245,200,156,0.15);
+    transition:all .3s;
+  }
+  .menu-item:hover{
+    background:rgba(253,246,236,0.08);transform:translateY(-4px);
+    border-color:var(--peach);
+  }
+  .menu-item-header{
+    display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;margin-bottom:0.5rem;
+  }
+  .menu-item h4{font-family:'DM Serif Display',serif;font-size:1.25rem;color:var(--cream)}
+  .menu-item .price{
+    font-family:'Caveat',cursive;font-size:1.5rem;color:var(--mustard);
+    white-space:nowrap;
+  }
+  .menu-item p{font-size:0.9rem;color:#c9bca6;font-weight:300}
+
+  /* ==== HOURS ==== */
+  .hours{background:var(--cream)}
+  .hours-grid{
+    max-width:600px;margin:0 auto;
+    background:#fff;border-radius:20px;overflow:hidden;
+    box-shadow:0 20px 60px rgba(43,36,24,0.08);
+  }
+  .hour-row{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:1.2rem 2rem;border-bottom:1px solid rgba(43,36,24,0.06);
+  }
+  .hour-row:last-child{border-bottom:none}
+  .hour-row.today{background:linear-gradient(90deg,var(--peach),var(--mustard));color:var(--charcoal)}
+  .hour-row .day{font-weight:500;text-transform:capitalize}
+  .hour-row .time{font-family:'Inter',sans-serif;color:var(--terracotta);font-weight:500}
+  .hour-row.closed .time{color:#a09484;font-style:italic}
+
+  /* ==== CONTACT ==== */
+  .contact{
+    background:linear-gradient(135deg,var(--olive) 0%,#4a5638 100%);
+    color:var(--cream);
+  }
+  .contact .section-header h2{color:var(--cream)}
+  .contact .section-header .script{color:var(--mustard)}
+  .contact-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:2rem;margin-bottom:3rem;
+  }
+  .contact-card{
+    background:rgba(253,246,236,0.08);padding:2rem;border-radius:16px;
+    text-align:center;border:1px solid rgba(253,246,236,0.12);
+    transition:transform .3s;
+  }
+  .contact-card:hover{transform:translateY(-6px)}
+  .contact-card .icon{font-size:2.2rem;margin-bottom:1rem;display:block}
+  .contact-card h3{font-size:1.3rem;margin-bottom:0.5rem;color:var(--peach)}
+  .contact-card p,.contact-card a{color:var(--cream);text-decoration:none;font-size:1rem}
+  .contact-card a:hover{color:var(--mustard)}
+  .contact-cta{text-align:center}
+  .btn-map{
+    background:var(--mustard);color:var(--charcoal);border-color:var(--mustard);
+    padding:1.1rem 2.5rem;font-size:1rem;
+  }
+  .btn-map:hover{background:var(--peach);border-color:var(--peach);transform:translateY(-2px)}
+
+  /* ==== FOOTER ==== */
+  footer{
+    background:var(--charcoal);color:var(--peach);
+    padding:2.5rem 2rem;text-align:center;
+  }
+  footer .script{font-size:1.8rem;color:var(--terracotta);display:block;margin-bottom:0.5rem}
+  footer p{font-size:0.85rem;color:#a09484}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Faim de Semaine</div>
+  <ul>
+    <li><a href="#about">À propos</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#hours">Horaires</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <span class="tag">Brunch & gourmandises ✨</span>
+    <h1>Faim de <span>Semaine</span></h1>
+    <p class="subtitle">Le brunch parisien qui réveille vos matinées du Chemin Vert. Des brioches dorées, des œufs parfaits, du café d'exception — et l'envie de revenir dès le lendemain.</p>
+    <div class="hero-buttons">
+      <a href="#menu" class="btn btn-primary">Voir le menu</a>
+      <a href="https://maps.google.com/?cid=18080879771605620446" target="_blank" class="btn btn-secondary">Réserver une table</a>
+    </div>
+    <div class="rating">
+      <span class="stars">★★★★★</span>
+      <strong>4.6</strong> · 1519 avis Google
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="section-header">
+      <span class="script">L'histoire</span>
+      <h2>Le brunch comme à la maison</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>Niché au 52 rue du Chemin Vert, dans le 11e effervescent, <strong>Faim de Semaine</strong> est ce repaire dont on rêve quand le week-end débarque. Une cuisine généreuse, gourmande, sincère — pensée pour celles et ceux qui prennent le temps de bien manger.</p>
+        <p>Brioches moelleuses, avocado toasts dressés avec soin, lattés signature et formules brunch à composer : ici, chaque assiette raconte une matinée parisienne réussie. Mention spéciale au <em>Monsieur Avocado</em> et à la brioche <em>Banh Mi Royale</em>, plébiscités par nos habitués.</p>
+        <p>Sur place, à emporter ou en livraison — la maison s'adapte à votre faim.</p>
+        <div class="services">
+          <span class="service-pill">Sur place</span>
+          <span class="service-pill">À emporter</span>
+          <span class="service-pill">Livraison</span>
+          <span class="service-pill">Réservation</span>
+          <span class="service-pill">Petit-déjeuner</span>
+          <span class="service-pill">Brunch</span>
+          <span class="service-pill">Déjeuner</span>
+        </div>
+      </div>
+      <div class="about-visual">
+        <div class="quote">« Un très bon brunch très très gourmand. Vraiment, c'était un régal. » — KD, ★★★★★</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu" id="menu">
+  <div class="container">
+    <div class="section-header">
+      <span class="script">À la carte</span>
+      <h2>Notre menu suggéré</h2>
+    </div>
+    <div class="menu-categories">
+
+      <div class="menu-category">
+        <h3>Pour commencer</h3>
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="menu-item-header"><h4>Granola maison</h4><span class="price">9 €</span></div>
+            <p>Avoine torréfiée, fruits rouges, miel des Cévennes & yaourt grec onctueux.</p>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-header"><h4>Pancakes érable</h4><span class="price">11 €</span></div>
+            <p>Pile de pancakes moelleux, sirop d'érable du Québec, banane caramélisée.</p>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-header"><h4>Brioche perdue</h4><span class="price">10 €</span></div>
+            <p>Brioche maison trempée, vanille de Madagascar, chantilly légère & crumble.</p>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-header"><h4>Bowl açaï</h4><span class="price">12 €</span></div>
+            <p>Açaï brésilien, granola croustillant, fruits frais de saison, coco râpée.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-category">
+        <h3>Les signatures salées</h3>
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="menu-item-header"><h4>Monsieur Avocado</h4><span class="price">15 €</span></div>
+            <p>Pain de campagne grillé, avocat frais, œuf poché, feta, graines & huile d'olive.</p>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-header"><h4>Banh Mi Royale</h4><span class="price">16 €</span></div>
+            <p>Brioche signature, poulet mariné, pickles maison, coriandre & sauce sriracha mayo.</p>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-header"><h4>Œufs Bénédicte</h4><span class="price">14 €</span></div>
+            <p>Muffin anglais, œufs pochés, saumon fumé d'Écosse, sauce hollandaise crémeuse.</p>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-header"><h4>Croque Madame truffé</h4><span class="price">17 €</span></div>
+            <p>Pain de mie brioché, jambon truffe, comté affiné, béchamel & œuf miroir.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-category">
+        <h3>Douceurs & cafés</h3>
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="menu-item-header"><h4>Cookie tiède chocolat</h4><span class="price">5 €</span></div>
+            <p>Cœur fondant, pépites de chocolat noir 70%, fleur de sel de Guérande.</p>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-header"><h4>Latte macadamia</h4><span class="price">6 €</span></div>
+            <p>Notre best-seller façon crème brûlée : un latte à tomber.</p>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-header"><h4>Cheesecake citron</h4><span class="price">7 €</span></div>
+            <p>Onctueux, biscuit spéculoos, zestes de citron de Menton.</p>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-header"><h4>Formule brunch complet</h4><span class="price">28 €</span></div>
+            <p>1 boisson chaude + 1 jus frais + 1 plat salé + 1 douceur sucrée. Le grand jeu.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HOURS -->
+<section class="hours" id="hours">
+  <div class="container">
+    <div class="section-header">
+      <span class="script">À table !</span>
+      <h2>Nos horaires</h2>
+    </div>
+    <div class="hours-grid">
+      <div class="hour-row"><span class="day">Lundi</span><span class="time">11:00 – 17:00</span></div>
+      <div class="hour-row closed"><span class="day">Mardi</span><span class="time">Fermé</span></div>
+      <div class="hour-row"><span class="day">Mercredi</span><span class="time">10:30 – 16:00</span></div>
+      <div class="hour-row"><span class="day">Jeudi</span><span class="time">10:30 – 16:00</span></div>
+      <div class="hour-row"><span class="day">Vendredi</span><span class="time">10:30 – 17:00</span></div>
+      <div class="hour-row"><span class="day">Samedi</span><span class="time">10:00 – 18:00</span></div>
+      <div class="hour-row"><span class="day">Dimanche</span><span class="time">10:00 – 17:00</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="section-header">
+      <span class="script">On vous attend</span>
+      <h2>Venez nous rencontrer</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <span class="icon">📍</span>
+        <h3>Adresse</h3>
+        <p>52 Rue du Chemin Vert<br>75011 Paris</p>
+      </div>
+      <div class="contact-card">
+        <span class="icon">📞</span>
+        <h3>Téléphone</h3>
+        <p><a href="tel:+33143574501">01 43 57 45 01</a></p>
+      </div>
+      <div class="contact-card">
+        <span class="icon">⭐</span>
+        <h3>Avis Google</h3>
+        <p>4.6 / 5 · 1519 avis</p>
+      </div>
+    </div>
+    <div class="contact-cta">
+      <a href="https://maps.google.com/?cid=18080879771605620446" target="_blank" class="btn btn-map">🗺️ Itinéraire Google Maps</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="script">Faim de Semaine</span>
+  <p>© 2024 — Brunch Paris 11. Fait avec gourmandise rue du Chemin Vert.</p>
+</footer>
+
+</body>
+</html>

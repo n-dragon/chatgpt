@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le Bec Salé — Bistrot & Bar à Paris 11e</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bordeaux: #6b1f23;
+    --cream: #f5ede1;
+    --paper: #faf6ee;
+    --ink: #2a201a;
+    --gold: #b8893d;
+    --rust: #c2553a;
+    --olive: #6d7547;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 700; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 18px 40px;
+    background: rgba(250, 246, 238, 0.95);
+    backdrop-filter: blur(10px);
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid rgba(107, 31, 35, 0.1);
+  }
+  nav .logo { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.3rem; color: var(--bordeaux); }
+  nav ul { display: flex; list-style: none; gap: 32px; }
+  nav a { color: var(--ink); text-decoration: none; font-size: 0.9rem; letter-spacing: 0.5px; transition: color 0.3s; }
+  nav a:hover { color: var(--bordeaux); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(184, 137, 61, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(194, 85, 58, 0.12) 0%, transparent 50%),
+      linear-gradient(135deg, #2a201a 0%, #3d2a1e 50%, #6b1f23 100%);
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center;
+    padding: 100px 20px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(45deg, transparent 0, transparent 40px, rgba(245, 237, 225, 0.02) 40px, rgba(245, 237, 225, 0.02) 41px);
+    pointer-events: none;
+  }
+  .hero-tag {
+    color: var(--gold);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    animation: fadeUp 1s ease-out;
+  }
+  .hero h1 {
+    font-size: clamp(3.5rem, 11vw, 8rem);
+    color: var(--cream);
+    line-height: 0.95;
+    letter-spacing: -2px;
+    animation: fadeUp 1.2s ease-out;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+    font-weight: 400;
+  }
+  .hero-sub {
+    color: var(--cream);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    max-width: 600px;
+    margin: 30px auto 0;
+    opacity: 0.85;
+    animation: fadeUp 1.4s ease-out;
+  }
+  .hero-meta {
+    margin-top: 50px;
+    display: flex; gap: 40px; flex-wrap: wrap; justify-content: center;
+    animation: fadeUp 1.6s ease-out;
+  }
+  .hero-meta div {
+    color: var(--cream);
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  .hero-meta strong { color: var(--gold); display: block; font-size: 1.5rem; font-family: 'Playfair Display', serif; margin-top: 6px; }
+  .scroll-cue {
+    position: absolute;
+    bottom: 30px; left: 50%; transform: translateX(-50%);
+    color: var(--cream); opacity: 0.5;
+    font-size: 0.75rem; letter-spacing: 3px;
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* SECTIONS */
+  section { padding: 100px 40px; }
+  .section-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--rust);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .section-title {
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    color: var(--bordeaux);
+    margin-bottom: 30px;
+    line-height: 1.1;
+  }
+
+  /* ABOUT */
+  .about {
+    background: var(--paper);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: center;
+  }
+  .about-text p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    color: var(--ink);
+    margin-bottom: 20px;
+    line-height: 1.7;
+  }
+  .about-text p:first-of-type::first-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    float: left;
+    line-height: 1;
+    padding: 6px 12px 0 0;
+    color: var(--bordeaux);
+    font-weight: 700;
+  }
+  .services-grid {
+    background: linear-gradient(135deg, var(--bordeaux), #4a1518);
+    padding: 50px 40px;
+    color: var(--cream);
+    border-radius: 4px;
+    position: relative;
+  }
+  .services-grid::before {
+    content: '';
+    position: absolute;
+    top: 12px; left: 12px; right: 12px; bottom: 12px;
+    border: 1px solid rgba(245, 237, 225, 0.2);
+    pointer-events: none;
+  }
+  .services-grid h3 {
+    font-style: italic;
+    font-weight: 400;
+    margin-bottom: 25px;
+    color: var(--gold);
+    font-size: 1.6rem;
+  }
+  .services-grid ul { list-style: none; }
+  .services-grid li {
+    padding: 10px 0;
+    border-bottom: 1px dashed rgba(245, 237, 225, 0.15);
+    font-size: 0.95rem;
+    display: flex; justify-content: space-between;
+  }
+  .services-grid li:last-child { border: none; }
+  .services-grid li span { color: var(--gold); font-family: 'Cormorant Garamond', serif; font-style: italic; }
+
+  /* MENU */
+  .menu-section {
+    background: linear-gradient(180deg, var(--paper) 0%, var(--cream) 100%);
+    text-align: center;
+  }
+  .menu-header { max-width: 700px; margin: 0 auto 70px; }
+  .menu-header p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--ink);
+    opacity: 0.75;
+  }
+  .menu-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 60px;
+    text-align: left;
+  }
+  .menu-cat h3 {
+    font-size: 1.8rem;
+    color: var(--bordeaux);
+    font-style: italic;
+    font-weight: 400;
+    margin-bottom: 8px;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 12px;
+    display: inline-block;
+  }
+  .menu-cat::before {
+    content: '';
+    display: block;
+    width: 30px; height: 2px;
+    background: var(--rust);
+    margin-bottom: 18px;
+  }
+  .dish {
+    padding: 18px 0;
+    border-bottom: 1px dotted rgba(107, 31, 35, 0.2);
+  }
+  .dish:last-child { border: none; }
+  .dish-head {
+    display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+    margin-bottom: 6px;
+  }
+  .dish-name {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 1.05rem;
+  }
+  .dish-dots {
+    flex: 1;
+    border-bottom: 1px dotted var(--gold);
+    transform: translateY(-4px);
+  }
+  .dish-price {
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--bordeaux);
+    font-weight: 600;
+    font-size: 1.15rem;
+  }
+  .dish-desc {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--ink);
+    opacity: 0.7;
+    font-size: 1rem;
+  }
+
+  /* HORAIRES */
+  .hours {
+    background: var(--ink);
+    color: var(--cream);
+    text-align: center;
+  }
+  .hours .section-title { color: var(--cream); }
+  .hours .section-label { color: var(--gold); }
+  .hours-list {
+    max-width: 600px;
+    margin: 50px auto 0;
+  }
+  .hours-row {
+    display: flex; justify-content: space-between;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(245, 237, 225, 0.1);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+  }
+  .hours-row.today {
+    color: var(--gold);
+    font-weight: 600;
+  }
+  .hours-row.closed { opacity: 0.5; }
+  .hours-row .day { letter-spacing: 2px; text-transform: uppercase; font-size: 0.85rem; font-family: 'DM Sans', sans-serif; align-self: center; }
+  .hours-note {
+    margin-top: 40px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--gold);
+    font-size: 1.1rem;
+  }
+
+  /* CONTACT */
+  .contact {
+    background: var(--cream);
+    text-align: center;
+  }
+  .contact-grid {
+    max-width: 1000px;
+    margin: 60px auto 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+  .contact-card {
+    padding: 40px 20px;
+    border: 1px solid rgba(107, 31, 35, 0.15);
+    background: var(--paper);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .contact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(107, 31, 35, 0.1);
+  }
+  .contact-card .icon {
+    font-size: 1.8rem;
+    color: var(--rust);
+    margin-bottom: 15px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+  }
+  .contact-card h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--bordeaux);
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+  }
+  .contact-card p, .contact-card a {
+    color: var(--ink);
+    font-size: 1rem;
+    text-decoration: none;
+    line-height: 1.5;
+  }
+  .btn-cta {
+    display: inline-block;
+    margin-top: 50px;
+    padding: 18px 50px;
+    background: var(--bordeaux);
+    color: var(--cream);
+    text-decoration: none;
+    letter-spacing: 3px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    transition: all 0.3s;
+    border: 1px solid var(--bordeaux);
+  }
+  .btn-cta:hover {
+    background: transparent;
+    color: var(--bordeaux);
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    color: var(--cream);
+    text-align: center;
+    padding: 40px 20px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    opacity: 0.8;
+  }
+  footer .star { color: var(--gold); }
+
+  @media (max-width: 768px) {
+    nav { padding: 15px 20px; }
+    nav ul { display: none; }
+    section { padding: 70px 20px; }
+    .about { grid-template-columns: 1fr; gap: 50px; }
+    .menu-grid { grid-template-columns: 1fr; gap: 50px; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .hero-meta { gap: 25px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Le Bec Salé</div>
+  <ul>
+    <li><a href="#about">Maison</a></li>
+    <li><a href="#menu">Carte</a></li>
+    <li><a href="#hours">Horaires</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <span class="hero-tag">Bistrot · Bar · Paris 11<sup>e</sup></span>
+  <h1>Le Bec <em>Salé</em></h1>
+  <p class="hero-sub">Une adresse chaleureuse rue de la Roquette, où l'ardoise du jour rencontre l'esprit bistrot — du petit-déjeuner au dernier verre.</p>
+  <div class="hero-meta">
+    <div>Note <strong>4.6 ★</strong></div>
+    <div>Avis <strong>637</strong></div>
+    <div>Gamme <strong>€€</strong></div>
+  </div>
+  <div class="scroll-cue">↓ Découvrir</div>
+</header>
+
+<!-- ABOUT -->
+<section id="about" class="about">
+  <div class="about-text">
+    <span class="section-label">— La Maison</span>
+    <h2 class="section-title">L'esprit bistrot, l'âme du quartier</h2>
+    <p>Niché à l'angle de la Roquette et de la rue Pétion, Le Bec Salé est un repaire coloré et accueillant où l'on vient pour une carte courte et soignée, une ardoise du jour pleine de caractère, et une atmosphère qui sent bon le Paris vivant.</p>
+    <p>Du café matinal au dîner entre amis, en passant par le brunch dominical des jours d'ouverture, l'équipe veille à ce que chacun trouve sa place — autour d'une assiette joliment dressée, d'un verre de vin nature ou d'une bière fraîche.</p>
+  </div>
+  <div class="services-grid">
+    <h3>Nos services</h3>
+    <ul>
+      <li>Sur place <span>oui</span></li>
+      <li>À emporter <span>oui</span></li>
+      <li>Livraison <span>oui</span></li>
+      <li>Réservation <span>conseillée</span></li>
+      <li>Petit-déj · Brunch <span>tous les jours</span></li>
+      <li>Vin · Bière <span>belle sélection</span></li>
+      <li>Options végétariennes <span>oui</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu" class="menu-section">
+  <div class="menu-header">
+    <span class="section-label">— L'Ardoise</span>
+    <h2 class="section-title">La Carte du moment</h2>
+    <p>Suggestion d'une journée chez nous — préparée selon le marché, susceptible d'évoluer au gré des saisons.</p>
+  </div>
+
+  <div class="menu-grid">
+    <div class="menu-cat">
+      <h3>Pour commencer</h3>
+      <div class="dish">
+        <div class="dish-head"><span class="dish-name">Œuf parfait</span><span class="dish-dots"></span><span class="dish-price">9 €</span></div>
+        <div class="dish-desc">Crème de champignons, lard fumé, persillade</div>
+      </div>
+      <div class="dish">
+        <div class="dish-head"><span class="dish-name">Burrata des Pouilles</span><span class="dish-dots"></span><span class="dish-price">12 €</span></div>
+        <div class="dish-desc">Tomates anciennes, basilic, huile d'olive vierge</div>
+      </div>
+      <div class="dish">
+        <div class="dish-head"><span class="dish-name">Tartare de bœuf coupé minute</span><span class="dish-dots"></span><span class="dish-price">11 €</span></div>
+        <div class="dish-desc">Câpres, échalote, condiment moutarde</div>
+      </div>
+      <div class="dish">
+        <div class="dish-head"><span class="dish-name">Velouté du jour</span><span class="dish-dots"></span><span class="dish-price">8 €</span></div>
+        <div class="dish-desc">Légumes du marché, crème fouettée maison</div>
+      </div>
+    </div>
+
+    <div class="menu-cat">
+      <h3>Les Plats</h3>
+      <div class="dish">
+        <div class="dish-head"><span class="dish-name">Entrecôte, sauce au poivre</span><span class="dish-dots"></span><span class="dish-price">24 €</span></div>
+        <div class="dish-desc">Frites maison, mesclun</div>
+      </div>
+      <div class="dish">
+        <div class="dish-head"><span class="dish-name">Suprême de volaille fermière</span><span class="dish-dots"></span><span class="dish-price">21 €</span></div>
+        <div class="dish-desc">Risotto crémeux aux herbes, jus corsé</div>
+      </div>
+      <div class="dish">
+        <div class="dish-head"><span class="dish-name">Poisson du jour</span><span class="dish-dots"></span><span class="dish-price">23 €</span></div>
+        <div class="dish-desc">Légumes rôtis, beurre blanc citronné</div>
+      </div>
+      <div class="dish">
+        <div class="dish-head"><span class="dish-name">Gnocchis maison <em>(végé)</em></span><span class="dish-dots"></span><span class="dish-price">18 €</span></div>
+        <div class="dish-desc">Courge butternut, sauge, parmesan affiné</div>
+      </div>
+    </div>
+
+    <div class="menu-cat">
+      <h3>Pour finir</h3>
+      <div class="dish">
+        <div class="dish-head"><span class="dish-name">Tarte Tatin tiède</span><span class="dish-dots"></span><span class="dish-price">9 €</span></div>
+        <div class="dish-desc">Crème épaisse d'Isigny</div>
+      </div>
+      <div class="dish">
+        <div class="dish-head"><span class="dish-name">Moelleux au chocolat</span><span class="dish-dots"></span><span class="dish-price">8 €</span></div>
+        <div class="dish-desc">Cœur coulant, glace vanille bourbon</div>
+      </div>
+      <div class="dish">
+        <div class="dish-head"><span class="dish-name">Café gourmand</span><span class="dish-dots"></span><span class="dish-price">9 €</span></div>
+        <div class="dish-desc">Trio de mignardises du chef</div>
+      </div>
+      <div class="dish">
+        <div class="dish-head"><span class="dish-name">Plateau de fromages affinés</span><span class="dish-dots"></span><span class="dish-price">10 €</span></div>
+        <div class="dish-desc">Sélection de trois fromages, pain aux noix</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOURS -->
+<section id="hours" class="hours">
+  <span class="section-label">— Le Calendrier</span>
+  <h2 class="section-title">Nos horaires d'ouverture</h2>
+  <div class="hours-list">
+    <div class="hours-row"><span class="day">Lundi</span><span>07:30 – 01:00</span></div>
+    <div class="hours-row"><span class="day">Mardi</span><span>07:30 – 01:00</span></div>
+    <div class="hours-row"><span class="day">Mercredi</span><span>07:30 – 01:00</span></div>
+    <div class="hours-row"><span class="day">Jeudi</span><span>07:30 – 01:00</span></div>
+    <div class="hours-row"><span class="day">Vendredi</span><span>07:30 – 01:00</span></div>
+    <div class="hours-row"><span class="day">Samedi</span><span>08:30 – 01:00</span></div>
+    <div class="hours-row closed"><span class="day">Dimanche</span><span>Fermé</span></div>
+  </div>
+  <p class="hours-note">Service continu — du café du matin au verre de minuit.</p>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <span class="section-label">— Nous trouver</span>
+  <h2 class="section-title">Venez nous rendre visite</h2>
+  <div class="contact-grid">
+    <div class="contact-card">
+      <div class="icon">✦</div>
+      <h4>Adresse</h4>
+      <p>119 Rue de la Roquette<br>1 Rue Pétion<br>75011 Paris</p>
+    </div>
+    <div class="contact-card">
+      <div class="icon">✦</div>
+      <h4>Téléphone</h4>
+      <p><a href="tel:+33186049790">01 86 04 97 90</a></p>
+    </div>
+    <div class="contact-card">
+      <div class="icon">✦</div>
+      <h4>Réservation</h4>
+      <p>Par téléphone<br>ou sur place</p>
+    </div>
+  </div>
+  <a class="btn-cta" href="https://maps.google.com/?cid=16763353714868000171" target="_blank" rel="noopener">Itinéraire Google Maps</a>
+</section>
+
+<footer>
+  <p>Le Bec Salé · Bistrot &amp; Bar · Paris 11<sup>e</sup> <span class="star">✦</span> Tous droits réservés</p>
+</footer>
+
+</body>
+</html>

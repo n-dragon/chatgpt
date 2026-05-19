@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le Catrina — Bar & Restaurant Mexicain · Paris 10e</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lobster&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  :root{
+    --rouge:#c8102e;
+    --orange:#f17c2a;
+    --jaune:#f7c948;
+    --turquoise:#1ca7a0;
+    --rose:#e94560;
+    --violet:#3d1e6d;
+    --noir:#1a0d1f;
+    --crème:#fdf6e3;
+  }
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Poppins',sans-serif;
+    background:var(--crème);
+    color:var(--noir);
+    overflow-x:hidden;
+    line-height:1.6;
+  }
+  h1,h2,h3{font-family:'Bebas Neue',sans-serif;letter-spacing:2px;}
+  .script{font-family:'Lobster',cursive;letter-spacing:1px;}
+
+  /* === NAV === */
+  nav{
+    position:fixed;top:0;left:0;width:100%;
+    background:rgba(26,13,31,0.92);
+    backdrop-filter:blur(8px);
+    z-index:1000;
+    padding:15px 30px;
+    display:flex;justify-content:space-between;align-items:center;
+    border-bottom:2px solid var(--jaune);
+  }
+  nav .logo{color:var(--jaune);font-family:'Lobster';font-size:24px;}
+  nav ul{display:flex;gap:30px;list-style:none;}
+  nav ul a{color:#fff;text-decoration:none;font-size:14px;text-transform:uppercase;letter-spacing:1.5px;transition:color .3s;}
+  nav ul a:hover{color:var(--jaune);}
+  @media(max-width:768px){nav ul{display:none;}}
+
+  /* === HERO === */
+  .hero{
+    min-height:100vh;
+    background:
+      radial-gradient(circle at 20% 30%,rgba(247,201,72,.25),transparent 50%),
+      radial-gradient(circle at 80% 70%,rgba(233,69,96,.3),transparent 50%),
+      linear-gradient(135deg,#3d1e6d 0%,#1a0d1f 50%,#c8102e 100%);
+    display:flex;flex-direction:column;justify-content:center;align-items:center;
+    text-align:center;padding:120px 20px 60px;position:relative;overflow:hidden;
+  }
+  .hero::before{
+    content:"";position:absolute;inset:0;
+    background-image:
+      radial-gradient(circle at 10% 20%,rgba(247,201,72,.08) 2px,transparent 3px),
+      radial-gradient(circle at 90% 80%,rgba(28,167,160,.08) 2px,transparent 3px),
+      radial-gradient(circle at 50% 50%,rgba(233,69,96,.08) 2px,transparent 3px);
+    background-size:60px 60px,80px 80px,100px 100px;
+    animation:float 20s linear infinite;
+  }
+  @keyframes float{from{background-position:0 0,0 0,0 0;}to{background-position:60px 60px,80px -80px,-100px 100px;}}
+  .hero-content{position:relative;z-index:2;}
+  .hero .skull{
+    font-size:80px;margin-bottom:20px;
+    animation:pulse 3s ease-in-out infinite;
+    display:inline-block;
+  }
+  @keyframes pulse{0%,100%{transform:scale(1) rotate(-2deg);}50%{transform:scale(1.05) rotate(2deg);}}
+  .hero h1{
+    font-size:clamp(60px,12vw,160px);
+    color:var(--jaune);
+    text-shadow:5px 5px 0 var(--rouge),10px 10px 30px rgba(0,0,0,.5);
+    line-height:.9;
+    margin-bottom:10px;
+  }
+  .hero .tagline{
+    font-family:'Lobster',cursive;
+    font-size:clamp(24px,4vw,40px);
+    color:var(--turquoise);
+    margin-bottom:30px;
+  }
+  .hero .sub{
+    color:#fff;font-size:16px;max-width:600px;margin:0 auto 40px;
+    letter-spacing:1px;
+  }
+  .hero-stats{
+    display:flex;gap:30px;flex-wrap:wrap;justify-content:center;margin-top:30px;
+  }
+  .stat{
+    background:rgba(0,0,0,.4);
+    border:2px solid var(--jaune);
+    padding:15px 25px;
+    color:#fff;
+    border-radius:50px;
+    font-size:14px;
+  }
+  .stat strong{color:var(--jaune);font-size:18px;}
+  .btn{
+    display:inline-block;
+    background:var(--jaune);
+    color:var(--noir);
+    padding:18px 45px;
+    font-family:'Bebas Neue';font-size:20px;letter-spacing:3px;
+    text-decoration:none;border-radius:50px;
+    box-shadow:0 8px 0 var(--rouge);
+    transition:all .2s;
+    margin-top:20px;
+  }
+  .btn:hover{transform:translateY(4px);box-shadow:0 4px 0 var(--rouge);}
+
+  /* === SECTIONS === */
+  section{padding:100px 30px;position:relative;}
+  .container{max-width:1200px;margin:0 auto;}
+  .section-title{
+    text-align:center;margin-bottom:60px;
+  }
+  .section-title .pre{
+    font-family:'Lobster';color:var(--rouge);font-size:24px;display:block;
+  }
+  .section-title h2{
+    font-size:clamp(40px,6vw,72px);
+    color:var(--violet);
+  }
+  .section-title .deco{
+    display:flex;align-items:center;justify-content:center;gap:15px;margin-top:15px;
+  }
+  .section-title .deco span{height:2px;width:50px;background:var(--rouge);}
+  .section-title .deco i{color:var(--jaune);font-size:20px;}
+
+  /* === ABOUT === */
+  .about{background:var(--crème);}
+  .about-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;
+  }
+  @media(max-width:768px){.about-grid{grid-template-columns:1fr;}}
+  .about-text p{margin-bottom:20px;font-size:16px;}
+  .about-text .lead{
+    font-family:'Lobster';font-size:28px;color:var(--rouge);line-height:1.3;
+  }
+  .about-visual{
+    background:linear-gradient(135deg,var(--rose),var(--orange));
+    border-radius:20px;
+    padding:60px 30px;
+    text-align:center;
+    color:#fff;
+    box-shadow:15px 15px 0 var(--violet);
+    transform:rotate(-2deg);
+    transition:transform .4s;
+  }
+  .about-visual:hover{transform:rotate(0);}
+  .about-visual .skull-big{font-size:120px;display:block;margin-bottom:20px;}
+  .about-visual h3{font-size:36px;}
+  .services{
+    display:flex;flex-wrap:wrap;gap:12px;margin-top:25px;
+  }
+  .services span{
+    background:var(--violet);color:var(--jaune);
+    padding:8px 18px;border-radius:30px;font-size:13px;
+    text-transform:uppercase;letter-spacing:1px;
+  }
+
+  /* === MENU === */
+  .menu{
+    background:
+      linear-gradient(180deg,rgba(26,13,31,.97),rgba(61,30,109,.97)),
+      repeating-linear-gradient(45deg,transparent 0 20px,rgba(247,201,72,.03) 20px 21px);
+    color:#fff;
+  }
+  .menu .section-title h2{color:var(--jaune);}
+  .menu .section-title .pre{color:var(--turquoise);}
+  .menu-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:30px;
+  }
+  @media(max-width:900px){.menu-grid{grid-template-columns:1fr;}}
+  .menu-card{
+    background:rgba(255,255,255,.05);
+    border:2px solid var(--jaune);
+    border-radius:20px;
+    padding:35px 25px;
+    backdrop-filter:blur(10px);
+    transition:transform .3s;
+  }
+  .menu-card:hover{transform:translateY(-8px);}
+  .menu-card h3{
+    font-size:32px;text-align:center;color:var(--jaune);margin-bottom:5px;
+  }
+  .menu-card .cat-sub{
+    text-align:center;font-family:'Lobster';color:var(--rose);
+    margin-bottom:25px;display:block;
+  }
+  .menu-item{
+    padding:15px 0;border-bottom:1px dashed rgba(247,201,72,.3);
+  }
+  .menu-item:last-child{border-bottom:none;}
+  .menu-item-head{
+    display:flex;justify-content:space-between;align-items:baseline;gap:10px;
+  }
+  .menu-item-head h4{font-family:'Poppins';font-weight:600;font-size:16px;color:#fff;}
+  .menu-item-head .price{
+    color:var(--jaune);font-weight:700;font-size:18px;white-space:nowrap;
+  }
+  .menu-item p{font-size:13px;color:#ccc;margin-top:5px;font-style:italic;}
+
+  /* === HOURS === */
+  .hours{background:var(--jaune);position:relative;overflow:hidden;}
+  .hours::before,.hours::after{
+    content:"💀";position:absolute;font-size:200px;opacity:.08;
+  }
+  .hours::before{top:-30px;left:-30px;}
+  .hours::after{bottom:-30px;right:-30px;}
+  .hours .section-title h2{color:var(--violet);}
+  .hours .section-title .pre{color:var(--rouge);}
+  .hours-list{
+    max-width:600px;margin:0 auto;
+    background:var(--noir);
+    border-radius:20px;padding:40px;
+    box-shadow:0 20px 40px rgba(0,0,0,.3);
+  }
+  .hours-row{
+    display:flex;justify-content:space-between;padding:14px 0;
+    border-bottom:1px solid rgba(247,201,72,.2);
+    color:#fff;
+  }
+  .hours-row:last-child{border-bottom:none;}
+  .hours-row .day{font-weight:600;text-transform:uppercase;letter-spacing:1px;font-size:14px;}
+  .hours-row .time{color:var(--jaune);font-family:'Bebas Neue';font-size:18px;letter-spacing:2px;}
+  .open-banner{
+    text-align:center;margin-top:30px;
+    background:var(--rouge);color:#fff;
+    padding:15px;border-radius:50px;
+    font-family:'Bebas Neue';letter-spacing:3px;font-size:18px;
+  }
+
+  /* === CONTACT === */
+  .contact{
+    background:linear-gradient(135deg,var(--violet) 0%,var(--noir) 100%);
+    color:#fff;
+  }
+  .contact .section-title h2{color:var(--jaune);}
+  .contact .section-title .pre{color:var(--turquoise);}
+  .contact-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:30px;text-align:center;
+  }
+  @media(max-width:768px){.contact-grid{grid-template-columns:1fr;}}
+  .contact-card{
+    background:rgba(255,255,255,.05);
+    border:2px solid var(--rose);
+    border-radius:20px;
+    padding:40px 25px;
+    transition:all .3s;
+  }
+  .contact-card:hover{background:rgba(233,69,96,.15);transform:translateY(-5px);}
+  .contact-card .icon{
+    font-size:50px;margin-bottom:15px;display:block;
+  }
+  .contact-card h3{color:var(--jaune);font-size:24px;margin-bottom:10px;}
+  .contact-card p,.contact-card a{
+    color:#fff;text-decoration:none;font-size:15px;line-height:1.5;
+  }
+  .contact-card a:hover{color:var(--jaune);}
+  .map-btn{
+    text-align:center;margin-top:50px;
+  }
+
+  /* === FOOTER === */
+  footer{
+    background:var(--noir);color:#888;text-align:center;padding:40px 20px;
+    border-top:3px solid var(--jaune);
+  }
+  footer .skull-line{font-size:24px;margin-bottom:15px;letter-spacing:10px;}
+  footer .logo-foot{font-family:'Lobster';color:var(--jaune);font-size:32px;margin-bottom:10px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Le Catrina</div>
+  <ul>
+    <li><a href="#about">À propos</a></li>
+    <li><a href="#menu">Carte</a></li>
+    <li><a href="#hours">Horaires</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-content">
+    <span class="skull">💀</span>
+    <h1>LE CATRINA</h1>
+    <div class="tagline">¡ Viva la fiesta parisienne !</div>
+    <p class="sub">Bar & brasserie au cœur du 10e — saveurs latines, ambiance vibrante, ouvert du matin tard dans la nuit, sept jours sur sept.</p>
+    <a href="#menu" class="btn">Découvrir la carte</a>
+    <div class="hero-stats">
+      <div class="stat">⭐ <strong>4.4/5</strong> · 1002 avis</div>
+      <div class="stat">🕐 Ouvert <strong>7j/7</strong></div>
+      <div class="stat">💶 Prix <strong>€</strong></div>
+    </div>
+  </div>
+</header>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="section-title">
+      <span class="pre">Notre histoire</span>
+      <h2>BIENVENUE CHEZ NOUS</h2>
+      <div class="deco"><span></span><i>✦</i><span></span></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p class="lead">Une brasserie chaleureuse à deux pas de la Gare du Nord, où l'esprit de fête mexicain rencontre l'âme du bistrot parisien.</p>
+        <p>Chez Le Catrina, on cultive l'art du bon moment : un menu du jour fait maison, des plats généreux aux saveurs authentiques, une équipe sympa, un service rapide, et cette petite étincelle qui fait qu'on s'y sent bien dès l'arrivée.</p>
+        <p>Que vous passiez prendre un café à 7h du matin, déjeuner sur le pouce, savourer un brunch dominical ou prolonger la soirée autour d'un verre jusqu'à 2h, Le Catrina vous accueille avec le sourire — et un excellent rapport qualité-prix.</p>
+        <div class="services">
+          <span>Sur place</span>
+          <span>À emporter</span>
+          <span>Réservation</span>
+          <span>Petit-déj</span>
+          <span>Brunch</span>
+          <span>Déjeuner</span>
+          <span>Dîner</span>
+          <span>Bière & Vin</span>
+        </div>
+      </div>
+      <div class="about-visual">
+        <span class="skull-big">💀</span>
+        <h3>L'ESPRIT CATRINA</h3>
+        <p>Couleurs, musique, générosité.<br>Une cantine festive ouverte du lever au cœur de la nuit.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu" id="menu">
+  <div class="container">
+    <div class="section-title">
+      <span class="pre">Notre carte</span>
+      <h2>LA CARTA</h2>
+      <div class="deco"><span></span><i style="color:var(--turquoise)">🌶️</i><span></span></div>
+    </div>
+    <div class="menu-grid">
+
+      <!-- ENTRÉES -->
+      <div class="menu-card">
+        <h3>Para Empezar</h3>
+        <span class="cat-sub">Les entrées</span>
+        <div class="menu-item">
+          <div class="menu-item-head"><h4>Guacamole maison & totopos</h4><span class="price">8 €</span></div>
+          <p>Avocat écrasé, citron vert, coriandre, tortillas croustillantes</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><h4>Nachos Catrina</h4><span class="price">9 €</span></div>
+          <p>Cheddar fondu, jalapeños, crème acidulée, salsa rouge</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><h4>Quesadilla poulet</h4><span class="price">9,50 €</span></div>
+          <p>Tortilla grillée, poulet épicé, mozzarella, oignons confits</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><h4>Soupe du jour</h4><span class="price">6 €</span></div>
+          <p>Préparée chaque matin selon l'inspiration du chef</p>
+        </div>
+      </div>
+
+      <!-- PLATS -->
+      <div class="menu-card">
+        <h3>Los Platos</h3>
+        <span class="cat-sub">Les plats</span>
+        <div class="menu-item">
+          <div class="menu-item-head"><h4>Tacos al pastor (x3)</h4><span class="price">13 €</span></div>
+          <p>Porc mariné, ananas grillé, oignon, coriandre, salsa verde</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><h4>Burrito bœuf haché</h4><span class="price">12,50 €</span></div>
+          <p>Riz, haricots rouges, cheddar, guacamole, salade fraîche</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><h4>Omelette fabuleuse</h4><span class="price">11 €</span></div>
+          <p>Notre spécialité — gourmande, généreuse, comme à la maison</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><h4>Menu du jour</h4><span class="price">14,90 €</span></div>
+          <p>Entrée + Plat + Dessert — fait maison, saveurs authentiques</p>
+        </div>
+      </div>
+
+      <!-- DESSERTS -->
+      <div class="menu-card">
+        <h3>Los Postres</h3>
+        <span class="cat-sub">Les desserts</span>
+        <div class="menu-item">
+          <div class="menu-item-head"><h4>Churros & chocolat chaud</h4><span class="price">6,50 €</span></div>
+          <p>Croustillants à la cannelle, sauce chocolat noir</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><h4>Flan vanille caramel</h4><span class="price">5,50 €</span></div>
+          <p>Crème onctueuse, caramel maison ambré</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><h4>Tres leches</h4><span class="price">6 €</span></div>
+          <p>Gâteau imbibé de trois laits, chantilly légère</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><h4>Café gourmand</h4><span class="price">6,50 €</span></div>
+          <p>Espresso et trio de mignardises du jour</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HOURS -->
+<section class="hours" id="hours">
+  <div class="container">
+    <div class="section-title">
+      <span class="pre">Toujours ouvert</span>
+      <h2>HORAIRES</h2>
+      <div class="deco"><span></span><i>🕐</i><span></span></div>
+    </div>
+    <div class="hours-list">
+      <div class="hours-row"><span class="day">Lundi</span><span class="time">07:00 — 02:00</span></div>
+      <div class="hours-row"><span class="day">Mardi</span><span class="time">07:00 — 02:00</span></div>
+      <div class="hours-row"><span class="day">Mercredi</span><span class="time">07:00 — 02:00</span></div>
+      <div class="hours-row"><span class="day">Jeudi</span><span class="time">07:00 — 02:00</span></div>
+      <div class="hours-row"><span class="day">Vendredi</span><span class="time">07:00 — 02:00</span></div>
+      <div class="hours-row"><span class="day">Samedi</span><span class="time">07:00 — 02:00</span></div>
+      <div class="hours-row"><span class="day">Dimanche</span><span class="time">07:00 — 02:00</span></div>
+      <div class="open-banner">¡ Ouvert 7 jours sur 7 — 19 heures par jour !</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="section-title">
+      <span class="pre">Venez nous voir</span>
+      <h2>NOUS TROUVER</h2>
+      <div class="deco"><span></span><i style="color:var(--rose)">✦</i><span></span></div>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <span class="icon">📍</span>
+        <h3>Adresse</h3>
+        <p>141 Rue du Faubourg<br>Saint-Denis<br>75010 Paris</p>
+      </div>
+      <div class="contact-card">
+        <span class="icon">📞</span>
+        <h3>Téléphone</h3>
+        <p><a href="tel:+33622878766">06 22 87 87 66</a></p>
+        <p style="margin-top:10px;font-size:13px;opacity:.7;">Réservation conseillée</p>
+      </div>
+      <div class="contact-card">
+        <span class="icon">🚇</span>
+        <h3>Accès</h3>
+        <p>Gare du Nord<br>Château d'Eau<br>Strasbourg-Saint-Denis</p>
+      </div>
+    </div>
+    <div class="map-btn">
+      <a href="https://maps.google.com/?cid=13864379328512654410" target="_blank" rel="noopener" class="btn">📍 Itinéraire Google Maps</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="skull-line">💀 ✦ 💀 ✦ 💀</div>
+  <div class="logo-foot">Le Catrina</div>
+  <p>Bar · Restaurant · Brasserie — Paris 10e</p>
+  <p style="margin-top:15px;font-size:12px;">© 2025 Le Catrina · ¡ Viva la vida !</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le P'tit Bistrot — Bistrot parisien au cœur du Marais</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bordeaux: #6b1f1f;
+    --bordeaux-dark: #4a1313;
+    --cream: #f5ecd9;
+    --cream-dark: #e8dcc0;
+    --mustard: #c79a3a;
+    --ink: #2a1d14;
+    --paper: #fbf6ea;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Cormorant Garamond', serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 18px;
+    line-height: 1.6;
+  }
+  h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 700; }
+  a { color: inherit; text-decoration: none; }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    background:
+      linear-gradient(rgba(20,10,5,0.55), rgba(20,10,5,0.75)),
+      radial-gradient(circle at 30% 40%, #8a3a2a 0%, #4a1313 40%, #2a0d0d 100%);
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--cream);
+    padding: 2rem;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image:
+      repeating-linear-gradient(45deg, transparent 0 20px, rgba(255,255,255,0.02) 20px 21px);
+    pointer-events: none;
+  }
+  .hero-top {
+    position: absolute;
+    top: 2rem; left: 0; right: 0;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 3rem;
+    font-family: 'Special Elite', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    color: var(--cream-dark);
+    z-index: 2;
+  }
+  .hero-content { position: relative; z-index: 2; max-width: 900px; }
+  .hero .tagline-top {
+    font-family: 'Special Elite', monospace;
+    letter-spacing: 6px;
+    font-size: 0.9rem;
+    color: var(--mustard);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    animation: fadeIn 1.2s ease-out;
+  }
+  .hero h1 {
+    font-size: clamp(3rem, 9vw, 7rem);
+    font-style: italic;
+    line-height: 1;
+    letter-spacing: -1px;
+    margin-bottom: 1.5rem;
+    text-shadow: 2px 4px 20px rgba(0,0,0,0.5);
+    animation: rise 1.4s ease-out;
+  }
+  .hero h1 .amp {
+    display: block;
+    font-size: 0.4em;
+    font-style: normal;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    color: var(--mustard);
+    margin: 0.5rem 0;
+  }
+  .hero .sub {
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    font-style: italic;
+    max-width: 600px;
+    margin: 0 auto 2.5rem;
+    color: var(--cream-dark);
+    animation: rise 1.6s ease-out;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-family: 'Special Elite', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    margin-bottom: 2.5rem;
+    color: var(--cream);
+  }
+  .hero-meta span { display: flex; align-items: center; gap: 0.5rem; }
+  .hero-cta {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    border: 2px solid var(--cream);
+    color: var(--cream);
+    font-family: 'Special Elite', monospace;
+    letter-spacing: 4px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    transition: all 0.3s;
+    background: transparent;
+  }
+  .hero-cta:hover {
+    background: var(--cream);
+    color: var(--bordeaux);
+    transform: translateY(-2px);
+  }
+  .scroll-down {
+    position: absolute; bottom: 2rem;
+    left: 50%; transform: translateX(-50%);
+    color: var(--cream);
+    font-family: 'Special Elite', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+  @keyframes rise { from {opacity:0; transform: translateY(30px);} to {opacity:1; transform: translateY(0);} }
+  @keyframes bounce { 0%,100%{transform:translate(-50%,0);} 50%{transform:translate(-50%,-10px);} }
+
+  /* SECTIONS */
+  section { padding: 6rem 2rem; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .section-label {
+    font-family: 'Special Elite', monospace;
+    letter-spacing: 6px;
+    font-size: 0.85rem;
+    color: var(--bordeaux);
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-style: italic;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--bordeaux);
+  }
+  .section-divider {
+    display: flex; align-items: center; justify-content: center;
+    gap: 1rem; margin: 0 auto 3rem; max-width: 200px;
+  }
+  .section-divider::before, .section-divider::after {
+    content: ""; flex: 1; height: 1px; background: var(--bordeaux);
+    opacity: 0.4;
+  }
+  .section-divider span { color: var(--mustard); font-size: 1.2rem; }
+
+  /* ABOUT */
+  .about { background: var(--cream); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .about-text p {
+    font-size: 1.2rem;
+    margin-bottom: 1.2rem;
+    color: var(--ink);
+  }
+  .about-text p.lead {
+    font-size: 1.4rem;
+    font-style: italic;
+    color: var(--bordeaux);
+    border-left: 3px solid var(--mustard);
+    padding-left: 1.5rem;
+  }
+  .about-card {
+    background: var(--paper);
+    border: 1px solid var(--bordeaux);
+    padding: 3rem 2.5rem;
+    position: relative;
+    box-shadow: 8px 8px 0 var(--bordeaux);
+  }
+  .about-card h3 {
+    font-style: italic;
+    color: var(--bordeaux);
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+  }
+  .services-list { list-style: none; }
+  .services-list li {
+    padding: 0.6rem 0;
+    border-bottom: 1px dashed rgba(107,31,31,0.3);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 1.05rem;
+  }
+  .services-list li:last-child { border: none; }
+  .services-list li::before {
+    content: "✦"; color: var(--mustard); font-size: 0.9rem;
+  }
+  .price-tag {
+    display: inline-block;
+    margin-top: 1.5rem;
+    background: var(--bordeaux);
+    color: var(--cream);
+    padding: 0.5rem 1.2rem;
+    font-family: 'Special Elite', monospace;
+    letter-spacing: 3px;
+    font-size: 0.9rem;
+  }
+  .rating {
+    margin-top: 1.5rem;
+    display: flex; align-items: center; gap: 0.5rem;
+    font-family: 'Special Elite', monospace;
+    color: var(--bordeaux);
+  }
+  .stars { color: var(--mustard); letter-spacing: 2px; font-size: 1.1rem; }
+
+  /* MENU */
+  .menu {
+    background:
+      linear-gradient(rgba(251,246,234,0.96), rgba(251,246,234,0.96)),
+      repeating-linear-gradient(0deg, transparent 0 30px, rgba(107,31,31,0.04) 30px 31px);
+  }
+  .menu-board {
+    background: var(--paper);
+    border: 2px solid var(--bordeaux);
+    padding: 4rem 3rem;
+    position: relative;
+  }
+  .menu-board::before {
+    content: "";
+    position: absolute; inset: 10px;
+    border: 1px solid var(--bordeaux);
+    opacity: 0.4;
+    pointer-events: none;
+  }
+  .menu-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .menu-header .ardoise {
+    font-family: 'Special Elite', monospace;
+    letter-spacing: 4px;
+    color: var(--mustard);
+  }
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+  }
+  .menu-category h3 {
+    font-size: 1.8rem;
+    font-style: italic;
+    color: var(--bordeaux);
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+  .menu-category .cat-line {
+    width: 50px; height: 2px;
+    background: var(--mustard);
+    margin: 0 auto 2rem;
+  }
+  .menu-item {
+    margin-bottom: 1.8rem;
+  }
+  .menu-item-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.8rem;
+    margin-bottom: 0.3rem;
+  }
+  .menu-item-name {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--ink);
+  }
+  .menu-dots {
+    flex: 1;
+    border-bottom: 1px dotted var(--bordeaux);
+    opacity: 0.4;
+    margin-bottom: 4px;
+  }
+  .menu-price {
+    font-family: 'Special Elite', monospace;
+    color: var(--bordeaux);
+    font-weight: 700;
+  }
+  .menu-item-desc {
+    font-size: 1rem;
+    font-style: italic;
+    color: #5a4a3a;
+    line-height: 1.4;
+  }
+  .happy-hour {
+    margin-top: 3rem;
+    text-align: center;
+    padding: 1.5rem;
+    background: var(--bordeaux);
+    color: var(--cream);
+    font-family: 'Special Elite', monospace;
+    letter-spacing: 4px;
+    font-size: 0.95rem;
+  }
+  .happy-hour strong { color: var(--mustard); }
+
+  /* HOURS */
+  .hours { background: var(--bordeaux); color: var(--cream); }
+  .hours .section-title, .hours .section-label { color: var(--cream); }
+  .hours .section-label { color: var(--mustard); }
+  .hours .section-divider::before, .hours .section-divider::after { background: var(--cream); }
+  .hours-list {
+    max-width: 600px;
+    margin: 0 auto;
+    background: rgba(0,0,0,0.15);
+    padding: 2.5rem 3rem;
+    border: 1px solid rgba(245,236,217,0.3);
+  }
+  .hours-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px dashed rgba(245,236,217,0.2);
+    font-size: 1.15rem;
+  }
+  .hours-row:last-child { border: none; }
+  .hours-row .day {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+  }
+  .hours-row .time {
+    font-family: 'Special Elite', monospace;
+    letter-spacing: 2px;
+    color: var(--cream-dark);
+  }
+  .hours-row.closed .time { color: #c0a878; font-style: italic; }
+  .hours-note {
+    text-align: center;
+    margin-top: 2rem;
+    font-style: italic;
+    color: var(--cream-dark);
+  }
+
+  /* REVIEWS */
+  .reviews { background: var(--cream-dark); }
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+  .review-card {
+    background: var(--paper);
+    padding: 2.5rem 2rem;
+    position: relative;
+    border-top: 4px solid var(--mustard);
+  }
+  .review-card .quote {
+    font-size: 4rem;
+    color: var(--mustard);
+    font-family: 'Playfair Display', serif;
+    line-height: 0.5;
+    margin-bottom: 1rem;
+  }
+  .review-text {
+    font-size: 1.1rem;
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    color: var(--ink);
+  }
+  .review-author {
+    font-family: 'Special Elite', monospace;
+    letter-spacing: 2px;
+    color: var(--bordeaux);
+    font-size: 0.9rem;
+  }
+  .review-stars { color: var(--mustard); margin-top: 0.3rem; }
+
+  /* CONTACT */
+  .contact { background: var(--ink); color: var(--cream); }
+  .contact .section-title, .contact .section-label { color: var(--cream); }
+  .contact .section-label { color: var(--mustard); }
+  .contact .section-divider::before, .contact .section-divider::after { background: var(--cream); }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .contact-info h3 {
+    font-style: italic;
+    color: var(--mustard);
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    margin-top: 2rem;
+  }
+  .contact-info h3:first-child { margin-top: 0; }
+  .contact-info p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+  }
+  .contact-info a { border-bottom: 1px dotted var(--mustard); }
+  .map-cta {
+    display: inline-block;
+    margin-top: 2.5rem;
+    padding: 1.2rem 3rem;
+    background: var(--mustard);
+    color: var(--ink);
+    font-family: 'Special Elite', monospace;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+  }
+  .map-cta:hover {
+    background: var(--cream);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(199,154,58,0.3);
+  }
+  .contact-card {
+    background: rgba(245,236,217,0.05);
+    border: 1px solid rgba(245,236,217,0.2);
+    padding: 3rem;
+    text-align: center;
+  }
+  .contact-card .logo-mark {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 3rem;
+    color: var(--mustard);
+    margin-bottom: 1rem;
+  }
+  .contact-card .since {
+    font-family: 'Special Elite', monospace;
+    letter-spacing: 4px;
+    font-size: 0.85rem;
+    color: var(--cream-dark);
+  }
+  .contact-card .marais {
+    margin-top: 2rem;
+    font-style: italic;
+    font-size: 1.3rem;
+    line-height: 1.6;
+  }
+
+  footer {
+    background: #0f0907;
+    text-align: center;
+    padding: 2rem;
+    color: rgba(245,236,217,0.5);
+    font-family: 'Special Elite', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    section { padding: 4rem 1.5rem; }
+    .hero-top { padding: 0 1.5rem; font-size: 0.7rem; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .menu-grid, .reviews-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .menu-board { padding: 2.5rem 1.5rem; }
+    .hours-list { padding: 1.5rem; }
+    .hours-row { font-size: 1rem; flex-direction: column; align-items: flex-start; gap: 0.3rem; }
+    .hero-meta { gap: 1rem; font-size: 0.75rem; }
+    .about-card { padding: 2rem 1.5rem; box-shadow: 5px 5px 0 var(--bordeaux); }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-top">
+    <span>EST. PARIS</span>
+    <span>LE MARAIS · IV<sup>e</sup></span>
+  </div>
+  <div class="hero-content">
+    <div class="tagline-top">— Bistrot Parisien —</div>
+    <h1>
+      Le P'tit
+      <span class="amp">·  ·  ·</span>
+      Bistrot
+    </h1>
+    <p class="sub">Une cuisine de tradition, un cadre chaleureux, et l'âme du Marais dans chaque assiette.</p>
+    <div class="hero-meta">
+      <span>★ 4.6 / 5</span>
+      <span>· 1427 avis ·</span>
+      <span>€€</span>
+    </div>
+    <a href="#contact" class="hero-cta">Réserver une table</a>
+  </div>
+  <div class="scroll-down">↓ DÉCOUVRIR</div>
+</header>
+
+<section class="about" id="about">
+  <div class="container">
+    <div class="section-label">Notre Maison</div>
+    <h2 class="section-title">L'âme d'un bistrot</h2>
+    <div class="section-divider"><span>✦</span></div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p class="lead">« Charmant petit bistrot comme on les aime, avec une atmosphère authentique dès l'entrée. »</p>
+        <p>Niché au cœur du Marais, rue Saint-Martin, <strong>Le P'tit Bistrot</strong> cultive depuis toujours l'art du bistrot parisien : une carte classique, des assiettes soignées et un cadre intimiste où l'on se sent immédiatement comme à la maison.</p>
+        <p>Ici, les plats traditionnels sont parfaitement réalisés, riches en saveurs et servis en portions généreuses. On vient pour les œufs mayonnaise, on revient pour les escargots, et l'on s'attarde pour le verre de vin partagé sur la nappe à carreaux.</p>
+      </div>
+      <div class="about-card">
+        <h3>Au comptoir</h3>
+        <ul class="services-list">
+          <li>Service sur place & à emporter</li>
+          <li>Réservation conseillée</li>
+          <li>Petit-déjeuner, déjeuner & dîner</li>
+          <li>Belle sélection de vins</li>
+          <li>Bière pression</li>
+          <li>Happy hour quotidien</li>
+        </ul>
+        <span class="price-tag">€€ · PRIX MODÉRÉ</span>
+        <div class="rating">
+          <span class="stars">★★★★★</span>
+          <span>4.6 / 5 — 1427 avis</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="menu" id="menu">
+  <div class="container">
+    <div class="section-label">À l'ardoise</div>
+    <h2 class="section-title">La Carte</h2>
+    <div class="section-divider"><span>✦</span></div>
+    <div class="menu-board">
+      <div class="menu-header">
+        <div class="ardoise">— SUGGESTIONS DU CHEF —</div>
+      </div>
+      <div class="menu-grid">
+
+        <div class="menu-category">
+          <h3>Entrées</h3>
+          <div class="cat-line"></div>
+          <div class="menu-item">
+            <div class="menu-item-head">
+              <span class="menu-item-name">Œufs Mayonnaise</span>
+              <span class="menu-dots"></span>
+              <span class="menu-price">8 €</span>
+            </div>
+            <div class="menu-item-desc">Œufs fermiers, mayonnaise maison, salade verte</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-head">
+              <span class="menu-item-name">Escargots de Bourgogne</span>
+              <span class="menu-dots"></span>
+              <span class="menu-price">13 €</span>
+            </div>
+            <div class="menu-item-desc">Les six, beurre persillé à l'ail des ours</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-head">
+              <span class="menu-item-name">Soupe à l'oignon gratinée</span>
+              <span class="menu-dots"></span>
+              <span class="menu-price">10 €</span>
+            </div>
+            <div class="menu-item-desc">Bouillon de bœuf, Comté affiné, croûtons</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-head">
+              <span class="menu-item-name">Terrine de campagne</span>
+              <span class="menu-dots"></span>
+              <span class="menu-price">9 €</span>
+            </div>
+            <div class="menu-item-desc">Maison, cornichons et pain de campagne grillé</div>
+          </div>
+        </div>
+
+        <div class="menu-category">
+          <h3>Plats</h3>
+          <div class="cat-line"></div>
+          <div class="menu-item">
+            <div class="menu-item-head">
+              <span class="menu-item-name">Entrecôte, sauce au poivre</span>
+              <span class="menu-dots"></span>
+              <span class="menu-price">24 €</span>
+            </div>
+            <div class="menu-item-desc">300g, frites maison, salade</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-head">
+              <span class="menu-item-name">Confit de canard</span>
+              <span class="menu-dots"></span>
+              <span class="menu-price">21 €</span>
+            </div>
+            <div class="menu-item-desc">Pommes de terre sarladaises, ail confit</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-head">
+              <span class="menu-item-name">Blanquette de veau</span>
+              <span class="menu-dots"></span>
+              <span class="menu-price">19 €</span>
+            </div>
+            <div class="menu-item-desc">À l'ancienne, riz pilaf et légumes du jour</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-head">
+              <span class="menu-item-name">Filet de cabillaud</span>
+              <span class="menu-dots"></span>
+              <span class="menu-price">22 €</span>
+            </div>
+            <div class="menu-item-desc">Beurre blanc, écrasé de pommes de terre</div>
+          </div>
+        </div>
+
+        <div class="menu-category">
+          <h3>Desserts</h3>
+          <div class="cat-line"></div>
+          <div class="menu-item">
+            <div class="menu-item-head">
+              <span class="menu-item-name">Crème brûlée</span>
+              <span class="menu-dots"></span>
+              <span class="menu-price">8 €</span>
+            </div>
+            <div class="menu-item-desc">Vanille de Madagascar, cassonade caramélisée</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-head">
+              <span class="menu-item-name">Tarte Tatin</span>
+              <span class="menu-dots"></span>
+              <span class="menu-price">9 €</span>
+            </div>
+            <div class="menu-item-desc">Pommes caramélisées, crème fraîche d'Isigny</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-head">
+              <span class="menu-item-name">Mousse au chocolat</span>
+              <span class="menu-dots"></span>
+              <span class="menu-price">7 €</span>
+            </div>
+            <div class="menu-item-desc">Chocolat noir 70%, copeaux et fleur de sel</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-head">
+              <span class="menu-item-name">Profiteroles</span>
+              <span class="menu-dots"></span>
+              <span class="menu-price">9 €</span>
+            </div>
+            <div class="menu-item-desc">Glace vanille, sauce chocolat chaud</div>
+          </div>
+        </div>
+
+      </div>
+      <div class="happy-hour">★ <strong>HAPPY HOUR</strong> · TOUS LES JOURS DE 17H À 19H ★</div>
+    </div>
+  </div>
+</section>
+
+<section class="reviews">
+  <div class="container">
+    <div class="section-label">Ils en parlent</div>
+    <h2 class="section-title">Paroles de convives</h2>
+    <div class="section-divider"><span>✦</span></div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="quote">“</div>
+        <p class="review-text">Charmant petit bistrot comme on les aime, avec une atmosphère authentique et accueillante dès l'entrée. La carte propose des plats traditionnels parfaitement réalisés, riches en saveurs.</p>
+        <div class="review-author">— AMIR HADDADA</div>
+        <div class="review-stars">★★★★★</div>
+      </div>
+      <div class="review-card">
+        <div class="quote">“</div>
+        <p class="review-text">Derrière son nom sans prétention, Le P'tit Bistrot est une très belle surprise au cœur du Marais : cuisine de bistrot authentique, bien maîtrisée et pleine de goût.</p>
+        <div class="review-author">— BAPTISTE MORIN</div>
+        <div class="review-stars">★★★★★</div>
+      </div>
+      <div class="review-card">
+        <div class="quote">“</div>
+        <p class="review-text">En plus d'un service exceptionnel, la nourriture est TRÈS bonne. Je recommande fortement les œufs mayonnaise et les escargots. Un merci particulier à notre serveur.</p>
+        <div class="review-author">— SIMON THERIAULT</div>
+        <div class="review-stars">★★★★★</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hours" id="hours">
+  <div class="container">
+    <div class="section-label">Pour venir</div>
+    <h2 class="section-title">Horaires d'ouverture</h2>
+    <div class="section-divider"><span>✦</span></div>
+    <div class="hours-list">
+      <div class="hours-row"><span class="day">Lundi</span><span class="time">07:00 — 23:00</span></div>
+      <div class="hours-row"><span class="day">Mardi</span><span class="time">07:00 — 23:00</span></div>
+      <div class="hours-row"><span class="day">Mercredi</span><span class="time">07:00 — 23:00</span></div>
+      <div class="hours-row"><span class="day">Jeudi</span><span class="time">07:00 — 23:00</span></div>
+      <div class="hours-row"><span class="day">Vendredi</span><span class="time">07:00 — 23:00</span></div>
+      <div class="hours-row"><span class="day">Samedi</span><span class="time">09:00 — 23:00</span></div>
+      <div class="hours-row closed"><span class="day">Dimanche</span><span class="time">Fermé</span></div>
+    </div>
+    <p class="hours-note">Petit-déjeuner · Déjeuner · Dîner — Service continu</p>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="section-label">Nous trouver</div>
+    <h2 class="section-title">Au plaisir de vous recevoir</h2>
+    <div class="section-divider"><span>✦</span></div>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>Adresse</h3>
+        <p>8 Rue Saint-Martin<br>75004 Paris — Le Marais</p>
+        <h3>Téléphone</h3>
+        <p><a href="tel:+33142785580">01 42 78 55 80</a></p>
+        <h3>Réservation</h3>
+        <p>Par téléphone, fortement recommandée.</p>
+        <a href="https://maps.google.com/?cid=8197591608515584727" target="_blank" rel="noopener" class="map-cta">Itinéraire →</a>
+      </div>
+      <div class="contact-card">
+        <div class="logo-mark">Le P'tit Bistrot</div>
+        <div class="since">— AU CŒUR DU MARAIS —</div>
+        <p class="marais">« Le soin apporté aux produits et au service fait toute la différence. »</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © Le P'tit Bistrot · 8 Rue Saint-Martin · Paris IV<sup>e</sup>
+</footer>
+
+</body>
+</html>

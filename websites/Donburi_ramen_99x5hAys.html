@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Donburi Ramen - Authentique cuisine japonaise à Paris 11e</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&family=Shippori+Mincho:wght@400;600;800&family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  :root {
+    --rouge: #c8102e;
+    --rouge-fonce: #8b0000;
+    --noir: #1a1a1a;
+    --creme: #f5ecd9;
+    --beige: #e8dcc0;
+    --bois: #3d2817;
+    --or: #d4a056;
+  }
+  
+  body {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    background: var(--creme);
+    color: var(--noir);
+    overflow-x: hidden;
+  }
+  
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a0e0e 50%, #1a1a1a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 80px 20px;
+  }
+  
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: 
+      radial-gradient(circle at 20% 30%, rgba(200,16,46,0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(212,160,86,0.1) 0%, transparent 50%);
+  }
+  
+  .hero::after {
+    content: '麺';
+    position: absolute;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 60vw;
+    color: rgba(200,16,46,0.04);
+    font-weight: 900;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    line-height: 1;
+  }
+  
+  .hero-content {
+    position: relative;
+    text-align: center;
+    z-index: 2;
+    max-width: 900px;
+  }
+  
+  .hero-kanji {
+    font-family: 'Noto Serif JP', serif;
+    color: var(--rouge);
+    font-size: 4rem;
+    font-weight: 900;
+    margin-bottom: 20px;
+    letter-spacing: 0.5rem;
+    animation: fadeDown 1s ease;
+  }
+  
+  .hero h1 {
+    font-family: 'Shippori Mincho', serif;
+    color: var(--creme);
+    font-size: clamp(3rem, 9vw, 7rem);
+    font-weight: 800;
+    line-height: 0.95;
+    margin-bottom: 30px;
+    letter-spacing: -0.02em;
+    animation: fadeUp 1s ease 0.2s both;
+  }
+  
+  .hero h1 span {
+    color: var(--rouge);
+    font-style: italic;
+  }
+  
+  .hero-subtitle {
+    color: var(--beige);
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    margin-bottom: 40px;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    animation: fadeUp 1s ease 0.4s both;
+  }
+  
+  .hero-rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(245,236,217,0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(212,160,86,0.3);
+    padding: 15px 30px;
+    border-radius: 50px;
+    color: var(--creme);
+    animation: fadeUp 1s ease 0.6s both;
+  }
+  
+  .hero-rating .stars { color: var(--or); font-size: 1.2rem; }
+  .hero-rating .note { font-weight: 700; font-size: 1.3rem; }
+  
+  .scroll-down {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--beige);
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    animation: bounce 2s infinite;
+    z-index: 3;
+  }
+  
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(10px); }
+  }
+  
+  /* SECTIONS GENERIQUES */
+  section { padding: 100px 20px; }
+  
+  .container { max-width: 1200px; margin: 0 auto; }
+  
+  .section-title {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  
+  .section-title .kanji {
+    font-family: 'Noto Serif JP', serif;
+    color: var(--rouge);
+    font-size: 2rem;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .section-title h2 {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    color: var(--noir);
+    font-weight: 800;
+  }
+  
+  .section-title .line {
+    width: 60px;
+    height: 3px;
+    background: var(--rouge);
+    margin: 20px auto 0;
+  }
+  
+  /* À PROPOS */
+  .about {
+    background: var(--creme);
+    position: relative;
+  }
+  
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  
+  .about-text p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #444;
+    margin-bottom: 20px;
+  }
+  
+  .about-text .lead {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.4rem;
+    color: var(--rouge-fonce);
+    font-style: italic;
+    border-left: 3px solid var(--rouge);
+    padding-left: 20px;
+    margin: 25px 0;
+  }
+  
+  .about-visual {
+    background: var(--noir);
+    border-radius: 8px;
+    padding: 50px 30px;
+    color: var(--creme);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .about-visual::before {
+    content: 'らーめん';
+    position: absolute;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 8rem;
+    color: rgba(200,16,46,0.08);
+    font-weight: 900;
+    top: -20px;
+    right: -30px;
+    line-height: 1;
+  }
+  
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 30px;
+    position: relative;
+  }
+  
+  .service-item {
+    background: rgba(245,236,217,0.05);
+    border: 1px solid rgba(212,160,86,0.2);
+    padding: 20px 15px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+  }
+  
+  .service-item .icon {
+    font-size: 1.8rem;
+    color: var(--or);
+    margin-bottom: 8px;
+    display: block;
+  }
+  
+  /* MENU */
+  .menu {
+    background: var(--noir);
+    color: var(--creme);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .menu::before {
+    content: '献立';
+    position: absolute;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 25rem;
+    color: rgba(200,16,46,0.03);
+    font-weight: 900;
+    top: 10%;
+    right: -50px;
+    line-height: 1;
+    pointer-events: none;
+  }
+  
+  .menu .section-title h2 { color: var(--creme); }
+  
+  .menu-category {
+    margin-bottom: 70px;
+    position: relative;
+  }
+  
+  .menu-category h3 {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 2rem;
+    color: var(--or);
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed rgba(212,160,86,0.3);
+    display: flex;
+    align-items: baseline;
+    gap: 15px;
+  }
+  
+  .menu-category h3 .jp {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.2rem;
+    color: var(--rouge);
+    font-weight: 400;
+  }
+  
+  .menu-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+  }
+  
+  .menu-item {
+    padding: 20px;
+    border-left: 2px solid transparent;
+    transition: all 0.3s ease;
+  }
+  
+  .menu-item:hover {
+    border-left-color: var(--rouge);
+    background: rgba(245,236,217,0.03);
+    transform: translateX(5px);
+  }
+  
+  .menu-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 15px;
+    margin-bottom: 8px;
+  }
+  
+  .menu-item h4 {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.25rem;
+    color: var(--creme);
+    font-weight: 600;
+  }
+  
+  .menu-item .price {
+    color: var(--or);
+    font-weight: 700;
+    font-size: 1.1rem;
+    white-space: nowrap;
+  }
+  
+  .menu-item p {
+    color: #b8b0a0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  
+  .menu-item .tag {
+    display: inline-block;
+    background: var(--rouge);
+    color: var(--creme);
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-left: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  /* HORAIRES */
+  .hours {
+    background: var(--beige);
+    position: relative;
+  }
+  
+  .hours::before {
+    content: '営業';
+    position: absolute;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 20rem;
+    color: rgba(200,16,46,0.05);
+    font-weight: 900;
+    bottom: -50px;
+    left: -30px;
+    line-height: 1;
+    pointer-events: none;
+  }
+  
+  .hours-list {
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--creme);
+    border-radius: 8px;
+    padding: 40px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    position: relative;
+    border-top: 4px solid var(--rouge);
+  }
+  
+  .hours-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 0;
+    border-bottom: 1px dashed rgba(0,0,0,0.1);
+  }
+  
+  .hours-row:last-child { border-bottom: none; }
+  
+  .hours-row.today {
+    background: rgba(200,16,46,0.05);
+    margin: 0 -20px;
+    padding: 18px 20px;
+    border-radius: 4px;
+    border-bottom: none;
+  }
+  
+  .hours-row .day {
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 600;
+    color: var(--noir);
+    font-size: 1.1rem;
+  }
+  
+  .hours-row .time {
+    color: #555;
+    font-size: 0.95rem;
+    text-align: right;
+  }
+  
+  .hours-row.closed .time {
+    color: var(--rouge);
+    font-style: italic;
+  }
+  
+  /* CONTACT */
+  .contact {
+    background: var(--noir);
+    color: var(--creme);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .contact::before {
+    content: '🏮';
+    position: absolute;
+    font-size: 10rem;
+    opacity: 0.05;
+    top: 20px;
+    right: 5%;
+  }
+  
+  .contact .section-title h2 { color: var(--creme); }
+  
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-bottom: 50px;
+  }
+  
+  .contact-item {
+    padding: 30px 20px;
+  }
+  
+  .contact-item .icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    display: block;
+  }
+  
+  .contact-item h4 {
+    font-family: 'Shippori Mincho', serif;
+    color: var(--or);
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  
+  .contact-item p, .contact-item a {
+    color: var(--beige);
+    font-size: 1.1rem;
+    text-decoration: none;
+    line-height: 1.6;
+  }
+  
+  .contact-item a:hover { color: var(--rouge); }
+  
+  .cta-button {
+    display: inline-block;
+    background: var(--rouge);
+    color: var(--creme);
+    padding: 18px 50px;
+    text-decoration: none;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(200,16,46,0.3);
+  }
+  
+  .cta-button:hover {
+    background: var(--rouge-fonce);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(200,16,46,0.5);
+  }
+  
+  /* AVIS */
+  .reviews {
+    background: var(--beige);
+    padding: 100px 20px;
+  }
+  
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+  }
+  
+  .review-card {
+    background: var(--creme);
+    padding: 35px 30px;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+    position: relative;
+    border-top: 3px solid var(--rouge);
+  }
+  
+  .review-card::before {
+    content: '"';
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 5rem;
+    color: var(--rouge);
+    opacity: 0.15;
+    font-family: 'Shippori Mincho', serif;
+    line-height: 1;
+  }
+  
+  .review-stars {
+    color: var(--or);
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+  }
+  
+  .review-text {
+    font-style: italic;
+    color: #444;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+  }
+  
+  .review-author {
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 600;
+    color: var(--noir);
+  }
+  
+  .review-date {
+    font-size: 0.85rem;
+    color: #888;
+    margin-top: 3px;
+  }
+  
+  /* FOOTER */
+  footer {
+    background: #0a0a0a;
+    color: var(--beige);
+    padding: 40px 20px;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+  
+  footer .kanji {
+    font-family: 'Noto Serif JP', serif;
+    color: var(--rouge);
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    section { padding: 70px 20px; }
+    .hours-list { padding: 25px 20px; }
+    .hours-row { flex-direction: column; align-items: flex-start; gap: 5px; }
+    .hours-row .time { text-align: left; }
+    .menu-item-header { flex-direction: column; gap: 5px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-kanji">丼 ラーメン</div>
+    <h1>Donburi<br><span>Ramen</span></h1>
+    <p class="hero-subtitle">L'âme du Japon dans un bol — Place Léon Blum, Paris 11ᵉ</p>
+    <div class="hero-rating">
+      <span class="stars">★★★★★</span>
+      <span class="note">4.9/5</span>
+      <span style="opacity:0.7;">·  760 avis</span>
+    </div>
+  </div>
+  <div class="scroll-down">↓ DÉCOUVRIR</div>
+</section>
+
+<!-- À PROPOS -->
+<section class="about">
+  <div class="container">
+    <div class="section-title">
+      <span class="kanji">私たちについて</span>
+      <h2>Notre Maison</h2>
+      <div class="line"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>Niché au cœur du 11ᵉ arrondissement, sur la vibrante Place Léon Blum, <strong>Donburi Ramen</strong> est devenu en quelques années une véritable institution pour les amateurs de cuisine japonaise authentique à Paris.</p>
+        <p class="lead">« Une cuisine excellente, un personnel très accueillant, un lieu chaleureux. »</p>
+        <p>Notre maison célèbre l'art ancestral du ramen et du donburi : des bouillons mijotés pendant de longues heures, des nouilles d'une fraîcheur incomparable, et ces fameux bols garnis qui font la fierté de la cuisine populaire nippone. Même en plein rush, nous trouverons toujours une petite table pour vous accueillir.</p>
+        <p>Que ce soit pour un déjeuner rapide, un dîner convivial ou à emporter, l'expérience reste fidèle à notre promesse : qualité, générosité et chaleur humaine.</p>
+      </div>
+      <div class="about-visual">
+        <h3 style="font-family:'Shippori Mincho',serif; font-size:1.8rem; color:var(--or); position:relative; z-index:1;">Nos Services</h3>
+        <p style="opacity:0.7; margin-top:10px; position:relative; z-index:1;">Tout ce qu'il faut pour un moment parfait</p>
+        <div class="services-grid">
+          <div class="service-item"><span class="icon">🍜</span>Sur place</div>
+          <div class="service-item"><span class="icon">🥡</span>À emporter</div>
+          <div class="service-item"><span class="icon">🛵</span>Livraison</div>
+          <div class="service-item"><span class="icon">📅</span>Réservation</div>
+          <div class="service-item"><span class="icon">🌱</span>Options végé</div>
+          <div class="service-item"><span class="icon">🍶</span>Bière & vin</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu">
+  <div class="container">
+    <div class="section-title">
+      <span class="kanji">お品書き</span>
+      <h2>Notre Menu</h2>
+      <div class="line"></div>
+    </div>
+    
+    <div class="menu-category">
+      <h3>Entrées <span class="jp">— 前菜 (Zensai)</span></h3>
+      <div class="menu-items">
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <h4>Gyoza Maison</h4>
+            <span class="price">7,50 €</span>
+          </div>
+          <p>6 raviolis japonais grillés au porc et chou, sauce ponzu vinaigrée</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <h4>Edamame</h4>
+            <span class="price">5,00 €</span>
+          </div>
+          <p>Fèves de soja vapeur, fleur de sel — l'apéritif incontournable<span class="tag">Végé</span></p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <h4>Salade Wakame</h4>
+            <span class="price">6,50 €</span>
+          </div>
+          <p>Algues marinées, sésame grillé, vinaigre de riz<span class="tag">Végé</span></p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <h4>Karaage</h4>
+            <span class="price">8,00 €</span>
+          </div>
+          <p>Poulet mariné à la japonaise, frit croustillant, mayo yuzu</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="menu-category">
+      <h3>Ramen & Donburi <span class="jp">— ラーメン・丼</span></h3>
+      <div class="menu-items">
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <h4>Tonkotsu Ramen</h4>
+            <span class="price">15,50 €</span>
+          </div>
+          <p>Bouillon de porc 12h, chashu fondant, œuf mariné, nori, ciboule</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <h4>Shoyu Ramen</h4>
+            <span class="price">14,00 €</span>
+          </div>
+          <p>Bouillon clair à la sauce soja, poulet, pousses de bambou, menma</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <h4>Miso Ramen Épicé</h4>
+            <span class="price">15,00 €</span>
+          </div>
+          <p>Bouillon riche au miso rouge, porc haché, maïs, beurre, piment</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <h4>Vegan Ramen</h4>
+            <span class="price">14,50 €</span>
+          </div>
+          <p>Bouillon de champignons et légumes, tofu grillé, épinards<span class="tag">Vegan</span></p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <h4>Gyudon</h4>
+            <span class="price">13,50 €</span>
+          </div>
+          <p>Bol de riz garni de bœuf mijoté au saké et soja, oignons doux</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <h4>Katsudon</h4>
+            <span class="price">14,50 €</span>
+          </div>
+          <p>Escalope panée croustillante, œuf, oignons sur riz vapeur</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="menu-category">
+      <h3>Desserts <span class="jp">— デザート (Dezāto)</span></h3>
+      <div class="menu-items">
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <h4>Mochi Glacés (x3)</h4>
+            <span class="price">6,50 €</span>
+          </div>
+          <p>Boules de pâte de riz fourrées : matcha, sésame noir, yuzu</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <h4>Dorayaki</h4>
+            <span class="price">5,50 €</span>
+          </div>
+          <p>Pancakes japonais moelleux fourrés à la pâte de haricot rouge</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <h4>Tiramisu Matcha</h4>
+            <span class="price">6,00 €</span>
+          </div>
+          <p>Création maison au thé vert et mascarpone, biscuit sablé</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <h4>Glace Artisanale</h4>
+            <span class="price">5,00 €</span>
+          </div>
+          <p>Matcha, sésame noir, haricot rouge ou vanille bourbon</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AVIS -->
+<section class="reviews">
+  <div class="container">
+    <div class="section-title">
+      <span class="kanji">お客様の声</span>
+      <h2>Ils en parlent</h2>
+      <div class="line"></div>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">« Guidés par les avis Google, nous nous sommes laissés tenter par cet établissement. Et nous avons bien fait ! L'accueil y est chaleureux, le service rapide et de qualité. Les plats sont bons et savoureux. »</p>
+        <div class="review-author">David Custodio</div>
+        <div class="review-date">il y a 2 mois</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">« Un vrai délice ! L'affluence témoigne de la qualité ! Même en plein rush, on nous trouve une petite table. Nous nous sommes régalées ! C'est ici qu'il faut s'arrêter ! »</p>
+        <div class="review-author">Alexandra Sola</div>
+        <div class="review-date">il y a 3 mois</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">« Nous avons découvert ce restaurant hier soir. La cuisine était excellente, nous nous sommes régalées. Le personnel est très accueillant et le lieu chaleureux. Vous pouvez y aller les yeux fermés ! »</p>
+        <div class="review-author">Lucie Gautier</div>
+        <div class="review-date">il y a 5 mois</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HORAIRES -->
+<section class="hours">
+  <div class="container">
+    <div class="section-title">
+      <span class="kanji">営業時間</span>
+      <h2>Horaires</h2>
+      <div class="line"></div>
+    </div>
+    <div class="hours-list">
+      <div class="hours-row">
+        <span class="day">Lundi</span>
+        <span class="time">11:45 – 14:45  ·  18:30 – 22:45</span>
+      </div>
+      <div class="hours-row">
+        <span class="day">Mardi</span>
+        <span class="time">11:45 – 14:45  ·  18:30 – 22:45</span>
+      </div>
+      <div class="hours-row">
+        <span class="day">Mercredi</span>
+        <span class="time">11:45 – 14:45  ·  18:30 – 22:45</span>
+      </div>
+      <div class="hours-row">
+        <span class="day">Jeudi</span>
+        <span class="time">11:45 – 14:45  ·  18:30 – 22:45</span>
+      </div>
+      <div class="hours-row">
+        <span class="day">Vendredi</span>
+        <span class="time">11:45 – 14:45  ·  18:30 – 22:45</span>
+      </div>
+      <div class="hours-row">
+        <span class="day">Samedi</span>
+        <span class="time">11:45 – 14:45  ·  18:30 – 22:45</span>
+      </div>
+      <div class="hours-row closed">
+        <span class="day">Dimanche</span>
+        <span class="time">Fermé — 定休日</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact">
+  <div class="container">
+    <div class="section-title">
+      <span class="kanji">お問い合わせ</span>
+      <h2>Nous Trouver</h2>
+      <div class="line"></div>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-item">
+        <span class="icon">📍</span>
+        <h4>Adresse</h4>
+        <p>3 Place Léon Blum<br>75011 Paris</p>
+      </div>
+      <div class="contact-item">
+        <span class="icon">📞</span>
+        <h4>Téléphone</h4>
+        <a href="tel:+33143708916">01 43 70 89 16</a>
+      </div>
+      <div class="contact-item">
+        <span class="icon">🕒</span>
+        <h4>Service</h4>
+        <p>Midi & Soir<br>Du lundi au samedi</p>
+      </div>
+    </div>
+    <a href="https://maps.google.com/?cid=3099427754194341135" target="_blank" rel="noopener" class="cta-button">Itinéraire →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="kanji">丼</div>
+  <p><strong>Donburi Ramen</strong> · 3 Place Léon Blum, 75011 Paris</p>
+  <p style="margin-top:10px; opacity:0.6;">© 2024 — L'âme du Japon à Paris · ありがとうございました</p>
+</footer>
+
+</body>
+</html>

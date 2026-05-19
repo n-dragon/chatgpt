@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANCO — Restaurant moderne & coloré · Paris 12e</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=DM+Serif+Display&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rose: #ff6b8a;
+    --corail: #ff8966;
+    --jaune: #ffd166;
+    --vert: #4ecdc4;
+    --bleu: #2d4a6b;
+    --creme: #fff8f0;
+    --noir: #1a1a2e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--creme);
+    color: var(--noir);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  h1, h2, h3 { font-family: 'DM Serif Display', serif; font-weight: 400; }
+  .accent { font-family: 'Caveat', cursive; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.2rem 2rem;
+    background: rgba(255, 248, 240, 0.92);
+    backdrop-filter: blur(10px);
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+  }
+  nav .logo { font-family: 'DM Serif Display', serif; font-size: 1.8rem; letter-spacing: 0.15em; color: var(--rose); }
+  nav ul { display: flex; gap: 2rem; list-style: none; }
+  nav a { text-decoration: none; color: var(--noir); font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+  nav a:hover { color: var(--rose); }
+  @media (max-width: 768px) { nav ul { display: none; } }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at 15% 25%, var(--jaune) 0%, transparent 35%),
+      radial-gradient(circle at 85% 75%, var(--vert) 0%, transparent 40%),
+      radial-gradient(circle at 50% 50%, var(--corail) 0%, transparent 50%),
+      linear-gradient(135deg, var(--rose) 0%, var(--corail) 100%);
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center; padding: 8rem 2rem 4rem; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle, transparent 0%, rgba(26,26,46,0.15) 100%);
+  }
+  .hero-content { position: relative; z-index: 2; animation: fadeUp 1.2s ease; }
+  .hero .label { color: var(--creme); font-size: 1rem; letter-spacing: 0.4em; margin-bottom: 1.5rem; font-weight: 300; }
+  .hero h1 {
+    font-size: clamp(5rem, 18vw, 14rem);
+    color: var(--creme);
+    line-height: 0.9; letter-spacing: -0.02em;
+    text-shadow: 0 4px 30px rgba(0,0,0,0.15);
+  }
+  .hero .tagline {
+    font-family: 'Caveat', cursive; font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--creme); margin-top: 1rem; transform: rotate(-2deg);
+  }
+  .hero .meta {
+    margin-top: 3rem; display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center;
+    color: var(--creme); font-size: 0.9rem; letter-spacing: 0.15em;
+  }
+  .hero .meta span { padding: 0.5rem 1.2rem; border: 1px solid rgba(255,255,255,0.4); border-radius: 50px; }
+  .scroll-hint {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    color: var(--creme); font-size: 0.8rem; letter-spacing: 0.3em;
+    animation: bounce 2s infinite;
+  }
+  @keyframes bounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(10px); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* SECTIONS */
+  section { padding: 6rem 2rem; max-width: 1200px; margin: 0 auto; }
+  .section-label {
+    font-family: 'Caveat', cursive; font-size: 2rem; color: var(--rose);
+    margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 3rem;
+    line-height: 1.05; color: var(--noir);
+  }
+
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; gap: 2rem; } }
+  .about-text p { font-size: 1.05rem; margin-bottom: 1.2rem; color: #444; }
+  .about-visual {
+    background: linear-gradient(135deg, var(--jaune), var(--corail));
+    border-radius: 30px; padding: 3rem; min-height: 400px;
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .about-visual::before {
+    content: '✦'; position: absolute; top: 1rem; right: 1.5rem;
+    font-size: 3rem; color: var(--creme); opacity: 0.6;
+  }
+  .features { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .feature {
+    background: rgba(255,248,240,0.85); padding: 1.2rem; border-radius: 15px;
+    text-align: center;
+  }
+  .feature-icon { font-size: 1.8rem; margin-bottom: 0.3rem; }
+  .feature-label { font-size: 0.85rem; font-weight: 500; }
+  .price-tag {
+    display: inline-block; background: var(--noir); color: var(--creme);
+    padding: 0.5rem 1.2rem; border-radius: 50px; font-weight: 500;
+    letter-spacing: 0.1em; margin-top: 1rem;
+  }
+  .rating-box {
+    margin-top: 2rem; padding: 1.5rem; background: var(--creme); border-radius: 20px;
+    display: flex; align-items: center; gap: 1.5rem;
+  }
+  .rating-score { font-size: 3rem; font-family: 'DM Serif Display', serif; color: var(--rose); }
+
+  /* MENU */
+  .menu-section { background: var(--noir); color: var(--creme); padding: 6rem 2rem; }
+  .menu-inner { max-width: 1200px; margin: 0 auto; }
+  .menu-section .section-title { color: var(--creme); }
+  .menu-section .section-label { color: var(--jaune); }
+  .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; margin-top: 3rem; }
+  @media (max-width: 900px) { .menu-grid { grid-template-columns: 1fr; } }
+  .menu-cat h3 {
+    font-size: 2rem; color: var(--jaune); margin-bottom: 2rem;
+    padding-bottom: 1rem; border-bottom: 1px solid rgba(255,209,102,0.3);
+  }
+  .menu-item { margin-bottom: 1.8rem; }
+  .menu-item-head { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; }
+  .menu-item-name { font-weight: 500; font-size: 1.05rem; color: var(--creme); }
+  .menu-item-price { color: var(--rose); font-weight: 600; white-space: nowrap; }
+  .menu-item-desc { font-size: 0.88rem; color: rgba(255,248,240,0.6); margin-top: 0.3rem; font-weight: 300; }
+
+  /* HOURS */
+  .hours-section { background: linear-gradient(180deg, var(--creme) 0%, #ffe8d6 100%); }
+  .hours-grid {
+    display: grid; grid-template-columns: repeat(7, 1fr); gap: 1rem;
+    max-width: 1000px; margin: 0 auto;
+  }
+  @media (max-width: 768px) { .hours-grid { grid-template-columns: repeat(2, 1fr); } }
+  .day-card {
+    background: var(--creme); padding: 1.5rem 1rem; border-radius: 20px;
+    text-align: center; border: 2px solid transparent;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .day-card:hover { transform: translateY(-5px); border-color: var(--rose); }
+  .day-name { font-weight: 600; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.5rem; }
+  .day-hours { font-family: 'DM Serif Display', serif; font-size: 1.1rem; }
+  .open-badge {
+    display: inline-block; margin-top: 1rem; padding: 0.4rem 1rem;
+    background: var(--vert); color: white; border-radius: 50px;
+    font-size: 0.85rem; font-weight: 500;
+  }
+
+  /* CONTACT */
+  .contact-section { background: var(--noir); color: var(--creme); padding: 6rem 2rem; }
+  .contact-inner { max-width: 1200px; margin: 0 auto; }
+  .contact-section .section-title { color: var(--creme); }
+  .contact-section .section-label { color: var(--vert); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 3rem; }
+  @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } }
+  .contact-item { margin-bottom: 2rem; }
+  .contact-label { font-size: 0.8rem; letter-spacing: 0.3em; color: var(--jaune); text-transform: uppercase; margin-bottom: 0.5rem; }
+  .contact-value { font-size: 1.3rem; font-family: 'DM Serif Display', serif; }
+  .contact-value a { color: var(--creme); text-decoration: none; }
+  .cta-btn {
+    display: inline-block; margin-top: 2rem;
+    padding: 1.2rem 2.5rem; background: var(--rose); color: white;
+    text-decoration: none; border-radius: 50px; font-weight: 600;
+    letter-spacing: 0.1em; transition: all 0.3s; font-size: 0.9rem;
+    text-transform: uppercase;
+  }
+  .cta-btn:hover { background: var(--jaune); color: var(--noir); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(255,107,138,0.4); }
+  .contact-visual {
+    background: linear-gradient(135deg, var(--vert), var(--rose));
+    border-radius: 30px; padding: 3rem; min-height: 350px;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center; position: relative;
+  }
+  .contact-visual .big-emoji { font-size: 5rem; margin-bottom: 1rem; }
+  .contact-visual h3 { font-size: 2rem; color: var(--creme); margin-bottom: 1rem; }
+
+  footer {
+    background: var(--noir); color: rgba(255,248,240,0.5); text-align: center;
+    padding: 2rem; font-size: 0.85rem; border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  footer .accent { color: var(--rose); font-size: 1.3rem; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">ANCO</div>
+  <ul>
+    <li><a href="#about">À propos</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#hours">Horaires</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <div class="hero-content">
+    <div class="label">RESTAURANT · PARIS 12e</div>
+    <h1>ANCO</h1>
+    <div class="tagline">cuisine moderne &amp; cocktails colorés</div>
+    <div class="meta">
+      <span>★ 4.6 / 5</span>
+      <span>2 801 avis</span>
+      <span>€€</span>
+      <span>Terrasse</span>
+    </div>
+  </div>
+  <div class="scroll-hint">SCROLL ↓</div>
+</header>
+
+<section id="about">
+  <div class="section-label">~ bienvenue ~</div>
+  <h2 class="section-title">Une cantine joyeuse,<br>face à l'Accor Arena.</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>Au cœur du 12e arrondissement, <strong>ANCO</strong> est ce genre d'adresse qu'on adopte instantanément. Un restaurant tendance et coloré où la cuisine française se réinvente avec audace, accompagnée de cocktails créatifs servis du matin tard dans la nuit.</p>
+      <p>De la terrasse animée au service rapide et soigné, tout est pensé pour devenir votre nouveau spot favori — pour un petit-déjeuner, un déjeuner pressé, un dîner gourmand ou un verre après un concert.</p>
+      <p>Plats frais, copieux, originaux. Accueil chaleureux. Une déco qui pétille. <em>Et si c'était parfait ?</em></p>
+      <span class="price-tag">€€ · Bistronomique</span>
+    </div>
+    <div class="about-visual">
+      <div class="features">
+        <div class="feature"><div class="feature-icon">🍳</div><div class="feature-label">Petit-déj</div></div>
+        <div class="feature"><div class="feature-icon">🍽️</div><div class="feature-label">Déjeuner</div></div>
+        <div class="feature"><div class="feature-icon">🌙</div><div class="feature-label">Dîner</div></div>
+        <div class="feature"><div class="feature-icon">🍷</div><div class="feature-label">Bar à vin</div></div>
+        <div class="feature"><div class="feature-icon">🌿</div><div class="feature-label">Veggie</div></div>
+        <div class="feature"><div class="feature-icon">☀️</div><div class="feature-label">Terrasse</div></div>
+      </div>
+      <div class="rating-box">
+        <div class="rating-score">4.6</div>
+        <div>
+          <div style="font-weight: 600; color: var(--noir);">★★★★★</div>
+          <div style="font-size: 0.85rem; color: #666;">Sur 2 801 avis Google</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="menu" class="menu-section">
+  <div class="menu-inner">
+    <div class="section-label">~ la carte ~</div>
+    <h2 class="section-title">Suggestions<br>du chef.</h2>
+    <div class="menu-grid">
+      <div class="menu-cat">
+        <h3>Entrées</h3>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Burrata des Pouilles</span><span class="menu-item-price">14 €</span></div>
+          <div class="menu-item-desc">Tomates anciennes, basilic, huile d'olive Toscane</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Tartare de bœuf au couteau</span><span class="menu-item-price">16 €</span></div>
+          <div class="menu-item-desc">Câpres, échalotes, jaune d'œuf bio, frites maison</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Velouté de potimarron</span><span class="menu-item-price">11 €</span></div>
+          <div class="menu-item-desc">Lait de coco, graines torréfiées, huile de noisette</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Œuf parfait 64°</span><span class="menu-item-price">13 €</span></div>
+          <div class="menu-item-desc">Crème de champignons, parmesan, croûtons</div>
+        </div>
+      </div>
+
+      <div class="menu-cat">
+        <h3>Plats</h3>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Magret de canard laqué</span><span class="menu-item-price">26 €</span></div>
+          <div class="menu-item-desc">Miel-thym, patate douce rôtie, jus corsé</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Cabillaud rôti & beurre blanc</span><span class="menu-item-price">24 €</span></div>
+          <div class="menu-item-desc">Risotto d'épeautre, légumes de saison</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Burger ANCO</span><span class="menu-item-price">19 €</span></div>
+          <div class="menu-item-desc">Bœuf charolais, comté affiné, oignons confits, frites</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Risotto végétal aux truffes</span><span class="menu-item-price">22 €</span></div>
+          <div class="menu-item-desc">Carnaroli, champignons, parmesan 24 mois</div>
+        </div>
+      </div>
+
+      <div class="menu-cat">
+        <h3>Desserts</h3>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Pavlova fruits rouges</span><span class="menu-item-price">10 €</span></div>
+          <div class="menu-item-desc">Meringue craquante, chantilly vanille, coulis frais</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Fondant chocolat noir 70%</span><span class="menu-item-price">9 €</span></div>
+          <div class="menu-item-desc">Cœur coulant, glace caramel beurre salé</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Tarte citron meringuée</span><span class="menu-item-price">9 €</span></div>
+          <div class="menu-item-desc">Sablé breton, lemon curd, meringue flambée</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head"><span class="menu-item-name">Café gourmand</span><span class="menu-item-price">11 €</span></div>
+          <div class="menu-item-desc">Sélection de mignardises maison</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="hours" class="hours-section">
+  <div class="section-label">~ on vous attend ~</div>
+  <h2 class="section-title">Horaires<br>d'ouverture.</h2>
+  <div class="hours-grid">
+    <div class="day-card"><div class="day-name">Lun</div><div class="day-hours">8h — minuit</div></div>
+    <div class="day-card"><div class="day-name">Mar</div><div class="day-hours">8h — minuit</div></div>
+    <div class="day-card"><div class="day-name">Mer</div><div class="day-hours">8h — minuit</div></div>
+    <div class="day-card"><div class="day-name">Jeu</div><div class="day-hours">8h — minuit</div></div>
+    <div class="day-card"><div class="day-name">Ven</div><div class="day-hours">8h — minuit</div></div>
+    <div class="day-card"><div class="day-name">Sam</div><div class="day-hours">9h — minuit</div></div>
+    <div class="day-card"><div class="day-name">Dim</div><div class="day-hours">9h — minuit</div></div>
+  </div>
+  <div style="text-align: center; margin-top: 2rem;">
+    <span class="open-badge">● Ouvert 7j/7</span>
+  </div>
+</section>
+
+<section id="contact" class="contact-section">
+  <div class="contact-inner">
+    <div class="section-label">~ trouvez-nous ~</div>
+    <h2 class="section-title">À deux pas<br>de Bercy.</h2>
+    <div class="contact-grid">
+      <div>
+        <div class="contact-item">
+          <div class="contact-label">Adresse</div>
+          <div class="contact-value">108 Rue de Bercy<br>75012 Paris</div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-label">Téléphone</div>
+          <div class="contact-value"><a href="tel:+33144680761">01 44 68 07 61</a></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-label">Métro</div>
+          <div class="contact-value">Bercy · Gare de Lyon</div>
+        </div>
+        <a href="https://maps.google.com/?cid=6003846561255084437" target="_blank" rel="noopener" class="cta-btn">Itinéraire →</a>
+      </div>
+      <div class="contact-visual">
+        <div class="big-emoji">🍽️</div>
+        <h3>Réservez<br>votre table</h3>
+        <p style="color: var(--creme); opacity: 0.9;">Un appel suffit pour vous garantir la meilleure place — terrasse ou intérieur, selon votre humeur.</p>
+        <a href="tel:+33144680761" class="cta-btn" style="background: var(--creme); color: var(--noir);">Appeler maintenant</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><span class="accent">ANCO</span> · 108 Rue de Bercy, 75012 Paris</p>
+  <p style="margin-top: 0.5rem;">© 2025 · Tous droits réservés</p>
+</footer>
+
+</body>
+</html>
