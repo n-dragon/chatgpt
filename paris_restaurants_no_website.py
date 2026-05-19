@@ -12,20 +12,25 @@ Usage:
     python paris_restaurants_no_website.py
 """
 
+import io
 import os
+import re
 import time
 import json
 import csv
 import base64
+import zipfile
 import requests
 import anthropic
 
 API_KEY = os.environ.get("GOOGLE_MAPS_API_KEY")
+NETLIFY_TOKEN = os.environ.get("NETLIFY_TOKEN")
 ANTHROPIC_CLIENT = anthropic.Anthropic()
 
 PLACES_SEARCH_URL = "https://maps.googleapis.com/maps/api/place/textsearch/json"
 PLACES_DETAIL_URL = "https://maps.googleapis.com/maps/api/place/details/json"
 PLACES_PHOTO_URL = "https://maps.googleapis.com/maps/api/place/photo"
+NETLIFY_API = "https://api.netlify.com/api/v1"
 
 MAX_PHOTOS_PER_RESTAURANT = 3
 
@@ -209,16 +214,79 @@ def _build_services_text(r: dict) -> str:
     return " · ".join(lines)
 
 
+def _slugify(name: str) -> str:
+    """Convertit un nom de restaurant en slug URL-friendly."""
+    slug = name.lower().strip()
+    slug = slug.replace("'", "").replace("'", "")
+    slug = re.sub(r"[àáâãäå]", "a", slug)
+    slug = re.sub(r"[èéêë]", "e", slug)
+    slug = re.sub(r"[ìíîï]", "i", slug)
+    slug = re.sub(r"[òóôõö]", "o", slug)
+    slug = re.sub(r"[ùúûü]", "u", slug)
+    slug = re.sub(r"[ç]", "c", slug)
+    slug = re.sub(r"[^a-z0-9]+", "-", slug)
+    slug = slug.strip("-")[:50]
+    return slug
+
+
+def deploy_to_netlify(restaurant_name: str, place_id: str, html_content: str) -> str:
+    """
+    Déploie le HTML sur Netlify et retourne l'URL publique.
+    Nécessite la variable d'environnement NETLIFY_TOKEN.
+    """
+    if not NETLIFY_TOKEN:
+        return ""
+
+    auth_headers = {"Authorization": f"Bearer {NETLIFY_TOKEN}"}
+    slug = _slugify(restaurant_name)
+
+    # Création du site (essai avec le slug, puis avec suffixe place_id si pris)
+    for candidate in [slug, f"{slug}-{place_id[-6:].lower()}"]:
+        resp = requests.post(
+            f"{NETLIFY_API}/sites",
+            headers={**auth_headers, "Content-Type": "application/json"},
+            json={"name": candidate},
+            timeout=15,
+        )
+        if resp.status_code in (200, 201):
+            site_id = resp.json()["id"]
+            site_name = resp.json()["name"]
+            break
+    else:
+        print(f"    [netlify] impossible de créer le site pour {restaurant_name}")
+        return ""
+
+    # Empaquetage HTML → ZIP en mémoire
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
+        zf.writestr("index.html", html_content)
+    buf.seek(0)
+
+    # Déploiement
+    deploy_resp = requests.post(
+        f"{NETLIFY_API}/sites/{site_id}/deploys",
+        headers={**auth_headers, "Content-Type": "application/zip"},
+        data=buf.read(),
+        timeout=60,
+    )
+    if deploy_resp.status_code not in (200, 201):
+        print(f"    [netlify] erreur déploiement : {deploy_resp.status_code} {deploy_resp.text[:200]}")
+        return ""
+
+    return f"https://{site_name}.netlify.app"
+
+
 def generate_website(
     restaurant: dict,
     photos_bytes: list[bytes],
     photo_urls: list[str] | None = None,
     output_dir: str = "websites",
-) -> str:
+) -> tuple[str, str]:
     """
     Génère une page HTML one-page pour le restaurant via Claude.
     Si des octets de photos sont disponibles, ils sont envoyés à Claude (vision).
     Les URLs photos sont intégrées dans le HTML en <img src> pour un affichage navigateur.
+    Retourne (chemin_fichier_local, url_netlify).
     """
     os.makedirs(output_dir, exist_ok=True)
     if photo_urls is None:
@@ -322,7 +390,7 @@ AVIS CLIENTS :
             html = html.rsplit("```", 1)[0].strip()
     except Exception as exc:
         print(f"    [claude] erreur génération site : {exc}")
-        return ""
+        return "", ""
 
     # Sauvegarde du fichier
     safe_name = "".join(c if c.isalnum() or c in "-_ " else "_" for c in restaurant["name"])
@@ -334,7 +402,13 @@ AVIS CLIENTS :
         f.write(html)
 
     print(f"    [site] {filepath}")
-    return filepath
+
+    # Déploiement Netlify si token disponible
+    netlify_url = deploy_to_netlify(restaurant["name"], restaurant["place_id"], html)
+    if netlify_url:
+        print(f"    [netlify] {netlify_url}")
+
+    return filepath, netlify_url
 
 
 def collect_restaurants(max_per_zone: int = 60, max_zones: int | None = None) -> list[dict]:
@@ -455,13 +529,17 @@ def collect_restaurants(max_per_zone: int = 60, max_zones: int | None = None) ->
                     "photos_analysed": len(photos_bytes),
                     "photo_urls": json.dumps(photo_urls, ensure_ascii=False),
                     "ambiance_style": ambiance,
-                    # Site généré
+                    # Sites générés
                     "website_file": "",
+                    "netlify_url": "",
                 }
 
-                # Génération du site one-page
-                website_path = generate_website(restaurant, photos_bytes, photo_urls=photo_urls)
+                # Génération du site one-page + déploiement Netlify
+                website_path, netlify_url = generate_website(
+                    restaurant, photos_bytes, photo_urls=photo_urls
+                )
                 restaurant["website_file"] = website_path
+                restaurant["netlify_url"] = netlify_url
 
                 results.append(restaurant)
                 print(f"  [SANS SITE] {restaurant['name']} — {restaurant['address']}")
@@ -516,6 +594,11 @@ def main():
     print(f"Total trouvé  : {len(restaurants)} restaurant(s) sans site web")
     sites = [r for r in restaurants if r.get("website_file")]
     print(f"Sites générés : {len(sites)} (dossier : websites/)")
+    deployed = [r for r in restaurants if r.get("netlify_url")]
+    if deployed:
+        print(f"Déployés Netlify : {len(deployed)}")
+        for r in deployed:
+            print(f"  {r['name']} → {r['netlify_url']}")
 
     save_results(restaurants)
 

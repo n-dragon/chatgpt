@@ -52,16 +52,26 @@ pip install -r requirements.txt
 
 export GOOGLE_MAPS_API_KEY="votre_clé_google"
 export ANTHROPIC_API_KEY="votre_clé_anthropic"
+export NETLIFY_TOKEN="votre_token_netlify"   # optionnel — active le déploiement automatique
 
 python paris_restaurants_no_website.py
+# Options :
+#   --max-per-zone 5   (limiter à 5 restaurants par arrondissement)
+#   --zones 3          (couvrir seulement les 3 premiers arrondissements)
 ```
 
 ### Clés API nécessaires
 
-| Clé | APIs requises |
-|---|---|
-| Google Maps | Places API (Text Search, Place Details, Place Photos) |
-| Anthropic | Messages API (vision + génération) |
+| Clé | APIs requises | Obligatoire |
+|---|---|---|
+| Google Maps | Places API (Text Search, Place Details, Place Photos) | Oui |
+| Anthropic | Messages API (vision + génération) | Oui |
+| Netlify | Sites API + Deploys API | Non (désactive le déploiement) |
+
+### Obtenir un token Netlify
+
+1. Créer un compte sur [netlify.com](https://netlify.com)
+2. User Settings → Applications → Personal access tokens → New access token
 
 ---
 
@@ -93,8 +103,10 @@ python paris_restaurants_no_website.py
 
 **Analyse IA**
 - `photos_analysed` — nombre de photos téléchargées
+- `photo_urls` — URLs Google Maps des photos (intégrées en `<img src>` dans le HTML)
 - `ambiance_style` — description Claude du style et de l'ambiance (3-5 phrases en français)
-- `website_file` — chemin vers le fichier HTML généré
+- `website_file` — chemin vers le fichier HTML local généré
+- `netlify_url` — URL publique déployée (ex : `https://le-chat-blanc.netlify.app`)
 
 ---
 
