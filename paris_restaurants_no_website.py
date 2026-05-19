@@ -560,11 +560,18 @@ def save_results(restaurants: list[dict], json_path: str = "results.json", csv_p
 
     if restaurants:
         fieldnames = list(restaurants[0].keys())
+        # Garantit la présence des colonnes à remplir manuellement
+        for col in ("netlify_url", "email"):
+            if col not in fieldnames:
+                fieldnames.append(col)
         with open(csv_path, "w", newline="", encoding="utf-8") as f:
-            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            writer = csv.DictWriter(f, fieldnames=fieldnames, extrasaction="ignore")
             writer.writeheader()
-            writer.writerows(restaurants)
+            for r in restaurants:
+                row = {**r, "email": r.get("email", ""), "netlify_url": r.get("netlify_url", "")}
+                writer.writerow(row)
         print(f"CSV sauvegardé  : {csv_path}")
+        print(f"→ Remplis la colonne 'email' dans {csv_path} puis lance : python send_emails.py")
 
 
 def main():
