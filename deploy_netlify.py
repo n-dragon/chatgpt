@@ -69,9 +69,23 @@ def deploy_site(name: str, place_id: str, html_path: str) -> str:
             site_id   = resp.json()["id"]
             site_name = resp.json()["name"]
             break
+        if resp.status_code == 422 and "must be unique" in resp.text:
+            # Site déjà existant → on le récupère par son nom
+            search = requests.get(
+                f"{NETLIFY_API}/sites",
+                headers=auth,
+                params={"name": candidate, "filter": "all"},
+                timeout=15,
+                verify=SSL_VERIFY,
+            )
+            matches = [s for s in search.json() if s.get("name") == candidate]
+            if matches:
+                site_id   = matches[0]["id"]
+                site_name = matches[0]["name"]
+                break
 
     if not site_id:
-        print(f"  [ERREUR] impossible de créer le site pour « {name} » — réponse : {resp.status_code} {resp.text[:200]}")
+        print(f"  [ERREUR] impossible de créer/trouver le site pour « {name} » — réponse : {resp.status_code} {resp.text[:200]}")
         return ""
 
     # Empaquetage HTML → ZIP en mémoire
