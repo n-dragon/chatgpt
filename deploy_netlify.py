@@ -73,6 +73,8 @@ def deploy_site(name: str, place_id: str, html_path: str) -> str:
     buf = io.BytesIO()
     with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
         zf.writestr("index.html", html_content)
+        # Force le Content-Type pour que Netlify rende le HTML correctement
+        zf.writestr("_headers", "/*\n  Content-Type: text/html; charset=utf-8\n")
     buf.seek(0)
 
     # Déploiement (retry automatique si rate limit 429)
@@ -101,9 +103,10 @@ def deploy_site(name: str, place_id: str, html_path: str) -> str:
 
 def main():
     parser = argparse.ArgumentParser(description="Déploie les sites générés sur Netlify")
-    parser.add_argument("--json",    default="results.json", help="Fichier JSON source")
-    parser.add_argument("--csv",     default="results.csv",  help="Fichier CSV à mettre à jour")
-    parser.add_argument("--dry-run", action="store_true",    help="Affiche sans déployer")
+    parser.add_argument("--json",     default="results.json", help="Fichier JSON source")
+    parser.add_argument("--csv",      default="results.csv",  help="Fichier CSV à mettre à jour")
+    parser.add_argument("--dry-run",  action="store_true",    help="Affiche sans déployer")
+    parser.add_argument("--redeploy", action="store_true",    help="Redéploie même les sites déjà déployés")
     args = parser.parse_args()
 
     if not NETLIFY_TOKEN and not args.dry_run:
@@ -115,11 +118,11 @@ def main():
     with open(args.json, encoding="utf-8") as f:
         restaurants = json.load(f)
 
-    # Sélectionne ceux qui ont un fichier HTML mais pas encore d'URL Netlify
+    # Sélectionne les restaurants à déployer
     to_deploy = [
         r for r in restaurants
         if r.get("website_file") and os.path.exists(r["website_file"])
-        and not r.get("netlify_url")
+        and (not r.get("netlify_url") or args.redeploy)
     ]
     already = sum(1 for r in restaurants if r.get("netlify_url"))
 
