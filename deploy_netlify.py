@@ -50,13 +50,21 @@ def deploy_site(name: str, place_id: str, html_path: str) -> str:
     # Création du site (essai slug simple, puis avec suffixe place_id)
     site_id = site_name = None
     for candidate in [slug, f"{slug}-{place_id[-6:].lower()}"]:
-        resp = requests.post(
-            f"{NETLIFY_API}/sites",
-            headers={**auth, "Content-Type": "application/json"},
-            json={"name": candidate},
-            timeout=15,
-            verify=SSL_VERIFY,
-        )
+        for attempt in range(6):
+            resp = requests.post(
+                f"{NETLIFY_API}/sites",
+                headers={**auth, "Content-Type": "application/json"},
+                json={"name": candidate},
+                timeout=15,
+                verify=SSL_VERIFY,
+            )
+            if resp.status_code == 429:
+                retry_after = resp.headers.get("Retry-After") or resp.headers.get("X-RateLimit-Reset")
+                wait = int(retry_after) if retry_after and retry_after.isdigit() else 30 * (attempt + 1)
+                print(f"\n  [rate limit création] Retry-After={retry_after!r} → attente {wait}s...", end=" ", flush=True)
+                time.sleep(wait)
+                continue
+            break
         if resp.status_code in (200, 201):
             site_id   = resp.json()["id"]
             site_name = resp.json()["name"]
@@ -88,8 +96,12 @@ def deploy_site(name: str, place_id: str, html_path: str) -> str:
             verify=SSL_VERIFY,
         )
         if deploy.status_code == 429:
-            wait = 30 * (attempt + 1)  # 30s, 60s, 90s, 120s, 150s, 180s
-            print(f"\n  [rate limit] attente {wait}s avant retry {attempt+1}/6...", end=" ", flush=True)
+            retry_after = deploy.headers.get("Retry-After") or deploy.headers.get("X-RateLimit-Reset")
+            if retry_after and retry_after.isdigit():
+                wait = int(retry_after)
+            else:
+                wait = 30 * (attempt + 1)  # fallback : 30s, 60s, 90s...
+            print(f"\n  [rate limit] Retry-After={retry_after!r} → attente {wait}s (retry {attempt+1}/6)...", end=" ", flush=True)
             time.sleep(wait)
             continue
         break
