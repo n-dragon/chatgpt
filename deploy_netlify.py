@@ -20,9 +20,10 @@ import time
 import zipfile
 import argparse
 import requests
-import certifi
+import urllib3
 
-SSL_VERIFY = certifi.where()
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+SSL_VERIFY = False
 
 NETLIFY_TOKEN = os.environ.get("NETLIFY_TOKEN")
 NETLIFY_API   = "https://api.netlify.com/api/v1"
