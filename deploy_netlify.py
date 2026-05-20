@@ -16,6 +16,7 @@ import os
 import re
 import csv
 import json
+import math
 import time
 import zipfile
 import argparse
@@ -27,6 +28,19 @@ SSL_VERIFY = False
 
 NETLIFY_TOKEN = os.environ.get("NETLIFY_TOKEN")
 NETLIFY_API   = "https://api.netlify.com/api/v1"
+
+
+def _parse_retry_after(headers: dict, fallback: int) -> int:
+    """Retourne le nombre de secondes à attendre depuis Retry-After (délai ou timestamp Unix)."""
+    raw = headers.get("Retry-After") or headers.get("X-RateLimit-Reset")
+    if raw and raw.isdigit():
+        value = int(raw)
+        # Timestamp Unix (> 1e9) → on calcule le delta
+        if value > 1_000_000_000:
+            wait = math.ceil(value - time.time()) + 2
+            return max(wait, 1)
+        return value  # délai en secondes
+    return fallback
 
 
 def _slugify(name: str) -> str:
@@ -59,9 +73,8 @@ def deploy_site(name: str, place_id: str, html_path: str) -> str:
                 verify=SSL_VERIFY,
             )
             if resp.status_code == 429:
-                retry_after = resp.headers.get("Retry-After") or resp.headers.get("X-RateLimit-Reset")
-                wait = int(retry_after) if retry_after and retry_after.isdigit() else 30 * (attempt + 1)
-                print(f"\n  [rate limit création] Retry-After={retry_after!r} → attente {wait}s...", end=" ", flush=True)
+                wait = _parse_retry_after(resp.headers, fallback=30 * (attempt + 1))
+                print(f"\n  [rate limit création] attente {wait}s...", end=" ", flush=True)
                 time.sleep(wait)
                 continue
             break
@@ -110,12 +123,8 @@ def deploy_site(name: str, place_id: str, html_path: str) -> str:
             verify=SSL_VERIFY,
         )
         if deploy.status_code == 429:
-            retry_after = deploy.headers.get("Retry-After") or deploy.headers.get("X-RateLimit-Reset")
-            if retry_after and retry_after.isdigit():
-                wait = int(retry_after)
-            else:
-                wait = 30 * (attempt + 1)  # fallback : 30s, 60s, 90s...
-            print(f"\n  [rate limit] Retry-After={retry_after!r} → attente {wait}s (retry {attempt+1}/6)...", end=" ", flush=True)
+            wait = _parse_retry_after(deploy.headers, fallback=30 * (attempt + 1))
+            print(f"\n  [rate limit déploiement] attente {wait}s (retry {attempt+1}/6)...", end=" ", flush=True)
             time.sleep(wait)
             continue
         break
