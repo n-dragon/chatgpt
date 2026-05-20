@@ -3,10 +3,10 @@ Déploie sur Netlify tous les sites HTML déjà générés dans websites/
 et met à jour results.json + results.csv avec les URLs obtenues.
 
 Prérequis :
-    pip install requests
+    pip install requests certifi
 
 Usage :
-    export NETLIFY_TOKEN="ton_token_netlify"
+    export NETLIFY_TOKEN="ton_token_netlify"   # Windows : set NETLIFY_TOKEN=...
     python deploy_netlify.py
     python deploy_netlify.py --dry-run   # aperçu sans déployer
 """
@@ -20,6 +20,9 @@ import time
 import zipfile
 import argparse
 import requests
+import certifi
+
+SSL_VERIFY = certifi.where()
 
 NETLIFY_TOKEN = os.environ.get("NETLIFY_TOKEN")
 NETLIFY_API   = "https://api.netlify.com/api/v1"
@@ -51,6 +54,7 @@ def deploy_site(name: str, place_id: str, html_path: str) -> str:
             headers={**auth, "Content-Type": "application/json"},
             json={"name": candidate},
             timeout=15,
+            verify=SSL_VERIFY,
         )
         if resp.status_code in (200, 201):
             site_id   = resp.json()["id"]
@@ -58,7 +62,7 @@ def deploy_site(name: str, place_id: str, html_path: str) -> str:
             break
 
     if not site_id:
-        print(f"  [ERREUR] impossible de créer le site pour « {name} »")
+        print(f"  [ERREUR] impossible de créer le site pour « {name} » — réponse : {resp.status_code} {resp.text[:200]}")
         return ""
 
     # Empaquetage HTML → ZIP en mémoire
@@ -76,6 +80,7 @@ def deploy_site(name: str, place_id: str, html_path: str) -> str:
         headers={**auth, "Content-Type": "application/zip"},
         data=buf.read(),
         timeout=60,
+        verify=SSL_VERIFY,
     )
     if deploy.status_code not in (200, 201):
         print(f"  [ERREUR] déploiement {name} : {deploy.status_code} {deploy.text[:200]}")
