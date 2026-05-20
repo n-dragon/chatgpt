@@ -75,14 +75,23 @@ def deploy_site(name: str, place_id: str, html_path: str) -> str:
         zf.writestr("index.html", html_content)
     buf.seek(0)
 
-    # Déploiement
-    deploy = requests.post(
-        f"{NETLIFY_API}/sites/{site_id}/deploys",
-        headers={**auth, "Content-Type": "application/zip"},
-        data=buf.read(),
-        timeout=60,
-        verify=SSL_VERIFY,
-    )
+    # Déploiement (retry automatique si rate limit 429)
+    zip_data = buf.read()
+    for attempt in range(4):
+        deploy = requests.post(
+            f"{NETLIFY_API}/sites/{site_id}/deploys",
+            headers={**auth, "Content-Type": "application/zip"},
+            data=zip_data,
+            timeout=60,
+            verify=SSL_VERIFY,
+        )
+        if deploy.status_code == 429:
+            wait = 15 * (attempt + 1)
+            print(f"  [rate limit] attente {wait}s...", end=" ", flush=True)
+            time.sleep(wait)
+            continue
+        break
+
     if deploy.status_code not in (200, 201):
         print(f"  [ERREUR] déploiement {name} : {deploy.status_code} {deploy.text[:200]}")
         return ""
@@ -137,7 +146,7 @@ def main():
         else:
             print("échec")
 
-        time.sleep(0.5)  # évite de saturer l'API Netlify
+        time.sleep(3)  # Netlify : max ~20 déploiements/minute
 
     if args.dry_run:
         print(f"\nDry-run terminé — relance sans --dry-run pour déployer.")
