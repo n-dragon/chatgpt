@@ -56,6 +56,29 @@ def _slugify(name: str) -> str:
     return slug.strip("-")[:50]
 
 
+def _get_existing_site(auth: dict, candidate: str) -> tuple[str, str] | tuple[None, None]:
+    """Cherche un site Netlify existant par son nom en paginant tous les résultats."""
+    page = 1
+    while True:
+        resp = requests.get(
+            f"{NETLIFY_API}/sites",
+            headers=auth,
+            params={"per_page": 100, "page": page},
+            timeout=15,
+            verify=SSL_VERIFY,
+        )
+        sites = resp.json()
+        if not isinstance(sites, list) or not sites:
+            break
+        for s in sites:
+            if s.get("name") == candidate:
+                return s["id"], s["name"]
+        if len(sites) < 100:
+            break
+        page += 1
+    return None, None
+
+
 def deploy_site(name: str, place_id: str, html_path: str) -> str:
     """Crée un site Netlify et y déploie le fichier HTML. Retourne l'URL."""
     auth = {"Authorization": f"Bearer {NETLIFY_TOKEN}"}
@@ -78,23 +101,14 @@ def deploy_site(name: str, place_id: str, html_path: str) -> str:
                 time.sleep(wait)
                 continue
             break
+
         if resp.status_code in (200, 201):
-            site_id   = resp.json()["id"]
-            site_name = resp.json()["name"]
+            site_id, site_name = resp.json()["id"], resp.json()["name"]
             break
         if resp.status_code == 422 and "must be unique" in resp.text:
-            # Site déjà existant → on le récupère par son nom
-            search = requests.get(
-                f"{NETLIFY_API}/sites",
-                headers=auth,
-                params={"name": candidate, "filter": "all"},
-                timeout=15,
-                verify=SSL_VERIFY,
-            )
-            matches = [s for s in search.json() if s.get("name") == candidate]
-            if matches:
-                site_id   = matches[0]["id"]
-                site_name = matches[0]["name"]
+            # Site déjà existant → on le retrouve en listant tous les sites
+            site_id, site_name = _get_existing_site(auth, candidate)
+            if site_id:
                 break
 
     if not site_id:
