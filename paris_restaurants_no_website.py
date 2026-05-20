@@ -21,6 +21,12 @@ import csv
 import base64
 import zipfile
 import requests
+
+try:
+    from duckduckgo_search import DDGS
+    DDGS_AVAILABLE = True
+except ImportError:
+    DDGS_AVAILABLE = False
 import anthropic
 
 API_KEY = os.environ.get("GOOGLE_MAPS_API_KEY")
@@ -146,6 +152,27 @@ def fetch_photo_bytes(photo_reference: str, max_width: int = 800) -> bytes | Non
     except Exception:
         pass
     return None
+
+
+def find_instagram(restaurant_name: str, address: str) -> str:
+    """Cherche la page Instagram d'un restaurant via DuckDuckGo. Retourne l'URL ou ''."""
+    if not DDGS_AVAILABLE:
+        return ""
+    # Extrait la ville/arrondissement pour affiner la recherche
+    city = "Paris"
+    query = f'"{restaurant_name}" {city} site:instagram.com'
+    try:
+        with DDGS() as ddgs:
+            for result in ddgs.text(query, max_results=5):
+                url = result.get("href", "")
+                if "instagram.com/" in url:
+                    # Garde uniquement instagram.com/username (pas les posts)
+                    match = re.search(r"instagram\.com/([^/?#]+)", url)
+                    if match and match.group(1) not in ("p", "reel", "stories", "explore"):
+                        return f"https://www.instagram.com/{match.group(1)}/"
+    except Exception as exc:
+        print(f"    [instagram] erreur recherche : {exc}")
+    return ""
 
 
 def analyze_ambiance(restaurant_name: str, photos_bytes: list[bytes]) -> str:
@@ -490,16 +517,21 @@ def collect_restaurants(max_per_zone: int = 60, max_zones: int | None = None) ->
                             photos_bytes.append(img)
                         time.sleep(0.1)
 
-                name = detail.get("name", place.get("name", ""))
+                name    = detail.get("name", place.get("name", ""))
+                address = detail.get("formatted_address", place.get("formatted_address", ""))
                 ambiance = analyze_ambiance(name, photos_bytes)
+                instagram_url = find_instagram(name, address)
+                if instagram_url:
+                    print(f"    [instagram] {instagram_url}")
 
                 restaurant = {
                     # Identité
                     "place_id": place_id,
                     "name": name,
-                    "address": detail.get("formatted_address", place.get("formatted_address", "")),
+                    "address": address,
                     "phone": detail.get("formatted_phone_number", ""),
                     "google_maps_url": detail.get("url", ""),
+                    "instagram_url": instagram_url,
                     "business_status": detail.get("business_status", ""),
                     # Activité
                     "categories": ", ".join(readable_types),
